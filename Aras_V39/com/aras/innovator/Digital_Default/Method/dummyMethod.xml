@@ -6,7 +6,7 @@ return this;
 }
 finally
 {
-  //Trial code 001
+  //Trial code 002
 }]]></method_code>
   <method_type>C#</method_type>
   <name>dummyMethod</name>
