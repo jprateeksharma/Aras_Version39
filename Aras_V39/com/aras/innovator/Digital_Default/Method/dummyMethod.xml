@@ -6,8 +6,7 @@ return this;
 }
 finally
 {
-  //Trial code 00232
-  //Conflict Testing
+  //All the required changes are in this method now.
 }]]></method_code>
   <method_type>C#</method_type>
   <name>dummyMethod</name>
