@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="B4D54C7889554130A6FB14DD70CFB504" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">'Types' must contain at least one Type.</text>
+  <name>cws_TypesMustContainAtLeastOneType</name>
+ </Item>
+</AML>

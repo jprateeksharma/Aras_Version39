@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="FC09FCE020424672AF4F743CA9E78A05" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">There are no corresponding Innovator methods with the following names: '{0}'.</text>
+  <name>cws_CorrespondingInnovatorMethodNotFound</name>
+ </Item>
+</AML>

@@ -1,0 +1,144 @@
+﻿<AML>
+ <Item type="Method" id="34939ED0B7514930AC14F6256544E7C0" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[
+const { itemTypeName, itemId, getProps } = options;
+const item = window.getItem();
+const permissionId = aras.getItemProperty(item, 'permission_id');
+const disabled = itemTypeName === 'Permission' || !permissionId;
+
+if (disabled) {
+	return { disabled };
+}
+
+async function cachingDecorator(target, itemId, permissionId) {
+	const { cache = {} } = target;
+
+	if (cache.itemId === itemId || cache.permissionId === permissionId) {
+		return cache.result;
+	}
+
+	const itemPath = itemTypeName + `('${itemId}')`;
+	const body = { "@access_type": "can_change_access" };
+
+	const data = await ArasModules.odataFetch(
+		`${itemPath}/method.getPermissions`,
+		{
+			body: JSON.stringify(body),
+			method: 'POST'
+		}
+	);
+
+	return data;
+}
+
+const arasGetPermissionsPromise = cachingDecorator(
+	target,
+	itemId,
+	permissionId
+);
+
+const { name: targetName, 'parent_menu@keyed_name': parentName } = target;
+
+const promise = arasGetPermissionsPromise
+	.then(async (result) => {
+		const canChangeAccess =
+			'1' === result.Envelope.Body.ApplyItemResponse.Result;
+
+		if (!canChangeAccess) {
+			return;
+		}
+
+		const moreOptionsMenu = control.data.get(parentName);
+
+		if (!moreOptionsMenu) {
+			throw new Error('MoreOptions menu is undefined');
+		}
+
+		let isDefaultPermissionOn = false;
+
+		const target = moreOptionsMenu.data.get(targetName);
+		target.children.forEach((permissionMenuItemId) => {
+			const permissionMenuItem = moreOptionsMenu.data.get(permissionMenuItemId);
+
+			if (permissionMenuItem.permissionId === permissionId) {
+				isDefaultPermissionOn = true;
+			}
+
+			if (permissionMenuItem.hidden) {
+				moreOptionsMenu.data.set(permissionMenuItemId, {
+					...permissionMenuItem,
+					hidden: false
+				});
+			}
+		});
+
+		const createPrivateItemId =
+			'itemview.itemcommandbar.default.permissionsmenu.createprivate';
+		const permissionMenuItem = moreOptionsMenu.data.get(createPrivateItemId);
+
+		if (!permissionMenuItem) {
+			throw new Error('CreatePrivate menu item is undefined');
+		}
+
+		let isPrivate;
+		const { permissionItem } = getProps() || {};
+
+		if (isDefaultPermissionOn && permissionMenuItem.disabled) {
+			isPrivate = false;
+		} else if (permissionItem && 'is_private' in permissionItem) {
+			isPrivate = permissionItem.is_private;
+		} else if (target.cache && 'isPrivate' in target.cache) {
+			isPrivate = target.cache.isPrivate;
+		}  else {
+			let privateRequest = target.cache.privateRequest;
+
+			if(!privateRequest) {
+					privateRequest = ArasModules.odataFetch(
+						`Permission('${permissionId}')/is_private`
+					);
+					target.cache.privateRequest = privateRequest;
+			}
+			const result = await privateRequest;
+			isPrivate = result.value === '1';
+
+			target.cache.isPrivate = isPrivate;
+			target.cache.privateRequest = null;
+		}
+
+		moreOptionsMenu.data.set(createPrivateItemId, {
+			...permissionMenuItem,
+			disabled: permissionMenuItem.disabled || isPrivate
+		});
+
+		control.render();
+	})
+	.catch((err) => {
+		const notify = aras.getNotifyByContext(window);
+		notify(err.message, { type: 'error' });
+	});
+
+const cache = {
+	itemId,
+	permissionId,
+	result: arasGetPermissionsPromise,
+	privateRequest: target.cache?.privateRequest || null
+};
+
+const isPrivateDefined = target.cache?.isPrivate !== undefined;
+const isPermissionIdChanged = permissionId !== target.cache?.permissionId;
+
+if (isPrivateDefined && !isPermissionIdChanged) {
+	cache.isPrivate = target.cache.isPrivate;
+}
+
+if(isPermissionIdChanged) {
+	delete cache.privateRequest;
+}
+
+return { disabled, promise, cache };
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivicb_permissionsmenu_init</name>
+ </Item>
+</AML>

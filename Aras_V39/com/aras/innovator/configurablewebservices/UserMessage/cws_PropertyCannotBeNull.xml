@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="9D9D2B588D594A9388CF06F1C5BE0C02" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: '{1}' Property cannot be null.</text>
+  <name>cws_PropertyCannotBeNull</name>
+ </Item>
+</AML>

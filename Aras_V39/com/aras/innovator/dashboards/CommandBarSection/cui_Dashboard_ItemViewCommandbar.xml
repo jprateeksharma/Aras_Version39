@@ -1,0 +1,79 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="4BFD05973A8B44C888781E0EA47B0AD7" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="ItemView.ItemCommandBar" type="cui_Location">830EE31D213649DA934EE655E894EA3A</location>
+  <name>cui_Dashboard_ItemViewCommandbar</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="484BB0F21C9545D797F74518CE7D4647" action="add">
+    <action>Add</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.sep_before_add_widget" type="CommandBarItem">ED472987FFAF421F99254C7D134ED107</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>4480</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="773D43457D0143AA889970CA6604FAB9" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.sep_before_add_widget" type="CommandBarItem">ED472987FFAF421F99254C7D134ED107</related_id>
+    <role keyed_name="Dashboard Authors" type="Identity">557ED01F1C824FCC8AD1B52ECF113A6D</role>
+    <sort_order>4480</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="999D1A98470F4645BB4461C2067C995C" action="add">
+    <action>Add</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.add_widget" type="CommandBarItem">9FED02A4BB9A48A293F28C1E67FF42B1</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>4608</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="BEEF1A4854104BDB9AE6904BE1B71421" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.add_widget" type="CommandBarItem">9FED02A4BB9A48A293F28C1E67FF42B1</related_id>
+    <role keyed_name="Dashboard Authors" type="Identity">557ED01F1C824FCC8AD1B52ECF113A6D</role>
+    <sort_order>4608</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="36D0AE507B9B4826BC91640D8A7DEF08" action="add">
+    <action>Add</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.switch_pane_button" type="CommandBarItem">B47BDB62881C48FDAC612859DEA4143D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>4736</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="8C8FB639C1064932AE68079360F3327C" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.switch_pane_button" type="CommandBarItem">B47BDB62881C48FDAC612859DEA4143D</related_id>
+    <role keyed_name="Dashboard Authors" type="Identity">557ED01F1C824FCC8AD1B52ECF113A6D</role>
+    <sort_order>4736</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="0B013744862345249F671CB2DBBA29FA" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.refresh" type="CommandBarItem">1D14247FA47F4847846FF09CEA978E76</related_id>
+    <role keyed_name="Dashboard Viewers" type="Identity">ACEB972BC401404F970BB4F0A216C615</role>
+    <sort_order>11000</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="1AC0A61089E44E4887F9348F1B42597A" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.refresh" type="CommandBarItem">1D14247FA47F4847846FF09CEA978E76</related_id>
+    <role keyed_name="Dashboard Authors" type="Identity">557ED01F1C824FCC8AD1B52ECF113A6D</role>
+    <sort_order>11200</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="E006E735A31045EC816309C0DEE00F5E" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.refresh" type="CommandBarItem">1D14247FA47F4847846FF09CEA978E76</related_id>
+    <role keyed_name="Dashboard Administrators" type="Identity">2374FB2B74994D73AC7B4E929C379A6F</role>
+    <sort_order>11201</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="CC10F2908BEE4CDEB5661905F35860D2" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="cui_dashboard.itemview.itemcommandbar.refresh" type="CommandBarItem">1D14247FA47F4847846FF09CEA978E76</related_id>
+    <role keyed_name="Dashboard Viewers" type="Identity">ACEB972BC401404F970BB4F0A216C615</role>
+    <sort_order>11500</sort_order>
+    <source_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarEdit" id="A82FA01DAF5544C5BBC78E176DC83C39" action="add">
+  <additional_data>{ "size": 4 }</additional_data>
+  <include_events>UpdateState</include_events>
+  <on_init_handler keyed_name="rb_TGVExpandInitHandler" type="Method">6E51D5D17D604150AF9453E539AF5804</on_init_handler>
+  <on_keydown_handler keyed_name="rb_TGVExpand_keydown" type="Method">B11937B26F114602AAA8C2EB7D1A6073</on_keydown_handler>
+  <tooltip_template xml:lang="en">Grow Depth</tooltip_template>
+  <name>rb_MaxQueryDepth</name>
+ </Item>
+</AML>

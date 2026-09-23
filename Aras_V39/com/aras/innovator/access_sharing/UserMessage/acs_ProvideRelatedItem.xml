@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="1D8D6BDA787F4CF5B43FFFE9D13C6F06" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Related item should be provided.</text>
+  <name>acs_ProvideRelatedItem</name>
+ </Item>
+</AML>

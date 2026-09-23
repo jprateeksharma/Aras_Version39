@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="EFFA4F45940E4A81A47A67F1FBA7CFD2" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#e9fbee","color":"#0c3d1a"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"A9CDDF20C2B64AB886FF73A461B2BC02","function":"value_of_property","property":"state","operator":"is","criteria":"Active|Approved|Complete|Production|Released|Verified"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>GreenLifeCycleState</name>
+ </Item>
+</AML>

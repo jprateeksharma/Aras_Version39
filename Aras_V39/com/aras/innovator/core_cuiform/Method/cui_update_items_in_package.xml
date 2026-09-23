@@ -1,0 +1,135 @@
+﻿<AML>
+ <Item type="Method" id="35AE1BD6C182495D9E79A4BAE5431B66" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[
+interface FormItemInPackage extends FormItem {
+	packageName: string;
+};
+
+interface FormWithCustomControlInPackage extends FormItemInPackage {
+	controlId: string;
+	controlPackageName: string;
+}
+
+const processUpdateResult = async (updateResponse: {
+	statuses: string[] | { type: string, message: string }[] ;
+}): Promise<void> => {
+	if (updateResponse.statuses?.[0] === 'NotModified') {
+		const successMessage = getResource('item_methods.no_update_needed');
+		notify(successMessage, {
+			type: 'success'
+		});
+		return;
+	}
+
+	const failedItems = updateResponse.statuses.filter(
+		(status: { type: string; message: string } | string) =>
+			typeof status === 'object' && status.type === 'Error'
+	) as { message: string }[];
+
+	if (failedItems.length === 0) {
+		const successMessage = getResource('item_methods.package_updated');
+		notify(successMessage, {
+			type: 'success'
+		});
+		return;
+	}
+
+	const errorMessage = failedItems.map(({ message }) => message).join('\r\n');
+	if (errorMessage !== '') {
+		await alert(errorMessage, { type: 'error' });
+	}
+};
+
+const instructUserToUseAddAction = async (
+		items: { name: string }[]
+		) => {
+	const newLine = '\r\n';
+	const errorMessages = items.map(({name}) => getResource('item_methods.package_with_form_id_does_not_exists', name, itemTypeName))
+		.join(newLine);
+
+	if (errorMessages.length !== 0) {
+		await alert(`${errorMessages}${newLine}${getResource(
+			'item_methods.use_add_package_action_message'
+		)}`);
+	}
+}
+
+const formIds = formItems.map((item) => item.id);
+const response: { formsNotInPackage: FormItem[]; formsWithNoPermissionsToUpdate: FormItemInPackage[]; formsToUpdate: FormItemInPackage[]; formsWithCustomPartUpdate: FormWithCustomControlInPackage[] } = await odataFetch('method.FilterFormItemsBeforePackUpdate', {
+	method: 'POST',
+	body: JSON.stringify({
+		ids: formIds.toString()
+	})
+});
+
+if (response.formsNotInPackage.length === formIds.length) {
+	await alert(getResource('item_methods.package_with_form_does_not_exists'));
+	return;
+}
+
+if (response.formsNotInPackage.length > 0) {
+	await instructUserToUseAddAction(response.formsNotInPackage);
+}
+
+if (response.formsWithNoPermissionsToUpdate.length > 0)
+{
+	await instructUserToUseAddAction(response.formsWithNoPermissionsToUpdate);
+}
+
+for (const { id, name, packageName } of response.formsToUpdate)
+{
+	const confirmResult = await confirm(
+		getResource(
+			'item_methods.package_definition_update_confirmation',
+			name,
+			packageName
+		)
+	);
+
+	if (confirmResult !== 'ok') {
+		continue;
+	}
+
+	const updateResponse = await odataFetch('method.UpdateItemInPackageDefinition', {
+		method: 'POST',
+		body: JSON.stringify({
+			packageName,
+			Relationships: { Item:  { id: id, itemTypeName}}
+		})
+	});
+
+	await processUpdateResult(updateResponse);
+}
+
+for (const { id, controlId, controlPackageName, name } of response.formsWithCustomPartUpdate)
+{
+	const confirmResult = await confirm(
+		getResource(
+			'item_methods.package_definition_update_confirmation',
+			name,
+			controlPackageName
+		)
+	);
+
+	if (confirmResult !== 'ok') {
+		continue;
+	}
+
+	const partialUpdateResponse = await odataFetch('method.UpdateItemInPackageDefinition', {
+		method: 'POST',
+		body: JSON.stringify({
+			packageName: controlPackageName,
+			partialUpdate: '1',
+			Relationships: { Item:  { id: id, controlId: controlId, itemTypeName } }
+		})
+	});
+
+	await processUpdateResult(partialUpdateResponse);
+}
+]]></method_code>
+  <method_type>TypeScript</method_type>
+  <template keyed_name="update_items_in_package" type="MethodTemplate">ABF3D18E58FA4434991B047607B7D298</template>
+  <name>updateItemsInPackage</name>
+ </Item>
+</AML>

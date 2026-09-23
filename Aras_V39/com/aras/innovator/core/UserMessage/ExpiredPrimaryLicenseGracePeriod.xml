@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="09CDDC1BA67341DB960DA2956C06C89E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Your subscription expired on {0}. You can continue using Aras Innovator during the {1}-day grace period, which ends on {2}. Notify your administrator to activate the new subscription license.</text>
+  <name>ExpiredPrimaryLicenseGracePeriod</name>
+ </Item>
+</AML>

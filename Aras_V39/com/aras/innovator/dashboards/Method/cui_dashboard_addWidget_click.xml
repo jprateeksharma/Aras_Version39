@@ -1,0 +1,95 @@
+﻿<AML>
+ <Item type="Method" id="86C50B82ABC045048C2785357F41EF7C" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, MaximazableDialog } = ArasModules;
+const templateItemType = 'Dashboard Widget Template';
+const validate = (newValue) => {
+	if (!newValue) {
+		return {
+			valid: true
+		};
+	}
+
+	const isNewItem = item.isNew(templateItemType, newValue.id);
+
+	return {
+		valid: !isNewItem,
+		validationMessage: isNewItem
+			? aras.getResource('', 'dashboard.add_new_item_error')
+			: ''
+	};
+};
+
+const dialogParams = {
+	type: 'SearchDialog',
+	itemtypeName: templateItemType,
+	validate
+};
+const dialogResult = await MaximazableDialog.show('iframe', dialogParams).promise;
+const templateId = dialogResult?.itemID;
+if (!templateId) {
+	return;
+}
+
+const propertiesRelshipName = 'Dashboard Widget Template Prop';
+const requestUrl = `${templateItemType}?
+	$select=id,type,icon,name,label&
+	$filter=id eq '${templateId}'&
+	$expand=
+		${propertiesRelshipName}(
+			$select=name,prop_predefined,required
+		),
+		Widget Template Shared Props(
+			$select=name,prop_type
+		)&
+	lang=*`;
+const oDataResult = await ArasModules.odataFetch(requestUrl);
+const [template] = oDataResult.value;
+
+const dashboardLayout = options.getDashboardLayout();
+dashboardLayout.setState((dashboardState) => {
+	if (dashboardState.templates[template.id]) {
+		return;
+	}
+
+	dashboardState.templates[template.id] = template;
+});
+
+const widgetRelshipName = 'Dashboard Widget';
+const widgetRelshipId = aras.getRelationshipTypeId(widgetRelshipName);
+const srcItem = window.getItem();
+const searchDialog = false;
+const relatedItem = dialogResult.item;
+const relshipItem = aras.newRelationship(widgetRelshipId, srcItem, searchDialog, window, relatedItem);
+
+const templateName = template['name'];
+const relshipItemId = relshipItem.getAttribute('id');
+const uniqueWidgetName = `${templateName}_${relshipItemId}`;
+aras.setItemProperty(relshipItem, 'name', uniqueWidgetName);
+aras.setItemProperty(relshipItem, 'related_id', template.id);
+aras.setItemProperty(relshipItem, 'icon', template.icon);
+
+const dashboardWidth = aras.getItemProperty(srcItem, 'columns');
+const roundedWidth = Math.round(dashboardWidth / 3);
+const widgetWidth = Math.max(roundedWidth, 1);
+aras.setItemProperty(relshipItem, 'width_size', widgetWidth);
+
+const { store } = aras.getMainWindow();
+const { system } = store.getState();
+const translations = system.languages.map(({ code }) => {
+	return { code, value: template[`label@aras.lang.${code}`] };
+});
+aras.setItemPropertyTranslations(relshipItem, 'label', translations);
+
+const templateProperties = template[propertiesRelshipName]
+	.reduce((result, prop) => {
+		result[prop.name] = prop.prop_predefined;
+		return result;
+	}, {});
+const widgetData = JSON.stringify(templateProperties);
+aras.setItemProperty(relshipItem, 'widget_data', widgetData);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_dashboard_addWidget_click</name>
+ </Item>
+</AML>

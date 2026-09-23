@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarShortcut" id="3328D7F5AE624A5BB7FD14565268E7D1" action="add">
+  <additional_data />
+  <command_alias keyed_name="DeleteItem" type="CommandAlias">0D30DC5FD9A34C1398274D8BBF1C42C7</command_alias>
+  <on_click_handler keyed_name="cui_default_mws_delete" type="Method">A82C781240EA4416AE24E5AC6E70F4A8</on_click_handler>
+  <shortcut>delete</shortcut>
+  <name>com.aras.innovator.cui_default.mws_delete</name>
+ </Item>
+</AML>

@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="DDB75E34D72E4ECAA3CA7E67E9AC312D" action="add">
+  <additional_data>{"right": true}</additional_data>
+  <image>../images/Find.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_search_click" type="Method">46B734B8815A4B3FB3FD535785FB2129</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_search_init" type="Method">1EAAA90B863D455BA71621B9FDDE4AC2</on_init_handler>
+  <tooltip_template xml:lang="en">Find and Replace</tooltip_template>
+  <name>tp_search_and_replace</name>
+ </Item>
+</AML>

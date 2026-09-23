@@ -1,0 +1,57 @@
+﻿<AML>
+ <Item type="Method" id="52B55F6E794A499AB3F5C13B1BAB9E82" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Innovator innovator = this.getInnovator();
+string favoriteCategory = this.getProperty("category");
+if (favoriteCategory != "ItemType")
+{
+	return this;
+}
+
+string userID = innovator.getUserID();
+string identityID = CCO.Identity.GetIdentityIdByUserId(userID);
+
+Item lostFavorites = innovator.newItem("Favorite", "get");
+lostFavorites.setProperty("category", favoriteCategory);
+lostFavorites.setProperty("owned_by_id", identityID);
+lostFavorites.setAttribute("order_by", "keyed_name");
+lostFavorites.setProperty("favorite_order", "");
+lostFavorites.setPropertyAttribute("favorite_order", "condition", "is null");
+lostFavorites = lostFavorites.apply();
+if (!lostFavorites.isEmpty())
+{
+	int order = 128;
+	for (int index = 0; index < lostFavorites.getItemCount(); index++) {
+		Item lostFavoriteItem = lostFavorites.getItemByIndex(index);
+		lostFavoriteItem.setAction("edit");
+		lostFavoriteItem.setProperty("favorite_order", order.ToString(CultureInfo.InvariantCulture));
+		lostFavoriteItem.apply();
+		order += 128;
+	}
+}
+
+string defaultFavoriteOrder = this.getProperty("favorite_order");
+if (String.IsNullOrEmpty(defaultFavoriteOrder))
+{
+	Item orderItem = innovator.newItem("Favorite", "get");
+	orderItem.setAttribute("select", "favorite_order");
+	orderItem.setAttribute("order_by", "favorite_order desc");
+	orderItem.setAttribute("maxRecords", "1");
+	orderItem.setProperty("category", favoriteCategory);
+	orderItem.setProperty("owned_by_id", identityID);
+	orderItem = orderItem.apply();
+	int favoriteOrder;
+	if (orderItem.isEmpty() || !Int32.TryParse(orderItem.getProperty("favorite_order"), out favoriteOrder)) 
+	{
+		favoriteOrder = 0;
+	}
+	favoriteOrder += 128;
+
+	this.setProperty("favorite_order", favoriteOrder.ToString(CultureInfo.InvariantCulture));
+}
+
+return this;]]></method_code>
+  <method_type>C#</method_type>
+  <name>Fav_BeforeAddFavorite</name>
+ </Item>
+</AML>

@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="ACC03437DE754EE4984329F2AC9AD6B3" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#eceaf7","color":"#332b6e"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"A017FD66738945299F52AF56141E2389","function":"value_of_property","property":"state","operator":"is","criteria":"In Planning|Manual Change|Submitted"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>IndigoLifeCycleState</name>
+ </Item>
+</AML>

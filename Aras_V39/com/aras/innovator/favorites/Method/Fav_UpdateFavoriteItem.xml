@@ -1,0 +1,170 @@
+﻿<AML>
+ <Item type="Method" id="639337B4355641B4BD27D9BF7DE58E4D" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Innovator innovator = this.getInnovator();
+string favoriteItemId = this.getProperty("id");
+string newAdditionalDataJson = this.getProperty("additional_data", "{}");
+
+Item favoriteItem = innovator.newItem("Favorite", "get");
+favoriteItem.setID(favoriteItemId);
+favoriteItem.setAttribute("select", "category,owned_by_id,additional_data");
+favoriteItem = favoriteItem.apply();
+if (favoriteItem.isError())
+{
+	return favoriteItem;
+}
+
+Newtonsoft.Json.Linq.JObject favoriteItemAdditionalData = Newtonsoft.Json.Linq.JObject.Parse(favoriteItem.getProperty("additional_data", string.Empty));
+
+string favoriteMustViewById = this.getProperty("mustViewById");
+string favoriteCategory = favoriteItem.getProperty("category");
+string favoriteOwnedById = favoriteItem.getProperty("owned_by_id");
+var newAdditionalData = Newtonsoft.Json.Linq.JObject.Parse(newAdditionalDataJson);
+var layoutData = newAdditionalData.Value<Newtonsoft.Json.Linq.JObject>("layoutData");
+string savedLayoutId = favoriteItemAdditionalData.Value<string>("layout_id");
+Item autoSavedLayout = null;
+Item savedSearchItem = null;
+
+switch (favoriteCategory) {
+	case "Search":
+
+	if (layoutData != null) 
+	{
+		favoriteItemAdditionalData["linked_favorite_layout"] = layoutData.Value<string>("linked_favorite_layout");
+		if (savedLayoutId == null) 
+		{
+		    autoSavedLayout = innovator.newItem("Grid Layout", "add");
+			favoriteItemAdditionalData["layout_id"] = autoSavedLayout.getID();
+		}
+    }
+		savedSearchItem = innovator.newItem("SavedSearch", "edit");
+		savedSearchItem.setID(favoriteItemAdditionalData.Value<string>("id"));
+		string savedSearchCriteria = newAdditionalData.Value<string>("criteria");
+		string savedSearchMode = newAdditionalData.Value<string>("search_mode");
+		
+		if (!string.IsNullOrEmpty(savedSearchCriteria))
+		{
+			savedSearchItem.setProperty("criteria", savedSearchCriteria);
+		}
+		if (!string.IsNullOrEmpty(savedSearchMode))
+		{
+			savedSearchItem.setProperty("search_mode", savedSearchMode);
+		}
+		if (!string.IsNullOrEmpty(favoriteMustViewById) && favoriteOwnedById != favoriteMustViewById)
+		{
+			savedSearchItem.setProperty("owned_by_id", favoriteMustViewById);
+		}
+
+		savedSearchItem = savedSearchItem.apply();
+		if (savedSearchItem.isError())
+		{
+			return savedSearchItem;
+		}
+		break;
+
+	default:
+		break;
+}
+
+Item editFavoriteItem = innovator.newItem("Favorite", "edit");
+editFavoriteItem.setID(favoriteItemId);
+if (favoriteCategory == "Search" && layoutData != null)
+{
+	string favoriteItemAdditionalDataJson = Newtonsoft.Json.JsonConvert.SerializeObject(favoriteItemAdditionalData);
+	editFavoriteItem.setProperty("additional_data", favoriteItemAdditionalDataJson);
+}
+
+if (!string.IsNullOrEmpty(favoriteMustViewById))
+{
+	Item deleteFavoriteMustViewByItem = innovator.newItem("FavoriteMustViewBy", "delete");
+	deleteFavoriteMustViewByItem.setAttribute("where", "source_id='" + favoriteItemId + "'");
+	editFavoriteItem.addRelationship(deleteFavoriteMustViewByItem);
+
+	if (favoriteOwnedById != favoriteMustViewById)
+	{
+		Item favoriteMustViewByItem = innovator.newItem("FavoriteMustViewBy", "add");
+		favoriteMustViewByItem.setProperty("related_id", favoriteMustViewById);
+		editFavoriteItem.addRelationship(favoriteMustViewByItem);
+	}
+}
+
+string quickAccessFlag = this.getProperty("quickAccessFlag");
+if (!string.IsNullOrEmpty(quickAccessFlag))
+{
+	editFavoriteItem.setProperty("quick_access_flag", quickAccessFlag);
+}
+
+string favoriteLabel = this.getProperty("label");
+if (!string.IsNullOrEmpty(favoriteLabel))
+{
+	editFavoriteItem.setProperty("label", favoriteLabel);
+}
+
+XmlNodeList i18nLabelNodes = this.node.SelectNodes("*[local-name()='label']");
+string defaultLanguageCode = innovator.getI18NSessionContext().GetDefaultLanguageCode();
+foreach (XmlNode labelNode in i18nLabelNodes)
+{
+	XmlAttribute langAttr = labelNode.Attributes["xml:lang"];
+	if (langAttr != null && labelNode.InnerText != null && (defaultLanguageCode != langAttr.Value || !string.IsNullOrEmpty(labelNode.InnerText)))
+	{
+		editFavoriteItem.setProperty("label", labelNode.InnerText, langAttr.Value);
+	}
+}
+
+
+editFavoriteItem = editFavoriteItem.apply();
+if (editFavoriteItem.isError())
+{
+	return editFavoriteItem;
+}
+
+if (layoutData != null) 
+{
+	if (autoSavedLayout == null)
+	{
+		autoSavedLayout = innovator.newItem("Grid Layout", "edit");
+		autoSavedLayout.setID(savedLayoutId);
+	}
+	
+		
+	layoutData.Remove("linked_favorite_layout");
+	foreach (var prop in layoutData)
+	{
+	 	autoSavedLayout.setProperty(prop.Key, (string)prop.Value);
+	}
+	
+	if (!string.IsNullOrEmpty(favoriteMustViewById) && favoriteOwnedById != favoriteMustViewById)
+	{
+		autoSavedLayout.setProperty("team_id", editFavoriteItem.getProperty("team_id"));
+	}
+
+	string itname = savedSearchItem.getProperty("itname");
+	string location = savedSearchItem.getProperty("location");
+	string ownedById = favoriteOwnedById;
+
+	if (!string.IsNullOrEmpty(itname)) 
+	{
+		autoSavedLayout.setProperty("itname", itname);
+	}
+	if (!string.IsNullOrEmpty(location)) 
+	{
+		autoSavedLayout.setProperty("location", location);
+	}
+	if (!string.IsNullOrEmpty(ownedById)) 
+	{
+		autoSavedLayout.setProperty("owned_by_id", ownedById);
+	}
+
+	autoSavedLayout = autoSavedLayout.apply();
+	if (autoSavedLayout.isError())
+	{
+		return autoSavedLayout;
+	}
+}
+
+return editFavoriteItem;
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>Fav_UpdateFavoriteItem</name>
+ </Item>
+</AML>

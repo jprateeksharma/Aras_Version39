@@ -1,0 +1,232 @@
+﻿<AML>
+ <Item type="Method" id="4403F22CA5F14BD68B612AC372BD06D2" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	DataAccessLayer dataAccessLayer = new DataAccessLayer(innovator);
+	BusinessLogic businessLogic = new BusinessLogic(dataAccessLayer, innovator);
+	return businessLogic.GetRelationshipTabs(this);
+}
+
+internal class BusinessLogic
+{
+	private const string parametersTabName = "Parameters";
+	private IDataAccessLayer dataAccessLayer;
+	private Innovator innovator;
+
+	internal BusinessLogic(IDataAccessLayer dataAccessLayer, Innovator innovator)
+	{
+		this.dataAccessLayer = dataAccessLayer;
+		this.innovator = innovator;
+	}
+
+	internal Item GetRelationshipTabs(Item methodItem)
+	{
+		string itemTypeId = methodItem.getProperty("item_type_id");
+		string itemClassification = methodItem.getProperty("item_classification");
+		Item itemTypeItem = dataAccessLayer.GetItemTypeItemById(itemTypeId, itemClassification);
+		string itemTypeClassStructure = itemTypeItem.getProperty("class_structure");
+		string showParametersTabFlag = itemTypeItem.getProperty("show_parameters_tab");
+		bool parametersTabIsRequired = !string.IsNullOrEmpty(itemTypeClassStructure) && showParametersTabFlag != "0";
+
+		Item relationshipTypes = dataAccessLayer.GetRelationshipTypesByItemTypeId(itemTypeId);
+
+		List<Newtonsoft.Json.Linq.JObject> tabs = new List<Newtonsoft.Json.Linq.JObject>();
+		
+		if (parametersTabIsRequired) {
+			Newtonsoft.Json.Linq.JObject tabsData = new Newtonsoft.Json.Linq.JObject();
+			tabsData["relTypeId"] = parametersTabName;
+			tabsData["name"] = parametersTabName;
+			tabsData["additional_data"] = CreateCuiControlAdditionalDataJson(parametersTabName, !IsParametersTabVisible(itemTypeItem)).ToString();
+			tabs.Add(tabsData);
+		}
+
+		if (relationshipTypes.isEmpty()) {
+			return innovator.newResult(Newtonsoft.Json.JsonConvert.SerializeObject(tabs));
+		}
+
+		List<string> relationshipTypeIds = new List<string>();
+		for (int i = 0; i < relationshipTypes.getItemCount(); i++) {
+			string relationshipId = relationshipTypes.getItemByIndex(i).getProperty("relationship_id");
+			if (!string.IsNullOrEmpty(relationshipId))
+			{
+				relationshipTypeIds.Add(relationshipId);
+			}
+		}
+
+		Dictionary<string, RelationshipTypeColors> colorsByRelationshipTypeId = dataAccessLayer.GetColorsByRelationshipTypeIds(relationshipTypeIds);
+
+		for (int i = 0; i < relationshipTypes.getItemCount(); i++) {
+			Item item = relationshipTypes.getItemByIndex(i);
+
+			Newtonsoft.Json.Linq.JObject tabsData = new Newtonsoft.Json.Linq.JObject();
+			string relTypeId = item.getAttribute("id");
+			tabsData["relTypeId"] = relTypeId;
+			tabsData["name"] = item.getProperty("name");
+			tabsData["label"] = item.getProperty("label");
+
+			Newtonsoft.Json.Linq.JObject additionalData = CreateCuiControlAdditionalDataJson(relTypeId);
+			string relationshipId = item.getProperty("relationship_id");
+			RelationshipTypeColors colors;
+			if (!string.IsNullOrEmpty(relationshipId) && colorsByRelationshipTypeId.TryGetValue(relationshipId, out colors))
+			{
+				Newtonsoft.Json.Linq.JObject cssStyle = new Newtonsoft.Json.Linq.JObject();
+				if (!string.IsNullOrEmpty(colors.tabBackgroundColor))
+				{
+					cssStyle["background-color"] = colors.tabBackgroundColor;
+				}
+				if (!string.IsNullOrEmpty(colors.tabTextColor))
+				{
+					cssStyle["color"] = colors.tabTextColor;
+				}
+				if (cssStyle.HasValues)
+				{
+					additionalData["cssStyle"] = cssStyle;
+				}
+			}
+			tabsData["additional_data"] = additionalData.ToString();
+
+			tabs.Add(tabsData);
+		}
+
+		return innovator.newResult(Newtonsoft.Json.JsonConvert.SerializeObject(tabs));
+	}
+
+	private static bool IsParametersTabVisible(Item itemTypeItem)
+	{
+		string itemTypeClassStructure = itemTypeItem.getProperty("class_structure");
+		string showParametersTabFlag = itemTypeItem.getProperty("show_parameters_tab");
+		bool neverShowParametersTab = showParametersTabFlag == "0";
+		if (
+			string.IsNullOrEmpty(itemTypeClassStructure) ||
+			neverShowParametersTab
+		)
+		{
+			return false;
+		}
+
+		bool alwaysShowParametersTab = showParametersTabFlag == "2";
+		if (alwaysShowParametersTab)
+		{
+			return true;
+		}
+
+		bool itemHasClassSpecificProperties = itemTypeItem.getRelationships("Property").getItemCount() > 0;
+		return itemHasClassSpecificProperties;
+	}
+
+	private static Newtonsoft.Json.Linq.JObject CreateCuiControlAdditionalDataJson(string relationshipItemId, bool hidden = false)
+	{
+		Newtonsoft.Json.Linq.JObject additionalData = new Newtonsoft.Json.Linq.JObject();
+		additionalData["relTypeId"] = relationshipItemId;
+		if (hidden) {
+			additionalData["hidden"] = hidden;
+		}
+
+		return additionalData;
+	}
+}
+
+internal class RelationshipTypeColors
+{
+	internal string tabTextColor;
+	internal string tabBackgroundColor;
+}
+
+internal interface IDataAccessLayer
+{
+	Item GetItemTypeItemById(string itemTypeId, string classPath);
+	Item GetRelationshipTypesByItemTypeId(string itemTypeId);
+	Dictionary<string, RelationshipTypeColors> GetColorsByRelationshipTypeIds(List<string> relationshipTypeIds);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Innovator innovator;
+
+	internal DataAccessLayer(Innovator innovator)
+	{
+		this.innovator = innovator;
+	}
+
+	public Item GetItemTypeItemById(string itemTypeId, string classPath)
+	{
+		Item itemTypeItem = innovator.newItem("ItemType", "get");
+		itemTypeItem.setAttribute("select", "class_structure,show_parameters_tab,structure_view");
+		itemTypeItem.setID(itemTypeId);
+
+		if (!string.IsNullOrEmpty(classPath))
+		{
+			Item currentClassPropertyItem = innovator.newItem("Property", "get");
+			currentClassPropertyItem.setAttribute("select", "class_path");
+			currentClassPropertyItem.setProperty("class_path", classPath);
+			itemTypeItem.addRelationship(currentClassPropertyItem);
+		}
+
+		return itemTypeItem.apply();
+	}
+
+	public Item GetRelationshipTypesByItemTypeId(string itemTypeId)
+	{
+		Item relationshipTypes = innovator.newItem("RelationshipType", "get");
+		relationshipTypes.setAttribute("select", "name,label,relationship_id");
+		relationshipTypes.setAttribute("orderBy", "sort_order,name");
+		relationshipTypes.setProperty("source_id", itemTypeId);
+		relationshipTypes.setProperty("hide_in_all", "0");
+
+		Item hideInRelationshipItem = innovator.newItem("Hide In", "get");
+		hideInRelationshipItem.setProperty("hide_in", "tab view");
+		Item logicalNotItem = relationshipTypes.newNOT();
+		logicalNotItem.setPropertyItem("Relationships", hideInRelationshipItem);
+
+		return relationshipTypes.apply();
+	}
+
+	public Dictionary<string, RelationshipTypeColors> GetColorsByRelationshipTypeIds(List<string> relationshipTypeIds)
+	{
+		if (!relationshipTypeIds.Any())
+		{
+			return new Dictionary<string, RelationshipTypeColors>();
+		}
+
+		Item presConfig = innovator.newItem("PresentationConfiguration", "get");
+		presConfig.setAttribute("select", "relationship_tab_text_color,relationship_tab_bg_color");
+
+		Item query = innovator.newItem("ITPresentationConfiguration", "get");
+		query.setPropertyItem("related_id", presConfig);
+		string idsValue = string.Join(",", relationshipTypeIds.Select(id => "'" + id + "'"));
+		query.setProperty("source_id", idsValue);
+		query.setPropertyAttribute("source_id", "condition", "in");
+
+		Item queryResult = query.apply();
+
+		Dictionary<string, RelationshipTypeColors> dictionary = new Dictionary<string, RelationshipTypeColors>();
+
+		if (queryResult.isEmpty())
+		{
+			return dictionary;
+		}
+
+		if (queryResult.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(queryResult.getErrorString());
+		}
+
+		for (int i = 0; i < queryResult.getItemCount(); i++)
+		{
+			Item item = queryResult.getItemByIndex(i);
+			string sourceId = item.getProperty("source_id");
+			Item relatedPresConfig = item.getPropertyItem("related_id");
+			dictionary[sourceId] = new RelationshipTypeColors
+			{
+				tabTextColor = relatedPresConfig.getProperty("relationship_tab_text_color"),
+				tabBackgroundColor = relatedPresConfig.getProperty("relationship_tab_bg_color")
+			};
+		}
+
+		return dictionary;
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>GetRelationshipTabs</name>
+ </Item>
+</AML>

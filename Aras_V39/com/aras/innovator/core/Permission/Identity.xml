@@ -1,0 +1,68 @@
+﻿<AML>
+ <Item type="Permission" id="761D6A3E3CA146138B47393D29FF6824" action="add">
+  <is_private>0</is_private>
+  <name>Identity</name>
+  <Relationships>
+   <Item type="Access" id="104305B6D4B041E4B3BF470129632E58" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Identity" type="Permission">761D6A3E3CA146138B47393D29FF6824</source_id>
+   </Item>
+   <Item type="Access" id="68B78FC0AEF44584ADF824325C2B02F6" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="User Readers" type="Identity">77AAEBCE65A34EEC889DE1327C8AA2FC</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Identity" type="Permission">761D6A3E3CA146138B47393D29FF6824</source_id>
+   </Item>
+   <Item type="Access" id="71600A0E53C84143A54DAE3240C9BE4F" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Identity" type="Permission">761D6A3E3CA146138B47393D29FF6824</source_id>
+   </Item>
+   <Item type="Access" id="8FB481E261E0455E9096A15C280452FF" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Identity" type="Permission">761D6A3E3CA146138B47393D29FF6824</source_id>
+   </Item>
+   <Item type="Access" id="A574B73CE9854502BE5528C3AB57AA09" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="User Administrators" type="Identity">9A31744D064D41009A26E458CC7AB874</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Identity" type="Permission">761D6A3E3CA146138B47393D29FF6824</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

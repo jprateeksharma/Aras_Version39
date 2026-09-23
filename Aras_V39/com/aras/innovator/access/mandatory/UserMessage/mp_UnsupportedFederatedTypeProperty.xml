@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="56C1433E1E814DE9BEBD44E2BC8F1D6D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The property "{0}" of "{1}" has unsupported federated type "{2}".</text>
+  <name>mp_UnsupportedFederatedTypeProperty</name>
+ </Item>
+</AML>

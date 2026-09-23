@@ -1,0 +1,43 @@
+﻿<AML>
+ <Item type="List" id="73A6CBE236494E4E9C849014C4E05FC5" action="add">
+  <description>Variable types for workflow assignment</description>
+  <name>Workflow Variable Types</name>
+  <Relationships>
+   <Item type="Value" id="6DC1EFF875AE4E1DAED70CCF4BAC490F" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">String</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Workflow Variable Types" type="List">73A6CBE236494E4E9C849014C4E05FC5</source_id>
+    <value>String</value>
+   </Item>
+   <Item type="Value" id="25857EBC5A8F4D20AD2A15F3172093EC" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">List</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Workflow Variable Types" type="List">73A6CBE236494E4E9C849014C4E05FC5</source_id>
+    <value>List</value>
+   </Item>
+   <Item type="Value" id="86DCED37AEB64C2AA9CCCB2A17A280E6" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Integer</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Workflow Variable Types" type="List">73A6CBE236494E4E9C849014C4E05FC5</source_id>
+    <value>Integer</value>
+   </Item>
+   <Item type="Value" id="8959F516AFB74AB7AB5C5A9D5C9E4C32" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Float</label>
+    <sort_order>4</sort_order>
+    <source_id keyed_name="Workflow Variable Types" type="List">73A6CBE236494E4E9C849014C4E05FC5</source_id>
+    <value>Float</value>
+   </Item>
+   <Item type="Value" id="90FC9657B9F140B097CAD4FAACA130E1" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Boolean</label>
+    <sort_order>5</sort_order>
+    <source_id keyed_name="Workflow Variable Types" type="List">73A6CBE236494E4E9C849014C4E05FC5</source_id>
+    <value>Boolean</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="9B26DD7B6E944D8E9242C27E5F019980" action="add">
+  <can_execute keyed_name="cui_command_opennewitem_can_exec" type="Method">3F06AB90F806488496F883D717A0D56C</can_execute>
+  <execute_handler keyed_name="cui_command_open_newitem_execute" type="Method">FC78909AF9C64C9191A2FE6537EE734C</execute_handler>
+  <name>OpenNewItem</name>
+ </Item>
+</AML>

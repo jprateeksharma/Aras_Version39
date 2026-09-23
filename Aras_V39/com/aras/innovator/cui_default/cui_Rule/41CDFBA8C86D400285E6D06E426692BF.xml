@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="41CDFBA8C86D400285E6D06E426692BF" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#eff6fe","color":"#0b4e99"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"A9706164546D415D9A0742101FC6B6C1","function":"value_of_property","property":"state","operator":"is","criteria":"Activated|New|Preliminary|Start"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>BlueLifeCycleState</name>
+ </Item>
+</AML>

@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="49B9279DD5574FD38D6C26BA7D4F6A84" action="add">
+  <client>js</client>
+  <related_id keyed_name="CommandBarEdit Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="F1E732F8BB584A46A69DC6C45A5DFA05" action="add">
+    <color>#3845dc</color>
+    <name>CommandBarEdit Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="CommandBarEdit" type="ItemType" name="CommandBarEdit">045614982D5A48F9AF9022A370B8F24A</source_id>
+ </Item>
+</AML>

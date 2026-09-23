@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="cui_Control" id="E2CCF89C94BB4041BA8A997523C3683B" action="add">
+  <additional_data>{
+"formType": "classic"
+}</additional_data>
+  <control_type>FormControl</control_type>
+  <sealed>0</sealed>
+  <name>ItemView.MethodEditorForm</name>
+ </Item>
+</AML>

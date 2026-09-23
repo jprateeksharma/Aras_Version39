@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="Method" id="981C31DAD29B4A0CB6DF04806FDE47FF" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, itemNode, itemTypeName } = options;
+if (!item && !itemNode) {
+	return false;
+}
+
+const id = item ? item.id : itemNode.getAttribute('id');
+const isNew = ArasModules.item.isNew(itemTypeName, id);
+if (isNew) {
+	return false;
+}
+
+const claimedById = item ? item['locked_by_id'] : aras.getItemProperty(itemNode, 'locked_by_id');
+const isClaimed = Boolean(claimedById);
+if (!isClaimed) {
+	return false;
+}
+
+const { user } = aras;
+const isClaimedByMe = claimedById === user.id;
+const isAdmin = user.type === 'admin';
+const canExecute = isClaimedByMe || isAdmin;
+
+return canExecute;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_unlock_item_can_ex</name>
+ </Item>
+</AML>

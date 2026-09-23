@@ -1,0 +1,18 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="871F54CDD3B34FF89C87FD96B1013EB2" action="add">
+  <template>import type { Toolbar } from 'core';
+import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import { method } from 'metadata';
+import type { Options, ClickHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+export async function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'ItemView'&gt;
+): ClickHandlerReturnType {
+	$method_code;
+}
+  </template>
+  <name>itemViewUpdateItemsInPackage</name>
+ </Item>
+</AML>

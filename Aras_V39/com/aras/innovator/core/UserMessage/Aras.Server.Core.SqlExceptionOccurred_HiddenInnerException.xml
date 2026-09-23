@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="972CF85F88804D8497841B3439FBBC9C" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">A database error has occurred. Please contact your administrator for details, which can be found in the Serilog logs, if enabled. Faultcode = "{0}".</text>
+  <name>Aras.Server.Core.SqlExceptionOccurred_HiddenInnerException</name>
+ </Item>
+</AML>

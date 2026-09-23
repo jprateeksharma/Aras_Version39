@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="DCF0E8D372A04929AF2D094080EA2425" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#fbe6f2","color":"#660f40"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"BD67869E32C4401B9A1A443A31DFE2FF","function":"value_of_property","property":"state","operator":"is","criteria":"Expired|Superseded|Unverified"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>MagentaLifeCycleState</name>
+ </Item>
+</AML>

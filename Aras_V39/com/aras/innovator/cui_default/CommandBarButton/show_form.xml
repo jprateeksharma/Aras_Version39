@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="700942604FB941799B24C3FDDD68DDFF" action="add">
+  <image>../images/ShowFormOff.svg</image>
+  <image_additional>../images/ShowFormOn.svg</image_additional>
+  <tooltip_template xml:lang="en">Form</tooltip_template>
+  <name>formTab</name>
+ </Item>
+</AML>

@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="CommandBarMenuSeparator" id="9568D2D04E6B42EF96D9255F0B3095AD" action="add">
+  <parent_menu keyed_name="itemview.itemcommandbar.default.more" type="CommandBarMenu">FFEBAEC1DE43491D8AF7C2684253E34A</parent_menu>
+  <name>cui_responsive_form_add_to_package_separator</name>
+ </Item>
+</AML>

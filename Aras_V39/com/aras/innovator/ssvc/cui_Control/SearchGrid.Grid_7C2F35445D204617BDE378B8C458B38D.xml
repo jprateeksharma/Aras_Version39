@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="cui_Control" id="7C2F35445D204617BDE378B8C458B38D" action="add">
+  <control_type>GridControl</control_type>
+  <sealed>0</sealed>
+  <name>SearchGrid.Grid</name>
+  <Relationships>
+   <Item type="cui_ControlRule" id="7484640E85ED4D44ADC40AB87BF36574" action="add">
+    <related_id keyed_name="EFFA4F45940E4A81A47A67F1FBA7CFD2" type="cui_Rule">EFFA4F45940E4A81A47A67F1FBA7CFD2</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="SearchGrid.Grid_7C2F35445D204617BDE378B8C458B38D" type="cui_Control">7C2F35445D204617BDE378B8C458B38D</source_id>
+   </Item>
+   <Item type="cui_ControlRule" id="4DB5743B142D49F69646FC9B7E81D724" action="add">
+    <related_id keyed_name="16FF61EF04E6414180CA75F6EAD91437" type="cui_Rule">16FF61EF04E6414180CA75F6EAD91437</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="SearchGrid.Grid_7C2F35445D204617BDE378B8C458B38D" type="cui_Control">7C2F35445D204617BDE378B8C458B38D</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

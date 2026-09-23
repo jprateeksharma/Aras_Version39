@@ -1,0 +1,87 @@
+﻿<AML>
+ <Item type="Method" id="760A8B9FB4B24DEFB82724E5388B4337" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Innovator innovator = this.getInnovator();
+string itemTypeId = this.getProperty("item_type_id");
+string itemId = this.getProperty("item_id");
+string additionalRelationshipIds = this.getProperty("additional_tabs_ids", "[]");
+string excludedRelationshipTypeIds = this.getProperty("excluded_relationship_type_ids", "[]");
+
+Item processedItem = innovator.newItem("", "get");
+processedItem.setAttribute("typeId", itemTypeId);
+processedItem.setAttribute("select", "classification");
+processedItem.setID(itemId);
+processedItem = processedItem.apply();
+
+string itemClassification = processedItem.getProperty("classification");
+
+Item methodItem = innovator.newItem("Method", "GetRelationshipTabs");
+methodItem.setProperty("item_type_id", itemTypeId);
+methodItem.setProperty("item_classification", itemClassification);
+Item getTabsResult = methodItem.apply();
+
+List<Newtonsoft.Json.Linq.JObject> tabs =
+	Newtonsoft.Json.JsonConvert.DeserializeObject<List<Newtonsoft.Json.Linq.JObject>>(getTabsResult.getResult());
+Newtonsoft.Json.Linq.JArray additionalTabs = Newtonsoft.Json.Linq.JArray.Parse(additionalRelationshipIds);
+AttachAdditionalTabs(tabs, additionalTabs);
+Newtonsoft.Json.Linq.JArray excludedTabs = Newtonsoft.Json.Linq.JArray.Parse(excludedRelationshipTypeIds);
+var relationshipsCountList = new Dictionary<string, int>();
+foreach (Newtonsoft.Json.Linq.JObject relationshipTab in tabs)
+{
+	string relationshipItemId = relationshipTab.Value<string>("relTypeId");
+	if (relationshipItemId == "Parameters" || excludedTabs.Any(excluded => excluded.ToString() == relationshipItemId) || relationshipsCountList.ContainsKey(relationshipItemId))
+	{
+		continue;
+	}
+
+	string relationshipItemName = relationshipTab.Value<string>("name");
+
+	Item relationshipViews = innovator.newItem("Relationship View", "get");
+	relationshipViews.setProperty("source_id", relationshipItemId);
+	relationshipViews.setAttribute("returnMode", "countOnly");
+	Item relationshipViewsItemMax = relationshipViews.apply();
+
+	XmlNode customViewsCountNode = relationshipViewsItemMax.dom.SelectSingleNode(".//Message/event[@name='itemmax']/@value");
+
+	int customViewsCount = int.Parse(customViewsCountNode.Value, CultureInfo.InvariantCulture);
+	if (customViewsCount != 0) {
+		continue;
+	}
+
+	Item relationships = this.getInnovator().newItem(relationshipItemName, "get");
+	relationships.setProperty("source_id", itemId);
+	relationships.setAttribute("select", "id");
+	relationships.setAttribute("returnMode", "countOnly");
+	Item result = relationships.apply();
+	XmlNode relationshipsItemMax = result.dom.SelectSingleNode(".//Message/event[@name='itemmax']/@value");
+	if (relationshipsItemMax == null) {
+		relationshipsCountList.Add(relationshipItemId, 0);
+		continue;
+	}
+	int itemsCount = int.Parse(relationshipsItemMax.Value, CultureInfo.InvariantCulture);
+	
+	relationshipsCountList.Add(relationshipItemId, itemsCount);
+}
+
+return innovator.newResult(Newtonsoft.Json.JsonConvert.SerializeObject(relationshipsCountList));
+}
+
+private void AttachAdditionalTabs(List<Newtonsoft.Json.Linq.JObject> tabs, Newtonsoft.Json.Linq.JArray additionalTabs) {
+	foreach (string tabId in additionalTabs) {
+		Item relationships = this.getInnovator().newItem("RelationshipType", "get");
+		relationships.setProperty("id", tabId);
+		relationships.setAttribute("select", "name");
+		Item result = relationships.apply();
+		string name = result.getProperty("name");
+
+		Newtonsoft.Json.Linq.JObject tabsData = new Newtonsoft.Json.Linq.JObject();
+		tabsData["relTypeId"] = tabId;
+		tabsData["name"] = name;
+		tabs.Add(tabsData);
+	}
+
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>GetRelationshipCounts</name>
+ </Item>
+</AML>

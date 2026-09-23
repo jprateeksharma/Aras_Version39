@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="1DE52E6A90924688ADAF76063FE59569" action="add">
+  <image>../images/EndpointConfigurationEditorOff.svg</image>
+  <image_additional>../images/EndpointConfigurationEditorOn.svg</image_additional>
+  <label xml:lang="en">Web Service Editor</label>
+  <name>cws_SidebarEditorButton</name>
+ </Item>
+</AML>

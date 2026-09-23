@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="1AEE03279F9F4091830988180F07FF85" action="add">
+  <is_private>0</is_private>
+  <name>Revision</name>
+  <Relationships>
+   <Item type="Access" id="2CABBBA2BBF941C29B40586DB7855EEA" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Revision" type="Permission">1AEE03279F9F4091830988180F07FF85</source_id>
+   </Item>
+   <Item type="Access" id="596F5FD45E7C4D56949C7F27068B038D" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Revision" type="Permission">1AEE03279F9F4091830988180F07FF85</source_id>
+   </Item>
+   <Item type="Access" id="623401A469734A279DCC798218737336" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Revision" type="Permission">1AEE03279F9F4091830988180F07FF85</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

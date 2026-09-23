@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="Method" id="B981C6F3D954476E81172851F6529E67" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const context = options.contextData;
+const viewmodel = context.viewmodel;
+const topWindow = context.aras.getMostTopWindowWithAras();
+const textStyle = context.selectedElement.GetStyleOfRange() || {};
+const dialogParameters = {
+	oldColor: textStyle.fontcolor || '#404040',
+	aras: context.aras,
+	type: 'Color'
+};
+const modelCursor = viewmodel.Cursor();
+
+topWindow.ArasModules.Dialog.show('iframe', dialogParameters).promise.then(color => {
+	if (color) {
+		const actionsHelper = viewmodel.ActionsHelper();
+
+		actionsHelper.executeAction('arastextactions', {
+			actionName: 'fontcolor',
+			value: color
+		});
+	}
+});
+
+modelCursor.Set(modelCursor.start, modelCursor.startOffset, modelCursor.end, modelCursor.endOffset);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_tdf_editortb_fontcolor_click</name>
+ </Item>
+</AML>

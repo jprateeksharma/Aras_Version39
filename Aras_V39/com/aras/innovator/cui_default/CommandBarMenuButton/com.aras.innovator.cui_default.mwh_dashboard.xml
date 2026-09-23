@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="FF2F1FDD770D457DA4E3A74B795643C6" action="add">
+  <label xml:lang="en">Dashboard</label>
+  <on_click_handler keyed_name="cui_default_mwh_dashboard" type="Method">F55E37FD55B04AE4A73ACC989FEA66B4</on_click_handler>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.mwh_licenses_menu" type="CommandBarMenu">FADF25E82A124E7C9BDAFCFFBA8C223D</parent_menu>
+  <name>com.aras.innovator.cui_default.mwh_dashboard</name>
+ </Item>
+</AML>

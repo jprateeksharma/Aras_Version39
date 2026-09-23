@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="5AF35A28979B455180DFCE7508A5A820" action="add">
+  <template>import { type ContextMenu } from 'core';
+import type { ContextMenuItems } from '../Modules/components/contextMenuTypes';
+import type { Options, ClickHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+export async function $method_name(
+	control: ContextMenu,
+	target: toolbarItems,
+	options: Options&lt;'RelationshipsView'&gt;
+): ClickHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_rel_grids_contextmenu_click</name>
+ </Item>
+</AML>

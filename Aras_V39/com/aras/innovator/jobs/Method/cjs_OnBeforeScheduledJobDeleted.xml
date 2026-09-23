@@ -1,0 +1,55 @@
+﻿<AML>
+ <Item type="Method" id="EF2CFD1AF77F4B84903A97997C93DD64" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	var scheduledJobId = this.getID();
+	var dataAccessLayer = new DataAccessLayer(CCO.Permissions);
+	var businessLogic = new BusinessLogic(dataAccessLayer, getInnovator());
+	return businessLogic.DeleteRelatedJobs(scheduledJobId);
+}
+
+internal class BusinessLogic
+{
+	private readonly IDataAccessLayer _dataAccessLayer;
+	private readonly Innovator _innovator;
+
+	internal BusinessLogic(IDataAccessLayer dataAccessLayer, Innovator innovator)
+	{
+		_dataAccessLayer = dataAccessLayer;
+		_innovator = innovator;
+	}
+
+	public Item DeleteRelatedJobs(string scheduledJobId)
+	{
+		var jobsDeleteRequest = _innovator.newItem("cjs_Job", "delete");
+		jobsDeleteRequest.setAttribute("where", $"template='{scheduledJobId}'");
+		return _dataAccessLayer.ApplyAsJobManager(jobsDeleteRequest);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyAsJobManager(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private readonly Aras.Server.Core.Abstractions.IPermissions _permissions;
+
+	internal DataAccessLayer(Aras.Server.Core.Abstractions.IPermissions permissions)
+	{
+		_permissions = permissions;
+	}
+
+	public Item ApplyAsJobManager(Item item)
+	{
+		var identity = Aras.Server.Security.Identity.GetByName("cjs_Job Manager");
+		using (_permissions.GrantIdentity(identity))
+		{
+			return item.apply();
+		}
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>cjs_OnBeforeScheduledJobDeleted</name>
+ </Item>
+</AML>

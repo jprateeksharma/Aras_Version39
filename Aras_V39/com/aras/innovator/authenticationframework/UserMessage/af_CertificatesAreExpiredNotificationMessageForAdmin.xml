@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="5DABDA855B624104925F98010F57E81B" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Authentication certificates required by the authorization server are expired.</text>
+  <name>af_CertificatesAreExpiredNotificationMessageForAdmin</name>
+ </Item>
+</AML>

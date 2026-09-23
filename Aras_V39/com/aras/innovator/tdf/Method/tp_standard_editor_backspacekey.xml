@@ -1,0 +1,89 @@
+﻿<AML>
+ <Item type="Method" id="B3EB6132238B46169CA04440B0CAEBE9" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[if (this.viewmodel.IsEditable()) {
+	const backspaceKeyCode = 'Backspace';
+	const keyEvent = options.event;
+	const keyCode = keyEvent.key || keyEvent.code;
+
+	if (keyCode === backspaceKeyCode) {
+		if (keyEvent.shiftKey || keyEvent.altKey || keyEvent.ctrlKey) {
+			return;
+		}
+
+		const selectedItems = this.viewmodel.GetSelectedItems();
+		const schemaHelper = this.viewmodel.Schema();
+		let textElementWithCursorAtStart;
+		let targetElement;
+
+		if (selectedItems.length) {
+			targetElement = this.viewmodel.GetAncestorOrSelfElement(selectedItems[0]);
+			this.control.domRange.refresh();
+			const viewCursor = this.viewmodel.Cursor();
+			textElementWithCursorAtStart =
+				!viewCursor.startOffset &&
+				!viewCursor.endOffset &&
+				(targetElement.is('ArasTextXmlSchemaElement') ||
+					schemaHelper.IsContentMixed(targetElement));
+
+			// process text element when cursor at start
+			if (textElementWithCursorAtStart) {
+				const parentElement = targetElement.Parent;
+				const closestTextElement = this._getClosestTextElementIfExists(
+					targetElement,
+					parentElement,
+					true
+				);
+
+				if (closestTextElement) {
+					let shouldMergeTextElements =
+						closestTextElement.Parent === parentElement;
+
+					if (
+						!shouldMergeTextElements &&
+						parentElement.is('ArasListItemXmlSchemaElement') &&
+						closestTextElement.Parent.is('ArasListItemXmlSchemaElement') &&
+						this._isFirstChild(targetElement)
+					) {
+						const closestElementTopListParent = this._getTopListElementParent(
+							closestTextElement
+						);
+						const targetElementTopListParent = this._getTopListElementParent(
+							targetElement
+						);
+						if (
+							closestElementTopListParent.Parent ===
+							targetElementTopListParent.Parent
+						) {
+							shouldMergeTextElements = true;
+						}
+					}
+
+					if (shouldMergeTextElements) {
+						this._syncAndMergeTextElements(
+							keyEvent,
+							closestTextElement,
+							targetElement
+						);
+					}
+				}
+			} else if (targetElement.is('ArasListItemXmlSchemaElement')) {
+				this._processListItemBackspace(targetElement);
+			}
+		}
+
+		if (
+			textElementWithCursorAtStart ||
+			!targetElement ||
+			(!targetElement.is('ArasTextXmlSchemaElement') &&
+				!schemaHelper.IsContentMixed(targetElement))
+		) {
+			this._stopEvent(keyEvent);
+		}
+	}
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>tp_standard_editor_backspacekey</name>
+ </Item>
+</AML>

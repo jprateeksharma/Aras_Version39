@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="FileType" id="7C057517BC7E4C869B6DA6B6E8C2F76B" action="add">
+  <description>Microsoft BMP Image</description>
+  <extension>bmp</extension>
+  <mimetype>image/bmp</mimetype>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>BMP Image</name>
+ </Item>
+</AML>

@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="8BCA7461CA49426DB372605B66FD794A" action="add">
+  <template>import type { Toolbar } from 'core';
+import type { toolbarItems } from '../Modules/components/contextMenuTypes';
+import type { Options, ClickHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+export async function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'SearchView'&gt;
+): ClickHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_searchgrid_commandbar_click</name>
+ </Item>
+</AML>

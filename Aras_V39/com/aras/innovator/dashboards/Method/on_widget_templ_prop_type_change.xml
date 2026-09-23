@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="Method" id="4085095CB3374B28B86A2B6DE609EA98" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const itemNode =
+	aras.itemsCache.getItem(itemId) ||
+	aras.itemsCache.getItemByXPath(
+		`Innovator/Items/Item/Relationships/Item[@id="${itemId}"]`
+	);
+	
+const currentValue = aras.getItemProperty(itemNode, 'prop_source');
+if (!currentValue) {
+	return;
+}
+
+aras.setItemProperty(itemNode, 'prop_source', '');]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>on_widget_templ_prop_type_change</name>
+ </Item>
+</AML>

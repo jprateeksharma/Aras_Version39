@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="F2AA41D8F9F04E01BA4E6069E726B606" action="add">
+  <classification>Data Model</classification>
+  <description />
+  <location keyed_name="RelationshipsView" type="cui_Location">298CC276A1BD4246A5135F041C9737DC</location>
+  <name>cws_EndpointConfigurationRelationshipsToolbar</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="6B8BD104105C4A81B662440CAC527985" action="add">
+    <action>Extend</action>
+    <related_id keyed_name="RelationshipsView.CommandBar_E4733BFBAE2B4B9091EFC7FFAAD5313F" type="cui_Control">E4733BFBAE2B4B9091EFC7FFAAD5313F</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cws_EndpointConfigurationRelationshipsToolbar" type="cui_WindowSection">F2AA41D8F9F04E01BA4E6069E726B606</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,195 @@
+﻿<AML>
+ <Item type="Method" id="44AF830C2BBD41A386B20A3518177662" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer();
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer);
+
+	try
+	{
+		return businessLogic.RunLogic(this);
+	}
+	catch (Aras.Server.Core.InnovatorServerException ex)
+	{
+		return innovator.newError(ex.Message);
+	}
+}
+
+internal class BusinessLogic
+{
+	private readonly Innovator _innovator;
+	private readonly IDataAccessLayer _dataAccessLayer;
+
+	internal BusinessLogic(
+		Innovator innovator,
+		IDataAccessLayer dataAccessLayer
+	)
+	{
+		_innovator = innovator;
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public Item RunLogic(Item methodItem)
+	{
+		Dictionary<string, string> itemsToPackageDictionary = new Dictionary<string, string>();
+		string itemIdsString = methodItem.getProperty("controlId");
+		string packageName = methodItem.getProperty("packageName");
+		IEnumerable<string> controlIds = itemIdsString.Split(',').Select(controlId=> $"'{controlId}'");
+
+		foreach(var itemId in controlIds)
+		{
+			Item formCompositeStructure = GetFormCompositeStructure(itemId);
+
+			ParseResponsiveFormStructureToPackageItems(formCompositeStructure, itemsToPackageDictionary, packageName);
+		}
+
+		return PrepareStructureItemsForPackageDefinition(itemsToPackageDictionary);
+	}
+
+	private void ParseResponsiveFormStructureToPackageItems(
+		Item responsiveFormStructureItem,
+  	Dictionary<string, string> itemsToPackageDictionary,
+		string packageName)
+	{
+		AddItemToPackage(itemsToPackageDictionary, responsiveFormStructureItem); // form composite
+
+		Item cuiWindowSection = responsiveFormStructureItem.getRelatedItem();
+		Item cuiWindowSectionControlRelationships = cuiWindowSection.getRelationships();
+		if (cuiWindowSectionControlRelationships.getItemCount() > 0)
+		{
+			Item cuiWindowSectionControl = cuiWindowSectionControlRelationships.getItemByIndex(0);
+
+			Item cuiControl = cuiWindowSectionControl.getRelatedItem();
+			AddItemToPackage(itemsToPackageDictionary, cuiControl);
+
+			Item cuiControlRuleRelationships = cuiControl.getRelationships();
+			if (cuiControlRuleRelationships.getItemCount() > 0)
+			{
+				for(int ruleRelshipIndex = 0; ruleRelshipIndex < cuiControlRuleRelationships.getItemCount(); ruleRelshipIndex++)
+				{
+					var cuiControlRuleRelationship = cuiControlRuleRelationships.getItemByIndex(ruleRelshipIndex);
+					var rule = cuiControlRuleRelationship.getRelatedItem();
+
+					var currentPackageDefinitionWithRule = GetPackageDefinitionWithResponsiveFormItemType(rule.getID(), packageName);
+					Item cuiRuleItemInCurrentPackage = currentPackageDefinitionWithRule.getItemsByXPath($"//Item[element_id='{rule.getID()}']");
+
+					if (cuiRuleItemInCurrentPackage.getItemCount() == 1)
+					{
+						continue;
+					}
+
+					var packageDefinitionWithRule = GetPackageDefinitionWithResponsiveFormItemType(rule.getID());
+					Item cuiRuleItemInPackage = packageDefinitionWithRule.getItemsByXPath($"//Item[element_id='{rule.getID()}']");
+
+					if (cuiRuleItemInPackage.getItemCount() == 0)
+					{
+						AddItemToPackage(itemsToPackageDictionary, rule);
+					}
+					else
+					{
+						AddItemToPackage(itemsToPackageDictionary, cuiControlRuleRelationship);
+					}
+				}
+			}
+		}
+	}
+
+	private Item GetFormCompositeStructure(string itemIds)
+	{
+		Item cuiRule = _innovator.newItem("cui_Rule", "get");
+		cuiRule.setAttribute("select", "id");
+
+		Item cuiControlRule = _innovator.newItem("cui_ControlRule", "get");
+		cuiControlRule.setAttribute("select", "id,related_id(id)");
+		cuiControlRule.setPropertyItem("related_id", cuiRule);
+
+		Item cuiControl = _innovator.newItem("cui_Control", "get");
+		cuiControl.setAttribute("select", "id");
+		cuiControl.setProperty("id", itemIds);
+		cuiControl.setPropertyCondition("id", "in");
+		cuiControl.addRelationship(cuiControlRule);
+
+		Item cuiWindowSectionControl = _innovator.newItem("cui_WindowSectionControl", "get");
+		cuiWindowSectionControl.setAttribute("select", "id,related_id(id)");
+		cuiWindowSectionControl.setPropertyItem("related_id", cuiControl);
+
+		Item cuiWindowSection = _innovator.newItem("cui_WindowSection", "get");
+		cuiWindowSection.setAttribute("select", "id");
+		cuiWindowSection.addRelationship(cuiWindowSectionControl);
+
+		Item formComposite = _innovator.newItem("FormComposite", "get");
+		formComposite.setAttribute("select", "id,related_id(id)");
+		formComposite.setPropertyItem("related_id", cuiWindowSection);
+
+		return _dataAccessLayer.ApplyItem(formComposite);
+	}
+
+	private Item GetPackageDefinitionWithResponsiveFormItemType(string itemTypeId, string packageName = null)
+	{
+		Item packageElementItem = _innovator.newItem("PackageElement", "get");
+		packageElementItem.setAttribute("select", "id, element_id");
+		packageElementItem.setProperty("element_id", itemTypeId);
+		packageElementItem.setPropertyAttribute("element_id", "condition", "eq");
+
+		Item packageGroupItem = _innovator.newItem("PackageGroup", "get");
+		packageGroupItem.setAttribute("select", "id");
+		packageGroupItem.addRelationship(packageElementItem);
+
+		Item packageDefinitionItems = _innovator.newItem("PackageDefinition", "get");
+		packageDefinitionItems.setAttribute("select", "id");
+		if (!string.IsNullOrEmpty(packageName))
+		{
+			packageDefinitionItems.setProperty("name", packageName);
+		}
+
+		packageDefinitionItems.addRelationship(packageGroupItem);
+
+		return _dataAccessLayer.ApplyItem(packageDefinitionItems);
+	}
+
+	private static void AddItemToPackage(Dictionary<string, string> itemsToPackageDictionary, Item item)
+	{
+		string itemId = item.getID();
+		string itemTypeName = item.getType();
+
+		itemsToPackageDictionary.TryAdd(itemId, itemTypeName);
+	}
+
+	private Item PrepareStructureItemsForPackageDefinition(Dictionary<string, string> itemsToPackageDictionary)
+	{
+		Item packageDefinitionItem = _innovator.newItem();
+
+		foreach (KeyValuePair<string, string> itemsToPackageKeyValuePair in itemsToPackageDictionary)
+		{
+			Item convertedToPackageItem = _innovator.newItem();
+			convertedToPackageItem.setProperty("id", itemsToPackageKeyValuePair.Key);
+			convertedToPackageItem.setProperty("itemTypeName", itemsToPackageKeyValuePair.Value);
+
+			packageDefinitionItem.addRelationship(convertedToPackageItem);
+		}
+
+		return packageDefinitionItem;
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	public Item ApplyItem(Item item)
+	{
+		item = item.apply();
+		if (item.isError() && !item.isEmpty())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(item.getErrorString());
+		}
+
+		return item;
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>GetControlStructurePacDef</name>
+ </Item>
+</AML>

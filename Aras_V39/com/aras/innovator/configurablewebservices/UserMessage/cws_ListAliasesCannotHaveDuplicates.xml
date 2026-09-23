@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="BB6977CB71554B889B3DF9C258F13EB2" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">List aliases cannot have duplicates (case insensitive).</text>
+  <name>cws_ListAliasesCannotHaveDuplicates</name>
+ </Item>
+</AML>

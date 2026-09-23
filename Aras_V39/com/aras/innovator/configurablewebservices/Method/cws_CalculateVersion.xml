@@ -1,0 +1,26 @@
+﻿<AML>
+ <Item type="Method" id="C9614AD5FE5D4BCD8C0F13D5292B5AC9" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[string currentSourceId = this.getProperty("source_id");
+Item latestEndpointItem = this.newItem("cws_EndpointConfiguration", "get");
+latestEndpointItem.setProperty("source_id", currentSourceId);
+latestEndpointItem.setAttribute("select", "version");
+latestEndpointItem.setAttribute("order_by", "version desc");
+latestEndpointItem.setAttribute("maxRecords", "1");
+latestEndpointItem = latestEndpointItem.apply();
+
+if (latestEndpointItem.isEmpty()) {
+  this.setProperty("version", "1");
+  return this;
+}
+
+int previousVersion = int.Parse(latestEndpointItem.getProperty("version"), CultureInfo.InvariantCulture);
+int nextVersion = previousVersion + 1;
+
+this.setProperty("version", nextVersion.ToString(CultureInfo.InvariantCulture));
+return this;
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>cws_CalculateVersion</name>
+ </Item>
+</AML>

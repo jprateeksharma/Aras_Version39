@@ -1,0 +1,26 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="97414075CD434D33B2C3600F914D165B" action="add">
+  <color>#ffcc80</color>
+  <name>InBasket Task Presentation Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommand" id="DA9DD65EDFE643AF99AA93D9E957654D" action="add">
+    <command_alias keyed_name="OpenItem" type="CommandAlias">FE0A88F22DF44FD3BEBE98AF43ADD957</command_alias>
+    <related_id keyed_name="OpenItem_InBasketTask" type="Command">235A7A7F8A9C4E4CA266AF4D41C5D838</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="InBasket Task Presentation Configuration" type="PresentationConfiguration">97414075CD434D33B2C3600F914D165B</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="EFA40E638C52420380D83C679FB39A41" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_for_inbasket" type="CommandBarSection">BCC29B6764E54F7EBE31B6EE59187533</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="InBasket Task Presentation Configuration" type="PresentationConfiguration">97414075CD434D33B2C3600F914D165B</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="8D772E285484A082BDEE61C462534D75" action="add">
+    <related_id keyed_name="InBasket Task_TOC_Content" type="CommandBarSection">8D772E285484A082618120D9625E4BB8</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="InBasket Task Presentation Configuration" type="PresentationConfiguration">97414075CD434D33B2C3600F914D165B</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

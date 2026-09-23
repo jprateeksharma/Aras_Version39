@@ -1,0 +1,65 @@
+﻿<AML>
+ <Item type="Method" id="B64EFBDAED364140A93005C6AA220098" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { data, on_click_handler: clickHandler } = options.currentTarget;
+const { favoriteLayout } = options.getState();
+const gridLayoutFavorites = options.getProps().favorites;
+const { favorites } = aras.getMainWindow();
+const roots = [...target.children];
+roots.forEach((itemName) => {
+	data.get(itemName).checked = itemName === favoriteLayout;
+});
+
+const previousRoots = target.roots || [];
+const customLayouts = previousRoots.filter((itemName) => !roots.includes(itemName));
+customLayouts.forEach((itemName) => {
+	data.delete(itemName);
+});
+
+const { convertLayoutToStateFormat, filterFavorites } = favorites;
+
+const favoriteLayouts = filterFavorites(gridLayoutFavorites, 'Grid Layout');
+const noLabelString = aras.getResource('', 'common.no_label');
+const layoutList = [];
+const { itemType, relatedItemType } = options;
+favoriteLayouts.forEach((value) => {
+	const layoutObject = {
+		label: noLabelString,
+		...value,
+		settings: convertLayoutToStateFormat(value['additional_data'], { itemType, relatedItemType }, options.location),
+		on_click_handler: clickHandler,
+		group_id: 'layouts',
+		name: value.id,
+		checked: value.id === favoriteLayout
+	};
+
+	delete layoutObject['additional_data'];
+	layoutList.push(value.id);
+	data.set(value.id, layoutObject);
+});
+
+const currentLocale = aras.getIomSessionContext().GetLanguageCode();
+layoutList.sort((columnName1, columnName2) => {
+	const label1 = data.get(columnName1).label;
+	const label2 = data.get(columnName2).label;
+
+	return label1.localeCompare(label2, currentLocale, {
+		sensitivity: 'base'
+	});
+});
+if (
+	customLayouts.length > favoriteLayouts.length &&
+	!favoriteLayout.startsWith('searchview.commandbar.layouts') &&
+	!gridLayoutFavorites[favoriteLayout]
+) {
+	const { setCurrentLayout } = options.getActions();
+	setCurrentLayout('searchview.commandbar.layouts.default');
+}
+
+return {
+	roots: roots.concat(layoutList)
+};]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_common_favoritelayouts_init</name>
+ </Item>
+</AML>

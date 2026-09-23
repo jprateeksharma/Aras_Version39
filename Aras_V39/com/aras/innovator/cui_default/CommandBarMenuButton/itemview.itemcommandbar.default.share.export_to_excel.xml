@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="79B29EEB4BE64A85A90D25A733C6D8BD" action="add">
+  <additional_data>{"exportFormat":"excel"}</additional_data>
+  <label xml:lang="en">Export to Excel</label>
+  <on_click_handler keyed_name="cui_ivicb_export_to_excel_click" type="Method">4922F0D1DBDD4A489B2157CBB6833D34</on_click_handler>
+  <parent_menu keyed_name="itemview.itemcommandbar.default.share" type="CommandBarMenu">53B3D123C3DE46AC93738FC80C11CA62</parent_menu>
+  <name>itemview.itemcommandbar.default.share.export_to_excel</name>
+ </Item>
+</AML>

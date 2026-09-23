@@ -1,0 +1,1115 @@
+﻿<AML>
+ <Item type="Method" id="0CF1B12FD0A4440FBE7F2D8EA15DB88D" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	var innovator = this.getInnovator();
+
+	const int LOGIN_CACHE_TTL_SECONDS = 20;
+	var cache = CCO?.GetService<Microsoft.Extensions.Caching.Memory.IMemoryCache>();
+	var dataAccessLayer = new CachedDataAccessLayer(innovator, this.dom, CCO.DB.InnDatabase, CCO.Permissions, CCO.Session, cache, LOGIN_CACHE_TTL_SECONDS);
+	string cacheAction = this.getAttribute("cache_action", "NoAction");
+
+	if (Enum.TryParse<CacheAction>(cacheAction, true, out var action))
+	{
+		switch (action)
+		{
+			case CacheAction.DisableCache:
+				dataAccessLayer.SetCacheEnabled(false);
+				return this;
+			case CacheAction.EnableCache:
+				dataAccessLayer.SetCacheEnabled(true);
+				return this;
+			case CacheAction.GetCacheState:
+				return dataAccessLayer.GetLoginCacheState();
+			case CacheAction.NoAction:
+				break;
+		}
+	}
+
+	var businessLogic = new BusinessLogic(dataAccessLayer, innovator, CCO.ErrorLookup);
+	const string CLIENT = "js";
+	string itemTypeID = this.getProperty("item_type_id");
+	string contextItemID = this.getProperty("item_id");
+	string sectionItemType = this.getProperty("section_itemtype");
+	string toSectionRelationshipType = this.getProperty("tosection_relationshiptype");
+	string toItemRelationshipType = this.getProperty("toitem_relationshiptype");
+	string sectionItemItemType = this.getProperty("sectionitem_itemtype");
+	string locationName = this.getProperty("location_name");
+	string itemClassification = this.getProperty("item_classification");
+	string parentProperty = this.getProperty("parent_property");
+	string identityId = CCO.Permissions.UserHasRootOrAdminIdentity()
+		? this.getProperty("identity")
+		: null;
+
+	return businessLogic.GetStructure(
+		itemTypeID,
+		contextItemID,
+		sectionItemType,
+		toSectionRelationshipType,
+		toItemRelationshipType,
+		sectionItemItemType,
+		parentProperty,
+		locationName,
+		itemClassification,
+		CLIENT,
+		identityId);
+}
+
+internal enum CacheAction
+{
+	EnableCache,
+	InvalidateCache,
+	DisableCache,
+	GetCacheState,
+	NoAction
+}
+
+public class BusinessLogic
+{
+	private readonly IDataAccessLayer dataAccessLayer;
+	private readonly Innovator innovator;
+	private readonly Aras.Server.Core.Abstractions.IErrorLookup errorLookup;
+
+	public BusinessLogic(IDataAccessLayer dataAccessLayer, Innovator innovator, Aras.Server.Core.Abstractions.IErrorLookup errorLookup)
+	{
+		this.dataAccessLayer = dataAccessLayer;
+		this.innovator = innovator;
+		this.errorLookup = errorLookup;
+	}
+
+	public Item GetStructure(
+		string itemTypeID,
+		string contextItemID,
+		string sectionItemType,
+		string toSectionRelationshipType,
+		string toItemRelationshipType,
+		string sectionItemItemType,
+		string parentProperty,
+		string locationName,
+		string itemClassification,
+		string client,
+		string identityId)
+	{
+		// check super user (root) case when doing role filter
+		string identitiesList = dataAccessLayer.GetIdentitiesList(identityId);
+
+		Item sections = GetSections(itemTypeID, contextItemID, client, locationName, sectionItemType,
+			toSectionRelationshipType, itemClassification, identitiesList);
+
+		if (sections.isError())
+		{
+			return sections;
+		}
+
+		var commandItems = new List<Item>();
+		for (var i = 0; i < sections.getItemCount(); ++i)
+		{
+			LoadSectionItems(sections.getItemByIndex(i), commandItems, identitiesList, itemClassification == "%all_grouped_by_classification%", sectionItemItemType, toItemRelationshipType, parentProperty);
+		}
+
+		if (sectionItemItemType == "cui_Control")
+		{
+			commandItems.ForEach(item =>
+			{
+				FillCuiControlByCommandBarItems(item, itemTypeID, contextItemID, client, itemClassification, identitiesList);
+				FillCuiControlByFormFields(item, itemClassification);
+				FillCuiControlByEventHadlers(item);
+				FillCuiControlByRules(item);
+
+				XmlNode relshipsNd = item.node.SelectSingleNode("./Relationships");
+
+				if (relshipsNd != null)
+				{
+					item.node.RemoveChild(relshipsNd);
+				}
+			});
+
+			ExtractDefaultAndAlternativeControlsWithTheType(commandItems, "FormControl", out Dictionary<string, Item> defaultControlsByName, out Dictionary<string, List<Item>> alternativeControlsByName);
+
+			// Check if default form control doesn't exist when alternative form controls with the same names exist.
+			if (alternativeControlsByName.Any() && alternativeControlsByName.Keys.Except(defaultControlsByName.Keys, StringComparer.OrdinalIgnoreCase).Any())
+			{
+				return innovator.newError(errorLookup.Lookup("cui_ViewWithEmptyClassificationDoesNotExist"));
+			}
+
+			FillDefaultControlsWithAlternativeControls(commandItems, defaultControlsByName, alternativeControlsByName);
+		}
+
+		RemoveOrphans(commandItems, parentProperty);
+
+		if (commandItems.Count == 0)
+		{
+			Item itemsNotFoundError = innovator.newError(errorLookup.Lookup("GetItem_NoItemsFound", sectionItemItemType));
+			itemsNotFoundError.setErrorCode("0");
+			return itemsNotFoundError;
+		}
+
+		Item rtn = innovator.newItem();
+
+		rtn.dom.RemoveAll();
+
+		XmlNode rootNode = rtn.dom.CreateNode(XmlNodeType.Element, "AML", null);
+
+		rtn.dom.AppendChild(rootNode);
+
+		commandItems.ForEach(commandItem => {
+			XmlNode importedCommandItemNode = rtn.dom.ImportNode(commandItem.node, true);
+			rootNode.AppendChild(importedCommandItemNode);
+		});
+
+		RemoveNullNodes(rootNode);
+
+		rtn.node = commandItems.Count == 1 ? rootNode.ChildNodes[0] as XmlElement : null;
+		rtn.nodeList = commandItems.Count > 1 ? rootNode.ChildNodes : null;
+
+		return rtn;
+	}
+
+	private Item GetSections(
+		string itemTypeID,
+		string contextItemID,
+		string client,
+		string locationName,
+		string sectionItemType,
+		string toSectionRelationshipType,
+		string itemClassification,
+		string identitiesList)
+	{
+		#region Presentation Configuration
+
+		Item presentationConfigurationsItem =
+			dataAccessLayer.GetPresentationConfigurationsIds(itemTypeID, contextItemID, client);
+		string globalPresentationConfigurationIds = presentationConfigurationsItem.getProperty("global");
+		string itemTypePresentationConfigurationIds = presentationConfigurationsItem.getProperty("itemType");
+		string instancePresentationConfigurationIds = presentationConfigurationsItem.getProperty("instance");
+
+		if (string.IsNullOrEmpty(globalPresentationConfigurationIds) &&
+			string.IsNullOrEmpty(itemTypePresentationConfigurationIds))
+		{
+			Item pcNotFoundError =
+				innovator.newError(errorLookup.Lookup("GetItem_NoItemsFound", "PresentationConfiguration"));
+			pcNotFoundError.setErrorCode("0");
+			return pcNotFoundError;
+		}
+
+		string presentationConfigurationIds = string.Format(
+			CultureInfo.InvariantCulture,
+			"{0}{1}{2}",
+			globalPresentationConfigurationIds,
+			string.IsNullOrEmpty(globalPresentationConfigurationIds) ||
+			string.IsNullOrEmpty(itemTypePresentationConfigurationIds)
+				? string.Empty
+				: ",",
+			itemTypePresentationConfigurationIds);
+
+		#endregion Presentation Configuration
+
+		#region sections
+
+		// Need split Global PresentationConfiguration and configurations that are created for item types. Sections from Global should be processed first.
+		Item pcbses = this.innovator.newItem();
+		Item pcbsesForNotGlobal = this.innovator.newItem();
+		Item configForInstance = this.innovator.newItem();
+		Item configurationsWithRels = dataAccessLayer.GetPresentationConfigurations(
+			presentationConfigurationIds,
+			locationName,
+			identitiesList,
+			sectionItemType,
+			toSectionRelationshipType);
+
+		for (int i = 0; i < configurationsWithRels.getItemCount(); i++)
+		{
+			Item currentConfig = configurationsWithRels.getItemByIndex(i);
+			string name = currentConfig.getProperty("name");
+			Item rels = currentConfig.getRelationships();
+			if (rels.getItemCount() > 0)
+			{
+				if (name.Equals("Global", StringComparison.Ordinal))
+				{
+					pcbses.appendItem(rels);
+				}
+				else
+				{
+					pcbsesForNotGlobal.appendItem(rels);
+				}
+			}
+		}
+
+		if (!string.IsNullOrEmpty(instancePresentationConfigurationIds))
+		{
+			Item instanceConfigurationWithRels = dataAccessLayer.GetPresentationConfigurations(
+				instancePresentationConfigurationIds,
+				locationName,
+				identitiesList,
+				sectionItemType,
+				toSectionRelationshipType);
+
+			for (int i = 0; i < instanceConfigurationWithRels.getItemCount(); i++)
+			{
+				Item currentConfig = instanceConfigurationWithRels.getItemByIndex(i);
+				Item rels = currentConfig.getRelationships();
+				if (rels.getItemCount() > 0)
+				{
+					configForInstance.appendItem(rels);
+				}
+			}
+		}
+
+		Item sections = this.innovator.newItem();
+
+		if (pcbses.getItemCount() > 1)
+		{
+			pcbses.removeItem(pcbses.getItemByIndex(0));
+			PrepareSections(sections, pcbses, itemClassification, toSectionRelationshipType);
+		}
+
+		if (pcbsesForNotGlobal.getItemCount() > 1)
+		{
+			pcbsesForNotGlobal.removeItem(pcbsesForNotGlobal.getItemByIndex(0));
+			PrepareSections(sections, pcbsesForNotGlobal, itemClassification, toSectionRelationshipType);
+			pcbses.appendItem(pcbsesForNotGlobal);
+		}
+
+		if (configForInstance.getItemCount() > 1)
+		{
+			configForInstance.removeItem(configForInstance.getItemByIndex(0));
+			PrepareSections(sections, configForInstance, itemClassification, toSectionRelationshipType);
+			pcbses.appendItem(configForInstance);
+		}
+
+		if (sections.getItemCount() < 2)
+		{
+			Item sectionNotFoundError = innovator.newError(errorLookup.Lookup("GetItem_NoItemsFound", sectionItemType));
+			sectionNotFoundError.setErrorCode("0");
+			return sectionNotFoundError;
+		}
+
+		sections.removeItem(sections.getItemByIndex(0));
+
+		sections = sections.getItemsByXPath("//Item[@type='" + sectionItemType + "']");
+		for (var i = 0; i < sections.getItemCount(); ++i)
+		{
+			Item section = sections.getItemByIndex(i);
+			XmlNode node =
+				pcbses.dom.SelectSingleNode("//Item[@id='" + section.getID() + "']/../../item_classification");
+			if (node != null)
+			{
+				section.setProperty("item_classification", node.InnerText);
+			}
+		}
+
+		#endregion sections
+
+		return sections;
+	}
+
+	private void MergeSectionItems(List<Item> items, Item commandItems, Item section, bool separateClassifications, string sectionItemItemType, string toItemRelationshipType)
+	{
+		for (var i = 0; i < commandItems.getItemCount(); ++i)
+		{
+			Item commandItem = commandItems.getItemByIndex(i);
+			bool isRelationship = commandItem.getAttribute("type") == toItemRelationshipType;
+			string action = isRelationship ? commandItem.getProperty("action") ?? "Add" : "Add";
+			Item control = isRelationship ? commandItem.getPropertyItem("related_id") : commandItem;
+			string controlSortOrder = control.getProperty("sort_order");
+
+			string controlClassification = control.getProperty("item_classification");
+			switch (action)
+			{
+				case "Add":
+					int index = -1;
+					int lastMatchingClassificationIndex = -1;
+					int sortOrder = Convert.ToInt32(controlSortOrder ?? int.MaxValue.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
+					Item foundExistingItem = FindControlInItemsCollection(items, control);
+
+					for (var k = 0; k < items.Count; ++k)
+					{
+						if (separateClassifications && controlClassification != items[k].getProperty("item_classification"))
+						{
+							continue;
+						}
+						lastMatchingClassificationIndex = k;
+						if (Convert.ToInt32(items[k].getProperty("sort_order"), CultureInfo.InvariantCulture) > sortOrder)
+						{
+							index = k;
+							break;
+						}
+					}
+
+					if (!string.IsNullOrEmpty(controlSortOrder) && index == -1)
+					{
+						index = items.FindLastIndex(x => !string.IsNullOrEmpty(x.getProperty("sort_order")));
+						index = index == -1 ? -1 : index + 1;
+					}
+
+					if (index > -1)
+					{
+						items.Insert(index, control);
+					}
+					else
+					{
+						if (lastMatchingClassificationIndex > -1 && lastMatchingClassificationIndex < items.Count - 1)
+						{
+							items.Insert(lastMatchingClassificationIndex + 1, control);
+						}
+						else
+						{
+							items.Add(control);
+						}
+					}
+
+					if (foundExistingItem != null)
+					{
+						items.Remove(foundExistingItem);
+					}
+
+					break;
+				case "Extend":
+					DoExtendAction(items, control);
+					break;
+				case "Remove":
+					DoRemoveAction(items, separateClassifications, control.getID(), controlClassification);
+					break;
+				case "Replace":
+					string controlId = control.getID();
+					int position = items.FindIndex(item => item.getID() == controlId);
+					if (position != -1)
+					{
+						string alternateId = commandItem.getProperty("alternate");
+						if (string.IsNullOrEmpty(alternateId))
+						{
+							DoRemoveAction(items, separateClassifications, controlId, controlClassification);
+							break;
+						}
+
+						Item alternateItem = commandItem.getItemsByXPath("./alternate/Item");
+						if (alternateItem.node == null)
+						{
+							alternateItem = dataAccessLayer.GetItemById(sectionItemItemType, alternateId);
+						}
+						if (alternateItem.isError())
+						{
+							DoRemoveAction(items, separateClassifications, controlId, controlClassification);
+							break;
+						}
+
+						alternateItem = alternateItem.getItemByIndex(0);
+						SetSectionDataToItem(alternateItem, section, controlSortOrder);
+						items[position] = alternateItem;
+					}
+					break;
+				case "ClearAll":
+					string itemId = control.getID();
+					int pos = items.FindIndex(item => item.getID() == itemId);
+					if (pos > 0)
+					{
+						items.RemoveRange(0, pos);
+					}
+					break;
+				default: break;
+			}
+		}
+	}
+
+	private static void MergeRulesSectionItems(List<Item> items, Item commandItems, string toItemRelationshipType)
+	{
+		for (var i = 0; i < commandItems.getItemCount(); ++i)
+		{
+			Item commandItem = commandItems.getItemByIndex(i);
+			Item cuiRule = commandItem.getPropertyItem("related_id");
+			string cuiRuleSortOrder = cuiRule.getProperty("sort_order");
+			Item foundExistingItem = FindMatchesInRuleItemsCollection(items, cuiRule);
+
+			int index = -1;
+			int sortOrder = Convert.ToInt32(cuiRuleSortOrder ?? int.MaxValue.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
+
+			for (var k = 0; k < items.Count; ++k)
+			{
+				if (Convert.ToInt32(items[k].getProperty("sort_order"), CultureInfo.InvariantCulture) > sortOrder)
+				{
+					index = k;
+					break;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(cuiRuleSortOrder) && index == -1)
+			{
+				index = items.FindLastIndex(x => !string.IsNullOrEmpty(x.getProperty("sort_order")));
+				index = index == -1 ? -1 : index + 1;
+			}
+
+			if (index > -1)
+			{
+				items.Insert(index, cuiRule);
+			}
+			else
+			{
+				items.Add(cuiRule);
+			}
+
+			if (foundExistingItem != null)
+			{
+				items.Remove(foundExistingItem);
+			}
+		}
+	}
+
+	static private Item FindMatchesInRuleItemsCollection(List<Item> items, Item cuiRule)
+	{
+		string cuiRuleName = cuiRule.getProperty("name");
+		string itemTypeId = cuiRule.getProperty("item_type_id");
+		string ruleId = cuiRule.getProperty("id");
+
+		return items.FirstOrDefault(item =>
+			string.Equals(item.getProperty("name"), cuiRuleName, StringComparison.OrdinalIgnoreCase) &&
+			string.Equals(item.getProperty("item_type_id"), itemTypeId, StringComparison.OrdinalIgnoreCase) &&
+			string.Equals(item.getProperty("id"), ruleId, StringComparison.OrdinalIgnoreCase));
+	}
+
+	static private Item FindControlInItemsCollection(List<Item> items, Item control)
+	{
+		string controlName = control.getProperty("name");
+		string controlType = control.getProperty("control_type");
+		string controlItemClassification = control.getProperty("item_classification");
+		string controlItemType = control.getType();
+		string controlMode = control.getProperty("mode", "");
+
+		return items.FirstOrDefault(item =>
+			string.Equals(item.getProperty("name"), controlName, StringComparison.OrdinalIgnoreCase) &&
+			string.Equals(item.getProperty("control_type"), controlType, StringComparison.OrdinalIgnoreCase) &&
+			string.Equals(item.getProperty("item_classification"), controlItemClassification, StringComparison.OrdinalIgnoreCase) &&
+			string.Equals(item.getType(), controlItemType, StringComparison.OrdinalIgnoreCase) &&
+			string.Equals(item.getProperty("mode", ""), controlMode, StringComparison.OrdinalIgnoreCase));
+	}
+
+	private void FillCuiControlByEventHadlers(Item control)
+	{
+		Item eventHandlers = control.getRelationships("cui_ControlEventHandler");
+		List<Item> items = new List<Item>();
+
+		for (int i = 0; i < eventHandlers.getItemCount(); i++)
+		{
+			Item eventHandler = eventHandlers.getItemByIndex(i);
+			string controlEventName = eventHandler.getPropertyItem("control_event")?.getProperty("name");
+			eventHandler.getRelatedItem().setProperty("control_event", controlEventName);
+
+			MergeSectionItems(items, eventHandler, control, false, "cui_Control", "cui_ControlEventHandler");
+		}
+
+		if (items.Count > 0)
+		{
+			XmlNode eventHandlersNd = control.node.AppendChild(control.dom.CreateElement("EventHandlers"));
+			foreach (Item commandBarItem in items)
+			{
+				eventHandlersNd.AppendChild(eventHandlersNd.OwnerDocument.ImportNode(commandBarItem.node, true));
+			}
+		}
+	}
+
+	private void FillCuiControlByCommandBarItems(Item control, string itemTypeID, string contextItemID, string client, string itemClassification, string identitiesList)
+	{
+		Item commandBarItemRels = control.getRelationships("cui_ControlCommandBarItem");
+		List<Item> items = new List<Item>();
+
+		for (int i = 0; i < commandBarItemRels.getItemCount(); i++)
+		{
+			Item commandBarItemRel = commandBarItemRels.getItemByIndex(i);
+			Item commandItems = null;
+
+			if (commandBarItemRel.getProperty("classification").ToUpperInvariant() == "METHOD")
+			{
+				Item method = commandBarItemRel.getItemsByXPath("./builder_method/Item[@type='Method']");
+				if (method.getProperty("method_type") == "C#")
+				{
+					commandItems = dataAccessLayer.GetItemsFromBuilderMethod(items, method);
+				}
+			}
+			else
+			{
+				commandItems = commandBarItemRel;
+			}
+
+			if (commandItems != null)
+			{
+				MergeSectionItems(items, commandItems, control, itemClassification == "%all_grouped_by_classification%", "cui_Control", "cui_ControlCommandBarItem");
+			}
+		}
+
+		Item sections = GetSections(
+			itemTypeID,
+			contextItemID,
+			client,
+			control.getPropertyAttribute("location", "keyed_name"),
+			"CommandBarSection",
+			"PresentationCommandBarSection",
+			itemClassification,
+			identitiesList);
+
+		for (int i = 0; i < sections.getItemCount(); i++)
+		{
+			Item section = sections.getItemByIndex(i);
+			LoadSectionItems(
+				section,
+				items,
+				identitiesList,
+				itemClassification == "%all_grouped_by_classification%",
+				"CommandBarItem",
+				"CommandBarSectionItem",
+				"parent_menu");
+		}
+
+		if (items.Count > 0)
+		{
+			RemoveOrphans(items, "parent_menu");
+			XmlNode commandBarItemsNd = control.node.AppendChild(control.dom.CreateElement("CommandBarItems"));
+			foreach (Item commandBarItem in items)
+			{
+				commandBarItemsNd.AppendChild(commandBarItemsNd.OwnerDocument.ImportNode(commandBarItem.node, true));
+			}
+		}
+	}
+
+	private void FillCuiControlByFormFields(Item control, string itemClassification)
+	{
+		Item controlFormFieldRels = control.getRelationships("cui_ControlFormField");
+		List<Item> formFields = new();
+
+		for (int i = 0; i < controlFormFieldRels.getItemCount(); i++)
+		{
+			MergeSectionItems(formFields, controlFormFieldRels.getItemByIndex(i), control, itemClassification == "%all_grouped_by_classification%", "cui_Control", "cui_ControlFormField");
+		}
+
+		if (formFields.Count > 0)
+		{
+			XmlNode formFieldsNode = control.node.AppendChild(control.dom.CreateElement("CuiFormFields"));
+			foreach (Item formField in formFields)
+			{
+				formFieldsNode.AppendChild(formFieldsNode.OwnerDocument.ImportNode(formField.node, true));
+			}
+		}
+	}
+
+	private static void FillCuiControlByRules(Item control)
+	{
+		Item controlRuleRels = control.getRelationships("cui_ControlRule");
+		List<Item> controlRules = new();
+
+		for (int i = 0; i < controlRuleRels.getItemCount(); i++)
+		{
+			MergeRulesSectionItems(controlRules, controlRuleRels.getItemByIndex(i), "cui_ControlRule");
+		}
+
+		if (controlRules.Count > 0)
+		{
+			XmlNode cuiRulesNode = control.node.AppendChild(control.dom.CreateElement("CuiRules"));
+			foreach (Item cuiRule in controlRules)
+			{
+				cuiRulesNode.AppendChild(cuiRulesNode.OwnerDocument.ImportNode(cuiRule.node, true));
+			}
+		}
+	}
+
+	private void LoadSectionItems(Item section, List<Item> items, string identitiesList, bool separateClassifications, string sectionItemItemType, string toItemRelationshipType, string parentProperty)
+	{
+		Item commandItems = null;
+		if (section == null)
+		{
+			throw new ArgumentNullException(nameof(section));
+		}
+		if (items == null)
+		{
+			throw new ArgumentNullException(nameof(items));
+		}
+		if (section.getProperty("classification").ToUpperInvariant() == "METHOD")
+		{
+			Item method = section.getItemsByXPath("./builder_method/Item[@type='Method']");
+			if (method.getProperty("method_type") == "C#")
+			{
+				commandItems = dataAccessLayer.GetItemsFromBuilderMethod(items, method);
+			}
+			else
+			{
+				commandItems = section; // client builder method will be processed on client
+			}
+		}
+		else
+		{
+			commandItems = dataAccessLayer.GetSectionItems(
+				section.getID(),
+				identitiesList,
+				sectionItemItemType,
+				toItemRelationshipType,
+				parentProperty);
+		}
+
+		for (int itemIndex = 0; itemIndex < commandItems.getItemCount(); itemIndex++)
+		{
+			Item commandItem = commandItems.getItemByIndex(itemIndex);
+			Item control = commandItem.getRelatedItem() ?? commandItem;
+			SetSectionDataToItem(control, section, commandItem.getProperty("sort_order"));
+
+			string itemClassificationPropertyValue = commandItem.getProperty("item_classification");
+			if (!string.IsNullOrEmpty(itemClassificationPropertyValue))
+			{
+				control.setProperty("item_classification", itemClassificationPropertyValue);
+			}
+		}
+
+		MergeSectionItems(items, commandItems, section, separateClassifications, sectionItemItemType, toItemRelationshipType);
+	}
+
+	private static void DoRemoveAction(List<Item> items, bool separateClassifications, string controlId, string controlClassification)
+	{
+		items.RemoveAll(item => item.getID() == controlId && (!separateClassifications || controlClassification == item.getProperty("item_classification")));
+	}
+
+	private static void DoExtendAction(List<Item> items, Item control)
+	{
+		Item foundExistingItem = FindControlInItemsCollection(items, control);
+
+		if (foundExistingItem != null)
+		{
+			IEnumerable<string> props = control.node
+				.SelectNodes("./*[name() != 'Relationships' and name() != 'id' and not(@is_null)]").Cast<XmlNode>()
+				.Select(node => node.Name);
+
+			foreach (string propName in props)
+			{
+				string propValue = control.getProperty(propName);
+
+				if (propValue != null)
+				{
+					foundExistingItem.setProperty(propName, propValue);
+				}
+			}
+
+			Item controlRels = control.getRelationships();
+
+			for (int i = 0; i < controlRels.getItemCount(); i++)
+			{
+				foundExistingItem.addRelationship(controlRels.getItemByIndex(i));
+			}
+		}
+	}
+
+	private static void SetSectionDataToItem(Item item, Item section, string sortOrder)
+	{
+		if (!string.IsNullOrEmpty(sortOrder))
+		{
+			item.setProperty("sort_order", sortOrder);
+		}
+		item.setProperty("section", section.getID());
+		item.setPropertyAttribute("section", "keyed_name", section.getProperty("keyed_name"));
+		item.setProperty("item_classification", section.getProperty("item_classification"));
+	}
+
+	private static void ExtractDefaultAndAlternativeControlsWithTheType(
+		List<Item> controls,
+		string controlType,
+		out Dictionary<string, Item> defaultControlsByName,
+		out Dictionary<string, List<Item>> alternativeControlsByName)
+	{
+		defaultControlsByName = new Dictionary<string, Item>();
+		alternativeControlsByName = new Dictionary<string, List<Item>>();
+		HashSet<Item> controlsToRemove = new HashSet<Item>();
+
+		foreach (Item control in controls)
+		{
+			if (!string.Equals(control.getProperty("control_type"), controlType, StringComparison.OrdinalIgnoreCase))
+			{
+				continue;
+			}
+
+			string controlName = control.getProperty("name");
+			if (string.IsNullOrEmpty(control.getProperty("item_classification")) && string.IsNullOrEmpty(control.getProperty("mode")))
+			{
+				defaultControlsByName.TryAdd(controlName, control);
+			}
+			else
+			{
+				if (!alternativeControlsByName.TryGetValue(controlName, out List<Item> alternativeControls))
+				{
+					alternativeControls = new List<Item>();
+
+					alternativeControlsByName.Add(controlName, alternativeControls);
+				}
+
+				alternativeControls.Add(control);
+				controlsToRemove.Add(control);
+			}
+		}
+
+		controls.RemoveAll(item => controlsToRemove.Contains(item));
+	}
+
+	private static void FillDefaultControlsWithAlternativeControls(List<Item> controls, Dictionary<string, Item> defaultControlsByName, Dictionary<string, List<Item>> alternativeControlsByName)
+	{
+		foreach ( (string controlName, Item defaultControl) in defaultControlsByName)
+		{
+			if (alternativeControlsByName.TryGetValue(controlName, out List<Item> alternativeControls))
+			{
+				XmlNode alternativeControlsNode = defaultControl.node.AppendChild(defaultControl.dom.CreateElement("AlternativeControls"));
+				foreach (Item alternativeControl in alternativeControls)
+				{
+					alternativeControlsNode.AppendChild(alternativeControlsNode.OwnerDocument.ImportNode(alternativeControl.node, true));
+				}
+
+				RemoveNullNodes(alternativeControlsNode);
+			}
+		}
+	}
+
+	private static void RemoveOrphans(List<Item> commandItems, string parentProperty)
+	{
+		ICollection<Item> itemsToDelete = new List<Item>();
+		do
+		{
+			itemsToDelete.Clear();
+			ICollection<string> allControlIds = new HashSet<string>(commandItems.Select(item => item.getID()));
+			foreach (Item item in commandItems)
+			{
+				string parentId = item.getProperty(parentProperty);
+				if (!string.IsNullOrEmpty(parentId) && !allControlIds.Contains(parentId))
+				{
+					itemsToDelete.Add(item);
+				}
+			}
+			commandItems.RemoveAll(item => itemsToDelete.Contains(item));
+		} while (itemsToDelete.Count > 0);
+	}
+
+	private static void PrepareSections(Item sections, Item pcbses, string itemClassificationParam, string toSectionRelationshipType)
+	{
+		if (sections == null)
+		{
+			throw new ArgumentNullException(nameof(sections));
+		}
+		if (pcbses == null)
+		{
+			throw new ArgumentNullException(nameof(pcbses));
+		}
+		for (var i = 0; i < pcbses.getItemCount(); ++i)
+		{
+			Item pcbs = pcbses.getItemByIndex(i);
+			string pcbsItemClassification = pcbs.getProperty("item_classification");
+			if (IsPseudoClassification(itemClassificationParam) || pcbsItemClassification == itemClassificationParam
+				// can take default if no specific exists
+				|| string.IsNullOrEmpty(pcbsItemClassification))
+			{
+				sections.appendItem(pcbs);
+			}
+		}
+	}
+
+	private static bool IsPseudoClassification(string itemClassificationParam)
+	{
+		return itemClassificationParam == "%all_grouped_by_location%" || itemClassificationParam == "%all_grouped_by_classification%";
+	}
+
+	private static void RemoveNullNodes(XmlNode rootNode)
+	{
+		var nullNodes = rootNode.SelectNodes("./Item/*[@is_null='1']|./Item/*['CommandBarItems' or 'EventHandlers' or 'CuiFormFields' or 'CuiRules']/Item/*[@is_null='1']");
+		foreach (XmlNode nullNode in nullNodes)
+		{
+			nullNode.ParentNode.RemoveChild(nullNode);
+		}
+	}
+}
+
+public interface IDataAccessLayer
+{
+	Item GetPresentationConfigurations(string presentationConfigurationIds, string locationName, string identitiesList, string sectionItemType, string toSectionRelationshipType);
+
+	Item GetPresentationConfigurationsIds(string itemTypeID, string contextItemID, string client);
+
+	string GetIdentitiesList(string identityId);
+
+	Item GetItemsFromBuilderMethod(List<Item> currentItemsList, Item method);
+
+	Item GetSectionItems(string sectionId, string identitiesList, string sectionItemItemType, string toItemRelationshipType, string parentProperty);
+
+	Item GetItemById(string itemTypeName, string id);
+}
+
+internal class CachedDataAccessLayer : IDataAccessLayer
+{
+	private const string WorldIdentityId = "A73B655731924CD0B027E4F4D5FCC0A9";
+	private const bool DEFAULT_CACHE_ENABLED = false;
+	private readonly Innovator innovator;
+	private readonly XmlDocument requestItemDom;
+	private readonly Aras.Server.Core.IInnovatorDatabase innovatorDatabase;
+	private readonly Aras.Server.Core.Abstractions.IPermissions _permissions;
+	private readonly Microsoft.AspNetCore.Http.ISession _session;
+	private readonly int _loginCacheSlidingExpiration; // Seconds - resets on each access
+	private readonly Microsoft.Extensions.Caching.Memory.IMemoryCache _loginCUICache;
+
+	// the cache here works once per user session and solve the problem of too many queries during the login operation
+
+	public CachedDataAccessLayer(Innovator innovator, XmlDocument requestItemDom, Aras.Server.Core.IInnovatorDatabase innovatorDatabase, Aras.Server.Core.Abstractions.IPermissions permissions, Microsoft.AspNetCore.Http.ISession session, Microsoft.Extensions.Caching.Memory.IMemoryCache cache, int LoginCacheSlidingExpiration)
+	{
+		this.innovator = innovator;
+		this.requestItemDom = requestItemDom;
+		this.innovatorDatabase = innovatorDatabase;
+		_permissions = permissions;
+		_session = session;
+		_loginCUICache = cache ?? throw new ArgumentNullException(nameof(cache));
+		_loginCacheSlidingExpiration = LoginCacheSlidingExpiration;
+	}
+
+	// Get a unique cache key combining userId and sessionId to maintain separate caches per browser session
+	private string GetCacheIdentifier()
+	{
+		string userId = this.innovator.getUserID();
+		string sessionId = _session?.Id ?? "no-session";
+		return $"{userId}_{sessionId}";
+	}
+
+	// enable or disable cache for the current user across all sessions
+	public void SetCacheEnabled(bool cacheEnabled)
+	{
+		string cacheEnabledId = GetCacheIdentifier() + "_CacheEnabled";
+		var options = new Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions
+		{
+			Priority = Microsoft.Extensions.Caching.Memory.CacheItemPriority.NeverRemove,
+			SlidingExpiration = TimeSpan.FromSeconds(_loginCacheSlidingExpiration)
+		};
+		Microsoft.Extensions.Caching.Memory.CacheExtensions.Set(_loginCUICache, cacheEnabledId, cacheEnabled, options);
+	}
+
+	// check if cache is enabled for the current user across all sessions
+	public bool IsCacheEnabled()
+	{
+		string cacheEnabledId = GetCacheIdentifier() + "_CacheEnabled";
+		if (_loginCUICache.TryGetValue(cacheEnabledId, out object cacheEnabledValue) && cacheEnabledValue is bool cacheEnabled)
+		{
+			return cacheEnabled;
+		}
+		string cacheActivatedId = GetCacheIdentifier() + "_CacheActivated";
+		if (_loginCUICache.TryGetValue(cacheActivatedId, out object cacheActivateValue) && cacheActivateValue is bool cacheActivated)
+		{
+			return false; // cache was activated but currently disabled, likely due to expiration, so return false to avoid using stale cache
+		}
+		Microsoft.Extensions.Caching.Memory.CacheExtensions.Set(_loginCUICache, cacheActivatedId, true);
+		SetCacheEnabled(DEFAULT_CACHE_ENABLED);
+		return DEFAULT_CACHE_ENABLED;
+	}
+
+	public Item GetLoginCacheState()
+	{
+		var result = innovator.newItem("LoginCacheState", "get");
+		result.setProperty("cache_enabled", IsCacheEnabled().ToString());
+
+		return result;
+	}
+
+	private Item GetCachedValue(Microsoft.Extensions.Caching.Memory.IMemoryCache cache, string cacheName, string cacheKey)
+	{
+		string cacheId = GetCacheIdentifier();
+		string fullKey = cacheId + "_" + cacheName + "_" + cacheKey;
+		if (cache.TryGetValue(fullKey, out object value) && value is Item item)
+		{
+			return item;
+		}
+		return null;
+	}
+
+	private Item SetCachedValue(Microsoft.Extensions.Caching.Memory.IMemoryCache cache, string cacheName, string cacheKey, Item cacheValue)
+	{
+		string cacheId = GetCacheIdentifier();
+		string fullKey = cacheId + "_" + cacheName + "_" + cacheKey;
+
+		var options = new Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions
+		{
+			SlidingExpiration = TimeSpan.FromSeconds(_loginCacheSlidingExpiration)
+		};
+
+		Microsoft.Extensions.Caching.Memory.CacheExtensions.Set(cache, fullKey, cacheValue, options);
+		return cacheValue;
+	}
+
+	public Item GetPresentationConfigurationsIds(string itemTypeID, string contextItemID, string client)
+	{
+		if (!IsCacheEnabled())
+		{
+			return GetPresentationConfigurationsIdsNoCache(itemTypeID, contextItemID, client);
+		}
+		string cacheKey = $"{itemTypeID}{contextItemID}{client}";
+		return GetCachedValue(_loginCUICache, "PresentationConfigurationsIds", cacheKey) ?? SetCachedValue(_loginCUICache, "PresentationConfigurationsIds", cacheKey, GetPresentationConfigurationsIdsNoCache(itemTypeID, contextItemID, client));
+	}
+
+	private Item GetPresentationConfigurationsIdsNoCache(string itemTypeID, string contextItemID, string client)
+	{
+		Item presentationConfigurationsItem = innovator.newItem("Method", "cui_GetPresentationConfigs");
+		presentationConfigurationsItem.setProperty("item_type_id", itemTypeID);
+		presentationConfigurationsItem.setProperty("item_id", contextItemID);
+		presentationConfigurationsItem.setProperty("client", client);
+		return presentationConfigurationsItem.apply();
+	}
+
+	private string GetCurrentUserIdentitiesList()
+	{
+		string userId = this.innovator.getUserID();
+		return _permissions.GetIdentitiesList(innovatorDatabase, userId);
+	}
+
+	public string GetIdentitiesList(string identityId)
+	{
+		if (_permissions.UserHasRootIdentity())
+		{
+			return string.Empty;
+		}
+
+		if (string.IsNullOrEmpty(identityId))
+		{
+			return GetCurrentUserIdentitiesList();
+		}
+
+		try
+		{
+			var identityArray = _permissions
+				.GetAncestorIdentityIds(innovatorDatabase, new [] { identityId })
+				.ToList();
+
+			identityArray.Add(WorldIdentityId);
+			identityArray.Add(identityId);
+
+			return string.Join(",", identityArray);
+		}
+		catch (NotImplementedException)
+		{
+			return WorldIdentityId;
+		}
+	}
+
+	public Item GetPresentationConfigurations(string presentationConfigurationIds, string locationName, string identitiesList, string sectionItemType, string toSectionRelationshipType)
+	{
+		if (!IsCacheEnabled())
+		{
+			return GetPresentationConfigurationsNoCache(presentationConfigurationIds, locationName, identitiesList, sectionItemType, toSectionRelationshipType);
+		}
+		string cacheKey = $"{presentationConfigurationIds}{locationName}{identitiesList}{sectionItemType}{toSectionRelationshipType}";
+		return GetCachedValue(_loginCUICache, "PresentationConfigurations", cacheKey) ?? SetCachedValue(_loginCUICache, "PresentationConfigurations", cacheKey, GetPresentationConfigurationsNoCache(presentationConfigurationIds, locationName, identitiesList, sectionItemType, toSectionRelationshipType));
+	}
+
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Aras.Rules", "IA1000:Improper escaping in AML queries", Justification = "All user inputs are properly escaped using System.Security.SecurityElement.Escape")]
+	private Item GetPresentationConfigurationsNoCache(string presentationConfigurationIds, string locationName, string identitiesList, string sectionItemType, string toSectionRelationshipType)
+	{
+		string userIdentitiesClause = GetUserIdentitiesClause(identitiesList, "role");
+		string aml = string.Format(CultureInfo.InvariantCulture, @"
+		<AML>
+			<Item type=""PresentationConfiguration"" idlist=""{0}"" action=""get"" select=""id,name"">
+				<Relationships>
+					<Item type=""{4}"" action=""get"" select=""related_id,modified_on,item_classification"" orderBy=""sort_order"">
+						{1}
+						<related_id>
+							<Item type=""{3}"" action=""get"" select=""builder_method,classification,label,location,name,item_classification,section,keyed_name"">
+								<location>
+									<Item type=""cui_Location""><name>{2}</name></Item>
+								</location>
+								<builder_method>
+									<Item type=""Method"" action=""get"" select=""name,method_type""/>
+								</builder_method>
+							</Item>
+						</related_id>
+					</Item>
+				</Relationships>
+			</Item>
+		</AML>", presentationConfigurationIds, userIdentitiesClause, System.Security.SecurityElement.Escape(locationName), System.Security.SecurityElement.Escape(sectionItemType), System.Security.SecurityElement.Escape(toSectionRelationshipType));
+
+		return innovator.applyAML(aml);
+	}
+
+	private static string GetUserIdentitiesClause(string identitiesList, string nodeName)
+	{
+		string userIdentitiesClause = string.IsNullOrEmpty(identitiesList)
+			? ""
+			: string.Format(CultureInfo.InvariantCulture, "<{1} condition=\"in\">{0}</{1}>",
+				System.Security.SecurityElement.Escape(identitiesList),
+				System.Security.SecurityElement.Escape(nodeName));
+		return userIdentitiesClause;
+	}
+
+	public Item GetSectionItems(string sectionId, string identitiesList, string sectionItemItemType, string toItemRelationshipType, string parentProperty)
+	{
+		// Don't cache cui_Control items as they get heavily mutated after retrieval
+		if (!IsCacheEnabled() || sectionItemItemType == "cui_Control")
+		{
+			return GetSectionItemsNoCache(sectionId, identitiesList, sectionItemItemType, toItemRelationshipType, parentProperty);
+		}
+		string cacheKey = $"{sectionId}{identitiesList}{sectionItemItemType}{toItemRelationshipType}{parentProperty}";
+		return GetCachedValue(_loginCUICache, "SectionItems", cacheKey) ?? SetCachedValue(_loginCUICache, "SectionItems", cacheKey, GetSectionItemsNoCache(sectionId, identitiesList, sectionItemItemType, toItemRelationshipType, parentProperty));
+	}
+
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Aras.Rules", "IA1000:Improper escaping in AML queries", Justification = "All user inputs are properly escaped using System.Security.SecurityElement.Escape")]
+	private Item GetSectionItemsNoCache(string sectionId, string identitiesList, string sectionItemItemType, string toItemRelationshipType, string parentProperty)
+	{
+		return innovator.applyAML(string.Format(CultureInfo.InvariantCulture, @"
+			<AML>
+				<Item type=""Method"" action=""cui_GetSectionItems"">
+					<toitem_relationshiptype>{0}</toitem_relationshiptype>
+					<sectionitem_itemtype>{1}</sectionitem_itemtype>
+					<section_ids>{2}</section_ids>
+					<parent_property>{3}</parent_property>
+					<identity_list>{4}</identity_list>
+				</Item>
+			</AML>",
+			System.Security.SecurityElement.Escape(toItemRelationshipType),
+			System.Security.SecurityElement.Escape(sectionItemItemType),
+			System.Security.SecurityElement.Escape(sectionId),
+			System.Security.SecurityElement.Escape(parentProperty),
+			System.Security.SecurityElement.Escape(identitiesList)));
+	}
+
+	public Item GetItemsFromBuilderMethod(List<Item> currentItemsList, Item method)
+	{
+		if (method == null)
+		{
+			throw new ArgumentNullException(nameof(method));
+		}
+		if (!IsCacheEnabled())
+		{
+			return GetItemsFromBuilderMethodNoCache(currentItemsList, method);
+		}
+		string cacheKey = $"{string.Join(",", currentItemsList.Select(x => x.getID()))}{System.Security.SecurityElement.Escape(method.getProperty("name"))}";
+		return GetCachedValue(_loginCUICache, "BuilderMethodItems", cacheKey) ?? SetCachedValue(_loginCUICache, "BuilderMethodItems", cacheKey, GetItemsFromBuilderMethodNoCache(currentItemsList, method));
+	}
+
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Aras.Rules", "IA1000:Improper escaping in AML queries", Justification = "All user inputs are properly escaped and XML nodes come from trusted Item sources")]
+	private Item GetItemsFromBuilderMethodNoCache(List<Item> currentItemsList, Item method)
+	{
+		IEnumerable<XmlNode> parameters = requestItemDom.SelectSingleNode("//Item").ChildNodes.Cast<XmlNode>().Where(el => el.NodeType == XmlNodeType.Element);
+			var sb = new StringBuilder();
+			foreach (XmlElement param in parameters)
+			{
+				sb.AppendFormat(CultureInfo.InvariantCulture, "<{0}>{1}</{0}>", System.Security.SecurityElement.Escape(param.Name), System.Security.SecurityElement.Escape(param.InnerText));
+			}
+
+			sb.AppendFormat(CultureInfo.InvariantCulture, "<Data>{0}</Data>", string.Join("", currentItemsList.Select(x => x.node.OuterXml)));
+			return innovator.applyAML(string.Format(CultureInfo.InvariantCulture, @"
+	<AML>
+		<Item type=""Method"" action=""{0}"">
+		{1}
+		</Item>
+	</AML>", System.Security.SecurityElement.Escape(method.getProperty("name")), sb));
+	}
+
+	public Item GetItemById(string itemTypeName, string id)
+	{
+		if (!IsCacheEnabled())
+		{
+			return GetItemByIdNoCache(itemTypeName, id);
+		}
+		string cacheKey = $"{itemTypeName}{id}";
+		return GetCachedValue(_loginCUICache, "ItemsById", cacheKey) ?? SetCachedValue(_loginCUICache, "ItemsById", cacheKey, GetItemByIdNoCache(itemTypeName, id));
+	}
+
+	private Item GetItemByIdNoCache(string itemTypeName, string id)
+	{
+		Item item = innovator.newItem(itemTypeName, "get");
+		item.setID(id);
+
+		return item.apply();
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_GetStructure</name>
+ </Item>
+</AML>

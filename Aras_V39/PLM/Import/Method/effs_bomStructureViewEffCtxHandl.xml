@@ -1,0 +1,112 @@
+﻿<AML>
+ <Item type="Method" id="EF301F1F098443269D8E8F1C628DFECC" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[
+const aras = window.aras;
+const partBomItemTypeId = '5E9C5A12CC58413A8670CF4003C57848';
+const extraAccessControlProviderMethodName = 'effs_getPartItemBasedExpAddPrm';
+
+const getEffectivityCell = function (row) {
+	return row.cells.find(function (cell) {
+		const dataObject = cell.data && JSON.parse(cell.data);
+		if (dataObject && dataObject.effectiveItemId) {
+			cell.dataObject = dataObject;
+			return cell;
+		}
+	});
+};
+
+const { tgvContext } = options;
+const { getGridData } = tgvContext;
+const getEffectiveItemInfo = function () {
+	const tgvGridData = getGridData();
+	//tgvGridData.focus is an array for multiselect, but it is not allowed in TGV yet
+	const effectivityCell = getEffectivityCell(tgvGridData.focus[0].row);
+	const dataObject = effectivityCell.dataObject;
+	const effectiveItemKeyedName = dataObject.title.trim();
+
+	return {
+		effectiveItemTypeId: partBomItemTypeId,
+		effectiveItemId: dataObject.effectiveItemId,
+		extraAccessControlProviderMethodName: extraAccessControlProviderMethodName,
+		effectiveItemKeyedName: effectiveItemKeyedName
+	};
+};
+
+const { addEventListener, removeEventListener } = tgvContext.grid;
+const grid = {
+	addEventListener: function (type, listener) {
+		return addEventListener(type, listener);
+	},
+	removeEventListener: function (listenerHandle) {
+		removeEventListener(listenerHandle);
+	}
+};
+
+const { addPageEventListener, removePageEventListener } = tgvContext;
+const page = {
+	addEventListener: function (type, listener) {
+		return addPageEventListener(type, listener);
+	},
+	removeEventListener: function (listenerHandle) {
+		removePageEventListener(listenerHandle);
+	}
+};
+
+const additionalOptions = {
+	reshowOnGridSelectRow: true,
+	clearPaneOnBeforePageReload: true
+};
+
+const updateTgvEffectivity = function (parameters) {
+	const tgvGridData = getGridData();
+	const rows = tgvGridData.rows;
+	if (!rows || !rows.length) {
+		return;
+	}
+
+	const effectiveItemId = parameters.effectiveItemId;
+	const effectiveItemTypeName = aras.getItemTypeName(partBomItemTypeId);
+
+	const effectivityExpressionStringNotationPropertyName =
+		'eff_expression_string_notation';
+	let updatedEffectiveItem = aras.newIOMItem(effectiveItemTypeName, 'get');
+	updatedEffectiveItem.setID(effectiveItemId);
+	updatedEffectiveItem.setAttribute(
+		'select',
+		effectivityExpressionStringNotationPropertyName
+	);
+	updatedEffectiveItem = updatedEffectiveItem.apply();
+
+	if (updatedEffectiveItem.isError()) {
+		aras.AlertError(updatedEffectiveItem);
+		return;
+	}
+
+	const effectivityExpressionStringNotation = updatedEffectiveItem.getProperty(
+		effectivityExpressionStringNotationPropertyName
+	);
+	const firstRowEffectivityCell = getEffectivityCell(rows[0]);
+	const effectivityColumnIndex = firstRowEffectivityCell.columnIndex;
+
+	rows.forEach(function (row) {
+		const effectivityCell = row.cells[effectivityColumnIndex];
+		const data = effectivityCell.data;
+		if (data && JSON.parse(data).effectiveItemId === effectiveItemId) {
+			effectivityCell.text = effectivityExpressionStringNotation;
+		}
+	});
+};
+
+aras.evalMethod('effs_viewEffectivityInRelshipTab', '', {
+	getEffectiveItemInfo,
+	page,
+	grid,
+	options: additionalOptions,
+	onCreateUpdateDeleteExpressionCallback: updateTgvEffectivity
+});
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>effs_bomStructureViewEffCtxHandl</name>
+ </Item>
+</AML>

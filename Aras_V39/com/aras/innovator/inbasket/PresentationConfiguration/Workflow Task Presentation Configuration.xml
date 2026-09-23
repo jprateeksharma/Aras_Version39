@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="0B95239B47C24A69ADEEDE29EBD5DC1D" action="add">
+  <color>#f57c00</color>
+  <name>Workflow Task Presentation Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommand" id="B90BC43A7D0F47A0965C533852259677" action="add">
+    <command_alias keyed_name="OpenItem" type="CommandAlias">FE0A88F22DF44FD3BEBE98AF43ADD957</command_alias>
+    <related_id keyed_name="OpenItem_WorkflowTask" type="Command">8B2D920FA5C34538B49035B0FA6688FB</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Task Presentation Configuration" type="PresentationConfiguration">0B95239B47C24A69ADEEDE29EBD5DC1D</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

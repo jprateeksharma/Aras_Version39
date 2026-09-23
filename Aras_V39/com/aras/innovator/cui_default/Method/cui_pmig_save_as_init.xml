@@ -1,0 +1,24 @@
+﻿<AML>
+ <Item type="Method" id="FEB5885B60674B1C9EB20BF546C10169" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { itemTypeName, getState } = options
+const state = getState();
+const isMultiSelect = state.grid.selectedRows.length > 1;
+if (isMultiSelect) {
+	return {
+		hidden: true
+	};
+}
+const canAdd = ArasModules.metadata.itemType.isAllowToAdd(options.itemType);
+const rowId = state.grid.selectedRows[0];
+
+const hidden =
+	window.isFunctionDisabled(itemTypeName, 'Save As') ||
+	!canAdd;
+
+const disabled = ArasModules.item.isNew(itemTypeName, rowId);
+return { disabled, hidden };]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_pmig_save_as_init</name>
+ </Item>
+</AML>

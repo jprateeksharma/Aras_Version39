@@ -1,0 +1,12 @@
+﻿<AML>
+ <Item type="Method" id="375B04538B2F49DF97766A0E6B6E1123" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const selectedTimezone = getFieldComponentByName("timezone_dropdown").component.state.list.find(x => x.label === this.value);
+if (selectedTimezone){
+    document.thisItem.setProperty("timezone", selectedTimezone.value);
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cjs_SchedJob_ZoneDrpdwn_onChange</name>
+ </Item>
+</AML>

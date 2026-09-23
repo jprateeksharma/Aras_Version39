@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="SQL" id="A2FEE6DEB7874795A06AF8A2DE1536E8" action="add">
+  <execution_flag>immediate</execution_flag>
+  <old_name>Workflow_Task_Container_Type_Id</old_name>
+  <sqlserver_body><![CDATA[CREATE VIEW [Workflow_Task_Container_Type_Id] 
+AS 
+SELECT '261EAC08AE9144FC95C49182ACE0D3FE' as ID]]></sqlserver_body>
+  <stale>0</stale>
+  <transform_first>0</transform_first>
+  <type>view</type>
+  <name>Workflow_Task_Container_Type_Id</name>
+ </Item>
+</AML>

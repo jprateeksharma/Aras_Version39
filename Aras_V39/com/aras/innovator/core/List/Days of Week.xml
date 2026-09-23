@@ -1,0 +1,58 @@
+﻿<AML>
+ <Item type="List" id="4C8479D06D5741AD9A36BB37CB5AB4D7" action="add">
+  <description>The days of the week.</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Days of Week</name>
+  <Relationships>
+   <Item type="Value" id="A2C38DC4A1BB4AA4BEEA7EA0E0024933" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Monday</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Days of Week" type="List">4C8479D06D5741AD9A36BB37CB5AB4D7</source_id>
+    <value>Monday</value>
+   </Item>
+   <Item type="Value" id="2D65F02A3B3444F8975B5F06C6F1CC60" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tuesday</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Days of Week" type="List">4C8479D06D5741AD9A36BB37CB5AB4D7</source_id>
+    <value>Tuesday</value>
+   </Item>
+   <Item type="Value" id="48672D79D3B74C9893076C0F8556E4C3" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Wednesday</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Days of Week" type="List">4C8479D06D5741AD9A36BB37CB5AB4D7</source_id>
+    <value>Wednesday</value>
+   </Item>
+   <Item type="Value" id="A8F8AAC8C81B4113A1DB128146F385B1" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Thursday</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Days of Week" type="List">4C8479D06D5741AD9A36BB37CB5AB4D7</source_id>
+    <value>Thursday</value>
+   </Item>
+   <Item type="Value" id="AA2E404B54664940A9E8E0030BE0E01A" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Friday</label>
+    <sort_order>4</sort_order>
+    <source_id keyed_name="Days of Week" type="List">4C8479D06D5741AD9A36BB37CB5AB4D7</source_id>
+    <value>Friday</value>
+   </Item>
+   <Item type="Value" id="0BE3E48D0DA54DADAD35DDDCDC10D09C" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Saturday</label>
+    <sort_order>5</sort_order>
+    <source_id keyed_name="Days of Week" type="List">4C8479D06D5741AD9A36BB37CB5AB4D7</source_id>
+    <value>Saturday</value>
+   </Item>
+   <Item type="Value" id="CA65C3CAFA4549FB805A7E298A000D45" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Sunday</label>
+    <sort_order>6</sort_order>
+    <source_id keyed_name="Days of Week" type="List">4C8479D06D5741AD9A36BB37CB5AB4D7</source_id>
+    <value>Sunday</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

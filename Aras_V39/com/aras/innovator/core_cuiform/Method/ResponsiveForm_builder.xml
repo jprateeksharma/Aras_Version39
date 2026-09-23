@@ -1,0 +1,465 @@
+﻿<AML>
+ <Item type="Method" id="8A51DFB4F5D8437CADADF457F835BC91" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	string itemTypeId = this.getProperty("item_type_id");
+	string toItemRelationshipType = this.getProperty("toitem_relationshiptype");
+	string sectionItemItemType = this.getProperty("sectionitem_itemtype");
+	string parentProperty = this.getProperty("parent_property");
+	string formType = this.getProperty("form_type");
+
+	Innovator innovator = this.getInnovator();
+
+	if (string.IsNullOrEmpty(formType))
+	{
+		return innovator.newResult(string.Empty);
+	}
+
+	_isDefaultFormTypeRequest = string.Equals(formType, FormTypeDefault, StringComparison.Ordinal);
+	_isPreviewFormRequest = string.Equals(formType, PreviewFormType, StringComparison.Ordinal);
+
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer(innovator, CCO.DB.InnDatabase, CCO.Permissions);
+
+	(Dictionary<string, List<Item>> responsiveViewByClassification, Dictionary<string, List<Item>> nonResponsiveViewByClassification) =
+		GetHighestPriorityFormByFormClassification(
+			itemTypeId,
+			dataAccessLayer.IdentityList,
+			dataAccessLayer.AliasIdentities,
+			dataAccessLayer.GroupIdentities,
+			formType);
+
+	Item sectionItems = null;
+
+	if (responsiveViewByClassification.Any())
+	{
+		sectionItems = GetResponsiveFormSectionItems(
+			responsiveViewByClassification,
+			toItemRelationshipType,
+			sectionItemItemType,
+			parentProperty,
+			dataAccessLayer.IdentityList,
+			innovator);
+	}
+
+	if (nonResponsiveViewByClassification.Any())
+	{
+		Item nonResponsiveEmptySectionItems = GenerateEmptySectionItems(nonResponsiveViewByClassification);
+
+		if (sectionItems is null)
+		{
+			sectionItems = nonResponsiveEmptySectionItems;
+		}
+		else
+		{
+			sectionItems.appendItem(nonResponsiveEmptySectionItems);
+		}
+	}
+
+	return sectionItems ?? innovator.newResult(string.Empty);
+}
+
+private const string FormTypeDefault = "default";
+private const string AddFormType = "add";
+private const string ViewFormType = "view";
+private const string EditFormType = "edit";
+private const string PreviewFormType = "preview";
+private static readonly FormPriorityComparer _formPriorityComparer = new();
+
+private bool _isDefaultFormTypeRequest;
+private bool _isPreviewFormRequest;
+
+private Item GetResponsiveFormSectionItems(
+	Dictionary<string, List<Item>> responsiveViewByClassification,
+	string toItemRelationshipType,
+	string sectionItemItemType,
+	string parentProperty,
+	string identityList,
+	Innovator innovator)
+{
+	var sectionIdsByFormClassification = responsiveViewByClassification.ToDictionary(x => x.Key, x => GetSectionIds(x.Value));
+
+	var sectionIds = sectionIdsByFormClassification.Values.SelectMany(x => x).SelectMany(x=>x.Value).Distinct();
+
+	if (!sectionIds.Any())
+	{
+		return null;
+	}
+
+	var formClassificationModePairBySectionId = sectionIdsByFormClassification
+		.SelectMany(kv => kv.Value.SelectMany(x => x.Value.Select(sectionId => (SectionId: sectionId, Classification: kv.Key, Mode: x.Key))))
+		.GroupBy(x => x.SectionId)
+		.ToDictionary(x => x.Key, x => x.Select(a => (a.Classification, a.Mode)));
+
+	Item sectionItems = GetSectionItems(string.Join(",", sectionIds), toItemRelationshipType, sectionItemItemType, parentProperty, identityList, innovator);
+
+	int sectionItemCount = sectionItems.getItemCount();
+
+	for (int i = 0; i < sectionItemCount; i++)
+	{
+		Item sectionItem = sectionItems.getItemByIndex(i);
+		string sectionItemId = string.Concat("'", System.Security.SecurityElement.Escape(sectionItem.getProperty("source_id")), "'");
+		
+		if(_isPreviewFormRequest)
+		{
+			SetPreviewFormControlData(sectionItem.getRelatedItem());
+		}
+
+		if (formClassificationModePairBySectionId.TryGetValue(sectionItemId, out IEnumerable<(string Classification, string Mode)> classificationModeTuples))
+		{
+			(string classification, string mode) = classificationModeTuples.First();
+			SetItemClassificationAndMode(sectionItem, classification, mode);
+
+			foreach ((string newSectionClassification, string newSectionMode) in classificationModeTuples.Skip(1))
+			{
+				Item newSectionItem = CloneSectionItem(sectionItem);
+				SetItemClassificationAndMode(newSectionItem, newSectionClassification, newSectionMode);
+
+				sectionItems.appendItem(newSectionItem);
+				sectionItem = sectionItems.getItemByIndex(i);
+			}
+		}
+	}
+
+	return sectionItems;
+}
+
+private (Dictionary<string, List<Item>> ResponsiveViewByClassification, Dictionary<string, List<Item>> NonResponsiveViewByClassification) GetHighestPriorityFormByFormClassification(
+	string itemTypeId,
+	string identityList,
+	HashSet<string> aliasIdentities,
+	HashSet<string> groupIdentities,
+	string formType)
+{
+	Item viewItems = this.newItem("View", "get");
+	viewItems.setProperty("source_id", itemTypeId);
+	viewItems.setAttribute("select", "display_priority,form_classification,related_id(classification),role,type");
+
+	Item orItem = viewItems.newOR();
+	if (!_isDefaultFormTypeRequest)
+	{
+		orItem.setProperty("type", FormTypeDefault);
+		orItem.setProperty("type", formType);
+	}
+	else
+	{
+		orItem.setProperty("type", formType);
+		orItem.setProperty("type", AddFormType);
+		orItem.setProperty("type", EditFormType);
+		orItem.setProperty("type", ViewFormType);
+	}
+
+	viewItems.setProperty("role", identityList);
+	viewItems.setPropertyCondition("role", "in");
+
+	Item form = viewItems.createRelatedItem("Form", "get");
+	Item formComposite = form.createRelationship("FormComposite", "get");
+	formComposite.setAttribute("select", "related_id(id)");
+	Item windowsSection =  formComposite.createRelatedItem("cui_WindowSection", "get");
+	Item windowsSectionControl = windowsSection.createRelationship("cui_WindowSectionControl", "get");
+	windowsSectionControl.setAttribute("select", "related_id(id)");
+	Item control = windowsSectionControl.createRelatedItem("cui_Control", "get");
+	control.setAttribute("select", "sealed, keyed_name");
+	
+	Item viewResult = viewItems.apply();
+
+	if (viewResult.isError())
+	{
+		if (viewResult.isEmpty())
+		{
+			return (new Dictionary<string, List<Item>>(), new Dictionary<string, List<Item>>());
+		}
+
+		throw new Aras.Server.Core.InnovatorServerException(viewResult.dom);
+	}
+
+	int viewCount = viewResult.getItemCount();
+
+	Dictionary<string, List<Item>> viewsByClassification = new();
+
+	for (int i = 0; i < viewCount; i++)
+	{
+		Item currentView = viewResult.getItemByIndex(i);
+		string formClassification = currentView.getProperty("form_classification", string.Empty);
+
+		if (!viewsByClassification.TryGetValue(formClassification, out List<Item> currentClassificationViews))
+		{
+			currentClassificationViews = new List<Item>();
+			viewsByClassification.Add(formClassification, currentClassificationViews);
+		}
+
+		currentClassificationViews.Add(currentView);
+	}
+
+	Dictionary<string, List<Item>> responsiveViewByClassification = new();
+	Dictionary<string, List<Item>> nonResponsiveViewByClassification = new();
+
+	foreach (KeyValuePair<string, List<Item>> kvp in viewsByClassification)
+	{
+		string viewClassification = kvp.Key ?? string.Empty;
+		string[] formTypesToSelect = _isDefaultFormTypeRequest ? new[]{FormTypeDefault, AddFormType, EditFormType, ViewFormType} : new[]{formType, FormTypeDefault};
+		foreach (var formTypeToSelect in formTypesToSelect)
+		{
+			Item view = SelectViewAccordingToIdentityAndFormType(kvp.Value, aliasIdentities, groupIdentities, formTypeToSelect);
+			if (view == null)
+			{
+				continue;
+			}
+			bool isFormResponsive = string.Equals(view.getRelatedItem().getProperty("classification"), "Responsive", StringComparison.Ordinal);
+
+			if (isFormResponsive)
+			{
+				if (!responsiveViewByClassification.ContainsKey(viewClassification))
+				{
+					responsiveViewByClassification.Add(viewClassification, new List<Item> { view });
+				}
+				else
+				{
+					responsiveViewByClassification[viewClassification].Add(view);
+				}
+			}
+			else if (!(formTypeToSelect is FormTypeDefault or PreviewFormType && string.IsNullOrEmpty(viewClassification)))
+			{
+				if (!nonResponsiveViewByClassification.ContainsKey(viewClassification))
+				{
+					nonResponsiveViewByClassification.Add(viewClassification, new List<Item> { view });
+				}
+				else
+				{
+					nonResponsiveViewByClassification[viewClassification].Add(view);
+				}
+			}
+		}
+	}
+
+	return (responsiveViewByClassification, nonResponsiveViewByClassification);
+}
+
+private Item SelectViewAccordingToIdentityAndFormType(
+	List<Item> views,
+	HashSet<string> aliasIdentities,
+	HashSet<string> groupIdentities,
+	string formType)
+{
+	Item SelectView(string formType)
+	{
+		var viewsFilteredByType =
+			views.Where(x => string.Equals(x.getProperty("type"), formType, StringComparison.OrdinalIgnoreCase));
+
+		return viewsFilteredByType
+				.Where(x => aliasIdentities.Contains(x.getProperty("role")))
+				.MinBy(x => x, _formPriorityComparer)
+			?? viewsFilteredByType
+				.Where(x => groupIdentities.Contains(x.getProperty("role")))
+				.MinBy(x => x, _formPriorityComparer)
+			?? viewsFilteredByType
+				.Where(x => string.Equals(x.getProperty("role"), DataAccessLayer.WorldIdentityId, StringComparison.OrdinalIgnoreCase))
+				.MinBy(x => x, _formPriorityComparer);
+	}
+
+	return SelectView(formType) ?? (!_isDefaultFormTypeRequest && !_isPreviewFormRequest ? SelectView(FormTypeDefault) : null);
+}
+
+private static Dictionary<string,List<string>> GetSectionIds(List<Item> viewToResponsiveFormCompositeStructures)
+{
+	var result = new Dictionary<string,List<string>>();
+	foreach (var viewToResponsiveFormCompositeStructure in viewToResponsiveFormCompositeStructures)
+	{
+		Item formItem = viewToResponsiveFormCompositeStructure.getRelatedItem();
+		Item formCompositeItems = formItem.getRelationships("FormComposite");
+
+		int formCompositeItemCount = formCompositeItems.getItemCount();
+
+		Dictionary<bool, List<string>> sectionIds = new Dictionary<bool, List<string>>(2)
+		{
+			{ true, new List<string>(formCompositeItemCount) },
+			{ false, new List<string>(formCompositeItemCount) }
+		};
+
+		for (int i = 0; i < formCompositeItemCount; i++)
+		{
+			Item formComposite = formCompositeItems.getItemByIndex(i);
+			string sectionId = formComposite.getRelatedItemID();
+			Item sectionControls = formComposite.getRelatedItem().getRelationships("cui_WindowSectionControl");
+
+			Item control = sectionControls.getItemByIndex(0).getRelatedItem();
+			bool isSealed = string.Equals(control.getProperty("sealed"), "1", StringComparison.Ordinal);
+			sectionIds[isSealed].Add(string.Concat("'", System.Security.SecurityElement.Escape(sectionId), "'"));
+		}
+
+		var resultSectionIds = sectionIds[false].Any() ? sectionIds[false] : sectionIds[true];
+
+		var formType = viewToResponsiveFormCompositeStructure.getProperty("type");
+		if (!result.ContainsKey(formType))
+		{
+			result.Add(formType, resultSectionIds);
+		}
+		else
+		{
+			result[formType].AddRange(resultSectionIds);
+		}
+	}
+
+	return result;
+
+}
+
+private static Item GetSectionItems(
+	string sectionIds,
+	string toItemRelationshipType,
+	string sectionItemItemType,
+	string parentProperty,
+	string identityList,
+	Innovator innovator)
+{
+	Item getSectionItems = innovator.newItem("Method", "cui_GetSectionItems");
+	getSectionItems.setProperty("toitem_relationshiptype", System.Security.SecurityElement.Escape(toItemRelationshipType));
+	getSectionItems.setProperty("sectionitem_itemtype", System.Security.SecurityElement.Escape(sectionItemItemType));
+	getSectionItems.setProperty("section_ids", sectionIds);
+	getSectionItems.setProperty("parent_property", System.Security.SecurityElement.Escape(parentProperty));
+	getSectionItems.setProperty("identity_list", System.Security.SecurityElement.Escape(identityList));
+
+	return getSectionItems.apply();
+}
+
+private Item GenerateEmptySectionItems(Dictionary<string, List<Item>> itemClassifications)
+{
+	Item nonResponsiveEmptySectionItems = this.newItem();
+
+	foreach (var itemClassification in itemClassifications)
+	{
+		foreach (var sectionItem in itemClassification.Value)
+		{
+			var type = sectionItem.getProperty("type");
+			Item emptyWindowSectionControl = GenerateEmptyWindowSectionControlForClassicForm(itemClassification.Key, type);
+			if (_isPreviewFormRequest)
+			{
+				SetPreviewFormControlData(emptyWindowSectionControl.getRelatedItem());
+			}
+			nonResponsiveEmptySectionItems.appendItem(emptyWindowSectionControl);
+		}
+	}
+
+	nonResponsiveEmptySectionItems.removeItem(nonResponsiveEmptySectionItems.getItemByIndex(0));
+
+	return nonResponsiveEmptySectionItems;
+}
+
+private Item GenerateEmptyWindowSectionControlForClassicForm(string itemClassification, string type)
+{
+	string itemViewFormTabId = "6C6B5EDBB53F4762A582D8D4AD3418AB";
+	string cuiWindowSectionControlId = System.Security.SecurityElement.Escape(this.getNewID());
+	string cuiControlId = System.Security.SecurityElement.Escape(this.getNewID());
+
+	string emptyControlAml = $@"<Item type=""cui_WindowSectionControl"" id=""{cuiWindowSectionControlId}"">
+	<id>{cuiWindowSectionControlId}</id>
+	<action>Add</action>
+	<item_classification>{System.Security.SecurityElement.Escape(itemClassification)}</item_classification>
+	<related_id type=""cui_Control"">
+		<Item type=""cui_Control"" typeId=""88943DB9F95C4B738AD82CF1756204CC"" id=""{cuiControlId}"">
+			<id>{cuiControlId}</id>
+			<additional_data>{{""formType"" : ""classic""}}</additional_data>
+			<control_type>FormControl</control_type>
+			<parent_control>{itemViewFormTabId}</parent_control>
+			<name>ItemView.Form</name>
+			<mode>{System.Security.SecurityElement.Escape(type)}</mode>
+		</Item>
+	</related_id>
+</Item>";
+
+	Item emptyControl = this.newItem();
+	emptyControl.loadAML(emptyControlAml);
+
+	return emptyControl;
+}
+
+private static void SetItemClassificationAndMode(Item item, string classification, string mode)
+{
+	item.setProperty("item_classification", classification);
+
+	var control = item.getRelatedItem();
+	var modeProperty = mode.Equals(FormTypeDefault, StringComparison.Ordinal) ? "" : mode;
+	control.setProperty("mode", modeProperty);
+}
+
+private static Item CloneSectionItem(Item sectionItem)
+{
+	#pragma warning disable IA1000 // Improper escaping of Special Elements used in an AML Query
+	Item newSectionItem = sectionItem.newItem();
+	newSectionItem.loadAML(sectionItem.node.OuterXml);
+	#pragma warning restore IA1000 // Improper escaping of Special Elements used in an AML Query
+	newSectionItem.setNewID();
+
+	return newSectionItem;
+}
+
+private class FormPriorityComparer : IComparer<Item>
+{
+	public int Compare(Item s1, Item s2)
+	{
+		int v1, v2;
+
+		if (!int.TryParse(s1.getProperty("display_priority"), out v1))
+		{
+			v1 = int.MaxValue;
+		}
+
+		if (!int.TryParse(s2.getProperty("display_priority"), out v2))
+		{
+			v2 = int.MaxValue;
+		}
+
+		if (v1 > v2)
+		{
+			return 1;
+		}
+		else if (v1 < v2)
+		{
+			return -1;
+		}
+
+		return 0;
+	}
+}
+
+private static void SetPreviewFormControlData(Item controlItem)
+{
+	controlItem.setProperty("name", "SearchView.PreviewForm");
+	controlItem.removeProperty("parent_control");
+	controlItem.setPropertyAttribute("parent_control", "is_null", "1");
+}
+
+private interface IDataAccessLayer
+{
+	string IdentityList { get; }
+	HashSet<string> AliasIdentities { get; }
+	HashSet<string> GroupIdentities { get; }
+}
+
+private class DataAccessLayer : IDataAccessLayer
+{
+	public const string WorldIdentityId = "A73B655731924CD0B027E4F4D5FCC0A9";
+	private readonly Aras.Server.Core.IInnovatorDatabase _innovatorDatabase;
+	private readonly Aras.Server.Core.Abstractions.IPermissions _permissions;
+	private readonly string _userId;
+
+	public string IdentityList { get; }
+
+	public HashSet<string> AliasIdentities { get; }
+	public HashSet<string> GroupIdentities { get; }
+
+	public DataAccessLayer(Innovator innovator, Aras.Server.Core.IInnovatorDatabase innovatorDatabase, Aras.Server.Core.Abstractions.IPermissions permissions)
+	{
+		_innovatorDatabase = innovatorDatabase;
+		_permissions = permissions;
+		_userId = innovator.getUserID();
+
+		IdentityList = _permissions.GetIdentitiesList(_innovatorDatabase, _userId);
+
+		AliasIdentities = _permissions.AliasIdentitiesList.Split(',').Select(id => id.Trim('\'')).ToHashSet();
+		GroupIdentities = IdentityList.Split(',').Select(id => id.Trim('\''))
+				.Where(id => !AliasIdentities.Contains(id) && !string.Equals(id, WorldIdentityId, StringComparison.Ordinal))
+				.ToHashSet();
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>ResponsiveForm_builder</name>
+ </Item>
+</AML>

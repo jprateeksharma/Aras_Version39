@@ -1,0 +1,38 @@
+﻿<AML>
+ <Item type="List" id="289C83871F2B4F249C9AE5F163CC24BE" action="add">
+  <description>Used to control the clipping overflow for the Field area.</description>
+  <label>Clip Overflow</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Clip Overflow</name>
+  <Relationships>
+   <Item type="Value" id="BDF6ED44E2FF4D279FA702A7EF567073" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Visible</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Clip Overflow" type="List">289C83871F2B4F249C9AE5F163CC24BE</source_id>
+    <value>visible</value>
+   </Item>
+   <Item type="Value" id="D16D44F2DCC14D7085F49E78FC03CD04" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Hidden</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Clip Overflow" type="List">289C83871F2B4F249C9AE5F163CC24BE</source_id>
+    <value>hidden</value>
+   </Item>
+   <Item type="Value" id="7408AAAB81754B58A706E83DED31EBC9" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Scroll</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Clip Overflow" type="List">289C83871F2B4F249C9AE5F163CC24BE</source_id>
+    <value>scroll</value>
+   </Item>
+   <Item type="Value" id="FD978F27D9EB41A5ACA155494C91E9F2" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Auto</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Clip Overflow" type="List">289C83871F2B4F249C9AE5F163CC24BE</source_id>
+    <value>auto</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

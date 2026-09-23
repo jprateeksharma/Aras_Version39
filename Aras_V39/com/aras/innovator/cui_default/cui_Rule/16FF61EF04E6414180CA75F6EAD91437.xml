@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="16FF61EF04E6414180CA75F6EAD91437" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#f5f5f5","color":"#353535"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"0AF71BF6918E4BD38F5D64E881AE493C","function":"value_of_property","property":"state","operator":"is","criteria":"Cancelled|Closed|Inactive"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>GrayLifeCycleState</name>
+ </Item>
+</AML>

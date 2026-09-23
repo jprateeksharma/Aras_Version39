@@ -1,0 +1,60 @@
+﻿<AML>
+ <Item type="Method" id="C856C6C0683D4623867CA2B907D796BC" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { relatedItemType, getState, rows, commandFactory, polySources } = options;
+	const itemTypeMetadata = ArasModules.metadata.itemType;
+	const isPolymorphic = itemTypeMetadata.isPolymorphic(relatedItemType?.id);
+
+	const getItemType = (item) => {
+		if (isPolymorphic) {
+			const itemTypeId = item.itemtype;
+			const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+			return polySources[itemTypeName];
+		}
+
+		return relatedItemType;
+	}
+	const state = getState();
+	const selectedIds = state.grid.selectedRows
+	const idsArray = selectedIds.map((id) => {
+		return `@id="${id}"`;
+	});
+	const relatedItems = window.item.selectNodes(`Relationships/Item[${idsArray.join('or')}]/related_id/Item`);
+	const promises = relatedItems.map(async (itemNode) => {
+		const itemId = itemNode.getAttribute('id');
+		const itemTypeName = itemNode.getAttribute('type');
+
+		const isNew = ArasModules.item.isNew(itemTypeName, itemId);
+		const isDirty = ArasModules.item.isDirty(itemTypeName, itemId);
+
+		const item = rows.get(itemId);
+		const itemType = getItemType(item);
+
+		if (isNew || isDirty) {
+			const { execute } = await commandFactory('SaveItem', {
+				itemNode,
+				itemType,
+				itemTypeName,
+				isDone: true
+			});
+
+			return await execute();
+		}
+
+		const { execute } = commandFactory('DiscardItem', {
+			item,
+			itemNode,
+			itemType,
+			itemTypeName,
+		});
+
+		return await execute();
+	});
+
+	const result = Promise.allSettled(promises);
+	return result;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivrcm_done_click</name>
+ </Item>
+</AML>

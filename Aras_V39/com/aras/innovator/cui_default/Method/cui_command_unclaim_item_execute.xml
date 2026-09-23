@@ -1,0 +1,39 @@
+﻿<AML>
+ <Item type="Method" id="2A5A64C9676E45BFBA8557BD3F986850" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, itemTypeName, itemNode, location } = options;
+const mainWindow = aras.getMainWindow();
+const id = item?.id ?? itemNode.id;
+const isEditState = ArasModules.item.isEditState(itemTypeName, id);
+if (isEditState) {
+	const actions = mainWindow.store.boundActionCreators;
+	actions.changeItem(itemTypeName, id, { '@isClaimed': false });
+} else {
+	const unlockCommand = commands.commandFactory('UnlockItem', options);
+	try {
+		return await unlockCommand.execute();
+	} catch (error) {
+		if (error.message === 'Aras.Server.Core.ItemIsNotLockedException') {
+			window.aras.removeFromCache(itemNode);
+			const itemNd = window.aras.getItemById(itemTypeName, id, 0);
+			window.aras.itemsCache.updateItem(itemNd);
+			if (location === 'ItemView') {
+				window.aras.uiReShowItemEx(id, itemNd);
+			}
+			window.aras.fireEvent('ItemLock', {
+				itemID: id,
+				itemNd,
+				newLockedValue: window.aras.isLocked(itemNd),
+				itemNodeClone: itemNd.cloneNode(true)
+			});
+			return itemNode;
+		}
+		throw error;
+	}
+}
+
+return itemNode || mainWindow.aras.getFromCache(id);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_unclaim_item_execute</name>
+ </Item>
+</AML>

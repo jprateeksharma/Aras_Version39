@@ -1,0 +1,36 @@
+﻿<AML>
+ <Item type="List" id="B5A955899B514AAE88F7001665E4D85B" action="add">
+  <description>Where the Report results will be displayed</description>
+  <name>Report Target</name>
+  <Relationships>
+   <Item type="Value" id="26D21EBF369543E0828F8F0AB289B408" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Main</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Report Target" type="List">B5A955899B514AAE88F7001665E4D85B</source_id>
+    <value>main</value>
+   </Item>
+   <Item type="Value" id="0BCF7DD632A34BF582CD6B401589256C" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Window</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Report Target" type="List">B5A955899B514AAE88F7001665E4D85B</source_id>
+    <value>window</value>
+   </Item>
+   <Item type="Value" id="1EB252328B384397BB01E0EF43709F7D" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">One Window</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Report Target" type="List">B5A955899B514AAE88F7001665E4D85B</source_id>
+    <value>one window</value>
+   </Item>
+   <Item type="Value" id="29940E31A9174F2093FA37607E94FB60" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">None</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Report Target" type="List">B5A955899B514AAE88F7001665E4D85B</source_id>
+    <value>none</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

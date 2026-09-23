@@ -1,0 +1,31 @@
+﻿<AML>
+ <Item type="SQL" id="C472F1A20C004534BBFE44E1528183B4" action="add">
+  <execution_flag>immediate</execution_flag>
+  <old_name>Workflow_Task_Item_Type_Id</old_name>
+  <sqlserver_body><![CDATA[CREATE VIEW [Workflow_Task_Item_Type_Id] 
+  -- view returns the same as 'distinct SOURCE_TYPE from WORKFLOW' but with better performance with our expected data in WORKFLOW
+  -- (order is not required now)
+AS 
+WITH    RecursiveCTE
+AS      (
+        SELECT  ID = MIN(T.SOURCE_TYPE)
+        FROM    innovator.WORKFLOW T
+        UNION   ALL
+        SELECT  R.SOURCE_TYPE
+        FROM    (
+                SELECT  T.SOURCE_TYPE,
+                        rn = ROW_NUMBER() OVER (ORDER BY T.SOURCE_TYPE)
+                FROM    innovator.WORKFLOW T
+                JOIN    RecursiveCTE R
+                        ON  R.ID < T.SOURCE_TYPE
+                ) R
+        WHERE   R.rn = 1
+        )
+SELECT  ID
+FROM    RecursiveCTE]]></sqlserver_body>
+  <stale>0</stale>
+  <transform_first>0</transform_first>
+  <type>view</type>
+  <name>Workflow_Task_Item_Type_Id</name>
+ </Item>
+</AML>

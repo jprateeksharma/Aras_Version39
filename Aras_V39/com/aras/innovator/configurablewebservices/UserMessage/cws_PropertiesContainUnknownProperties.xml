@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="AE683AD801AE4F76A6D78E3BB322FBDF" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: 'Properties' contain the following unknown properties: {1}.</text>
+  <name>cws_PropertiesContainUnknownProperties</name>
+ </Item>
+</AML>

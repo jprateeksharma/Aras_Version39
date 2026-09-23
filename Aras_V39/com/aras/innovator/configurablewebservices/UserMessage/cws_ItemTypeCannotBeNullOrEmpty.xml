@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="21BA9FEED21C4BC8A93687EF502F7947" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: 'ItemType' cannot be null or empty.</text>
+  <name>cws_ItemTypeCannotBeNullOrEmpty</name>
+ </Item>
+</AML>

@@ -1,0 +1,138 @@
+﻿<AML>
+ <Item type="Method" id="3C15422639B14A4589C5BF7C67956FA4" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	var innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer(CCO.Permissions, innovator);
+	BusinessLogic businessLogic = new BusinessLogic(this, dataAccessLayer);
+
+	return businessLogic.Run();
+}
+internal class BusinessLogic
+{
+	private readonly Item _contextItem;
+	private readonly IDataAccessLayer _dataAccessLayer;
+	
+	public BusinessLogic(Item context, IDataAccessLayer dataAccessLayer)
+	{
+		_contextItem = context;
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public Item Run()
+	{
+		var sharedItemId = _contextItem.getProperty("sharedItemId");
+		var sharedItemType = _contextItem.getProperty("sharedItemType");
+		var identityId = _contextItem.getProperty("identityId");
+		var teamRoleId = _contextItem.getProperty("teamRoleId");
+		
+		if (string.IsNullOrEmpty(sharedItemId) || string.IsNullOrEmpty(sharedItemType) || string.IsNullOrEmpty(identityId) || string.IsNullOrEmpty(teamRoleId))
+		{
+			return _dataAccessLayer.NewError("Properties sharedItemId, sharedItemType, identityId and teamRoleId are required");
+		}
+
+		try
+		{
+			var teamId = GetTeamId(sharedItemId, sharedItemType);
+			TryAddIdentityIntoTeam(teamId, identityId, teamRoleId);
+		}
+		catch (Aras.Server.Core.InnovatorServerException ex)
+		{
+			return _dataAccessLayer.NewError(ex.Message);
+		}
+		return _contextItem;
+	}
+
+	private void TryAddIdentityIntoTeam(string teamId, string identityId, string teamRoleId)
+	{
+		var teamIdentity = _dataAccessLayer.NewItem("Team Identity", "get");
+		teamIdentity.setProperty("source_id", teamId);
+		teamIdentity.setProperty("related_id", identityId);
+		teamIdentity.setProperty("team_role", teamRoleId);
+		teamIdentity = _dataAccessLayer.ApplyItemWithGrantIdentity(teamIdentity);
+
+		if (teamIdentity.isEmpty())
+		{
+			teamIdentity = _dataAccessLayer.NewItem("Team Identity", "add");
+			teamIdentity.setProperty("source_id", teamId);
+			teamIdentity.setProperty("related_id", identityId);
+			teamIdentity.setProperty("team_role", teamRoleId);
+			teamIdentity = _dataAccessLayer.ApplyItemWithGrantIdentity(teamIdentity);
+		}
+
+		if (teamIdentity.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(teamIdentity.getErrorString());
+		}
+	}
+
+	private string GetTeamId(string itemId, string itemType)
+	{
+		var item = GetItem(itemId, itemType);
+		if (item.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(item.getErrorString());
+		}
+
+		var teamId = item.getProperty("team_id");
+		if (string.IsNullOrEmpty(teamId))
+		{
+			throw new Aras.Server.Core.InnovatorServerException($"Team is missing for itemType {itemType}");
+		}
+		return teamId;
+	}
+
+	private Item GetItem(string id, string itemType)
+	{
+		var item = _dataAccessLayer.NewItem(itemType, "get");
+		item.setID(id);
+		item.setAttribute("select", "id,team_id");
+		return _dataAccessLayer.ApplyItem(item);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+	Item NewItem(string type, string action);
+	Item NewError(string message);
+	Item ApplyItemWithGrantIdentity(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Aras.Server.Core.Permissions _permissions;
+	private Innovator _innovator;
+
+	public DataAccessLayer(Aras.Server.Core.Permissions permissions, Innovator innovator)
+	{
+		_permissions = permissions;
+		_innovator = innovator;
+	}
+
+	public Item ApplyItem(Item item)
+	{
+		return item.apply();
+	}
+
+	public Item NewItem(string type, string action)
+	{
+		return _innovator.newItem(type, action);
+	}
+
+	public Item NewError(string message)
+	{
+		return _innovator.newError(message);
+	}
+
+	public virtual Item ApplyItemWithGrantIdentity(Item item)
+	{
+		var identity = Aras.Server.Security.Identity.GetByName("Administrators");
+		using(_permissions.GrantIdentity(identity))
+		{
+			return item.apply();
+		}
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>acs_AddSharingByTeam</name>
+ </Item>
+</AML>

@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="cui_Event" id="06C920BA11BC4DA2B33C507FC10FF76E" action="add">
+  <description>Double Click</description>
+  <name>Doubleclick</name>
+ </Item>
+</AML>

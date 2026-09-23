@@ -1,0 +1,56 @@
+﻿<AML>
+ <Item type="RelationshipType" id="C0351BDEAEC04B4F9542F787D8FE8BE5" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Reports</label>
+  <new_show_related>1</new_show_related>
+  <related_id keyed_name="Report" type="ItemType" name="Report">F0834BBA6FB64394B78DF5BB725532DD</related_id>
+  <related_notnull>1</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="Item Report" type="ItemType" name="Item Report">
+   <Item type="ItemType" id="5BD6BED0CD794A078AA42476F47ECF46" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>ITEM_REPORT</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Item Report</label>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>Item Report</name>
+    <Relationships>
+     <Item type="Can Add" id="D67CDB5A6270462D896CE4CA57494646" action="add">
+      <can_add>1</can_add>
+      <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Item Report" type="ItemType" name="Item Report">5BD6BED0CD794A078AA42476F47ECF46</source_id>
+     </Item>
+     <Item type="Allowed Permission" id="E404A905D2354D1594EF057C4718FC74" action="add">
+      <is_default>1</is_default>
+      <related_id keyed_name="Item Report" type="Permission">66227F6D54364A12A4C55233CCDDF057</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Item Report" type="ItemType" name="Item Report">5BD6BED0CD794A078AA42476F47ECF46</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>399</sort_order>
+  <source_id keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</source_id>
+  <name>Item Report</name>
+ </Item>
+ <Item type="View" action="delete" where="source_id='5BD6BED0CD794A078AA42476F47ECF46'" />
+ <Item type="Form" action="delete" where="name='Item Report'" />
+</AML>

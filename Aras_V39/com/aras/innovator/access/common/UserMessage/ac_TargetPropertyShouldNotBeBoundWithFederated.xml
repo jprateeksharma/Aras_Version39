@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="F048325D658648E28C520A7730D8D224" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Property "{0}" from ItemType "{1}" is federated thus cannot be used as a Derived Attribute property.</text>
+  <name>ac_TargetPropertyShouldNotBeBoundWithFederated</name>
+ </Item>
+</AML>

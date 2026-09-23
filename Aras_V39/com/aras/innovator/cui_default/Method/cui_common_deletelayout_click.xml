@@ -1,0 +1,32 @@
+﻿<AML>
+ <Item type="Method" id="BF3BF9DB8C5C404B855D74F6AB82A254" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { favoriteLayout } = options.getState();
+const gridLayoutFavorites = options.getProps().favorites;
+const currentLayout = gridLayoutFavorites[favoriteLayout];
+const topWindow = aras.getMostTopWindowWithAras(window);
+const confirmDialog = topWindow.ArasModules.Dialog.confirm;
+
+const dialogMessage = aras.getResource('', 'delete_layout_dialog.message', currentLayout.label);
+const okButtonText = aras.getResource('', 'confirm_delete.delete');
+const title = aras.getResource('', 'delete_layout_dialog.title');
+const result = await confirmDialog(dialogMessage, {
+	title,
+	image: '../images/Delete.svg',
+	okButtonText,
+	okButtonModifier: 'aras-button_secondary'
+});
+
+if (result !== 'ok') {
+	return;
+}
+
+const { favorites } = aras.getMainWindow();
+await favorites.delete(favoriteLayout);
+const { setCurrentLayout } = options.getActions();
+setCurrentLayout('searchview.commandbar.layouts.default');
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_common_deletelayout_click</name>
+ </Item>
+</AML>

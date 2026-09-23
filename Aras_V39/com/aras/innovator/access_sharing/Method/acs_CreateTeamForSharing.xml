@@ -1,0 +1,137 @@
+﻿<AML>
+ <Item type="Method" id="E161DE193C4444FEBD784674ACBE3AEB" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	var innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer(CCO.Permissions, innovator);
+	BusinessLogic businessLogic = new BusinessLogic(this, dataAccessLayer);
+
+	return businessLogic.Run();
+}
+internal class BusinessLogic
+{
+	private readonly Item _contextItem;
+	private readonly IDataAccessLayer _dataAccessLayer;
+
+	public BusinessLogic(Item context, IDataAccessLayer dataAccessLayer)
+	{
+		_contextItem = context;
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public Item Run()
+	{
+		var teamId = _contextItem.getProperty("team_id");
+		if (!string.IsNullOrEmpty(teamId))
+		{
+			return _contextItem;
+		}
+
+		try
+		{
+			teamId = GetTeamId(_contextItem);
+			_contextItem.setProperty("team_id", teamId);
+			return _contextItem;
+		}
+		catch (Aras.Server.Core.InnovatorServerException ex)
+		{
+			return _dataAccessLayer.NewError(ex.Message);
+		}
+	}
+
+	private string GetTeamId(Item contextItem)
+	{
+		var itemType = _contextItem.getType();
+		
+		var action = _contextItem.getAction();
+		var itemId = _contextItem.getID();
+
+		if(action.Equals("add", StringComparison.OrdinalIgnoreCase) )
+		{
+			return CreateTeam(itemId);
+		}
+
+		var item = GetItem(itemId, itemType);
+		var teamId = item.getProperty("team_id");
+		
+		if (string.IsNullOrEmpty(teamId))
+		{
+			return CreateTeam(itemId);
+		}
+
+		return teamId;
+	}
+
+	private Item GetItem(string id, string itemType)
+	{
+		var item = _dataAccessLayer.NewItem(itemType, "get");
+		item.setID(id);
+		item.setAttribute("select", "id,team_id");
+		item = _dataAccessLayer.ApplyItem(item);
+		if (item.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(item.getErrorString());
+		}
+		return item;
+	}
+
+	private string CreateTeam(string teamName)
+	{
+		var teamItem = _dataAccessLayer.NewItem("Team", "add");
+		teamItem.setProperty("name", teamName);
+		teamItem.setProperty("description", "Used for sharing functionality. Please do not delete it");
+		teamItem.setProperty("is_system", "1");
+		teamItem = _dataAccessLayer.ApplyItemWithGrantIdentity(teamItem);
+		if (teamItem.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(teamItem.getErrorString());
+		}
+		return teamItem.getID();
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+	Item NewItem(string type, string action);
+	Item NewError(string meggage);
+	Item ApplyItemWithGrantIdentity(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Aras.Server.Core.Permissions _permissions;
+	private Innovator _innovator;
+
+	public DataAccessLayer(Aras.Server.Core.Permissions permissions, Innovator innovator)
+	{
+		_permissions = permissions;
+		_innovator = innovator;
+	}
+
+	public Item ApplyItem(Item item)
+	{
+		return item.apply();
+	}
+
+	public Item NewItem(string type, string action)
+	{
+		return _innovator.newItem(type, action);
+	}
+
+	public Item NewError(string message)
+	{
+		return _innovator.newError(message);
+	}
+
+	public virtual Item ApplyItemWithGrantIdentity(Item item)
+	{
+		var identity = Aras.Server.Security.Identity.GetByName("Administrators");
+		using(_permissions.GrantIdentity(identity))
+		{
+			return item.apply();
+		}
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>acs_CreateTeamForSharing</name>
+ </Item>
+</AML>

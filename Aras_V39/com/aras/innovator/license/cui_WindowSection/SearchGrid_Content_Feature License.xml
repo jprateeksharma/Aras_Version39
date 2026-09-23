@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="72F9152628BE4DAC82D274E441A2E82A" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="SearchGrid" type="cui_Location">9794720F4D45415880B5712BE52345B6</location>
+  <name>SearchGrid_Content_Feature License</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="66C86D65208C4EA0A23CEFABAEF9808A" action="add">
+    <action>Extend</action>
+    <related_id keyed_name="SearchGrid.Grid_5985A69411F4450E9F717757BECF33F5" type="cui_Control">5985A69411F4450E9F717757BECF33F5</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="SearchGrid_Content_Feature License" type="cui_WindowSection">72F9152628BE4DAC82D274E441A2E82A</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="D18BB72671E1412CB379D2CEBB7F0E63" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="TreeGridViewWidget" type="cui_Location">4D410944C1624C50891A96ABF6FC4AB8</location>
+  <name>TreeGridView.Widget</name>
+ </Item>
+</AML>

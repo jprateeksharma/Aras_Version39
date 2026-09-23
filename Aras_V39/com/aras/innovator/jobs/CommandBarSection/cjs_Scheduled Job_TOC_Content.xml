@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="70FFD73ADAF1480E9CC3A27229A7C6FD" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="TOC" type="cui_Location">02A5F61EF1C94C41834486FA8D76B4E1</location>
+  <name>cjs_Scheduled Job_TOC_Content</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="86098E11C85E47DE8D24CD1031FDE231" action="add">
+    <action>Add</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_Scheduled Job_46BC680E51A0405D8E0B08054B2E04C3" type="CommandBarItem">46BC680E51A0405D8E0B08054B2E04C3</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job_TOC_Content" type="CommandBarSection">70FFD73ADAF1480E9CC3A27229A7C6FD</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="0FC7AF558EBA43FE84209774686C1AC6" action="add">
+    <action>Add</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_6D579E5DB3F64BC8B51AB7DE3915D216" type="CommandBarItem">6D579E5DB3F64BC8B51AB7DE3915D216</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>896</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job_TOC_Content" type="CommandBarSection">70FFD73ADAF1480E9CC3A27229A7C6FD</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

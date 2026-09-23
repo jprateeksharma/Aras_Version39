@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="FileType" id="AB2F26E01CCD4EE7B2E13F52CB758F82" action="add">
+  <description>Dassault CATIA MODEL Model</description>
+  <extension>model</extension>
+  <mimetype>application/octet-stream</mimetype>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>CATIA Model</name>
+ </Item>
+</AML>

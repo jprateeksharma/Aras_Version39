@@ -1,0 +1,26 @@
+﻿<AML>
+ <Item type="Method" id="1DFFC019542647EBA717AA7C280992E2" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, itemNode, itemTypeName } = options;
+if (!item && !itemNode) {
+	return false;
+}
+const id = item ? item.id : itemNode.getAttribute('id');
+const isNew = ArasModules.item.isNew(itemTypeName, id);
+
+	if (isNew) {
+		return false;
+	}
+const isEditMode = ArasModules.item.isEditState(itemTypeName, id);
+
+if (isEditMode) {
+	const isClaimed = ArasModules.item.isEditedAndClaimed(itemTypeName, id);
+	return !isClaimed;
+}
+
+const lockItemCommand = commands.commandFactory('LockItem', options);
+return lockItemCommand.canExecute();]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_claim_item_can_exec</name>
+ </Item>
+</AML>

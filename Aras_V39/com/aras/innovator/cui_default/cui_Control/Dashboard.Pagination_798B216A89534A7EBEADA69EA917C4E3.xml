@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="cui_Control" id="798B216A89534A7EBEADA69EA917C4E3" action="add">
+  <control_type>PaginationControl</control_type>
+  <sealed>0</sealed>
+  <name>DashboardGrid.Pagination</name>
+ </Item>
+</AML>

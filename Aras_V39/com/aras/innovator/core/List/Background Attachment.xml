@@ -1,0 +1,24 @@
+﻿<AML>
+ <Item type="List" id="E6853988495145D0BC14D1CF4E87B740" action="add">
+  <description>Use to fix or scroll the background image in a Form.</description>
+  <label>Background Attachment</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Background Attachment</name>
+  <Relationships>
+   <Item type="Value" id="10D8C628FE184FE480DA39D6E3B29C5F" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Scroll</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Background Attachment" type="List">E6853988495145D0BC14D1CF4E87B740</source_id>
+    <value>scroll</value>
+   </Item>
+   <Item type="Value" id="735FDBDBCB2F4E408278A8B95C4F54E7" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Fixed</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Background Attachment" type="List">E6853988495145D0BC14D1CF4E87B740</source_id>
+    <value>fixed</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

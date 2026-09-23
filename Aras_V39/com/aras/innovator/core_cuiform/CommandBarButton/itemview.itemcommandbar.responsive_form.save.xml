@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="C8E4CBFFC82F4ADC86796EC0CA330F59" action="add">
+  <additional_data>{"cssClass":"aras-button_primary-light"}</additional_data>
+  <command_alias keyed_name="SaveItem" type="CommandAlias">76234DC27E7C4328A24B467762BD9DF1</command_alias>
+  <image>../images/SaveItem.svg</image>
+  <include_events>UpdateTearOffWindowState</include_events>
+  <label xml:lang="en">Save</label>
+  <on_click_handler keyed_name="cui_ivicb_save_click" type="Method">136BAE10D5C2462D8DA442F11549F3D8</on_click_handler>
+  <on_init_handler keyed_name="cui_responsive_form_init_save" type="Method">9B17B9BF2E014430909F59342456619B</on_init_handler>
+  <tooltip_template xml:lang="en">Save</tooltip_template>
+  <name>itemview.itemcommandbar.responsive_form.save</name>
+ </Item>
+</AML>

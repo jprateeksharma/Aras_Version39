@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="54B39FA92EAE41358197A72E69624B32" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Duplicate license activation keys detected. Remove the duplicate licenses from the database or contact licenses@aras.com for assistance with license conflicts.</text>
+  <name>PrimaryLicenseDuplicateActivationKeys</name>
+ </Item>
+</AML>

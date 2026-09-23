@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="90FDDD2110F64F049AEF025122DC3B69" action="add">
+  <additional_data>{ "tp_buttonsize": "26,25","tp_buttonstyle": "windows","tp_handler": "tp_toolbar_standard" }</additional_data>
+  <classification>Data Model</classification>
+  <location keyed_name="TDF.EditorView.Toolbar" type="cui_Location">2BAFDE61AABB4568BF282C6DC9B74460</location>
+  <name>tdf.editorview.toolbar.itemtypepc</name>
+ </Item>
+</AML>

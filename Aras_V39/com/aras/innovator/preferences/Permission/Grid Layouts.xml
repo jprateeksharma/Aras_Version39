@@ -1,0 +1,45 @@
+﻿<AML>
+ <Item type="Permission" id="B07E5A328098420390995A30BF3D5404" action="add">
+  <is_private>0</is_private>
+  <name>Grid Layouts</name>
+  <Relationships>
+   <Item type="Access" id="08638C3E60FF4998AFFF2507D53B97FE" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Owner" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Owner</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Grid Layouts" type="Permission">B07E5A328098420390995A30BF3D5404</source_id>
+   </Item>
+   <Item type="Access" id="68F5481147D54D0794797EDDCAAB2F88" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="FavoriteMustViewByReader" type="Identity">32FC798A2D3B4D30B58B378BE112C1C3</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Grid Layouts" type="Permission">B07E5A328098420390995A30BF3D5404</source_id>
+   </Item>
+   <Item type="Access" id="845AC1E9FA6548E1BA01DC7B9F81AA19" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Grid Layouts" type="Permission">B07E5A328098420390995A30BF3D5404</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

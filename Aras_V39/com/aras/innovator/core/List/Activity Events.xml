@@ -1,0 +1,70 @@
+﻿<AML>
+ <Item type="List" id="61BE716807BE400894BB903357CD1C0C" action="add">
+  <name>Activity Events</name>
+  <Relationships>
+   <Item type="Value" id="C5868B94D22F487E900545296C2376C5" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Activate</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_activate</value>
+   </Item>
+   <Item type="Value" id="31AA5B7838A74902AB5047C0EBE73DC8" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Assign</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_assign</value>
+   </Item>
+   <Item type="Value" id="2C6E9C02EE0E4E63B2AE79510981D170" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Refuse</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_refuse</value>
+   </Item>
+   <Item type="Value" id="EE32C5FEBDF44533A0BE667B265B52E1" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Delegate</label>
+    <sort_order>4</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_delegate</value>
+   </Item>
+   <Item type="Value" id="01AEDED489F04686B37C9EF408FA277F" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Vote</label>
+    <sort_order>5</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_vote</value>
+   </Item>
+   <Item type="Value" id="D239F8D807C84F08A2FC51DF183EA93C" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Remind</label>
+    <sort_order>6</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_remind</value>
+   </Item>
+   <Item type="Value" id="303429B534254412B68D83AD968350B0" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Due</label>
+    <sort_order>7</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_due</value>
+   </Item>
+   <Item type="Value" id="E12413534522482DA08EB42E9A99FC7C" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Escalate</label>
+    <sort_order>8</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_escalate</value>
+   </Item>
+   <Item type="Value" id="7ED547CCA7E84295B93CC5C10ED044F7" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">On Close</label>
+    <sort_order>9</sort_order>
+    <source_id keyed_name="Activity Events" type="List">61BE716807BE400894BB903357CD1C0C</source_id>
+    <value>on_close</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

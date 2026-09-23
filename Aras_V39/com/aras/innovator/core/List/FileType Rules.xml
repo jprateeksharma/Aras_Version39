@@ -1,0 +1,37 @@
+﻿<AML>
+ <Item type="List" id="43343C1327464E288162F7DDEF66ABBE" action="add">
+  <description>A file is mapped to a File Type by its extension but if need be by a rule and these defines those rules.</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>FileType Rules</name>
+  <Relationships>
+   <Item type="Value" id="24F89A48CCD7423C8387FCA41460309A" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">4 Byte</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="FileType Rules" type="List">43343C1327464E288162F7DDEF66ABBE</source_id>
+    <value>4byte</value>
+   </Item>
+   <Item type="Value" id="AD7C5E0EFABC4C81AC16C50752D5AC5F" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">8 Byte</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="FileType Rules" type="List">43343C1327464E288162F7DDEF66ABBE</source_id>
+    <value>8byte</value>
+   </Item>
+   <Item type="Value" id="8A6166C692EF4EC3AAF2AFD264BC7160" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">16 Byte</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="FileType Rules" type="List">43343C1327464E288162F7DDEF66ABBE</source_id>
+    <value>16byte</value>
+   </Item>
+   <Item type="Value" id="2D4E407DCE8D4E358A2E7D1ED1BE26C0" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Method</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="FileType Rules" type="List">43343C1327464E288162F7DDEF66ABBE</source_id>
+    <value>method</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

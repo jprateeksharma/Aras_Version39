@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="Permission" id="AD630A19DC314B1F9F9A355C3BCF2E6B" action="add">
+  <is_private>1</is_private>
+  <permission_id keyed_name="Private Permission" type="Permission">9C8DCBC7B48C49188479F77001FD962C</permission_id>
+  <name>AD630A19DC314B1F9F9A355C3BCF2E6B</name>
+  <Relationships>
+   <Item type="Access" id="93C27BD9E8CE4263B5A4B4E02A86BA9D" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="AD630A19DC314B1F9F9A355C3BCF2E6B" type="Permission">AD630A19DC314B1F9F9A355C3BCF2E6B</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,539 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="5A87757EBFB7430C847CF4DF5ACA6F4E" action="add">
+  <name>Global</name>
+  <Relationships>
+   <Item type="cui_PresentConfigWinSection" id="D6B1F2BBED4747A8B86C1A6CC6F2E3D0" action="add">
+    <related_id keyed_name="ItemView.Default" type="cui_WindowSection">83FC60F0DA234D529A9EEDF3EA7FC524</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="8C7232F8DCEF4129A04C2070AA66E7E7" action="add">
+    <related_id keyed_name="ItemMenu.FormTab.ItemTypeLabel" type="cui_WindowSection">DB27F7984E2A430C810663BDB0C0B704</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="7C74EBF9E96E441F8BF8EEF2AB105035" action="add">
+    <related_id keyed_name="ItemView.RelationshipTabs" type="cui_WindowSection">4401DA15FDC6404E91E7FADA0B4DD2B6</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="7927C54DDE844D3FA4D10DFE950AE092" action="add">
+    <related_id keyed_name="SearchView.Default" type="cui_WindowSection">DE9F53BEA41B4D809912DB663AFF62B1</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="25D7957F8F3743729CE68DA2414A0B71" action="add">
+    <related_id keyed_name="SearchDialog.Default" type="cui_WindowSection">A5D308C87AF84D3C982D86B3EC6FD190</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="F59DAC34204E4399996E5112356CBCF6" action="add">
+    <related_id keyed_name="RelationshipsView.Default" type="cui_WindowSection">614C2E08CA544857B6176A5C177F1F46</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>896</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="E22085A8E6B54CFABAC57C15D4CEF26D" action="add">
+    <related_id keyed_name="tdf.editorconfiguration.standard.editortabview [14.0.29 obsolete]" type="cui_WindowSection">496659DE4C6049BFAE68EF3F06CBC814</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1024</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="EB1A0FDE0D1A4C5DA65492BC5E826B5B" action="add">
+    <related_id keyed_name="GraphView.Default" type="cui_WindowSection">AC31FCC78ED842E995CD73C4F31DEEAE</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1024</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="0EA708F0E0A64A05B5F4F48298DC3C6B" action="add">
+    <related_id keyed_name="RelationshipGraphView.Default" type="cui_WindowSection">8C46502442934C1DB970A91FE50E07A4</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1152</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="7532AE31038A454FBE24EDC6813E7BB3" action="add">
+    <related_id keyed_name="TocEditor.Default" type="cui_WindowSection">54EA739744F64ECE9F7A3D375701A88F</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>1280</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="F414D7156C004C0F9C95F2E36FE7059A" action="add">
+    <related_id keyed_name="TreeGridView.Default" type="cui_WindowSection">285B5A86F0344B7AA745C3144978124F</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1408</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="AE6F422B09EA42EFA34D79AAE68B0327" action="add">
+    <related_id keyed_name="tdf.editorview.default" type="cui_WindowSection">AC571F5BBEC64CE1B26D1F6A74DC513E</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1536</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="F746F5E44FF74D5BA8D99764A5204A94" action="add">
+    <related_id keyed_name="TreeGridView.Widget" type="cui_WindowSection">D18BB72671E1412CB379D2CEBB7F0E63</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1664</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="B0DC41563E954CCEB6BAD82BA46E02CB" action="add">
+    <related_id keyed_name="MainView.Default" type="cui_WindowSection">DE761372E5534A00A1F62059F320CB32</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1792</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="A621460F645B486487663303FDDF2000" action="add">
+    <related_id keyed_name="SearchView.GridCuiRules" type="cui_WindowSection">00D4241FB60041678621ECBA0C6E2D7A</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2176</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="934072FE2A404B3BA7BA965E71D4E4BF" action="add">
+    <related_id keyed_name="SearchDialog.GridCuiRules" type="cui_WindowSection">E7AA01BD46FC41629C6E826E1AAD0B29</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2304</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="D13B2F359BE64F988AAACE7C4835C355" action="add">
+    <related_id keyed_name="RelationshipsView.GridCuiRules" type="cui_WindowSection">9FCA774F990E43FDA50E5968C61C324F</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2432</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="02668DBB3C004A049358324E47AF7C13" action="add">
+    <related_id keyed_name="DashboardGrid.Default" type="cui_WindowSection">F9DF54A824D64C129C825181E82D7F4E</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2560</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="cui_PresentConfigWinSection" id="F774FB1724E54BE2A7CD00E4468DB12F" action="add">
+    <related_id keyed_name="DashboardGrid.GridCuiRules" type="cui_WindowSection">155A0FB727B54F459B7DC84C4ABF5347</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2688</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="E94A5C79847E433883D957378DC5C45A" action="add">
+    <command_alias keyed_name="NewItem" type="CommandAlias">2F35C1804CF54992A4EDB239C9F3E569</command_alias>
+    <related_id keyed_name="NewItem" type="Command">B41D829AB2E34F0996554933FAD9BC68</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="5AAF5E2974994443A265EEB95FB37910" action="add">
+    <command_alias keyed_name="OpenItem" type="CommandAlias">FE0A88F22DF44FD3BEBE98AF43ADD957</command_alias>
+    <related_id keyed_name="OpenItem" type="Command">28E53B9BF46348229E2D3096A3312C7D</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="9F5BB2BF33A74082BB75B73A60966F42" action="add">
+    <command_alias keyed_name="SaveItem" type="CommandAlias">76234DC27E7C4328A24B467762BD9DF1</command_alias>
+    <related_id keyed_name="SaveItem" type="Command">D4C3BEB7EBF242B5A2911E263355F828</related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="9C8390C0FCAF483CB3E154F9A886AEF4" action="add">
+    <command_alias keyed_name="ClaimItem" type="CommandAlias">36118109ED0F4D0BBDE0E09629B35FF8</command_alias>
+    <related_id keyed_name="ClaimItem" type="Command">5340D7B3D1804E8C86FD0EBA2404F6A4</related_id>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="2C82E971FD4540D99B019C20EDD9FE11" action="add">
+    <command_alias keyed_name="UnclaimItem" type="CommandAlias">32EF3DD970324E6A9807C900B03329F0</command_alias>
+    <related_id keyed_name="UnclaimItem" type="Command">0AD5A13671364FC68171B3DCE5BDD13C</related_id>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="7EE593E14EBF40F68564C487D6F9F0E6" action="add">
+    <command_alias keyed_name="EditItem" type="CommandAlias">1275D512E8CE4B31B7FD5042E5D564C2</command_alias>
+    <related_id keyed_name="EditItem" type="Command">348AF808013B4B3A8DA40BD7FB44007F</related_id>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="0F9917C9F4F74E36A0F9E303811B1E7D" action="add">
+    <command_alias keyed_name="DeleteItem" type="CommandAlias">0D30DC5FD9A34C1398274D8BBF1C42C7</command_alias>
+    <related_id keyed_name="DeleteItem" type="Command">2883D83A3DF64642A7FB8471714F2366</related_id>
+    <sort_order>896</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="9267C2D880CF48238527F12E740F0880" action="add">
+    <command_alias keyed_name="OpenNewItem" type="CommandAlias">C1D8558B6BFC4D0FAED5A201477229FD</command_alias>
+    <related_id keyed_name="OpenNewItem" type="Command">9B26DD7B6E944D8E9242C27E5F019980</related_id>
+    <sort_order>1024</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="8CD2316435B345C59719D1107BEEBA24" action="add">
+    <command_alias keyed_name="DestroyLayout" type="CommandAlias">492A1AD37A014B159E7CAB77B90E7107</command_alias>
+    <location keyed_name="TocEditor" type="cui_Location">7A402E4A804244B3838261B33319DABC</location>
+    <related_id keyed_name="DestroyLayout_TOCEditor" type="Command">318C19DBC4CC42819DC85E6311723B28</related_id>
+    <sort_order>1152</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="2BCB3DD379F34418A711F73D0786031C" action="add">
+    <command_alias keyed_name="LockItem" type="CommandAlias">E208A132C59943E3A6BF6AFF6585F9BB</command_alias>
+    <related_id keyed_name="LockItem" type="Command">4FB4799BBE8B4B139DA9D99E2E88E7B0</related_id>
+    <sort_order>1280</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="D67B0AA66B864F139C08EF94687F95A7" action="add">
+    <command_alias keyed_name="UnlockItem" type="CommandAlias">B382FD4181AA4B9D84FDCFA48767228C</command_alias>
+    <related_id keyed_name="UnlockItem" type="Command">048E79F61BE2404CA4BABA93BC358278</related_id>
+    <sort_order>1408</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="6A9FA96A29054036985FF3FA26E08E03" action="add">
+    <command_alias keyed_name="DiscardItem" type="CommandAlias">E381D8DA08924FF9BE9ADCDCFBE761C8</command_alias>
+    <related_id keyed_name="DiscardItem" type="Command">77580C1949ED4C60905E3AD9DA4B3FB3</related_id>
+    <sort_order>1536</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="9FB36BD7DF5341018D833E16F8EE91C8" action="add">
+    <command_alias keyed_name="SaveItem" type="CommandAlias">76234DC27E7C4328A24B467762BD9DF1</command_alias>
+    <location keyed_name="ItemView" type="cui_Location">C18BD6E10E024EC786799C510D586143</location>
+    <related_id keyed_name="ItemViewSaveItem" type="Command">19EF0AC129DF497BADA2F62449E34604</related_id>
+    <sort_order>1664</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="5C2CB1C02F9E4D509972DD178ACD1F95" action="add">
+    <command_alias keyed_name="ClaimItem" type="CommandAlias">36118109ED0F4D0BBDE0E09629B35FF8</command_alias>
+    <location keyed_name="ItemView" type="cui_Location">C18BD6E10E024EC786799C510D586143</location>
+    <related_id keyed_name="ItemViewClaimItem" type="Command">876CEADBE6F8432A808CCAC18DF29AF7</related_id>
+    <sort_order>1792</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="593DBCC2A87E4B8D89A823B6D22B6236" action="add">
+    <command_alias keyed_name="UnclaimItem" type="CommandAlias">32EF3DD970324E6A9807C900B03329F0</command_alias>
+    <location keyed_name="ItemView" type="cui_Location">C18BD6E10E024EC786799C510D586143</location>
+    <related_id keyed_name="ItemViewUnclaimItem" type="Command">153FA0C9876441BBBE3ECCA77F168D80</related_id>
+    <sort_order>1920</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="54A44B7148B5411E83C89BD410F2EE11" action="add">
+    <related_id keyed_name="Global Sidebar" type="CommandBarSection">5FCE4B91848042B0B3F36C31C3A9C4BA</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="E00DC776888448C4A103EC88A1F4CC68" action="add">
+    <related_id keyed_name="CMF" type="CommandBarSection">1E281A556CCF47E98FC5D99BEE4B5A32</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="BF70A416F10748BE81DFEE5BCF9C6313" action="add">
+    <related_id keyed_name="CMF Sidebar" type="CommandBarSection">5BD261135BB04316ACDA20A788F24868</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="45C6A9874CDD4C529D4D257D1AF7BD87" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_for_relationship_grid" type="CommandBarSection">41A76259766544B6A2F01E277CD77BEC</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="9495B24613A74D808ECC4AAAE88E6875" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_for_item_grid" type="CommandBarSection">89E6EFE42BA04A3680CD125918BB82DF</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="615118356AB34B68BC9F28BF495E6566" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_for_grid_header" type="CommandBarSection">982898FBA02F4B7A92D15199CD531013</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="17A86A002CE046F6BD8DF63765DFA8CC" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_for_main_window_toc" type="CommandBarSection">DB72DF34BB6E415B8BA5E177FC9DCA42</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="FEA54DA7552640E6B44E2DED98470EF5" action="add">
+    <item_classification>structure_view_toolbar</item_classification>
+    <related_id keyed_name="com.aras.innovator.cui_default.twt_structure_view_toolbar" type="CommandBarSection">BB4C65DBE17649E6BE2F537673005A17</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1408</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="723271BF4CE043339B19073E9037D8FE" action="add">
+    <item_classification>structure_select_toolbar</item_classification>
+    <related_id keyed_name="com.aras.innovator.cui_default.twt_structure_select_toolbar" type="CommandBarSection">5F861945AF40419B96E16D09AE3F84C3</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1536</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="93105800519242CEA8953C971A1F01C7" action="add">
+    <item_classification>structure_edit_toolbar</item_classification>
+    <related_id keyed_name="com.aras.innovator.cui_default.twt_structure_edit_toolbar" type="CommandBarSection">728207135DEB4C278128FE58D9163A10</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>1664</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="9CE8E262F00D453289236141A53ACF95" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.mainViewShortcuts" type="CommandBarSection">94A067E55B014B57A9E959DF66AC6F4D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2432</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="684BE0621256465EA1982B8D09DBE8BC" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.itemWindowShortcuts" type="CommandBarSection">7F7A03E1E9304EEA9A87EC9CD5C1B73D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2560</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="C70718AF95FA4BC4ACAEC9A7EF7D44E4" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.ItemWindowRelationshipsShortcuts" type="CommandBarSection">10F057091BA54A2CB48E718F2F814F12</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2688</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="A8FDF4B27A824789B7274B65A225B5C6" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.dialogShortcuts" type="CommandBarSection">4524343104C04375A34173C4420A7F6F</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>2816</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="D98ECC6E4D164EDF82A752DAF4FB4883" action="add">
+    <item_classification />
+    <related_id keyed_name="com.aras.innovator.cui_default.discussion_actions_menu" type="CommandBarSection">C0A2BB77561C4724936E8DA66D506EB7</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>4480</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="E0EC9000827847FEB89DEC99EA27BE1A" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_reports_builder" type="CommandBarSection">B55C1AFA8396417DAF4F320DAF1D5C65</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>5760</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="649E710817814D9D88F0984EBAA56BE4" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_actions_builder" type="CommandBarSection">76D2C1F47C314AEFA351A32B76B927D2</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>6528</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="7B35EF07655143598E3BBCE8F6E6A924" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.mwh_header" type="CommandBarSection">D1D4C0DBAF024B52AADA2803A92B743B</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>6912</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="01D7511917DE426A95862E788CFB70F6" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.mwh_header_user_menu" type="CommandBarSection">FF92FAF56F874486B57138823D5B7B61</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>7040</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="E792C19333144316B44D6ECA8EA796CE" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.toc" type="CommandBarSection">0AEAF671F8E548C494CCEC8E13F99562</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>7168</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="B050E9411B074EFABA94231D215E5784" action="add">
+    <item_classification />
+    <related_id keyed_name="itemview.itemcommandbar.default" type="CommandBarSection">9535D908269D4683AF278234E60BA227</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>7296</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="01CA8E666F7A43CC8B35E5A28572D6F6" action="add">
+    <related_id keyed_name="itemview.titlebar.default" type="CommandBarSection">ECB4E1CD4587418FBB415F577A8DD807</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>7424</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="8CF4BD1DE37C41258443C82BFB262102" action="add">
+    <related_id keyed_name="itemview.itemcommandbar.default.reports" type="CommandBarSection">A7561B9AAB1047079DBC88A01A532D03</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>7552</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="EC355F29F20848BCBDC8C970A790ED51" action="add">
+    <related_id keyed_name="itemview.itemcommandbar.default.actions" type="CommandBarSection">EAD41286806C4BD3AD833304339F7600</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>7680</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="C3B981697FD942D0A95AFEA681C8B96C" action="add">
+    <related_id keyed_name="itemview.itemcommandbar.default.permissions" type="CommandBarSection">406482356C2C4D66BC8106E290AB989C</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>7808</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="6BCFF82F6951429ABC63DEEFA4CAE00D" action="add">
+    <related_id keyed_name="itemview.relationshipscommandbar.default" type="CommandBarSection">5BF61A015371461E9100C88F7BA07B9D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>7936</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="2C6126877FB74839BEA4AC68FC4061C4" action="add">
+    <related_id keyed_name="itemview.relationshipstitlebar.default" type="CommandBarSection">AC820A990DB842EA9F0CDF44499D6316</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>8064</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="B79B46077A954F32B1CA79CFD5019F1C" action="add">
+    <related_id keyed_name="itemview.relationshipsrowcontextmenu.default" type="CommandBarSection">031BA7A9C0B04B61A766E2B75A7FD110</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>8192</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="E73260CAEE7F4FD485611AB05C6835AA" action="add">
+    <related_id keyed_name="searchview.titlebar.default" type="CommandBarSection">1D82BA63E60E454D966099C1BBA0B052</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>8320</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="8B4BA195D94C4822B31BC517F1200822" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.mwh_actions_builder" type="CommandBarSection">0D464F58C8404376A11C994A0080A21E</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>8448</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="BBC43E880F6C448DB13ED0CA5A729832" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.mwh_reports_builder" type="CommandBarSection">B4E146D8B6514091A15395C7AF9C264B</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>8576</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="3448DDC20B92458493C5C465DD7FD548" action="add">
+    <related_id keyed_name="searchview.commandbar.default" type="CommandBarSection">1F53F2A5F2EF4DB588316D1AF89764F5</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>8704</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="DDC340EAC9B04658939B5BFD8E51B321" action="add">
+    <related_id keyed_name="itemview.relationshipsrowcontextmenu.default.actions" type="CommandBarSection">1512ED42CBC5478EA63ADEBFB4565E2E</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>8832</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="0DEB9CDCA98B4360AF9CA7567222CA9D" action="add">
+    <related_id keyed_name="com.aras.innovator.effectivityservices.effCriteriaDialogToolbar" type="CommandBarSection">F0E01A0C40BC4C8DB9FA2972711100F4</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>8960</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="A56C35EC88974C8ABF1E116DA029CFE7" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_popup_menu_reports" type="CommandBarSection">A31E5A8D75454A849EBD4801C91C4757</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9088</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="EEE671B97DB845E894D769B1513015DE" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_popup_menu_actions" type="CommandBarSection">95049393C44945EFB7490D8BE7DBE60D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9216</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="6C66F5C2EE0745CC9E8FA69769362E59" action="add">
+    <related_id keyed_name="headertabs.contextmenu" type="CommandBarSection">361FF06DBBCD482084D38A8EC52069B8</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9344</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="BC7FB93DC36D4065AEDB0B915C1398AF" action="add">
+    <related_id keyed_name="searchdialog.commandbar.default" type="CommandBarSection">0FDADD759E2D4F0A922A28C8E967790B</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9472</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="315BDD4A80614BC2B2EF6477C74B0A60" action="add">
+    <related_id keyed_name="searchdialog.titlebar.default" type="CommandBarSection">CDD4004A23E848298B5016E50440F52D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9600</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="554FEC7194214C9DB8DAD00FCDC8C4EF" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_for_main_window_second" type="CommandBarSection">00906EA048454B489803D41FAC1DDDF6</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9728</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="E7A33DA30DE840F1ACB5F9AC5AECB82F" action="add">
+    <related_id keyed_name="CleanupSidebarTabsIfNeeded" type="CommandBarSection">3A6B1EA263ED409EA01765A38762E37E</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9856</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="0E046D5680954D168D9E71935B7A0076" action="add">
+    <related_id keyed_name="graphview.commandbar.default" type="CommandBarSection">C823A87DF4444EE09376C4643BE0D05D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9984</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="A8D021EB0D964A82B75CAE5523493D6B" action="add">
+    <related_id keyed_name="graphview.titlebar.default" type="CommandBarSection">A0378CDED8D643F390FD12B3ADF64B09</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>10112</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="EBBE57C19FBD44F69BC884B971DCEA25" action="add">
+    <related_id keyed_name="graphview.popupmenu.default" type="CommandBarSection">BE0A4E82B69340EDA53B71FC8886A8B8</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>10240</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="285C2D482B3E48A18CEA42B90F4B5062" action="add">
+    <related_id keyed_name="SSVC Viewers" type="CommandBarSection">07679ADCCA894B198BA9B22EBA0C6727</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>10368</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="8023B8A350AF410A925E5473082A02A0" action="add">
+    <related_id keyed_name="SSVC Viewers Sidebar" type="CommandBarSection">BEE468F9A65447E0A93CB2F72EDD81AB</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>10496</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="4A9228D8408D4A8D97352B50CE173103" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.searchViewShortcuts" type="CommandBarSection">6725CB2F3B9444E9B50250B444B316D2</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>10752</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="52E85EDF62B54428A16D786A7CC46047" action="add">
+    <related_id keyed_name="toceditor.commandbar.default" type="CommandBarSection">A06DB5E03C914D27B878E929FD625484</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>10880</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="6FB62D6304D64EC7A99284C5F59FE2E9" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.background_page" type="CommandBarSection">526009A9849D4899B1A0068D67766C07</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>10880</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="FB1A31D528444C2C97EA794C206B9F13" action="add">
+    <item_classification />
+    <related_id keyed_name="searchview.grid_header_context_menu.default" type="CommandBarSection">8069C15CBB6A4EFEB69A1CE00C553C9A</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>11008</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="5C19E73D70D44D75BDE60229342A1632" action="add">
+    <related_id keyed_name="relationshipsview.grid_header_context_menu.default" type="CommandBarSection">CBED8A10C5CA41CFAE58798591EFC753</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>11136</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="77C4C248125D48C38A796FE90BCC681B" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.background_page.remove_menus" type="CommandBarSection">1FD43657408445A9BD62ED18CFA83AE0</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>9999999</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="304B5A56FAE143E5A62355DFE8BF598B" action="add">
+    <related_id keyed_name="tdf.editorview.toolbar.default" type="CommandBarSection">82F41E3DEAA1471ABF7C3683C76698D0</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>10000127</sort_order>
+    <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

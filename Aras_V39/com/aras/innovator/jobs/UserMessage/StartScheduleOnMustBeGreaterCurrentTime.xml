@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="A280E99E957C4911AF6E04EABB7538F9" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">'Start Schedule On' value must be greater than current time.</text>
+  <name>StartScheduleOnMustBeGreaterCurrentTime</name>
+ </Item>
+</AML>

@@ -1,0 +1,200 @@
+﻿<AML>
+ <Item type="Method" id="BB7A382959F44ADA8C10EC8E8A1FD21C" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	string itemTypeId = this.getProperty("itemTypeId");
+	Innovator innovator = this.getInnovator();
+	DataAccessLayer dataAccessLayer = new DataAccessLayer(innovator);
+	Item itemType = dataAccessLayer.GetItemTypeName(itemTypeId);
+	if (itemType.isError())
+	{
+		return itemType;
+	}
+	BusinessLogic businessLogic = new BusinessLogic(dataAccessLayer, innovator);
+	return businessLogic.GetGridControlId(itemTypeId, itemType.getProperty("name"));
+}
+
+internal class BusinessLogic
+{
+	private const string worldIdentityId = "A73B655731924CD0B027E4F4D5FCC0A9";
+	private IDataAccessLayer dataAccessLayer;
+	private Innovator innovator;
+	private string windowSectionNameTemplate = "SearchGrid_Content_{0}";
+
+	internal BusinessLogic(IDataAccessLayer dataAccessLayer, Innovator innovator)
+	{
+		this.dataAccessLayer = dataAccessLayer;
+		this.innovator = innovator;
+	}
+
+	internal Item GetGridControlId(string itemTypeId, string itemTypeName)
+	{
+		Item itPresentationConfigurationRelship = this.dataAccessLayer.GetITPresentationConfiguration(itemTypeId);
+
+		if (itPresentationConfigurationRelship.isEmpty())
+		{
+			itPresentationConfigurationRelship = itPresentationConfigurationRelship.newItem("ITPresentationConfiguration", "add");
+			itPresentationConfigurationRelship.setProperty("source_id", itemTypeId);
+		}
+		else
+		{
+			itPresentationConfigurationRelship.setAction("edit");
+		}
+
+		Item presentationConfiguration = itPresentationConfigurationRelship.getRelatedItem();
+
+		if (presentationConfiguration == null)
+		{
+			presentationConfiguration = itPresentationConfigurationRelship.newItem("PresentationConfiguration", "add");
+			presentationConfiguration.setProperty("name", "SearchGrid_Configuration");
+			itPresentationConfigurationRelship.setRelatedItem(presentationConfiguration);
+		}
+		else
+		{
+			presentationConfiguration.setAction("edit");
+		}
+
+		Item relationshipsToWindowSection = presentationConfiguration.getRelationships("cui_PresentConfigWinSection");
+		Item currentWindowSectionRelationship;
+
+		if (relationshipsToWindowSection.getItemCount() == 0)
+		{
+			currentWindowSectionRelationship = presentationConfiguration.newItem("cui_PresentConfigWinSection", "add");
+			currentWindowSectionRelationship.setProperty("role", worldIdentityId);
+			presentationConfiguration.addRelationship(currentWindowSectionRelationship);
+		}
+		else
+		{
+			currentWindowSectionRelationship = relationshipsToWindowSection.getItemByIndex(0);
+			currentWindowSectionRelationship.setAction("edit");
+		}
+
+		Item windowSection = currentWindowSectionRelationship.getRelatedItem();
+
+		if (windowSection == null)
+		{
+			Item locationItem = presentationConfiguration.newItem("cui_Location", "get");
+			locationItem.setProperty("name", "SearchGrid");
+
+			windowSection = currentWindowSectionRelationship.newItem("cui_WindowSection", "add");
+			windowSection.setProperty("classification", "Data Model");
+			windowSection.setProperty("name", string.Format(CultureInfo.InvariantCulture, windowSectionNameTemplate, itemTypeName));
+			windowSection.setPropertyItem("location", locationItem);
+			currentWindowSectionRelationship.setRelatedItem(windowSection);
+		}
+		else
+		{
+			windowSection.setAction("edit");
+		}
+
+		Item relationshipsToWindowSectionControl = windowSection.getRelationships("cui_WindowSectionControl");
+		Item currentWindowSectionControlRelationship;
+
+		if (relationshipsToWindowSectionControl.getItemCount() == 0)
+		{
+			currentWindowSectionControlRelationship = windowSection.newItem("cui_WindowSectionControl", "add");
+			currentWindowSectionControlRelationship.setProperty("action", "Extend");
+			currentWindowSectionControlRelationship.setProperty("role", worldIdentityId);
+			windowSection.addRelationship(currentWindowSectionControlRelationship);
+		}
+		else
+		{
+			currentWindowSectionControlRelationship = relationshipsToWindowSectionControl.getItemByIndex(0);
+			currentWindowSectionControlRelationship.setAction("edit");
+		}
+
+		Item cuiControl = currentWindowSectionControlRelationship.getRelatedItem();
+
+		if (cuiControl == null)
+		{
+			cuiControl = currentWindowSectionControlRelationship.newItem("cui_Control", "add");
+			cuiControl.setProperty("control_type", "GridControl");
+			cuiControl.setProperty("name", "SearchGrid.Grid");
+			currentWindowSectionControlRelationship.setRelatedItem(cuiControl);
+
+			itPresentationConfigurationRelship = itPresentationConfigurationRelship.apply();
+			if (itPresentationConfigurationRelship.isError())
+			{
+				return itPresentationConfigurationRelship;
+			}
+		}
+
+		string cuiControlId = cuiControl.getID();
+		Item item = innovator.newItem("cui_Control", "");
+		item.setID(cuiControlId);
+		item.removeAttribute("isNew");
+		item.removeAttribute("isTemp");
+
+		return item;
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item GetITPresentationConfiguration(string itemTypeId);
+	Item GetItemTypeName(string itemTypeId);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Innovator innovator;
+
+	internal DataAccessLayer(Innovator innovator)
+	{
+		this.innovator = innovator;
+	}
+
+	public Item GetItemTypeName(string itemTypeId)
+	{
+		Item item = innovator.newItem("ItemType", "get");
+		item.setAttribute("select", "name");
+		item.setAttribute("id", itemTypeId);
+		return item.apply();
+	}
+
+	public Item GetITPresentationConfiguration(string itemTypeId)
+	{
+		Item result = innovator.newItem();
+
+		string aml = string.Format(CultureInfo.InvariantCulture, @"<AML>" +
+@"<Item type=""ITPresentationConfiguration"" action=""get"" select=""related_id"">" +
+	@"<client>js</client>" +
+	@"<related_id>" +
+		@"<Item action=""get"" select=""id"">" +
+			@"<Relationships>" +
+				@"<Item type=""cui_PresentConfigWinSection"" action=""get"" select=""related_id"" isCriteria=""0"">" +
+					@"<related_id>" +
+						@"<Item action=""get"">" +
+							@"<location>" +
+								@"<Item type=""Location"" action=""get"" select=""name"">" +
+									@"<name>SearchGrid</name>" +
+								@"</Item>" +
+							@"</location>" +
+							@"<Relationships>" +
+								@"<Item type=""cui_WindowSectionControl"" action=""get"" select=""related_id"" isCriteria=""0"">" +
+									@"<related_id>" +
+										@"<Item action=""get"">" +
+											@"<control_type>GridControl</control_type>" +
+											@"<name>SearchGrid.Grid</name>" +
+										@"</Item>" +
+									@"</related_id>" +
+								@"</Item>" +
+							@"</Relationships>" +
+						@"</Item>" +
+					@"</related_id>" +
+				@"</Item>" +
+			@"</Relationships>" +
+		@"</Item>" +
+	@"</related_id>" +
+	@"<source_id>{0}</source_id>" +
+@"</Item>" +
+@"</AML>", System.Security.SecurityElement.Escape(itemTypeId));
+
+		result.loadAML(aml);
+
+		return result.apply();
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>GetCuiGridControlId</name>
+ </Item>
+</AML>

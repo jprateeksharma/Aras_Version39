@@ -1,0 +1,35 @@
+﻿<AML>
+ <Item type="cui_Control" id="E4733BFBAE2B4B9091EFC7FFAAD5313F" action="add">
+  <control_type>ToolbarControl</control_type>
+  <label xml:lang="en">cws_EndpointConfigurationToolbarControl</label>
+  <location keyed_name="ItemView.RelationshipsCommandBar" type="cui_Location">DD8E891EB3B34C63A3C0AB476F137ADE</location>
+  <sealed>0</sealed>
+  <name>RelationshipsView.CommandBar</name>
+  <Relationships>
+   <Item type="cui_ControlCommandBarItem" id="AB57A2E7D14D43E08B9128543131E76E" action="add">
+    <action>Add</action>
+    <classification>Data Model</classification>
+    <related_id keyed_name="cws_EndpointConfigurationToolbar_open" type="CommandBarItem">5FCAF7B8DD1C4222A7577D093D975A72</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="RelationshipsView.CommandBar_E4733BFBAE2B4B9091EFC7FFAAD5313F" type="cui_Control">E4733BFBAE2B4B9091EFC7FFAAD5313F</source_id>
+   </Item>
+   <Item type="cui_ControlCommandBarItem" id="F160FC67A8104C82A90E4A81BC9EBB74" action="add">
+    <action>Add</action>
+    <classification>Data Model</classification>
+    <related_id keyed_name="cws_EndpointConfigurationToolbar_separator" type="CommandBarItem">2C52DCACF44E4817BE771ECA750E02E1</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="RelationshipsView.CommandBar_E4733BFBAE2B4B9091EFC7FFAAD5313F" type="cui_Control">E4733BFBAE2B4B9091EFC7FFAAD5313F</source_id>
+   </Item>
+   <Item type="cui_ControlCommandBarItem" id="3BC5CF0565A6468D989A737C70A16CA4" action="add">
+    <action>Add</action>
+    <classification>Data Model</classification>
+    <related_id keyed_name="cws_EndpointConfigurationToolbar_new" type="CommandBarItem">A25EEFBEE2AA4ADEAB367CA63505DF82</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="RelationshipsView.CommandBar_E4733BFBAE2B4B9091EFC7FFAAD5313F" type="cui_Control">E4733BFBAE2B4B9091EFC7FFAAD5313F</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

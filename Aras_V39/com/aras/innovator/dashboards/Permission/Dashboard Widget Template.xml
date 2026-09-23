@@ -1,0 +1,56 @@
+﻿<AML>
+ <Item type="Permission" id="2B1079EEAF394D8385899D2D73B5953F" action="add">
+  <is_private>0</is_private>
+  <name>Dashboard Widget Template</name>
+  <Relationships>
+   <Item type="Access" id="5E206EB4DE114F389650F6B6E08CC9CC" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="Dashboard Widget Template" type="Permission">2B1079EEAF394D8385899D2D73B5953F</source_id>
+   </Item>
+   <Item type="Access" id="5F0E3AB825F64EE6B1FF10CC489FDCB8" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="Dashboard Authors" type="Identity">557ED01F1C824FCC8AD1B52ECF113A6D</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Dashboard Widget Template" type="Permission">2B1079EEAF394D8385899D2D73B5953F</source_id>
+   </Item>
+   <Item type="Access" id="A858969C67AC4CB48B1D61400F8E2303" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Dashboard Administrators" type="Identity">2374FB2B74994D73AC7B4E929C379A6F</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Dashboard Widget Template" type="Permission">2B1079EEAF394D8385899D2D73B5953F</source_id>
+   </Item>
+   <Item type="Access" id="C6C458DC6C334314BEA5A6B37116AF31" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="Dashboard Viewers" type="Identity">ACEB972BC401404F970BB4F0A216C615</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Dashboard Widget Template" type="Permission">2B1079EEAF394D8385899D2D73B5953F</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

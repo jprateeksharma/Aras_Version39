@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="365FD80CB823406BAF246E453BE67AB8" action="add">
+  <label xml:lang="en">External Access</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_Administration" type="CommandBarMenu">ED137389E93048819E68DD364EDA1322</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_365FD80CB823406BAF246E453BE67AB8</name>
+ </Item>
+</AML>

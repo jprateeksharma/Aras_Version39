@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="7F2BD49314F74610BD1AD166EC2393A2" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Data type '{0}' is not supported by Innovator.</text>
+  <name>DataType_NotSupported</name>
+ </Item>
+</AML>

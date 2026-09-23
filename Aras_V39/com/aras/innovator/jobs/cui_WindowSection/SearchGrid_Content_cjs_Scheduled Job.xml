@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="5776204FE8B0424BB242B8EA57CF6647" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="SearchGrid" type="cui_Location">9794720F4D45415880B5712BE52345B6</location>
+  <name>SearchGrid_Content_cjs_Scheduled Job</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="7F7885247D5542D2AB0C1DA8FFF431A0" action="add">
+    <action>Extend</action>
+    <related_id keyed_name="SearchGrid.Grid_14FF797A08CC43AF89DED56C3057E5F8" type="cui_Control">14FF797A08CC43AF89DED56C3057E5F8</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="SearchGrid_Content_cjs_Scheduled Job" type="cui_WindowSection">5776204FE8B0424BB242B8EA57CF6647</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,52 @@
+﻿<AML>
+ <Item type="List" id="C78678F6AFF64F5F934E8AE23CB88C6C" action="add">
+  <description>The Field event types like onChange and onBlur.</description>
+  <label>Field Events</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Field Events</name>
+  <Relationships>
+   <Item type="Value" id="C89FACF7FF5048AD9FEA3A2D4D8DCBEA" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">onBlur</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Field Events" type="List">C78678F6AFF64F5F934E8AE23CB88C6C</source_id>
+    <value>onblur</value>
+   </Item>
+   <Item type="Value" id="6636F9374A12463599CE284EA65EC747" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">onFocus</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Field Events" type="List">C78678F6AFF64F5F934E8AE23CB88C6C</source_id>
+    <value>onfocus</value>
+   </Item>
+   <Item type="Value" id="AAA86CE6E85C481DA05052A2A31D816D" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">onChange</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Field Events" type="List">C78678F6AFF64F5F934E8AE23CB88C6C</source_id>
+    <value>onchange</value>
+   </Item>
+   <Item type="Value" id="5FD58F0CDB534CAFAFC9859A833D7738" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">onClick</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Field Events" type="List">C78678F6AFF64F5F934E8AE23CB88C6C</source_id>
+    <value>onclick</value>
+   </Item>
+   <Item type="Value" id="7FF909240FD44B0B9284B4BAF3BFCFD7" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">OnDblClick</label>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="Field Events" type="List">C78678F6AFF64F5F934E8AE23CB88C6C</source_id>
+    <value>ondblclick</value>
+   </Item>
+   <Item type="Value" id="BC703D0E40F54A9794C860A2C7BBBCA2" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">onSelect</label>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="Field Events" type="List">C78678F6AFF64F5F934E8AE23CB88C6C</source_id>
+    <value>onselect</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

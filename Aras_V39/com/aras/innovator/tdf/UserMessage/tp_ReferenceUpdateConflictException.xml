@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="B95E7115FA9A4A878232EEE507B83523" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">TDF.ReferenceUpdateConflictException:{0}</text>
+  <name>tp_ReferenceUpdateConflictException</name>
+ </Item>
+</AML>

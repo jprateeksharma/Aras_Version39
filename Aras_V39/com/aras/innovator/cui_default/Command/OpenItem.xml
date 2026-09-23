@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="28E53B9BF46348229E2D3096A3312C7D" action="add">
+  <can_execute keyed_name="cui_command_open_item_can_exec" type="Method">DFC274CCBB1143398517A2630408BD81</can_execute>
+  <execute_handler keyed_name="cui_command_open_item_execute" type="Method">DEEF136E72FB4A45A0178F56CE094606</execute_handler>
+  <name>OpenItem</name>
+ </Item>
+</AML>

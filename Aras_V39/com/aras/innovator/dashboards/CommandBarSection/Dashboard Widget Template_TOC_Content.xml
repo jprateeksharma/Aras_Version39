@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="2F979FBE05BE4A308A63F10EA6885FAE" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="TOC" type="cui_Location">02A5F61EF1C94C41834486FA8D76B4E1</location>
+  <name>Dashboard Widget Template_TOC_Content</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="4658721B672445D4A2448829CBBFAC4D" action="add">
+    <action>Add</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_Dashboard Widget Template_1F7A88F4A8FE4CD99E47E43916CFB38B" type="CommandBarItem">1F7A88F4A8FE4CD99E47E43916CFB38B</related_id>
+    <role keyed_name="Dashboard Administrators" type="Identity">2374FB2B74994D73AC7B4E929C379A6F</role>
+    <sort_order>1408</sort_order>
+    <source_id keyed_name="Dashboard Widget Template_TOC_Content" type="CommandBarSection">2F979FBE05BE4A308A63F10EA6885FAE</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="682F8000262741559AF6B551FEE2DE0F" action="add">
+    <action>Add</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_Dashboard Widget Template_1F7A88F4A8FE4CD99E47E43916CFB38B" type="CommandBarItem">1F7A88F4A8FE4CD99E47E43916CFB38B</related_id>
+    <role keyed_name="Dashboard Authors" type="Identity">557ED01F1C824FCC8AD1B52ECF113A6D</role>
+    <sort_order>1536</sort_order>
+    <source_id keyed_name="Dashboard Widget Template_TOC_Content" type="CommandBarSection">2F979FBE05BE4A308A63F10EA6885FAE</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

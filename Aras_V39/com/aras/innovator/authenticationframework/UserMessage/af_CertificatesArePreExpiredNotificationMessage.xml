@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="310048AABBB84118B59C716A93E7CBC1" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Aras Innovator Authorization server requires valid authentication certificates. The certificates will be expired on {0}. Please contact system administrator for assistance.</text>
+  <name>af_CertificatesArePreExpiredNotificationMessage</name>
+ </Item>
+</AML>

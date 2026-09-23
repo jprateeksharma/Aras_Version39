@@ -1,0 +1,54 @@
+﻿<AML>
+ <Item type="cui_Control" id="01DCF61DD2464C8D82388685191B50CA" action="add">
+  <control_type>TDFEditor</control_type>
+  <location keyed_name="TDF.EditorTabView" type="cui_Location">D99A54A88C6C4B5F8E92EB3ADD5D5EBA</location>
+  <sealed>0</sealed>
+  <name>TDF.EditorControl</name>
+  <Relationships>
+   <Item type="cui_ControlEventHandler" id="B97450E1AA0849A7BD35660B919EB4ED" action="add">
+    <action>Add</action>
+    <control_event keyed_name="TDFEventsExecutionContext" type="cui_Event">97BEB2E745C848BA8185C3C5B7187D3C</control_event>
+    <related_id keyed_name="tdf_dec_standard_ec_excontext" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>tdf_dec_standard_ec_excontext</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="TDF.EditorControl_01DCF61DD2464C8D82388685191B50CA" type="cui_Control">01DCF61DD2464C8D82388685191B50CA</source_id>
+   </Item>
+   <Item type="cui_ControlEventHandler" id="1543135237B54487A10C31EFAE519437" action="add">
+    <action>Add</action>
+    <control_event keyed_name="Keydown" type="cui_Event">10CF993249B5488D94249BCFB5B9ED89</control_event>
+    <related_id keyed_name="tdf_dec_standard_ec_enterkey" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>tdf_dec_standard_ec_enterkey</name>
+     </Item>
+    </related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="TDF.EditorControl_01DCF61DD2464C8D82388685191B50CA" type="cui_Control">01DCF61DD2464C8D82388685191B50CA</source_id>
+   </Item>
+   <Item type="cui_ControlEventHandler" id="13E6275F27DF4774BAA96A1DD786FD63" action="add">
+    <action>Add</action>
+    <control_event keyed_name="Keydown" type="cui_Event">10CF993249B5488D94249BCFB5B9ED89</control_event>
+    <related_id keyed_name="tdf_dec_standard_ec_backspace" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>tdf_dec_standard_ec_backspace</name>
+     </Item>
+    </related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="TDF.EditorControl_01DCF61DD2464C8D82388685191B50CA" type="cui_Control">01DCF61DD2464C8D82388685191B50CA</source_id>
+   </Item>
+   <Item type="cui_ControlEventHandler" id="7F189689B65E4896960CC9EB921F3BE8" action="add">
+    <action>Add</action>
+    <control_event keyed_name="Keydown" type="cui_Event">10CF993249B5488D94249BCFB5B9ED89</control_event>
+    <related_id keyed_name="tdf_dec_standard_ec_delete" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>tdf_dec_standard_ec_delete</name>
+     </Item>
+    </related_id>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="TDF.EditorControl_01DCF61DD2464C8D82388685191B50CA" type="cui_Control">01DCF61DD2464C8D82388685191B50CA</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

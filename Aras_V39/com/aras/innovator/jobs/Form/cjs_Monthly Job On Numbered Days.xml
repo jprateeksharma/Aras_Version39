@@ -1,0 +1,284 @@
+﻿<AML>
+ <Item type="Form" id="2042498642674B2BBBF1445E2680552E" action="add">
+  <height>234</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>699</width>
+  <name>cjs_Monthly Job On Numbered Days</name>
+  <Relationships>
+   <Item type="Body" id="58DD76BF3DB6423589F4813FAD2385D0" action="add">
+    <bg_color>#FFFFFF</bg_color>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Monthly Job On Numbered Days" type="Form">2042498642674B2BBBF1445E2680552E</source_id>
+    <Relationships>
+     <Item type="Field" id="81C1C16A95474D0B84A814C0ED864046" action="add">
+      <border_width>0</border_width>
+      <display_length>156</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>class structure</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Schedule</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <positioning>absolute</positioning>
+      <show_help>1</show_help>
+      <sort_order>768</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_index>128</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>737</x>
+      <y>5</y>
+      <name>classification</name>
+     </Item>
+     <Item type="Field" id="7A7046E1A0BE4D9598B13C16E9FFB247" action="add">
+      <border_width>0</border_width>
+      <display_length>220</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">End Schedule On</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="end_schedule_on" type="Property">DDBA85318B874CD9BDBAACAF6F19DD04</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>1152</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_index>3840</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>473</x>
+      <y>93</y>
+      <name>end_schedule_on</name>
+     </Item>
+     <Item type="Field" id="04129599A31742AAB9F5520D2FE5C3B0" action="add">
+      <border_width>0</border_width>
+      <display_length>100</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">On Day Number</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="monthly_on_day_number" type="Property">A9DDEFC67FC644F0B81ADE9A57DD366A</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>1280</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_index>4096</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>737</x>
+      <y>93</y>
+      <name>monthly_on_day_number</name>
+     </Item>
+     <Item type="Field" id="8A0D32E7EC5B498C8C27DB07C0185657" action="add">
+      <border_width>0</border_width>
+      <display_length>252</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Name</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="name" type="Property">90B641AC8E2946DEB5403277D3701E0C</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_index>3200</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>1</x>
+      <y>5</y>
+      <name>name</name>
+     </Item>
+     <Item type="Field" id="83725136AD7942FC81EFC0198339D4E3" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>textarea</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Parameters</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="parameters" type="Property">26F35461A3E3421DBA9C72C13B0637D2</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>640</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_index>3456</tab_index>
+      <tab_stop>1</tab_stop>
+      <textarea_cols>428</textarea_cols>
+      <textarea_rows>173</textarea_rows>
+      <x>1</x>
+      <y>49</y>
+      <name>parameters</name>
+     </Item>
+     <Item type="Field" id="C8E6EAA220C543F69029D7FED87A2F89" action="add">
+      <border_width>0</border_width>
+      <display_length>137</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>item</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Run As User</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="run_as_user" type="Property">C76BE917020540D6A6BC9FA748DF70A8</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_index>3328</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>273</x>
+      <y>5</y>
+      <name>run_as_user</name>
+     </Item>
+     <Item type="Field" id="AC550ED9152B4A0FABE99BCD8C291E65" action="add">
+      <border_width>0</border_width>
+      <display_length>100</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Every</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="schedule_every" type="Property">A40F28149CC24DFE9B64F9C5524E0B6C</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>1408</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_index>3968</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>737</x>
+      <y>49</y>
+      <name>schedule_every</name>
+     </Item>
+     <Item type="Field" id="0437E473A7C543019857683194A37E79" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>label</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>10.67px</font_size>
+      <font_weight>normal</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Months</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <show_help>1</show_help>
+      <sort_order>1536</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_stop>1</tab_stop>
+      <x>845</x>
+      <y>65</y>
+      <name>schedule_every_label</name>
+     </Item>
+     <Item type="Field" id="B15B31D5125D46C6AAAA39D17CD75BA6" action="add">
+      <border_width>0</border_width>
+      <display_length>220</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Start Schedule On</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="start_schedule_on" type="Property">36163FC5B6874290A56AEC739C9467AB</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_index>3584</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>473</x>
+      <y>5</y>
+      <name>start_schedule_on</name>
+     </Item>
+     <Item type="Field" id="AAAF0A2C5EE24739AD423677CD5569AD" action="add">
+      <border_width>0</border_width>
+      <display_length>220</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>dropdown</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Time Zone</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <show_help>1</show_help>
+      <sort_order>1024</sort_order>
+      <source_id keyed_name="58DD76BF3DB6423589F4813FAD2385D0" type="Body">58DD76BF3DB6423589F4813FAD2385D0</source_id>
+      <tab_stop>1</tab_stop>
+      <x>473</x>
+      <y>49</y>
+      <name>timezone_dropdown</name>
+      <Relationships>
+       <Item type="Field Event" id="B777C4D1A637445ABF2E50A9BE2BB15A" action="add">
+        <field_event>onchange</field_event>
+        <related_id keyed_name="cjs_SchedJob_ZoneDrpdwn_onChange" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>cjs_SchedJob_ZoneDrpdwn_onChange</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="timezone_dropdown" type="Field">AAAF0A2C5EE24739AD423677CD5569AD</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+    </Relationships>
+   </Item>
+   <Item type="Form Event" id="15C49F31D84342949AD7B98C41525480" action="add">
+    <form_event>onformpopulated</form_event>
+    <related_id keyed_name="cjs_SchedJob_Form_onPopulated" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>cjs_SchedJob_Form_onPopulated</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Monthly Job On Numbered Days" type="Form">2042498642674B2BBBF1445E2680552E</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="Field" id="81C1C16A95474D0B84A814C0ED864046" action="edit">
+  <!-- Please note: this AML depends on the "cjs_Scheduled Job" ItemType. Please make sure it exists before running this. -->
+  <propertytype_id>
+   <Item type="Property" action="get" select="id">
+    <name>classification</name>
+    <source_id type="ItemType" keyed_name="cjs_Scheduled Job">7D090036D04C4FC6AC0F2EC2F0E781B8</source_id>
+   </Item>
+  </propertytype_id>
+ </Item>
+</AML>

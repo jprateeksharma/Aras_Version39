@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Viewer" id="FFBBF54E453A43D78E2579CE3D829F15" action="add">
+  <viewer_url>viewer://?module=Viewers&amp;name=VCollabViewer</viewer_url>
+  <name>VCollab Viewer</name>
+ </Item>
+</AML>

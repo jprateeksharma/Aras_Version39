@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="List" id="130DEDB4C8F742AFB7C2A4D801B17518" action="add">
+  <description>Relationships may have a related item plus properties on the relationship, this defines how those properties are to be aligned when shown together.</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Relationship Grid Views</name>
+  <Relationships>
+   <Item type="Value" id="AD045EE4A1A24B3CA3676B52B342E81D" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Left</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Relationship Grid Views" type="List">130DEDB4C8F742AFB7C2A4D801B17518</source_id>
+    <value>left</value>
+   </Item>
+   <Item type="Value" id="840547A51818497AA9D0A643F1CFEA24" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Right</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Relationship Grid Views" type="List">130DEDB4C8F742AFB7C2A4D801B17518</source_id>
+    <value>right</value>
+   </Item>
+   <Item type="Value" id="452308F0F9C44B609772CB1D52CD9703" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Intermix</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Relationship Grid Views" type="List">130DEDB4C8F742AFB7C2A4D801B17518</source_id>
+    <value>intermix</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

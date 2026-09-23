@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="6D8539D90BDC4ACDB0EB06ED7B042383" action="add">
+  <additional_data>{ hidden: true }</additional_data>
+  <on_init_handler keyed_name="cui_pmig_not_selection_init" type="Method">F52C96C544F84400AA03E4F5FFB10C5E</on_init_handler>
+  <name>com.aras.innovator.cui_default.initNotSelectionRoots</name>
+ </Item>
+</AML>

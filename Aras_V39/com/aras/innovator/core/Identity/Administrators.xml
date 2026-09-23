@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="Identity" id="2618D6F5A90949BAA7E920D1B04C7EE1" action="add">
+  <description>Users with access to system administrative aspects</description>
+  <is_alias>0</is_alias>
+  <name>Administrators</name>
+ </Item>
+ <Item type="Member" id="3837EBCAD3624F75B9D556560646009A" action="add">
+  <related_id keyed_name="Innovator Admin" type="Identity">
+   <Item type="Identity" action="get" select="id">
+    <name>Innovator Admin</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</source_id>
+ </Item>
+</AML>

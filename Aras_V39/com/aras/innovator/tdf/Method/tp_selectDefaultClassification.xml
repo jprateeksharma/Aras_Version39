@@ -1,0 +1,18 @@
+﻿<AML>
+ <Item type="Method" id="DF343FF7766D451C8C243E1431CFBE7D" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const topWnd = this.aras.getMostTopWindowWithAras(window);
+const itName = this.aras.getItemProperty(topWnd.item, 'application');
+
+if (this.aras.isNew(topWnd.item) || !itName) {
+	const message = this.aras.getResource('../Modules/aras.innovator.TDF', 'documenttype.fill_app_and_save');
+	this.aras.AlertWarning(message);
+} else {
+	this.showClassStructureDialog(this.aras.getItemTypeForClient(itName, 'name').node, 'classification', 'classification', `${propertyName}_D`, relationshipID);
+}
+
+return false;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>tp_selectDefaultClassification</name>
+ </Item>
+</AML>

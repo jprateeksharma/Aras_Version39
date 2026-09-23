@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="B39AC24CC5F4756F6B77D6069BFA2DFF" action="add">
+  <client>js</client>
+  <related_id keyed_name="Life Cycle State Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="B39AC24CC5F4756F36326AA7318BB90D" action="add">
+    <color>#0d47a1</color>
+    <name>Life Cycle State Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Life Cycle State" type="ItemType" name="Life Cycle State">5EFB53D35BAE468B851CD388BEA46B30</source_id>
+ </Item>
+</AML>

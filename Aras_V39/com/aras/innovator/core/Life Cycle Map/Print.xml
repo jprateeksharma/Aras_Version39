@@ -1,0 +1,45 @@
+﻿<AML>
+ <Item type="Life Cycle Map" id="7D8651291EB24D728BA2719277299C76" action="add">
+  <description>Print Request</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <start_state keyed_name="Open" type="Life Cycle State">99C79DD6F7C44B11A07C27C5CADD21C1</start_state>
+  <name>Print</name>
+  <Relationships>
+   <Item type="Life Cycle State" id="211D945FE866498BA6C9180DEC302797" action="add">
+    <image>../images/Print.svg</image>
+    <label xml:lang="en">Closed</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Print" type="Life Cycle Map">7D8651291EB24D728BA2719277299C76</source_id>
+    <x>185</x>
+    <y>19</y>
+    <name>Closed</name>
+   </Item>
+   <Item type="Life Cycle State" id="99C79DD6F7C44B11A07C27C5CADD21C1" action="add">
+    <image>../images/ArrowRight.svg</image>
+    <label xml:lang="en">Open</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Print" type="Life Cycle Map">7D8651291EB24D728BA2719277299C76</source_id>
+    <x>13</x>
+    <y>19</y>
+    <name>Open</name>
+   </Item>
+   <Item type="Life Cycle Transition" id="E34955CB22D8422C84551960BBA6303B" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="Open" type="Life Cycle State">99C79DD6F7C44B11A07C27C5CADD21C1</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Print" type="Life Cycle Map">7D8651291EB24D728BA2719277299C76</source_id>
+    <to_state keyed_name="Closed" type="Life Cycle State">211D945FE866498BA6C9180DEC302797</to_state>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

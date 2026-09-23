@@ -1,0 +1,12 @@
+﻿<AML>
+ <Item type="Identity" id="2374FB2B74994D73AC7B4E929C379A6F" action="add">
+  <description>Users with access to Dashboard administrative aspects</description>
+  <is_alias>0</is_alias>
+  <name>Dashboard Administrators</name>
+ </Item>
+ <Item type="Member" id="D5CEE9AD12E546F7B16B9BE704202691" action="add">
+  <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Dashboard Administrators" type="Identity">2374FB2B74994D73AC7B4E929C379A6F</source_id>
+ </Item>
+</AML>

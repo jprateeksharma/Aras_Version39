@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="Method" id="9C04F6431DB94328B5ADB072E1D2A546" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[var cuiDashboardItemTypeId = "9307EF625E31453D9CD861D10C7498C4";
+var cuiDashboardPresentationConfigurationId = "0D219B97758045A98701DF82A8E52496";
+
+Item itemPresentationConfiguration = this.newItem("ItemPresentationConfiguration", "add");
+itemPresentationConfiguration.setID(this.getNewID());
+itemPresentationConfiguration.setProperty("client_type", "js");
+itemPresentationConfiguration.setProperty("item_type_id", cuiDashboardItemTypeId);
+itemPresentationConfiguration.setProperty("item_id", this.getID());
+itemPresentationConfiguration.setProperty("presentation_config_id", cuiDashboardPresentationConfigurationId);
+
+Aras.Server.Security.Identity administratorsIdentity = Aras.Server.Security.Identity.GetByName("Administrators");
+using (CCO.Permissions.GrantIdentity(administratorsIdentity))
+{
+	itemPresentationConfiguration = itemPresentationConfiguration.apply();
+	if (itemPresentationConfiguration.isError())
+	{
+		return itemPresentationConfiguration;
+	}
+}
+
+this.setPropertyItem("presentation", itemPresentationConfiguration);
+
+return this;]]></method_code>
+  <method_type>C#</method_type>
+  <name>dashboard_onAddPresentation</name>
+ </Item>
+</AML>

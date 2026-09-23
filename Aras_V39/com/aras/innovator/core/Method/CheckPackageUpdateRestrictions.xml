@@ -1,0 +1,126 @@
+﻿<AML>
+ <Item type="Method" id="6EF383A18B3343CBB76E36754B13CE28" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer();
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer, CCO.Permissions);
+
+	try
+	{
+		return businessLogic.RunLogic(this);
+	}
+	catch (Aras.Server.Core.InnovatorServerException ex)
+	{
+		return innovator.newError(ex.Message);
+	}
+}
+
+internal class BusinessLogic
+{
+	private readonly Innovator _innovator;
+	private readonly IDataAccessLayer _dataAccessLayer;
+	private readonly Aras.Server.Core.Abstractions.IPermissions _permissions;
+
+	private const string PackageParameterName = "packageName";
+
+	internal BusinessLogic(
+		Innovator innovator,
+		IDataAccessLayer dataAccessLayer,
+		Aras.Server.Core.Abstractions.IPermissions permissions
+	)
+	{
+		_innovator = innovator;
+		_dataAccessLayer = dataAccessLayer;
+		_permissions = permissions;
+	}
+
+	public Item RunLogic(Item methodItem)
+	{
+		var packageCanBeUpdated = true;
+		if (!_permissions.UserHasRootIdentity())
+		{
+			var destinationPackageName = methodItem.getProperty(PackageParameterName);
+
+			var packageDefinition = GetPackageDefinitionWithControls(destinationPackageName);
+			if (packageDefinition.getItemCount() > 0)
+			{
+				var controls = packageDefinition.getItemsByXPath($"//Item[@type='PackageElement']");
+				if (controls.getItemCount() > 0)
+				{
+					for (int i = 0; i < controls.getItemCount(); i++ )
+					{
+						var control = controls.getItemByIndex(i);
+						var controlResponse = GetControlData(control.getProperty("element_id"));
+
+						var isSealed = controlResponse.getProperty("sealed");
+
+						if (isSealed == "1")
+						{
+							packageCanBeUpdated = false;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		Newtonsoft.Json.Linq.JObject result = new Newtonsoft.Json.Linq.JObject
+		{
+			{ "packageCanBeUpdated", packageCanBeUpdated }
+		};
+
+		return _innovator.newResult(result.ToString(Newtonsoft.Json.Formatting.None));
+	}
+
+	private Item GetControlData(string controlId)
+	{
+		Item control = _innovator.newItem("cui_Control", "get");
+		control.setAttribute("select", "id, sealed");
+		control.setID(controlId);
+
+		return _dataAccessLayer.ApplyItem(control);
+	}
+
+	private Item GetPackageDefinitionWithControls(string packageName)
+	{
+		Item packageElementItem = _innovator.newItem("PackageElement", "get");
+		packageElementItem.setAttribute("select", "id, element_id, element_type");
+		packageElementItem.setPropertyAttribute("element_type", "condition", "eq");
+		packageElementItem.setProperty("element_type", "cui_Control");
+
+		Item packageGroupItem = _innovator.newItem("PackageGroup", "get");
+		packageGroupItem.setAttribute("select", "id");
+		packageGroupItem.addRelationship(packageElementItem);
+
+		Item packageDefinitionItems = _innovator.newItem("PackageDefinition", "get");
+		packageDefinitionItems.setAttribute("select", "id,name");
+		packageDefinitionItems.addRelationship(packageGroupItem);
+		packageDefinitionItems.setPropertyAttribute("name", "condition", "eq");
+		packageDefinitionItems.setProperty("name", packageName);
+
+		return _dataAccessLayer.ApplyItem(packageDefinitionItems);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	public Item ApplyItem(Item item)
+	{
+		item = item.apply();
+		if (item.isError() && !item.isEmpty())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(item.getErrorString());
+		}
+
+		return item;
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>CheckPackageUpdateRestrictions</name>
+ </Item>
+</AML>

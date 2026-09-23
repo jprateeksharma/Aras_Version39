@@ -1,0 +1,20 @@
+﻿<AML>
+ <Item type="Method" id="E00DAD1EAFBA4FA891A0E05DB6CBA3EB" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const itemTypeId = window.itemID;
+await ArasModules.odataFetch('method.CuiAddItemTypeToTOC', {
+	method: 'POST',
+	body: JSON.stringify({ itemTypeId })
+});
+
+const itemTypeName = aras.getItemProperty(window.item, 'name');
+const successMessage = aras.getResource('', 'toc_editor.itemtype_added', itemTypeName);
+const notify = aras.getNotifyByContext(window);
+notify(successMessage, { type: 'success' });
+
+aras.getMainWindow().mainLayout.observer.notify('UpdateTOC');
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_add_itemtype_to_toc_click</name>
+ </Item>
+</AML>

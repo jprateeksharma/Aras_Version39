@@ -1,0 +1,116 @@
+﻿<AML>
+ <Item type="Method" id="3F207129E50145D09F46EA09BAD48BB1" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const eventKey = event.key || event.code;
+const deleteKey = 'Delete';
+let eventHandled = false;
+
+if (this.document.editable && eventKey === deleteKey) {
+	const { view, control, enums } = this;
+	const viewSelection = view.selection.get();
+	const target = viewSelection.length === 1 && viewSelection[0];
+	const { shiftKey, altKey, ctrlKey } = event;
+
+	if (shiftKey || altKey || ctrlKey || !target) {
+		return false;
+	}
+
+	const isTextTarget = target.is('ArasTextElement') || target.mixed;
+
+	if (isTextTarget) {
+		control.syncContent();
+
+		const editorSelection = control.selection.get();
+		const text = target.text;
+
+		// cursor at the end of text
+		if (
+			editorSelection.startOffset === text.length &&
+			editorSelection.endOffset === text.length
+		) {
+			const parent = target.parent;
+			const closestElement = this.getClosestTextElement(target, parent);
+
+			if (
+				closestElement &&
+				(closestElement.parent.equals(parent) ||
+					(closestElement.parent?.is('ArasListItemElement') &&
+						parent.is('ArasListItemElement'))) &&
+				this.mergeTextElements(target, closestElement)
+			) {
+				view.selection.set(target);
+				control.selection.set(target, text.length);
+
+				eventHandled = true;
+			} else if (!text.trim().length) {
+				// if text contains only whitespace characters
+				const removeCandidate = this.normalizeMergeRemoveElement(target);
+				const isLastChild = !removeCandidate.next;
+
+				eventHandled = this.tryRemoveElement(
+					removeCandidate,
+					isLastChild ? enums.Directions.Up : enums.Directions.Down
+				);
+			} else if (parent.is('ArasListItemElement')) {
+				const { list } = parent;
+
+				// if list item belongs to list and target is the last child
+				if (list && !target.next) {
+					const listItems = list.items.toArray();
+					const itemIndex = listItems.findIndex((item) => item.equals(parent));
+					const nextListItem = listItems[itemIndex + 1];
+
+					// if next list item exists and empty then delete it
+					if (nextListItem && !nextListItem.children.count) {
+						eventHandled = this.tryRemoveElement(nextListItem, enums.Directions.Up);
+					}
+				}
+			}
+		} else if (target.is('ArasTextElement')) {
+			// if cursor not in at the end of text
+			const range = editorSelection.sourceRange;
+			const isTextCursor = range.startContainer.nodeType === Node.TEXT_NODE;
+			const emphs = target.strings;
+
+			if (isTextCursor) {
+				const emphNode =
+					range.startContainer.parentNode.closest('.ArasStringElement');
+				const emphId = emphNode.getAttribute('id');
+				const cursorEmph = emphs.get(emphId, 'id');
+				const offset = cursorEmph.startIndex + range.startOffset;
+
+				if (offset === emphNode.textContent?.length) {
+					const nextEmph = cursorEmph?.next;
+
+					if (nextEmph?.type === 'element') {
+						eventHandled = true;
+					}
+				}
+			} else {
+				const nextEmph = emphs.get(range.startOffset);
+
+				if (nextEmph?.type === 'element') {
+					eventHandled = true;
+				}
+			}
+		}
+	} else if (!target.is('ArasTableCellElement')) {
+		// case when common document element is deleted
+		const direction = !target.next
+			? enums.Directions.Up
+			: enums.Directions.Down;
+
+		eventHandled = this.tryRemoveElement(target, direction);
+	}
+
+	if (eventHandled) {
+		this.stopEvent(event);
+	}
+}
+
+return eventHandled;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>tdf_dec_standard_ec_delete</name>
+ </Item>
+</AML>

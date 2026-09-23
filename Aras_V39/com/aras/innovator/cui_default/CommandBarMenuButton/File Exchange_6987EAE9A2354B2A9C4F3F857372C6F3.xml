@@ -1,0 +1,12 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="9B7FD69EAF6E4D29B220C495FA21E40D" action="add">
+  <additional_data>{
+  "formId": "63814F72B5AD4713A3AD860AC8698397",
+  "weakRef": true
+}</additional_data>
+  <image>../images/DefaultItemType.svg</image>
+  <label xml:lang="en">File Exchange</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_File Exchange" type="CommandBarMenu">8EB0839F21674D498A4FC5570B3656C3</parent_menu>
+  <name>File Exchange_6987EAE9A2354B2A9C4F3F857372C6F3</name>
+ </Item>
+</AML>

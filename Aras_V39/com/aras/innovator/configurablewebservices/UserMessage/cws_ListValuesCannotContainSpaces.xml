@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="6059F1D49CA74363A19D16355155E65B" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' List: values cannot contain spaces.</text>
+  <name>cws_ListValuesCannotContainSpaces</name>
+ </Item>
+</AML>

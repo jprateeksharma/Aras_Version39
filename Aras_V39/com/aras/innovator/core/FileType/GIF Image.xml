@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="FileType" id="8A85DD9A6E0346F5AE423314E3650041" action="add">
+  <description>GIF Image</description>
+  <extension>gif</extension>
+  <mimetype>image/gif</mimetype>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>GIF Image</name>
+ </Item>
+</AML>

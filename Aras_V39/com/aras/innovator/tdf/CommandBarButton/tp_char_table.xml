@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="E1A07D9DA055416688765484808A5770" action="add">
+  <additional_data>{}</additional_data>
+  <image>../images/char_table.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_chartable_click" type="Method">532B51AA70C44BA1B0BE34E950011B6E</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_chartable_init" type="Method">0A02899D512F465DA07D9750352B599A</on_init_handler>
+  <tooltip_template xml:lang="en">Character table</tooltip_template>
+  <name>tp_char_table</name>
+ </Item>
+</AML>

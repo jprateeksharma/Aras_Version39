@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="56BEC49CDA3E4895AFD5A723C2E17B0C" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Schema definition cannot be empty.</text>
+  <name>cws_SchemaDefinitionCannotBeEmpty</name>
+ </Item>
+</AML>

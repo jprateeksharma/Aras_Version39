@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="1057A4280616416D88CCB6212A24DBDD" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Combination of parameters DbRecordExpirationInterval and CacheRecordExpirationInterval from IdentityListManagement configuration section does not match. Please contact your administrator.</text>
+  <name>GetIdentityListDbManagementConfiguration_IntervalsCombinationDoesNotMatch</name>
+ </Item>
+</AML>

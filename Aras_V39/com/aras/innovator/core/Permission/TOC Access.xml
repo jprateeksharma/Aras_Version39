@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="E7EEEA898ECC43D69F9B36BB446D1BB5" action="add">
+  <is_private>0</is_private>
+  <name>TOC Access</name>
+  <Relationships>
+   <Item type="Access" id="1C161B4DBE0F4BC1B05645937CBEE7A5" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="TOC Access" type="Permission">E7EEEA898ECC43D69F9B36BB446D1BB5</source_id>
+   </Item>
+   <Item type="Access" id="A5064B4E67264C4A98A999609A1CC398" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="TOC Access" type="Permission">E7EEEA898ECC43D69F9B36BB446D1BB5</source_id>
+   </Item>
+   <Item type="Access" id="ED1AEA35D35D4F618038E2BF15C9423D" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="TOC Access" type="Permission">E7EEEA898ECC43D69F9B36BB446D1BB5</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

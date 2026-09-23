@@ -1,0 +1,189 @@
+﻿<AML>
+ <Item type="Method" id="00D333EEFAF545CB801F587FFA580B45" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[
+var dataAccessLayer = new DataAccessLayer(CCO.Permissions, CCO.DB.InnDatabase);
+var businessLogic = new BusinessLogic(dataAccessLayer);
+businessLogic.SetFilterByAssignedTo(this);
+return this;
+}
+
+internal class BusinessLogic
+{
+	//The filterConfig below can be modified to add custom logic for filtering.
+	//For example, adding code line below
+	//    {"Project Managers", new []{"Engeneers","QA Engeneers"}}
+	//will allow "Project Managers" users to see the tasks assigned to the users both from "Engeneers" and "QA Engeneers" identities.
+	internal Dictionary<string, string[]> filterConfig = new Dictionary<string, string[]>(){
+	{"Administrators", new []{"World"}}
+	//{"who identity", new []{"whom","whom2" ...}},	
+	// ...
+	};
+
+	private IDataAccessLayer _dataAccessLayer;
+
+	public BusinessLogic(IDataAccessLayer dataAccessLayer)
+	{
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public void SetFilterByAssignedTo(Item requestItem)
+	{
+		string identityList = _dataAccessLayer.GetCurrentUserIdentities().Replace("'", string.Empty, StringComparison.Ordinal);
+
+		bool isMy = false;
+		bool isNotMy = false;
+
+		if (requestItem.node != null)
+		{
+			//convert "my_assignment" condition to appropriate filter of "assigned_to" property
+			XmlNodeList nds = requestItem.node.SelectNodes("my_assignment");
+			foreach (XmlElement nd in nds)
+			{
+				string cond = nd.GetAttribute("condition").ToLowerInvariant();
+				if (string.IsNullOrEmpty(cond) || cond == "eq" || cond == "like")
+				{
+					if (nd.InnerText == "1")
+					{
+						isMy = true;
+					}
+					else
+					{
+						isNotMy = true;
+					}
+				}
+				nd.ParentNode.RemoveChild(nd);
+			}
+		}
+
+		if (isMy)
+		{
+			AppendAssignedToFilterNode(requestItem.node, "in", identityList);
+			if (isNotMy)
+			{
+				AppendAssignedToFilterNode(requestItem.node, "not in", identityList);
+			}
+			return;
+		}
+
+		string selectAttr = requestItem.getAttribute("select");
+
+		if (!(string.IsNullOrEmpty(selectAttr) || selectAttr == "*") && selectAttr.IndexOf("assigned_to") < 0)
+		{
+			//assigned_to should be always selected to setup proper classification on AfterGet
+			selectAttr += ",assigned_to";
+			requestItem.setAttribute("select", selectAttr);
+		}
+
+		string worldId = _dataAccessLayer.GetIdentityId("World");
+		Dictionary<string, string[]> filterConfigIds = new Dictionary<string, string[]>();
+
+		foreach (var whoIdentity in filterConfig)
+		{
+			string identityId = _dataAccessLayer.GetIdentityId(whoIdentity.Key);
+			if (identityId == null)
+			{
+				throw new ArgumentOutOfRangeException("Identity not found, name=" + whoIdentity.Key);
+			}
+
+			if (whoIdentity.Value.FirstOrDefault(tmpName => tmpName.ToLowerInvariant() == "world") != null)
+			{
+				filterConfigIds.Add(identityId, new[] { worldId });
+				continue;
+			}
+
+			var whomIdentityIds = whoIdentity.Value.Select(nameIdentity => _dataAccessLayer.GetIdentityId(nameIdentity)).ToArray();
+			string[] listChildIdentityForWhomIdentityList = Enumerable.Union(whomIdentityIds, _dataAccessLayer.GetDescendantIdentityIds(whomIdentityIds)).ToArray();
+
+			filterConfigIds.Add(identityId, listChildIdentityForWhomIdentityList);
+		}
+
+		var newConditions = new List<string>();
+		foreach (var whoIdentity in filterConfigIds)
+		{
+			if (identityList.IndexOf(whoIdentity.Key, System.StringComparison.Ordinal) < 0) continue;
+			string tmpList = string.Join(",", whoIdentity.Value);
+			if (tmpList.IndexOf(worldId, System.StringComparison.Ordinal) != -1)
+			{
+				newConditions = null;
+				break;
+			}
+			newConditions.Add(tmpList);
+		}
+
+		//if world not allowed
+		if (newConditions != null)
+		{
+			if (!isNotMy)
+			{
+				newConditions.Add(identityList);
+			}
+
+			IEnumerable<string> inIdList = newConditions.SelectMany(ids => ids.Split(",")).Distinct();
+
+			if (isNotMy)
+			{
+				inIdList = inIdList.Except(identityList.Split(","));
+			}
+
+			if (inIdList.Any())
+			{
+				AppendAssignedToFilterNode(requestItem.node, "in", string.Join(",", inIdList));
+			}
+			else
+			{
+				AppendAssignedToFilterNode(requestItem.node, "not in", identityList);
+				AppendAssignedToFilterNode(requestItem.node, "in", identityList);
+			}
+		}
+		else if (isNotMy)
+		{
+			AppendAssignedToFilterNode(requestItem.node, "not in", identityList);
+		}
+	}
+
+	private static void AppendAssignedToFilterNode(XmlNode parentNode, string condition, string value)
+	{
+		XmlElement nd = parentNode.OwnerDocument.CreateElement("assigned_to");
+		nd.SetAttribute("condition", condition);
+		nd.InnerText = value;
+		parentNode.AppendChild(nd);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	string GetCurrentUserIdentities();
+	string[] GetDescendantIdentityIds(string[] identityIds);
+	string GetIdentityId(string identityName);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Aras.Server.Core.Abstractions.IPermissions _permissions;
+	private Aras.Server.Core.IInnovatorDatabase _db;
+
+	public DataAccessLayer(Aras.Server.Core.Abstractions.IPermissions permissions, Aras.Server.Core.IInnovatorDatabase db)
+	{
+		_permissions = permissions;
+		_db = db;
+	}
+	public string GetCurrentUserIdentities()
+	{
+		return _permissions.IdentitiesList;
+	}
+
+	public string[] GetDescendantIdentityIds(string[] identityIds)
+	{
+		return _permissions.GetDescendantIdentityIds(_db, identityIds);
+	}
+
+	public string GetIdentityId(string identityName)
+	{
+		return Aras.Server.Security.Identity.GetByName(identityName)?.Id;
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>Task BeforeGet FilterByAssigned</name>
+ </Item>
+</AML>

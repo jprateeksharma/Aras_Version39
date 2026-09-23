@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="951D1A992BB643E7A77254F38D1B3C3D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Unexpected error while using the Aras subscription. Check the server logs to resolve the issue.</text>
+  <name>PrimaryLicenseErrorOccurred</name>
+ </Item>
+</AML>

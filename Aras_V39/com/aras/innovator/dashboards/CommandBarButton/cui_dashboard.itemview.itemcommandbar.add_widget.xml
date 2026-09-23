@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="9FED02A4BB9A48A293F28C1E67FF42B1" action="add">
+  <image>../images/WidgetAdd.svg</image>
+  <include_events>UpdateTearOffWindowState,UpdateState</include_events>
+  <on_click_handler keyed_name="cui_dashboard_addWidget_click" type="Method">86C50B82ABC045048C2785357F41EF7C</on_click_handler>
+  <on_init_handler keyed_name="cui_dashboard_addWidget_init" type="Method">C00F4E5119014520A99D9B79F83167A6</on_init_handler>
+  <tooltip_template xml:lang="en">Add Widget</tooltip_template>
+  <name>cui_dashboard.itemview.itemcommandbar.add_widget</name>
+ </Item>
+</AML>

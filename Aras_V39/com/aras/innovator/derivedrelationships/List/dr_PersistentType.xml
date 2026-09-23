@@ -1,0 +1,15 @@
+﻿<AML>
+ <Item type="List" id="8A678931CBE34ADBACAD113230EE2989" action="add">
+  <description />
+  <name>dr_PersistentType</name>
+  <Relationships>
+   <Item type="Value" id="EFB9A480EDC5483389148F72FB531138" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Persistent</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="dr_PersistentType" type="List">8A678931CBE34ADBACAD113230EE2989</source_id>
+    <value>Persistent</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

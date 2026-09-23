@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="DCD8F459FF154B33827F7D532A534165" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Job '{0}' has already been started.</text>
+  <name>JobAlreadyStarted</name>
+ </Item>
+</AML>

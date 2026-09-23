@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="E80DE80DFF0B499781B11D2D0898B2A6" action="add">
+  <additional_data>{"itemTypeId":"9307EF625E31453D9CD861D10C7498C4"}</additional_data>
+  <image>../images/Dashboard_2.svg</image>
+  <label xml:lang="en">Dashboards</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_My Innovator" type="CommandBarMenu">FA93FDCB24D245DE8A82B2234B1C95DB</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_cui_Dashboard_E80DE80DFF0B499781B11D2D0898B2A6</name>
+ </Item>
+</AML>

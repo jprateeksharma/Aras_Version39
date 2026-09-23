@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="D9EF29822E6846A883828B9E58CEC638" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">"{0}" is already added to "{1}"</text>
+  <name>ItemAlreadyAddedToSelectedPackage</name>
+ </Item>
+</AML>

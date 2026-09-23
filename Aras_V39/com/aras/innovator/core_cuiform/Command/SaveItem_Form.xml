@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="8D2BAE3EAC70443DAECA589976E9C8DF" action="add">
+  <can_execute keyed_name="cui_command_save_item_can_exec" type="Method">ECBEA159864B405B88C4B0567E86D3B6</can_execute>
+  <execute_handler keyed_name="cui_command_save_form_execute" type="Method">C72882E85EF34DACB4925262497278DB</execute_handler>
+  <name>SaveItem_Form</name>
+ </Item>
+</AML>

@@ -1,0 +1,42 @@
+﻿<AML>
+ <Item type="Method" id="5CD108630EDA4A1290EAE4B365D9735C" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const [{ getResource, odataFetch }, { confirm }, { CUIError }] =
+	await Promise.all([
+		import('../jsBundles/core.es.js'),
+		import('../jsBundles/dialogs.es.js'),
+		import('../jsBundles/cui.es.js')
+	]);
+
+const dialogSettings = {
+	title: getResource('dialog.reset_to_original_form_design.title'),
+	okButtonText: getResource('common.reset'),
+	okButtonModifier: 'aras-button_secondary',
+	image: '../images/Delete.svg'
+};
+const dialogMessage = getResource(
+	'dialog.reset_to_original_form_design.message'
+);
+
+const result = await confirm(dialogMessage, dialogSettings);
+if (result !== 'ok') return;
+
+window.formEditorLayout.actions.toggleSpinner(true);
+
+try {
+	await odataFetch('method.cuiform_ResetUnsealedForms', {
+		method: 'POST',
+		body: JSON.stringify({ id: options.itemId })
+	});
+
+window.layout.observer.notify('ResetToOriginalFormDesign');
+} catch (error) {
+	throw new CUIError(error.message)
+}
+finally {
+	window.formEditorLayout.actions.toggleSpinner(false)
+};]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cuiform_reset_to_original_click</name>
+ </Item>
+</AML>

@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="D3507180EFE54C8183AF094ADF1A3F1B" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#f8f4c4","color":"#46320c"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"85A8E8AF30284FD4BF1D14F9C5BB85EA","function":"value_of_property","property":"state","operator":"is","criteria":"In Review|Pending"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>YellowLifeCycleState</name>
+ </Item>
+</AML>

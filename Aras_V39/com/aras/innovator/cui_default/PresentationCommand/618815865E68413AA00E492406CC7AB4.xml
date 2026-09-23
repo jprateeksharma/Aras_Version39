@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="PresentationCommand" id="618815865E68413AA00E492406CC7AB4" action="add">
+  <command_alias keyed_name="CopyItem" type="CommandAlias">3E63AECACB554B20B1EBBE2453D6F8AF</command_alias>
+  <related_id keyed_name="CopyItem" type="Command">
+   <Item type="Command" id="DE379C2A4DBC4194BA00F819A3D27684" action="add">
+    <execute_handler keyed_name="cui_command_itemCopyItem_execute" type="Method">9388B06CB1F84278910BE68C783C3FA3</execute_handler>
+    <name>CopyItem</name>
+   </Item>
+  </related_id>
+  <sort_order>2048</sort_order>
+  <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+ </Item>
+</AML>

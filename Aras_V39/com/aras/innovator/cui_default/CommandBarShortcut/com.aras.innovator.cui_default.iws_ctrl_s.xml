@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarShortcut" id="86EBA3B317684C9DABE5F669CE557F88" action="add">
+  <command_alias keyed_name="SaveItem" type="CommandAlias">76234DC27E7C4328A24B467762BD9DF1</command_alias>
+  <on_click_handler keyed_name="cui_default_iws_ctrl_s" type="Method">915DFC42C46C4ECC879931DC1D6CD7B3</on_click_handler>
+  <shortcut>ctrl+s</shortcut>
+  <name>com.aras.innovator.cui_default.iws_ctrl_s</name>
+ </Item>
+</AML>

@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="D9E6317EBCB544B4965AF2A87FF32402" action="add">
+  <is_private>0</is_private>
+  <name>Scheduled Task</name>
+  <Relationships>
+   <Item type="Access" id="02695B579D3D4A5CA4907B074463AF80" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Scheduled Task" type="Permission">D9E6317EBCB544B4965AF2A87FF32402</source_id>
+   </Item>
+   <Item type="Access" id="10F36B2709CE40B582069AB9207152A1" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Scheduled Task" type="Permission">D9E6317EBCB544B4965AF2A87FF32402</source_id>
+   </Item>
+   <Item type="Access" id="3C3C2B9A1E834606A0AF421B70AD9DB4" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Scheduled Task" type="Permission">D9E6317EBCB544B4965AF2A87FF32402</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

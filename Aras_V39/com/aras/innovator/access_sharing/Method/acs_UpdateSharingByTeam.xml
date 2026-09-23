@@ -1,0 +1,163 @@
+﻿<AML>
+ <Item type="Method" id="81CE86E90FDC4972974C130A2215A32A" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	var innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer(CCO.Permissions, innovator);
+	BusinessLogic businessLogic = new BusinessLogic(this, dataAccessLayer);
+	try
+	{
+		return businessLogic.Run();
+	}
+	catch (Aras.Server.Core.InnovatorServerException ex)
+	{
+		return innovator.newError(ex.Message);
+	}
+}
+
+internal class BusinessLogic
+{
+	private const string SharingModePropName = "sharing_mode";
+
+	private readonly Item _contextItem;
+	private readonly IDataAccessLayer _dataAccessLayer;
+
+	public BusinessLogic(Item context, IDataAccessLayer dataAccessLayer)
+	{
+		_contextItem = context;
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public Item Run()
+	{
+		string relatedIdentityId = _contextItem.getProperty("identityItemId", string.Empty);
+		if (string.IsNullOrEmpty(relatedIdentityId) && _contextItem.getPropertyItem("identityItem") is null)
+		{
+			throw new Aras.Server.Core.InnovatorServerException("identityItemId or identityItem should be provided.");
+		}
+
+		var teamRoleIdForSharing = _contextItem.getProperty("teamRoleId");
+		if (string.IsNullOrEmpty(teamRoleIdForSharing))
+		{
+			throw new Aras.Server.Core.InnovatorServerException("teamRoleId should be provided.");
+		}
+
+		var relationshipId = _contextItem.getID();
+		if (string.IsNullOrEmpty(relationshipId))
+		{
+			throw new Aras.Server.Core.InnovatorServerException("id should be provided.");
+		}
+
+		string newSharingMode = _contextItem.getProperty("sharingMode");
+		if (string.IsNullOrEmpty(newSharingMode))
+		{
+			throw new Aras.Server.Core.InnovatorServerException("sharingMode should be provided.");
+		}
+
+		Item sharingRelshipFromDb = GetSharingRelationshipFromDb(relationshipId);
+		if (sharingRelshipFromDb.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(sharingRelshipFromDb.getErrorString());
+		}
+		
+		string sharingModeFromDb = sharingRelshipFromDb.getProperty(SharingModePropName);
+		string sharedWithId = sharingRelshipFromDb.getRelatedItemID();
+		if (newSharingMode.Equals(sharingModeFromDb, StringComparison.OrdinalIgnoreCase) && relatedIdentityId.Equals(sharedWithId, StringComparison.OrdinalIgnoreCase))
+		{
+			return _contextItem;
+		}
+		
+		Item sharedItem = sharingRelshipFromDb.getPropertyItem("source_id");
+		string teamId = sharedItem.getProperty("team_id");
+		Item teamIdentity = GetTeamIdentity(teamId, sharedWithId);
+		if (teamIdentity.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(teamIdentity.getErrorString());
+		}
+	
+		Item updatedTeamIdentityRel = UpdateTeamIdentity(teamIdentity, relatedIdentityId, teamRoleIdForSharing);
+		if (updatedTeamIdentityRel.isError())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(updatedTeamIdentityRel.getErrorString());
+		}
+
+		return _contextItem;
+	}
+	
+	private Item GetSharingRelationshipFromDb(string id)
+	{
+		Item sharingRelationship = _dataAccessLayer.NewItem(_contextItem.getProperty("relationshipType"), "get");
+		sharingRelationship.setID(id);
+		sharingRelationship.setAttribute("select", "related_id,source_id(team_id),sharing_mode");
+
+		return _dataAccessLayer.ApplyItem(sharingRelationship);
+	}
+	
+	private Item GetTeamIdentity(string teamId, string relatedId)
+	{
+		Item teamIdentity = _dataAccessLayer.NewItem("Team Identity", "get");
+		teamIdentity.setProperty("source_id", teamId);
+		teamIdentity.setProperty("related_id", relatedId);
+		teamIdentity.setAttribute("select", "id");
+
+		return _dataAccessLayer.ApplyItemWithGrantIdentity(teamIdentity);
+	}
+	
+	private Item UpdateTeamIdentity(Item teamIdentity, string newRelatedId, string newTeamRole)
+	{
+		teamIdentity.setAction("edit");
+		if (!string.IsNullOrEmpty(newRelatedId))
+		{
+			teamIdentity.setProperty("related_id", newRelatedId);
+		}
+		else
+		{
+			Item sharedIdentity = _contextItem.getPropertyItem("identityItem");
+			teamIdentity.setPropertyItem("related_id", sharedIdentity);
+		}
+		teamIdentity.setProperty("team_role", newTeamRole);
+		
+		return _dataAccessLayer.ApplyItemWithGrantIdentity(teamIdentity);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+	Item NewItem(string type, string action);
+	Item ApplyItemWithGrantIdentity(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private readonly Aras.Server.Security.Identity _superUserIdentity = Aras.Server.Security.Identity.GetByName("Super User");
+
+	private Aras.Server.Core.Abstractions.IPermissions _permissions;
+	private Innovator _innovator;
+
+	public DataAccessLayer(Aras.Server.Core.Abstractions.IPermissions permissions, Innovator innovator)
+	{
+		_permissions = permissions;
+		_innovator = innovator;
+	}
+
+	public Item ApplyItem(Item item)
+	{
+		return item.apply();
+	}
+
+	public Item NewItem(string type, string action)
+	{
+		return _innovator.newItem(type, action);
+	}
+
+	public virtual Item ApplyItemWithGrantIdentity(Item item)
+	{
+		using(_permissions.GrantIdentity(_superUserIdentity))
+		{
+			return item.apply();
+		}
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>acs_UpdateSharingByTeam</name>
+ </Item>
+</AML>

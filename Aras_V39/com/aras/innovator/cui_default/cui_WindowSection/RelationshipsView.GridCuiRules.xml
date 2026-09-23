@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="9FCA774F990E43FDA50E5968C61C324F" action="add">
+  <builder_method keyed_name="RelationshipsGridCuiRulesBuilder" type="Method">C846C0AB583542D5A128B1278314CE53</builder_method>
+  <classification>Method</classification>
+  <location keyed_name="RelationshipsView" type="cui_Location">298CC276A1BD4246A5135F041C9737DC</location>
+  <name>RelationshipsView.GridCuiRules</name>
+ </Item>
+</AML>

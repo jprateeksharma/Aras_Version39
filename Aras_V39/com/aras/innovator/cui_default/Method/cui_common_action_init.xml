@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="Method" id="E7763C0559884157A4E46BBA1BCF01A1" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { getState } = options;
+const { grid } = getState();
+const noItemsSelected = grid && grid.selectedRows.length === 0;
+const additionalData = target.additional_data;
+if (noItemsSelected && additionalData.actionType === 'item') {
+	return {disabled: true};
+}
+
+const canExecute = aras.canInvokeActionImpl(additionalData.canExecuteMethodName, additionalData.location);
+return {disabled: !canExecute};]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_common_action_init</name>
+ </Item>
+</AML>

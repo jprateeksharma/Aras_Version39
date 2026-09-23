@@ -1,0 +1,55 @@
+﻿<AML>
+ <Item type="cui_Control" id="14294079074844D69BFC630FB5851672" action="add">
+  <additional_data>{"apiversion": "beta"}</additional_data>
+  <control_type>TDFEditor</control_type>
+  <location keyed_name="TDF.EditorTabView" type="cui_Location">D99A54A88C6C4B5F8E92EB3ADD5D5EBA</location>
+  <sealed>0</sealed>
+  <name>TDF.EditorControl [14.0.29 obsolete]</name>
+  <Relationships>
+   <Item type="cui_ControlEventHandler" id="B7E05AF9D70E49BC88A1D2DE9BC1E799" action="add">
+    <action>Add</action>
+    <control_event keyed_name="TDFEventsExecutionContext" type="cui_Event">97BEB2E745C848BA8185C3C5B7187D3C</control_event>
+    <related_id keyed_name="tp_standard_editor_ex_context" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>tp_standard_editor_ex_context</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="TDF.EditorControl [14.0.29 obsolete]_14294079074844D69BFC630FB5851672" type="cui_Control">14294079074844D69BFC630FB5851672</source_id>
+   </Item>
+   <Item type="cui_ControlEventHandler" id="C2D842D108B0405C9E7660B49E674145" action="add">
+    <action>Add</action>
+    <control_event keyed_name="Keydown" type="cui_Event">10CF993249B5488D94249BCFB5B9ED89</control_event>
+    <related_id keyed_name="tp_standard_editor_enterkey" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>tp_standard_editor_enterkey</name>
+     </Item>
+    </related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="TDF.EditorControl [14.0.29 obsolete]_14294079074844D69BFC630FB5851672" type="cui_Control">14294079074844D69BFC630FB5851672</source_id>
+   </Item>
+   <Item type="cui_ControlEventHandler" id="E446819FC3E24C5F9FDAA220B3F57870" action="add">
+    <action>Add</action>
+    <control_event keyed_name="Keydown" type="cui_Event">10CF993249B5488D94249BCFB5B9ED89</control_event>
+    <related_id keyed_name="tp_standard_editor_deletekey" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>tp_standard_editor_deletekey</name>
+     </Item>
+    </related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="TDF.EditorControl [14.0.29 obsolete]_14294079074844D69BFC630FB5851672" type="cui_Control">14294079074844D69BFC630FB5851672</source_id>
+   </Item>
+   <Item type="cui_ControlEventHandler" id="EEB00EAD10BC4A8A8E49F8E51CA1850E" action="add">
+    <action>Add</action>
+    <control_event keyed_name="Keydown" type="cui_Event">10CF993249B5488D94249BCFB5B9ED89</control_event>
+    <related_id keyed_name="tp_standard_editor_backspacekey" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>tp_standard_editor_backspacekey</name>
+     </Item>
+    </related_id>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="TDF.EditorControl [14.0.29 obsolete]_14294079074844D69BFC630FB5851672" type="cui_Control">14294079074844D69BFC630FB5851672</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

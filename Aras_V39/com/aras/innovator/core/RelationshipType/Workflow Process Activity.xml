@@ -1,0 +1,204 @@
+﻿<AML>
+ <Item type="RelationshipType" id="27206F72FED74C429C8D4B9726E4DE8C" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Activities</label>
+  <new_show_related>0</new_show_related>
+  <related_id keyed_name="Activity" type="ItemType" name="Activity">937CE47DE2854308BE6FF5AB1CFB19D4</related_id>
+  <related_notnull>1</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">
+   <Item type="ItemType" id="F3F07BFCCDDF48E79ED239F0111E4710" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>1</auto_search>
+    <default_page_size>25</default_page_size>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>WORKFLOW_PROCESS_ACTIVITY</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Workflow Process Activity</label>
+    <label_plural xml:lang="en">Workflow Process Activities</label_plural>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs on</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>Workflow Process Activity</name>
+    <Relationships>
+     <Item type="Can Add" id="EBE59688E85A4C52B916CCF4952C601D" action="add">
+      <can_add>1</can_add>
+      <related_id keyed_name="Super User" type="Identity">
+       <Item type="Identity" action="get" select="id">
+        <name>Super User</name>
+       </Item>
+      </related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+     </Item>
+     <Item type="Can Add" id="33A31CBEA7E94ABC973FE363FD593747" action="add">
+      <can_add>1</can_add>
+      <related_id keyed_name="World" type="Identity">
+       <Item type="Identity" action="get" select="id">
+        <name>World</name>
+       </Item>
+      </related_id>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+     </Item>
+     <Item type="Can Add" id="D9714E85A0F8411E8C46AEF91ACB430A" action="add">
+      <can_add>1</can_add>
+      <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+     </Item>
+     <Item type="Allowed Permission" id="C8106672A09D4F2A9F0EF54AA00082D9" action="add">
+      <is_default>1</is_default>
+      <related_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Workflow Process" type="ItemType" name="Workflow Process">261EAC08AE9144FC95C49182ACE0D3FE</source_id>
+  <name>Workflow Process Activity</name>
+ </Item>
+ <Item type="ItemType" id="F3F07BFCCDDF48E79ED239F0111E4710" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='F3F07BFCCDDF48E79ED239F0111E4710' and name='config_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Config_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2688</sort_order>
+    <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+    <track_history>0</track_history>
+    <name>config_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='F3F07BFCCDDF48E79ED239F0111E4710' and name='generation'">
+    <column_alignment>left</column_alignment>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Generation</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2432</sort_order>
+    <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+    <track_history>0</track_history>
+    <name>generation</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='F3F07BFCCDDF48E79ED239F0111E4710' and name='managed_by_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Managed_by_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4096</sort_order>
+    <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+    <track_history>0</track_history>
+    <name>managed_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='F3F07BFCCDDF48E79ED239F0111E4710' and name='new_version'">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">New_version</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4352</sort_order>
+    <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+    <track_history>0</track_history>
+    <name>new_version</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='F3F07BFCCDDF48E79ED239F0111E4710' and name='owned_by_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Owned_by_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3968</sort_order>
+    <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+    <track_history>0</track_history>
+    <name>owned_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='F3F07BFCCDDF48E79ED239F0111E4710' and name='permission_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Permission" type="ItemType" name="Permission">C6A89FDE1294451497801DF78341B473</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Permission id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4224</sort_order>
+    <source_id keyed_name="Workflow Process Activity" type="ItemType" name="Workflow Process Activity">F3F07BFCCDDF48E79ED239F0111E4710</source_id>
+    <track_history>0</track_history>
+    <name>permission_id</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='F3F07BFCCDDF48E79ED239F0111E4710'" />
+ <Item type="Form" action="delete" where="name='Workflow Process Activity'" />
+</AML>

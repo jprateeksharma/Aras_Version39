@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="175B623F0840462B99A1741B5B36621E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid '{0}' method definition: bound types list contains non-unique values.</text>
+  <name>cws_BoundMethodTypesAreNotUnique</name>
+ </Item>
+</AML>

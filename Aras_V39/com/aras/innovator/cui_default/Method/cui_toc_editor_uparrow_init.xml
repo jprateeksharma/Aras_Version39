@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="Method" id="66B794CF1ED94D4DA872F9EADEA01E81" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const { changes, viewAs, selectedId, prevToSelectedId } = options.getState();
+if (viewAs || !prevToSelectedId) {
+	return { disabled: true };
+}
+
+const itemChanges = changes[selectedId];
+const disabled = itemChanges && itemChanges['@action'] === 'delete';
+
+return { disabled };
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_toc_editor_uparrow_init</name>
+ </Item>
+</AML>

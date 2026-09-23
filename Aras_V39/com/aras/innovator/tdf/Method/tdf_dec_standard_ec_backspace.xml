@@ -1,0 +1,96 @@
+﻿<AML>
+ <Item type="Method" id="B391F434E15B4B88BB9EB43AACB097F0" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const keyCode = event.key || event.code;
+const backspaceKeyCode = 'Backspace';
+let eventHandled = false;
+
+if (this.document.editable && keyCode === backspaceKeyCode) {
+	if (event.shiftKey || event.altKey || event.ctrlKey) {
+		return false;
+	}
+
+	const { view, control } = this;
+	const selectedElements = view.selection.get();
+	const target = selectedElements.length && selectedElements[0];
+
+	if (target) {
+		control.selection.refresh();
+
+		const isTextTarget = target.is('ArasTextElement') || target.mixed;
+		const controlSelection = control.selection.get();
+		const cursorAtStart =
+			!controlSelection.startOffset && !controlSelection.endOffset;
+
+		// process text element when cursor at start
+		if (isTextTarget && cursorAtStart) {
+			const parent = target.parent;
+			const closestText = this.getClosestTextElement(target, parent, true);
+
+			if (closestText) {
+				let mergeAllowed = closestText.parent?.equals(parent);
+
+				if (
+					!mergeAllowed &&
+					parent.is('ArasListItemElement') &&
+					closestText.parent?.is('ArasListItemElement') &&
+					!target.previous && !target.next
+				) {
+					const closestElementList = this.getTopmostListElement(closestText);
+					const targetElementList = this.getTopmostListElement(target);
+
+					mergeAllowed = closestElementList.parent?.equals(
+						targetElementList.parent
+					);
+				}
+
+				if (mergeAllowed) {
+					const cursorPosition = closestText.text.length;
+
+					control.syncContent();
+
+					if (this.mergeTextElements(closestText, target)) {
+						view.selection.set(closestText);
+						control.selection.set(closestText, cursorPosition);
+
+						eventHandled = true;
+					}
+				}
+			}
+		} else if (target.is('ArasListItemElement')) {
+			const listElement = target.list;
+
+			if (listElement && target.children.count === 0) {
+				const listItems = listElement.items.toArray();
+				const listItemIndex = listItems.findIndex((element) => element.equals(target));
+
+				if (listItemIndex !== 0) {
+					const prevListItem = listItems[listItemIndex - 1];
+					const prevListItemChildren = prevListItem.children;
+
+					// remove li and change selection when target and prev li-s are empty
+					if (
+						!prevListItemChildren.count &&
+						this.validateAction('remove', target.parent, target)
+					) {
+						this.removeElement(target);
+						view.selection.set(prevListItem);
+
+						eventHandled = true;
+					}
+				}
+			}
+		}
+	}
+
+	if (eventHandled) {
+		this.stopEvent(event);
+	}
+}
+
+return eventHandled;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>tdf_dec_standard_ec_backspace</name>
+ </Item>
+</AML>

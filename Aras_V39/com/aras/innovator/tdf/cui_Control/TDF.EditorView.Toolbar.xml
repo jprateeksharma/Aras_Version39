@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="C8F19E0BF34F4337A93E1AD483A9D6F6" action="add">
+  <control_type>ToolbarControl</control_type>
+  <location keyed_name="TDF.EditorView.Toolbar" type="cui_Location">2BAFDE61AABB4568BF282C6DC9B74460</location>
+  <sealed>0</sealed>
+  <name>TDF.EditorView.Toolbar</name>
+ </Item>
+</AML>

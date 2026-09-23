@@ -1,0 +1,73 @@
+﻿<AML>
+ <Item type="Method" id="2F0FDF4D31984C33B56591B4C1B15A15" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[
+			bool isJsonFormat = this.getAttribute("isJsonFormat") == "1";
+			string type = this.getType();
+			string itemTypeSettingsAml = $@"
+				<AML><Item type=""tdf_ItemTypeSettings"" action=""get"" select=""name, settings, target_itemtype"" orderBy=""target_itemtype"">
+					<or>
+						<target_itemtype>
+							<Item type=""ItemType"" action=""get"">
+								<name>{type}</name>
+							</Item>
+						</target_itemtype>
+						<name>Default TDF Settings</name>
+					</or>
+				</Item></AML>";
+
+			#pragma warning disable IA1000 // Improper escaping of Special Elements used in an AML Query
+			Item itemTypeSettings = this.getInnovator().applyAML(itemTypeSettingsAml);
+			#pragma warning restore IA1000 // Improper escaping of Special Elements used in an AML Query
+			if (itemTypeSettings.isError())
+			{
+				return itemTypeSettings;
+			}
+
+			return isJsonFormat ? GetResultAsJson(itemTypeSettings) : GetResultAsItem(itemTypeSettings);
+		}
+
+		private Item GetResultAsJson(Item itemTypeSettings)
+		{
+			int settingsCount = itemTypeSettings.getItemCount();
+			Dictionary<string, object> resultSettings = GetSettingsByIndex(itemTypeSettings, 0);
+
+			for (int i = 1; i < settingsCount; i++)
+			{
+				Dictionary<string, object> settingsCollection = GetSettingsByIndex(itemTypeSettings, i);
+				foreach (KeyValuePair<string, object> parameterDescriptor in settingsCollection)
+				{
+					resultSettings[parameterDescriptor.Key] = parameterDescriptor.Value;
+				}
+			}
+
+			string jsonSettings = Newtonsoft.Json.JsonConvert.SerializeObject(resultSettings);
+			return this.getInnovator().newResult(jsonSettings);
+		}
+
+		private Item GetResultAsItem(Item itemTypeSettings)
+		{
+			string type = this.getType();
+			Item settingsItem = this.newItem(type);
+			int settingsCount = itemTypeSettings.getItemCount();
+			for (int i = 0; i < settingsCount; i++)
+			{
+				Dictionary<string, object> settingsCollection = GetSettingsByIndex(itemTypeSettings, i);
+
+				foreach (KeyValuePair<string, object> parameterDescriptor in settingsCollection)
+				{
+					settingsItem.setProperty(parameterDescriptor.Key, parameterDescriptor.Value.ToString());
+				}
+			}
+
+			return settingsItem;
+		}
+
+		private static Dictionary<string, object> GetSettingsByIndex(Item itemTypeSettings, int index)
+		{
+			string settings = itemTypeSettings.getItemByIndex(index).getProperty("settings");
+			return Aras.TDF.Base.ComplexObjectJsonDeserializer.Deserialize(settings);]]></method_code>
+  <method_type>C#</method_type>
+  <name>tdf_GetItemTypeSettings</name>
+ </Item>
+</AML>

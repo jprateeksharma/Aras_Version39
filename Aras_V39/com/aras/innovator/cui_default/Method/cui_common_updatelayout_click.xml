@@ -1,0 +1,95 @@
+﻿<AML>
+ <Item type="Method" id="DBA162C6321D43D2829333A198133D39" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const varsHash = {};
+const layoutState = options.getState();
+const { pageSize, maxResults } = layoutState.pagination;
+const { order, widths, frozenColumns, orderBy } = layoutState.grid;
+if (pageSize || pageSize === 0) {
+	varsHash.page_size = pageSize;
+}
+if (maxResults || maxResults === 0) {
+	varsHash.max_records = maxResults;
+}
+varsHash.col_order = order.join(';');
+varsHash.col_widths = order
+	.map((columnName) => widths.get(columnName))
+	.join(';');
+const { serialization } = await import('../jsBundles/store.es.js')
+varsHash.order_by = serialization.stringifyOrderBy(orderBy);
+
+let gridItemTypeId;
+let preferencesItemTypeName;
+const relationshipTypeId = options.relationshipTypeId;
+if (relationshipTypeId) {
+	gridItemTypeId = relationshipTypeId;
+	preferencesItemTypeName = 'Core_RelGridLayout';
+
+	const { redlineView } = layoutState;
+	varsHash.redline_view = redlineView ? '1' : '0';
+	varsHash.frozen_columns = frozenColumns;
+} else {
+	const { itemType } = options;
+	gridItemTypeId = itemType.id;
+	preferencesItemTypeName = 'Core_ItemGridLayout';
+
+	const { previewState } = layoutState;
+	varsHash.preview_state = previewState;
+	varsHash.frozen_columns = frozenColumns;
+	const isVersionableIT = itemType['is_versionable'] === '1';
+	if (isVersionableIT) {
+		const { queryType } = layoutState;
+		varsHash.query_type = queryType;
+	}
+}
+
+const preferencesNode = aras.getPreferenceItem(
+	preferencesItemTypeName,
+	gridItemTypeId
+);
+const notify = aras.getNotifyByContext(window);
+const failedMessage = aras.getResource('', 'common.failed_to_save_layout');
+const failedOptions = {
+	type: 'error'
+};
+
+if (
+	!aras.setPreferenceItemProperties(
+		preferencesItemTypeName,
+		gridItemTypeId,
+		varsHash
+	)
+) {
+	notify(failedMessage, failedOptions);
+	return;
+}
+
+try {
+	preferencesNode.setAttribute('action', 'update');
+	const preferencesItemXml = aras.getXmlPreferenceItemWithUpdatedLayoutItem(
+		preferencesNode
+	);
+
+	await ArasModules.soap(preferencesItemXml, {
+		method: 'ApplyItem',
+		async: true
+	});
+
+	notify(aras.getResource('', 'common.default_layout_updated'), {
+		type: 'success'
+	});
+} catch {
+	notify(failedMessage, failedOptions);
+	return;
+}
+
+const defaultLayoutId = 'searchview.commandbar.layouts.default';
+const { setCurrentLayout } = options.getActions();
+setCurrentLayout(defaultLayoutId);
+const storeActions = aras.getMainWindow().store.boundActionCreators;
+storeActions.updateItemPreferencesRecord(preferencesItemTypeName, varsHash, gridItemTypeId);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_common_updatelayout_click</name>
+ </Item>
+</AML>

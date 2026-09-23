@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="6D579E5DB3F64BC8B51AB7DE3915D216" action="add">
+  <label xml:lang="en">Job Scheduling</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_Administration" type="CommandBarMenu">ED137389E93048819E68DD364EDA1322</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_6D579E5DB3F64BC8B51AB7DE3915D216</name>
+ </Item>
+</AML>

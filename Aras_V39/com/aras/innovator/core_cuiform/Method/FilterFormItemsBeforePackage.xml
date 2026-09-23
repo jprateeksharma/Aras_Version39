@@ -1,0 +1,259 @@
+﻿<AML>
+ <Item type="Method" id="9D96C7163735467D9329BDBE31A17C0F" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer();
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer, CCO.Permissions);
+
+	try
+	{
+		return businessLogic.FilterFormItemsBeforeAddToPackage(this);
+	}
+	catch (Aras.Server.Core.InnovatorServerException ex)
+	{
+		return innovator.newError(ex.Message);
+	}
+}
+
+internal class BusinessLogic
+{
+	private readonly Innovator _innovator;
+	private readonly IDataAccessLayer _dataAccessLayer;
+	private readonly Aras.Server.Core.Abstractions.IPermissions _permissions;
+
+	private const string IdsParameterName = "ids";
+
+	internal BusinessLogic(
+		Innovator innovator,
+		IDataAccessLayer dataAccessLayer,
+		Aras.Server.Core.Abstractions.IPermissions permissions
+	)
+	{
+		this._innovator = innovator;
+		this._dataAccessLayer = dataAccessLayer;
+		this._permissions = permissions;
+	}
+
+	public Item FilterFormItemsBeforeAddToPackage(Item methodItem)
+	{
+		string formIdsToValidateParameter = methodItem.getProperty(IdsParameterName);
+		List<string> allFormIdsInRequest = new List<string>(formIdsToValidateParameter.Split(','));
+		var responsiveFormItems = this.GetResponsiveForms(formIdsToValidateParameter);
+
+		// no responsive items result
+		if (responsiveFormItems.getItemCount() == 0)
+		{
+			var resultForClassicForms = GenerateFormToAddResponseObject(allFormIdsInRequest);
+			return this._innovator.newResult(resultForClassicForms.ToString(Newtonsoft.Json.Formatting.None));
+		}
+
+		List<string> possibleFormIdsToUpdate = this.GetResponsiveFormsIdsBeforePackageValidation(responsiveFormItems);
+		Newtonsoft.Json.Linq.JArray formsToUpdateArray = this.GetFormsToUpdateArray(possibleFormIdsToUpdate, responsiveFormItems);
+		var formIdsToUpdate = formsToUpdateArray.Select(formObject => formObject["id"].ToString());
+
+		var formsIdsToAdd = allFormIdsInRequest.Except(formIdsToUpdate);
+		Newtonsoft.Json.Linq.JArray formsToAddArray = GetFormsToAddArray(formsIdsToAdd);
+
+		Newtonsoft.Json.Linq.JObject result = new Newtonsoft.Json.Linq.JObject
+		{
+			{ "formsToUpdate", formsToUpdateArray },
+			{ "formsToAdd", formsToAddArray }
+		};
+		return this._innovator.newResult(result.ToString(Newtonsoft.Json.Formatting.None));
+	}
+
+	private static Newtonsoft.Json.Linq.JObject GenerateFormToAddResponseObject(List<string> formsToAddIds)
+	{
+			var toAddArrayResult = new Newtonsoft.Json.Linq.JArray();
+			foreach (var formToAddId in formsToAddIds)
+			{
+				var formToAddObject = new Newtonsoft.Json.Linq.JObject
+				{
+					{ "id", formToAddId },
+				};
+				toAddArrayResult.Add(formToAddObject);
+			}
+
+			var result = new Newtonsoft.Json.Linq.JObject
+			{
+				{ "formsToAdd", toAddArrayResult }
+			};
+
+			return result;
+	}
+
+	private static Newtonsoft.Json.Linq.JArray GetFormsToAddArray(IEnumerable<string> formsToAddIds)
+	{
+		var formsToAddArray = new Newtonsoft.Json.Linq.JArray();
+		foreach (var formToAddId in formsToAddIds)
+		{
+			Newtonsoft.Json.Linq.JObject formToAddObject = new Newtonsoft.Json.Linq.JObject
+			{
+				{ "id", formToAddId },
+			};
+			formsToAddArray.Add(formToAddObject);
+		}
+
+		return formsToAddArray;
+	}
+
+	private Newtonsoft.Json.Linq.JArray GetFormsToUpdateArray(List<string> respFormsIds, Item responsiveFormItems)
+	{
+		var formsToUpdateArray = new Newtonsoft.Json.Linq.JArray();
+		foreach (var respFormId in respFormsIds)
+		{
+			var packageDefinitionsWithRespForm = this.GetPackageDefinitionWithItems(respFormId);
+			if (packageDefinitionsWithRespForm.getItemCount() > 0)
+			{
+				var name = packageDefinitionsWithRespForm.getProperty("name");
+				var formId = packageDefinitionsWithRespForm.node.GetElementsByTagName("element_id")[0].InnerText;
+				var responsiveFormItem = responsiveFormItems.getItemsByXPath($"//Item[@id='{formId}']");
+
+				Newtonsoft.Json.Linq.JObject formToUpdateObject = new Newtonsoft.Json.Linq.JObject
+				{
+					{ "id", formId },
+					{ "name", responsiveFormItem.getProperty("name") },
+					{ "keyedName", responsiveFormItem.getProperty("keyed_name") },
+					{ "packageName", name },
+				};
+				formsToUpdateArray.Add(formToUpdateObject);
+			}
+		}
+
+		return formsToUpdateArray;
+	}
+
+	private List<string> GetResponsiveFormsIdsBeforePackageValidation(Item responsiveFormItems)
+	{
+		List<string> responsiveFormIds = new List<string>();
+		for (int i = 0; i < responsiveFormItems.getItemCount(); i++)
+		{
+			Item formItem = responsiveFormItems.getItemByIndex(i);
+			var formId = formItem.getID();
+			var formCuiControls = formItem.getItemsByXPath("//Item[@type='cui_Control']");
+
+			var isSealedControlInPackage = false;
+			var needToCheckFormInPackage = true;
+			List<Control> controls = new List<Control>();
+
+			for (int controlIndex = 0; controlIndex < formCuiControls.getItemCount(); controlIndex++)
+			{
+				var controlItem = formCuiControls.getItemByIndex(controlIndex);
+				Control control = new Control(controlItem);
+				controls.Add(control);
+			}
+
+			foreach (var orderedControl in controls.OrderByDescending(c=>c.IsSealed)) // can be updated to take into account more options
+			{
+				var packageDefinitionWithControl = this.GetPackageDefinitionWithItems(orderedControl.Id);
+
+				if (packageDefinitionWithControl.getItemCount() > 0)
+				{
+					if (orderedControl.IsSealed)
+					{
+						isSealedControlInPackage = true;
+					}
+
+					continue;
+				}
+				// Add element to collection if custom control not in package but sealed is already in package.
+				// Currently Root user should do update for such case
+				if (isSealedControlInPackage && !this._permissions.UserHasRootIdentity())
+				{
+					needToCheckFormInPackage = false;
+				}
+			}
+
+			if (needToCheckFormInPackage)
+			{
+				responsiveFormIds.Add(formId);
+			}
+		}
+
+		return responsiveFormIds;
+	}
+
+	private Item GetResponsiveForms(string formIdsToValidateString)
+	{
+		Item cuiControl = this._innovator.newItem("cui_Control", "get");
+		cuiControl.setAttribute("select", "id,sealed");
+
+		Item cuiWindowSectionControl = this._innovator.newItem("cui_WindowSectionControl", "get");
+		cuiWindowSectionControl.setPropertyItem("related_id", cuiControl);
+
+		Item cuiWindowSection = this._innovator.newItem("cui_WindowSection", "get");
+		cuiWindowSection.setAttribute("select", "id");
+		cuiWindowSection.addRelationship(cuiWindowSectionControl);
+
+		Item formComposite = this._innovator.newItem("FormComposite", "get");
+		formComposite.setAttribute("select", "related_id(id)");
+		formComposite.setPropertyItem("related_id", cuiWindowSection);
+
+		var form = this._innovator.newItem("Form", "get");
+		form.setAttribute("select", "id,name,keyed_name,");
+		form.setPropertyCondition("id", "in");
+		form.setProperty("id", formIdsToValidateString);
+		form.setPropertyCondition("classification", "eq");
+		form.setProperty("classification", "Responsive");
+		form.addRelationship(formComposite);
+
+		return this._dataAccessLayer.ApplyItem(form);
+	}
+
+	private Item GetPackageDefinitionWithItems(string itemTypeId)
+	{
+		Item packageElementItem = this._innovator.newItem("PackageElement", "get");
+		packageElementItem.setAttribute("select", "id, element_id");
+		packageElementItem.setProperty("element_id", itemTypeId);
+		packageElementItem.setPropertyAttribute("element_id", "condition", "eq");
+
+		Item packageGroupItem = this._innovator.newItem("PackageGroup", "get");
+		packageGroupItem.setAttribute("select", "id");
+		packageGroupItem.addRelationship(packageElementItem);
+
+		Item packageDefinitionItems = this._innovator.newItem("PackageDefinition", "get");
+		packageDefinitionItems.setAttribute("select", "id,name");
+		packageDefinitionItems.addRelationship(packageGroupItem);
+
+		return this._dataAccessLayer.ApplyItem(packageDefinitionItems);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	public Item ApplyItem(Item item)
+	{
+		item = item.apply();
+		if (item.isError() && !item.isEmpty())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(item.ToString());
+		}
+
+		return item;
+	}
+}
+
+internal class Control
+{
+	internal string Id { get; private set; }
+	internal bool IsSealed { get; private set; }
+
+	internal Control(Item controlItem)
+	{
+		this.ParseControlItem(controlItem);
+	}
+
+	private void ParseControlItem(Item controlItem)
+	{
+		this.Id = controlItem.getID();
+		this.IsSealed = controlItem.getProperty("sealed") == "1" ? true : false;
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>FilterFormItemsBeforePackage</name>
+ </Item>
+</AML>

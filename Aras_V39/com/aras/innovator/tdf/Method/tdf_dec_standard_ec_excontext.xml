@@ -1,0 +1,200 @@
+﻿<AML>
+ <Item type="Method" id="5333E5C8A1C14EFB8761F5C50230DD2B" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[return {
+	mergeRemovalTypes: ['ArasListElement', 'ArasListItemElement'],
+
+	stopEvent(event) {
+		if (event) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+	},
+
+	isAppendAllowed(target, candidate) {
+		return this.document.schema.checkElementAction(
+			'append',
+			target,
+			candidate || target.name
+		);
+	},
+
+	splitTextElement(target, position) {
+		if (this.isAppendAllowed(target, target.name)) {
+			this.view.invalidation.suspend();
+
+			const parent = target.parent;
+			const newElement = target.divide(position);
+
+			// if element is last child of list item
+			if (!target.next && parent.is('ArasListItemElement')) {
+				const list = parent.list;
+				const position = list.children.index(parent);
+				const newListItem = list.items.insert(position + 1);
+
+				newListItem.children.append(newElement);
+			} else {
+				const siblings = parent.children;
+				const insertPosition = siblings.index(target);
+
+				siblings.insert(newElement, insertPosition + 1);
+			}
+
+			this.view.invalidation.resume();
+			return newElement;
+		}
+	},
+
+	appendElementByName(anchor, candidate) {
+		if (this.isAppendAllowed(anchor, candidate)) {
+			const elementInfo = this.document.schema.elements[candidate];
+			const { schemaType } = elementInfo.declaration;
+			const types = this.enums.XmlSchemaElementType;
+
+			const viewAction =
+				schemaType & types.Image || schemaType & types.Item
+					? 'appendnewitem'
+					: 'appendelement';
+
+			this.view.actions.execute(viewAction, {
+				elementName: candidate,
+				context: anchor,
+				direction: 'append'
+			});
+		}
+	},
+
+	getClosestTextElement(target, parent, backward) {
+		if (!parent || parent.is('ArasItemElement')) {
+			return;
+		}
+
+		const siblings = parent.children;
+		let closest;
+
+		if (target) {
+			const position = siblings.index(target);
+			closest = siblings.get(position + (backward ? -1 : 1));
+		} else {
+			closest = backward ? siblings.last : siblings.first;
+		}
+
+		if (closest) {
+			if (closest.is('ArasTextElement') || closest.mixed) {
+				return closest;
+			} else if (closest.children.count && !closest.is('ArasCellElement')) {
+				return this.getClosestTextElement(null, closest, backward);
+			}
+		} else if (!parent.is('ArasCellElement')) {
+			return this.getClosestTextElement(parent, parent.parent, backward);
+		}
+	},
+
+	mergeTextElements(first, second) {
+		if (first?.name !== second?.name || !first.editable || !second.editable) {
+			return false;
+		}
+
+		const removeElement = this.normalizeMergeRemoveElement(second);
+
+		if (this.validateAction('remove', removeElement.parent, removeElement)) {
+			const { view } = this;
+
+			view.invalidation.suspend();
+
+			if (first.is('ArasTextElement')) {
+				first.strings.add(...second.strings.list);
+			} else {
+				first.text += second.text;
+			}
+
+			this.removeElement(removeElement);
+			view.invalidation.resume();
+
+			return true;
+		}
+	},
+
+	normalizeMergeRemoveElement(target) {
+		let normalized = target;
+		let parent = target.parent;
+
+		while (
+			parent?.children.count === 1 &&
+			parent.any(...this.mergeRemovalTypes)
+		) {
+			normalized = parent;
+			parent = parent.parent;
+		}
+
+		return normalized;
+	},
+
+	removeElement(elements) {
+		const elementsList = Array.isArray(elements) ? elements : [elements];
+
+		this.view.actions.execute('removeelement', {
+			selectedItems: elementsList.map((element) => element.core)
+		});
+	},
+
+	tryRemoveElement(target, direction) {
+		const { parent } = target;
+
+		if (parent?.editable && this.validateAction('remove', parent, target)) {
+			const { view, control, enums } = this;
+			const nextElement =
+				(direction === enums.Directions.Down
+					? target.next || target.previous
+					: target.previous) || target.parent;
+			const moveDown = nextElement.equals(target.next);
+
+			this.removeElement(target);
+
+			view.selection.set(nextElement);
+
+			if (nextElement.is('ArasTextElement') || nextElement.mixed) {
+				control.selection.set(nextElement, moveDown ? 'begin' : 'end');
+			}
+
+			return true;
+		}
+
+		return false;
+	},
+
+	validateAction(action, anchor, target, silent) {
+		const { schema } = this.document;
+		const valid = schema.checkElementAction(action, anchor, target);
+
+		if (!valid && !silent) {
+			switch (action) {
+				case 'remove': {
+					const message = this.aras.getResource(
+						'../Modules/aras.innovator.TDF',
+						'action.schemarestriction.mergeelements',
+						target.name
+					);
+
+					this.aras.AlertWarning(message);
+					break;
+				}
+			}
+		}
+
+		return valid;
+	},
+
+	getTopmostListElement(target) {
+		const parent = target.parent;
+
+		return parent?.any('ArasListElement', 'ArasListItemElement')
+			? this.getTopmostListElement(parent)
+			: target;
+	}
+};
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>tdf_dec_standard_ec_excontext</name>
+ </Item>
+</AML>

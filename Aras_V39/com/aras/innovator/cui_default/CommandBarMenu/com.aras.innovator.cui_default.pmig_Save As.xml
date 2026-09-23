@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="7587E9CBC2B0491BB2298C4413836CBB" action="add">
+  <additional_data />
+  <label xml:lang="en">Save As</label>
+  <on_click_handler keyed_name="cui_default_mwt_onSaveAsCommand" type="Method">2F93F26BB1C4473F97F40281F4AD63CC</on_click_handler>
+  <on_init_handler keyed_name="cui_pmig_save_as_init" type="Method">FEB5885B60674B1C9EB20BF546C10169</on_init_handler>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.pmig_More" type="CommandBarMenu">2AF1AF72B16840E5B5676AADF357A148</parent_menu>
+  <name>com.aras.innovator.cui_default.pmig_Save As</name>
+ </Item>
+</AML>

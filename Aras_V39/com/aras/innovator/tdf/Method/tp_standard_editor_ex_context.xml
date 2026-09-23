@@ -1,0 +1,396 @@
+﻿<AML>
+ <Item type="Method" id="B546C4DA9E8E42FF8773F924D6BFC85A" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[return {
+	_stopEvent: function (targetEvent) {
+		if (targetEvent) {
+			targetEvent.preventDefault();
+			targetEvent.stopPropagation();
+		}
+	},
+
+	_setCursorPositionToTextElement: function (isTextTarget, textElement) {
+		if (!isTextTarget) {
+			textElement = textElement.ChildItems().get(0);
+		}
+		const domRange = this.control.domRange;
+		domRange.setCursorTo(textElement, 0, textElement, 0);
+	},
+
+	_getChangeForEnter: function (targetElement, currentOffset) {
+		const change = {
+			addEmph: [],
+			removeEmph: []
+		};
+		if (!targetElement.is('ArasTextXmlSchemaElement')) {
+			return change;
+		}
+
+		const emphsList = targetElement.getEmphsList();
+		let lengthCounter = 0;
+
+		for (let i = 0; i < emphsList.length; i++) {
+			const origEmph = emphsList[i];
+			const origEmphLength = origEmph.type === 'text' ? origEmph.TextLength() : 0;
+
+			lengthCounter += origEmphLength;
+
+			if (lengthCounter > currentOffset.startOffset || (lengthCounter === currentOffset.startOffset && origEmph.type === 'element')) {
+				const emph = origEmph.clone();
+
+				if (lengthCounter - origEmphLength < currentOffset.startOffset) {
+					const text = emph.Text();
+
+					origEmph.Text(text.substring(0, currentOffset.offset));
+					origEmph.Invalidate();
+
+					emph.Text(text.substring(currentOffset.offset, text.length));
+				} else {
+					change.removeEmph.push(origEmph);
+				}
+
+				change.addEmph.push(emph);
+			}
+		}
+
+		return change;
+	},
+
+	_setTextByCursorPositionToTextElement: function (originTargetElement, newTextElement) {
+		const viewCursor = this.control.viewmodel.Cursor();
+		const currentOffset = {
+			startOffset: viewCursor.startOffset,
+			offset: viewCursor.commonAncestor.selection.From() ? viewCursor.commonAncestor.selection.From().offset : 0
+		};
+
+		if (viewCursor.startOffset !== viewCursor.endOffset) {
+			viewCursor.commonAncestor.DeleteText();
+		}
+
+		const change = this._getChangeForEnter(originTargetElement, currentOffset);
+
+		if (change.addEmph.length) {
+			newTextElement.InsertEmphs(change.addEmph);
+		}
+
+		change.removeEmph.forEach(function (emph) {
+			emph.Delete();
+		});
+
+		if (change.addEmph.length || change.removeEmph.length) {
+			originTargetElement.parseOrigin();
+		}
+	},
+
+	_mergeRemovalTypes: ['ArasListXmlSchemaElement', 'ArasListItemXmlSchemaElement'],
+
+	_isTextElement: function(targetElement) {
+		if (targetElement) {
+			const schemaHelper = this.viewmodel.Schema();
+			return targetElement.is('ArasTextXmlSchemaElement') || schemaHelper.IsContentMixed(targetElement);
+		}
+	},
+
+	_isElementEditable: function (targetElement) {
+		if (targetElement) {
+			const externalHelper = this.viewmodel.ExternalBlockHelper();
+
+			return !externalHelper.isExternalBlockContains(targetElement) && !targetElement.isDynamic() && !targetElement.isInactive();
+		}
+	},
+
+	_isLastChild: function (targetElement) {
+		const parentElement  = targetElement && targetElement.Parent;
+
+		if (parentElement) {
+			const siblingElements = parentElement.ChildItems().List();
+			return siblingElements.indexOf(targetElement) === siblingElements.length - 1;
+		}
+	},
+
+	_isFirstChild: function (targetElement) {
+		const parentElement  = targetElement && targetElement.Parent;
+
+		if (parentElement) {
+			const siblingElements = parentElement.ChildItems().List();
+			return siblingElements.indexOf(targetElement) === 0;
+		}
+	},
+
+	_setCursorPosition: function (fromElement, startOffset, toElement, endOffset) {
+		const schemaHelper = this.viewmodel.Schema();
+
+		fromElement = schemaHelper.IsContentMixed(fromElement) ? fromElement.ChildItems().get(0) : fromElement;
+		toElement = schemaHelper.IsContentMixed(toElement) ? toElement.ChildItems().get(0) : toElement;
+
+		this.control.domRange.setCursorTo(fromElement, startOffset, toElement, endOffset);
+	},
+
+	_getClosestTextElementIfExists: function (targetElement, parentElement, searchBackward) {
+		if (!parentElement || parentElement.is('ArasItemXmlSchemaElement')) {
+			return;
+		}
+
+		const childItems = parentElement.ChildItems().List();
+		const currentElementIndex = childItems.indexOf(targetElement);
+		const extremePositionIndex = searchBackward ? childItems.length - 1 : 0;
+		const directionOffset = searchBackward ? -1 : 1;
+		const closestElement =
+			currentElementIndex > -1 ? childItems[currentElementIndex + directionOffset] : childItems[extremePositionIndex];
+
+		if (closestElement) {
+			if (closestElement.is('ArasTextXmlSchemaElement') || closestElement.is('XmlSchemaText')) {
+				return closestElement.is('ArasTextXmlSchemaElement') ? closestElement : closestElement.Parent;
+			} else if (
+				closestElement.ChildItems &&
+				closestElement.ChildItems().length() > 0 &&
+				!closestElement.is('ArasCellXmlSchemaElement')
+			) {
+				return this._getClosestTextElementIfExists(null, closestElement, searchBackward);
+			}
+		} else if (!parentElement.is('ArasCellXmlSchemaElement')) {
+			return this._getClosestTextElementIfExists(parentElement, parentElement.Parent, searchBackward);
+		}
+	},
+
+	_mergeTextElements: function (headElement, elementToMerge) {
+		if (
+			!headElement ||
+			!elementToMerge ||
+			headElement.nodeName !== elementToMerge.nodeName ||
+			!this._isElementEditable(headElement) ||
+			!this._isElementEditable(elementToMerge)
+		) {
+			return false;
+		}
+
+		const elementToRemove = this._getFarthestParentWithSingleChild(elementToMerge);
+
+		if (this._checkSchemaRestrictions(elementToRemove, elementToRemove.Parent, 'remove')) {
+			this.viewmodel.SuspendInvalidation();
+
+			if (headElement.is('ArasTextXmlSchemaElement')) {
+				const relocateEmphs = elementToMerge.getEmphsList();
+
+				this.control.placeCursorOnElement(headElement, 'end');
+				headElement.InsertEmphs(relocateEmphs);
+				headElement.parseOrigin();
+			} else {
+				const currentTextNode = headElement.ChildItems().get(0);
+				const mergeTextNode = elementToMerge.ChildItems().get(0);
+
+				currentTextNode.Text(currentTextNode.Text() + mergeTextNode.Text());
+			}
+
+			this._removeElement(elementToRemove);
+
+			this.viewmodel.SetSelectedItems(headElement);
+			this.viewmodel.ResumeInvalidation();
+
+			return true;
+		}
+	},
+
+	_getFarthestParentWithSingleChild: function (targetElement) {
+		const parentElement = targetElement.Parent;
+		const childCount = parentElement && parentElement.ChildItems().length();
+		let parentCanBeRemoved = false;
+
+		for (let i = 0; i < this._mergeRemovalTypes.length; i++) {
+			if (parentElement.is(this._mergeRemovalTypes[i])) {
+				parentCanBeRemoved = true;
+				break;
+			}
+		}
+
+		return childCount === 1 && parentCanBeRemoved ? this._getFarthestParentWithSingleChild(parentElement) : targetElement;
+	},
+
+	_getTextElementLength: function (targetElement) {
+		const elementNode = this.control.domapi.getNode(targetElement);
+
+		if(targetElement.is('ArasTextElement')) {
+			const emphNodes = Array.from(elementNode.querySelectorAll('[emphtype="text"]'));
+
+			return emphNodes.reduce((result, node) => result + (node.parentNode === elementNode ? node.textContent.length : 0), 0) 
+		}
+
+		return elementNode.textContent.length;
+	},
+
+	_getTextElementLengthWithoutWhitespaces: function (targetElement) {
+		const elementNode = this.control.domapi.getNode(targetElement);
+		return elementNode.textContent.trim().length;
+	},
+
+	_tryRemoveElement: function (targetElement, selectionDirection, contextData) {
+		const parentElement = targetElement.Parent;
+
+		if (this._isElementEditable(parentElement) && this._checkSchemaRestrictions(targetElement, parentElement, 'remove')) {
+			const siblingElements = parentElement && parentElement.ChildItems().List();
+			const elementIndex = siblingElements.indexOf(targetElement);
+			const moveDown = selectionDirection === this.enums.Directions.Down;
+			const nextElementIndex = moveDown && elementIndex < siblingElements.length - 1 ? elementIndex + 1 : elementIndex - 1;
+			const nextElement = nextElementIndex < 0 ? targetElement.Parent : siblingElements[nextElementIndex];
+
+			contextData.selectedElement = nextElement;
+
+			if (this._isTextElement(nextElement)) {
+				contextData.cursorPosition = {
+					element: nextElement,
+					position: moveDown ? 'begin' : 'end'
+				};
+			}
+
+			this._removeElement(targetElement);
+
+			return true;
+		}
+	},
+
+	_getListItems: function (listElement) {
+		const childElements = listElement.ChildItems().List();
+		let listItemsArray = [];
+
+		for (let i = 0; i < childElements.length; i++) {
+			const child = childElements[i];
+
+			if (child.is('ArasBlockXmlSchemaElement')) {
+				listItemsArray = listItemsArray.concat(this._getListItems(child));
+			} else {
+				listItemsArray.push(child);
+			}
+		}
+
+		return listItemsArray;
+	},
+
+	_removeElement: function (elementsToRemove) {
+		const removeAction = this.control.actionsHelper.getAction('removeelement');
+
+		removeAction.Execute({
+			selectedItems: Array.isArray(elementsToRemove) ? elementsToRemove : [elementsToRemove]
+		});
+	},
+
+	_checkSchemaRestrictions: function (targetElement, containerElement, action) {
+		const targetElementType = targetElement.nodeName;
+		const schemaHelper = this.viewmodel.Schema();
+		const expectedChildsTypes = schemaHelper.GetSchemaExpectedElementChilds(
+			containerElement
+		);
+		const targetTypeDescriptor = expectedChildsTypes.find(function (type) {
+			return type.name === targetElementType;
+		});
+
+		switch (action) {
+			case 'remove': {
+				const existingElementTypeInfo = this.viewmodel.getChildElementsByType(
+					containerElement,
+					targetElementType
+				);
+				const minOccurs = targetTypeDescriptor
+					? targetTypeDescriptor.minOccurs
+					: this._getDefaultMinOccursFromTarget(targetElement);
+				if (minOccurs && minOccurs > existingElementTypeInfo.count - 1) {
+					this._showSchemaRemoveError(targetElementType);
+					return false;
+				}
+				break;
+			}
+		}
+
+		return true;
+	},
+
+	_showSchemaRemoveError: function (elementType) {
+		const warningMessage = this.aras.getResource('../Modules/aras.innovator.TDF', 'action.schemarestriction.mergeelements', elementType);
+		this.aras.AlertWarning(warningMessage);
+	},
+
+	_showSchemaAddError: function (elementType) {
+		const warningMessage = this.aras.getResource('../Modules/aras.innovator.TDF', 'action.schemarestriction.addelements', elementType);
+		this.aras.AlertWarning(warningMessage);
+	},
+
+	_processListItemBackspace: function (targetElement) {
+		if (!targetElement || !targetElement.is('ArasListItemXmlSchemaElement')) {
+			return;
+		}
+		const listElement = targetElement.List();
+		const targetElementChilds = targetElement.ChildItems();
+
+		if (listElement && targetElementChilds.length() === 0) {
+			const listItems = this._getListItems(listElement);
+			const currentListItemIndex = listItems.indexOf(targetElement);
+			if (currentListItemIndex !== 0) {
+				const previousListItem = listItems[currentListItemIndex - 1];
+				const prevListItemChilds = previousListItem.ChildItems();
+				// remove li and change selection when target and prev li-s are empty
+				if (prevListItemChilds.length() === 0) {
+					if (
+						this._checkSchemaRestrictions(targetElement, targetElement.Parent, 'remove')
+					) {
+						this.viewmodel.SuspendInvalidation();
+						this._removeElement(targetElement);
+						this.viewmodel.SetSelectedItems(previousListItem);
+						this.viewmodel.ResumeInvalidation();
+					}
+				}
+			}
+		}
+	},
+
+	_syncAndMergeTextElements: function (keyEvent, closestElement, targetElement) {
+		const elementToMergeInitialLength = this._getElementTextNodeLength(closestElement);
+		this.control.syncBeforeAction(keyEvent);
+		const isMergeCompleted = this._mergeTextElements(closestElement, targetElement);
+		if (isMergeCompleted) {
+			this._setCursorPosition(
+				closestElement,
+				elementToMergeInitialLength,
+				closestElement,
+				elementToMergeInitialLength
+			);
+		}
+	},
+
+	_getDefaultMinOccursFromTarget: function (targetElement) {
+		const schemaHelper = this.viewmodel.Schema();
+		const expectedElements = schemaHelper.getExpectedElementsDefault(targetElement);
+		const elementInfo = expectedElements.append.find(elem => {
+			return elem.name === targetElement.nodeName;
+		});
+
+		if (elementInfo) {
+			return elementInfo.minOccurs;
+		}
+	},
+
+	_getElementTextNodeLength: function (textElement) {
+		if(this._isTextElement(textElement)) {
+			let elementLength;
+			if (textElement.is('ArasTextXmlSchemaElement')) {
+				elementLength = textElement.GetTextAsString().length;
+			} else {
+				const textNode = textElement.ChildItems().get(0);
+				elementLength = textNode.Text().length;
+			}
+
+			return elementLength;
+		}
+	},
+
+	_getTopListElementParent: function (targetElement) {
+		const parent = targetElement.Parent;
+		if (parent && (parent.is('ArasListXmlSchemaElement') || parent.is('ArasListItemXmlSchemaElement'))) {
+			targetElement = this._getTopListElementParent(parent);
+		}
+
+		return targetElement;
+	}
+};]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>tp_standard_editor_ex_context</name>
+ </Item>
+</AML>

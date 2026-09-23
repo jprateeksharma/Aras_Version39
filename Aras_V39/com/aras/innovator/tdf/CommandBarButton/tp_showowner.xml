@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="730B5B1F4BF9497E9D4B17B457A60E60" action="add">
+  <additional_data>{}</additional_data>
+  <image>../images/ResetView.svg</image>
+  <label xml:lang="en">Show link owner</label>
+  <name>tp_showowner</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="cui_Control" id="797DE009AAEA4C828C9486A9DA6D4036" action="add">
+  <control_type>GridControl</control_type>
+  <sealed>0</sealed>
+  <name>SearchGrid.Grid</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="1C7805D58BAF44479C00E8CC936FA736" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">{0} "{1}" is not current. Changes have been made by another user or process. It will now be refreshed. Please try again.</text>
+  <name>GetItemNextStates_EditOldGenerationError</name>
+ </Item>
+</AML>

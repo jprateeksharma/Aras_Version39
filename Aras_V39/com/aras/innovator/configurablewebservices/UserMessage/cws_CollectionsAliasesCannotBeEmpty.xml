@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="F7A1E0F836FA43D69A4AC5553485B1D8" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Collections aliases cannot be empty.</text>
+  <name>cws_CollectionsAliasesCannotBeEmpty</name>
+ </Item>
+</AML>

@@ -1,0 +1,36 @@
+﻿<AML>
+ <Item type="Method" id="A7162C018A6145B5AF0188A5B415D61E" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[
+const gridData = options.tgvContext.getGridData();
+let focusedCell;
+if (gridData.focus && gridData.focus.length) {
+	focusedCell = gridData.focus[0];
+}
+
+const dataObjectString =
+	focusedCell && (focusedCell.cell.data || focusedCell.row.cells[0].data);
+
+let dataObject;
+if (dataObjectString) {
+	try {
+		dataObject = JSON.parse(dataObjectString);
+	} catch {
+		dataObject = null;
+	}
+}
+
+const selectedRowIds = options.getState().grid.selectedRows;
+const defaultInvalidIdValueInTemplate = 'INVALID_ID_VALUE';
+const disabled =
+	selectedRowIds.length > 1 ||
+	!dataObject ||
+	!dataObject.id ||
+	!dataObject.type ||
+	dataObject.id === defaultInvalidIdValueInTemplate;
+return { disabled };
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>rb_isItemDataValid</name>
+ </Item>
+</AML>

@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Command" id="5DE7680ED9094B7D885B32026C3BBFB6" action="add">
+  <execute_handler keyed_name="cui_command_copyFormItem_execute" type="Method">245D8B42C1FA4146A76923D384E31837</execute_handler>
+  <name>CopyForm</name>
+ </Item>
+</AML>

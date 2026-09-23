@@ -1,0 +1,69 @@
+﻿<AML>
+ <Item type="Method" id="32A15DF2465940619B695415F05169A9" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[if (srcElement.value) {
+	const node = document.item;
+	const isJustAdded = node.getAttribute('action') === 'add';
+	if (!isJustAdded) {
+		node.setAttribute('action', 'update');
+	}
+	let relNode = node.selectSingleNode('Relationships');
+	if (!relNode) {
+		relNode = node.ownerDocument.createElement('Relationships');
+		node.appendChild(relNode);
+	}
+
+	const methodItem = aras.getItemByName('Method', srcElement.value);
+	const methodId = methodItem.getAttribute('id');
+
+	const computedPropertyNode = relNode.selectSingleNode('Item[@type=\'cmf_ComputedProperty\' and not(@action=\'delete\')]');
+
+	if (computedPropertyNode) {
+		computedPropertyNode.setAttribute('action', 'delete');
+	}
+
+	const computedProperty = aras.IomInnovator.newItem('cmf_ComputedProperty', 'add');
+	computedProperty.setAttribute('id', aras.generateNewGUID());
+	computedProperty.setProperty('source_id', node.getAttribute('id'));
+	computedProperty.setAttribute('typeId', aras.getItemTypeId('cmf_ComputedProperty'));
+	computedProperty.setProperty('related_id', '');
+	computedProperty.setPropertyAttribute('related_id', 'is_null', '1');
+	computedProperty.setProperty('on_client_compute_method', methodId);
+	computedProperty.setPropertyAttribute('on_client_compute_method', 'keyed_name', srcElement.value);
+	computedProperty.setPropertyAttribute('on_client_compute_method', 'type', 'Method');
+	relNode.appendChild(computedProperty.node);
+
+	const multiSelect = document.getElementById('dependency-multi-select');
+	if (multiSelect) {
+		multiSelect.style.display = '';
+	}
+
+} else {
+	const multiSelect = document.getElementById('dependency-multi-select');
+	if (multiSelect) {
+		if (dijit.byId) {
+			const alreadyExist = dijit.byId('dependency-multi-select');
+			if (alreadyExist) {
+				alreadyExist.set('value', []);
+			}
+		}
+		multiSelect.style.display = 'none';
+	}
+
+	const needToRemoveNode = document.item.selectSingleNode('Relationships/Item[@type=\'cmf_ComputedProperty\' and not(@action=\'delete\')]');
+	if (needToRemoveNode) {
+		if (needToRemoveNode.getAttribute('action') !== 'add') {
+			if (document.item.getAttribute('action') !== 'add') {
+				document.item.setAttribute('action', 'update');
+			}
+			needToRemoveNode.setAttribute('action', 'delete');
+		} else {
+			needToRemoveNode.parentNode.removeChild(needToRemoveNode);
+		}
+	}
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cmf_onChangeComputedMethod</name>
+ </Item>
+</AML>

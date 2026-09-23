@@ -1,0 +1,78 @@
+﻿<AML>
+ <Item type="Method" id="4A371A77E789476FA84367C630290BBC" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { itemNode, ignoreDialog, item, itemTypeName: typeName, location} = options;
+const itemId = item ? item.id : itemNode.getAttribute('id');
+const isDirty = item
+	? ArasModules.item.isDirty(typeName, itemId)
+	: aras.isDirtyEx(itemNode);
+const mainWindow = aras.getMainWindow();
+if (isDirty && !ignoreDialog) {
+	const dialogSettings = {
+		title: aras.getResource('', 'common.discard_confirmationtitle')
+	};
+	const dialogMessage = aras.getResource(
+		'',
+		'common.discard_confirmationmessage'
+	);
+
+	const result = await window.ArasModules.Dialog.confirm(
+		dialogMessage,
+		dialogSettings
+	);
+	if (result !== 'ok') {
+		return false;
+	}
+}
+
+const isClaimed = ArasModules.item.isEditedAndClaimed(typeName, itemId);
+if (!isClaimed) {
+	try {
+		return await (item
+			? window.aras.unlockItemAsync(itemId, typeName)
+			: window.onUnlockCommand(true));
+	} catch (error) {
+		if (error.message === 'Aras.Server.Core.ItemIsNotLockedException') {
+			window.aras.removeFromCache(itemId);
+			const itemNd = window.aras.getItemById(itemTypeName, itemId, 0);
+			window.aras.updateInCache(itemNd);
+			if (location === 'ItemView') {
+				window.aras.uiReShowItemEx(itemId, itemNd);
+			}
+			window.aras.fireEvent('ItemLock', {
+				itemID: itemNd.getAttribute('id'),
+				itemNode: itemNd,
+				newLockedValue: window.aras.isLocked(itemNd),
+				itemNodeClone: itemNd.cloneNode(true)
+			});
+		} else {
+			throw error;
+		}
+	}
+}
+
+let serverNode = itemNode;
+if (isDirty) {
+	const itemAml = `<Item type="${typeName}" id="${itemId}" action="get" />`;
+	const result = (await mainWindow.aras.soapSendAsync(itemAml)).getResult();
+	serverNode = ArasModules.xml.selectSingleNode(result, 'Item');
+	const itemNode = aras.itemsCache.getItemByXPath(`//Item[@id="${itemId}"]`);
+	if (itemNode) {
+		aras.updateInCacheEx(itemNode, serverNode);
+	}
+	aras.updateInCache(serverNode);
+}
+
+const storeActions = mainWindow.store.boundActionCreators;
+storeActions.deleteItemLocalChangesRecord(typeName, itemId);
+
+if (!item) {
+	window.updateCacheAndStore(itemNode);
+	window.reshowItemToViewMode(serverNode);
+}
+
+return true;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_discard_item_execute</name>
+ </Item>
+</AML>

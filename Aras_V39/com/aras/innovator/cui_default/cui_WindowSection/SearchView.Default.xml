@@ -1,0 +1,58 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="DE9F53BEA41B4D809912DB663AFF62B1" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="SearchView" type="cui_Location">50AA534B530F42DD9FCE3BA6681F6710</location>
+  <name>SearchView.Default</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="1E96A4BD9E9642CD87FF969F137F6467" action="add">
+    <action>Add</action>
+    <related_id keyed_name="SearchView.TitleBar_95CB5A84581940848EEC7AB0F476F386" type="cui_Control">95CB5A84581940848EEC7AB0F476F386</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="SearchView.Default" type="cui_WindowSection">DE9F53BEA41B4D809912DB663AFF62B1</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="CA540D95F7AF4FB6A16AEFD762229328" action="add">
+    <action>Add</action>
+    <related_id keyed_name="SearchView.CommandBar_A80B676C10374C389F4AB6F6B958DF37" type="cui_Control">A80B676C10374C389F4AB6F6B958DF37</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="SearchView.Default" type="cui_WindowSection">DE9F53BEA41B4D809912DB663AFF62B1</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="BBF8F3CBCD0B4E598ACA351F8814FF9C" action="add">
+    <action>Add</action>
+    <related_id keyed_name="SearchGrid.Grid_C8AAF24D53414588932939ECBA5B34C4" type="cui_Control">C8AAF24D53414588932939ECBA5B34C4</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>320</sort_order>
+    <source_id keyed_name="SearchView.Default" type="cui_WindowSection">DE9F53BEA41B4D809912DB663AFF62B1</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="DC326B5771974EB5AA4615D2DCB03121" action="add">
+    <action>Add</action>
+    <related_id keyed_name="SearchView.Shortcuts_6E70ADC9236D40E9B649302417DD5A4E" type="cui_Control">6E70ADC9236D40E9B649302417DD5A4E</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="SearchView.Default" type="cui_WindowSection">DE9F53BEA41B4D809912DB663AFF62B1</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="42CDF0AD019B41EAA79265EEB54B78D1" action="add">
+    <action>Add</action>
+    <related_id keyed_name="SearchView.GridHeaderContextMenu_93D6901991424F24AB266CBB29EFC6B3" type="cui_Control">93D6901991424F24AB266CBB29EFC6B3</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="SearchView.Default" type="cui_WindowSection">DE9F53BEA41B4D809912DB663AFF62B1</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="0A16D1E27D8A4985BF047C6995562988" action="add">
+    <action>Add</action>
+    <related_id keyed_name="SearchView.GridRowContextMenu_4672F8C82FB041DC89B3732F72EC193D" type="cui_Control">4672F8C82FB041DC89B3732F72EC193D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="SearchView.Default" type="cui_WindowSection">DE9F53BEA41B4D809912DB663AFF62B1</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="C70C4D0FF6C348709FD66514945493D3" action="add">
+    <action>Add</action>
+    <related_id keyed_name="SearchView.PreviewForm_34F3CF96A719476BBA3BAE3D1E7817C0" type="cui_Control">34F3CF96A719476BBA3BAE3D1E7817C0</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="SearchView.Default" type="cui_WindowSection">DE9F53BEA41B4D809912DB663AFF62B1</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

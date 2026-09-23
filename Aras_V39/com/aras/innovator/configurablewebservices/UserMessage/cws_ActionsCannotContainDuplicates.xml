@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="61EB6B2C48474944993BCFD9FD4ECD0E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: 'Actions' cannot contain duplicates.</text>
+  <name>cws_ActionsCannotContainDuplicates</name>
+ </Item>
+</AML>

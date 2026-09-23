@@ -1,0 +1,21 @@
+﻿<AML>
+ <Item type="Method" id="C44D829C9EF54C9E8045E5B60C26E0AD" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { globalCommand, setErrorMessage } = commands;
+const canExecute = globalCommand.canExecute();
+if (canExecute !== true) {
+	return false;
+}
+
+const vaultId = aras.getVaultServerID();
+if (!vaultId) {
+	const message = aras.getResource('', 'item_methods.no_defualt_vault_sever');
+	setErrorMessage(message);
+	return false;
+}
+
+return true;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_new_fileItem_can_exe</name>
+ </Item>
+</AML>

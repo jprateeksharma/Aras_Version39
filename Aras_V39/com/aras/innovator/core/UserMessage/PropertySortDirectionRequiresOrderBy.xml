@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="3A79F25D559B40C8A1830B351D2C22D8" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The 'sort_direction' property cannot be set when 'order_by' is null or empty.</text>
+  <name>PropertySortDirectionRequiresOrderBy</name>
+ </Item>
+</AML>

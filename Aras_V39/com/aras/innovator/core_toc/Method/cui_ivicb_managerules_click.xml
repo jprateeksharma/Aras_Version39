@@ -1,0 +1,117 @@
+﻿<AML>
+ <Item type="Method" id="FC7A6032E28F4C759125E78DBA86DA4A" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const [
+	{ odataFetch, odataBatch, getResource },
+	{ manageRules, getManageRulesRequestSettings },
+	{ alert },
+	{ item }
+] = await Promise.all([
+	import('../jsBundles/core.es.js'),
+	import('../jsBundles/rules.es.js'),
+	import('../jsBundles/dialogs.es.js'),
+	import('../jsBundles/store.es.js'),
+])
+const notify = aras.getNotifyByContext(window);
+const itemTypeId = options.itemId;
+let rules = [];
+let cuiControlId = null;
+
+try {
+	const data = await await odataFetch(`ItemType('${itemTypeId}')?$select=ITPresentationConfiguration&$expand=ITPresentationConfiguration
+		($filter=client eq 'js';$expand=related_id($select=cui_PresentConfigWinSection;$expand=cui_PresentConfigWinSection
+			($select=related_id;$filter=related_id/location/name eq 'SearchGrid';$expand=related_id($select=cui_WindowSectionControl;$expand=cui_WindowSectionControl
+				($select=related_id;$expand=related_id
+					($select=id,cui_ControlRule;$expand=cui_ControlRule($select=id,sort_order,related_id;$expand=related_id(lang=*)))
+				)
+			))
+		))`
+	);
+	const cuiControl = data?.ITPresentationConfiguration?.[0]?.related_id?.cui_PresentConfigWinSection?.[0]?.related_id?.cui_WindowSectionControl?.[0]?.related_id;
+	rules = cuiControl?.cui_ControlRule || [];
+	cuiControlId = cuiControl?.id;
+} catch(error){
+	alert(error.message)
+	return;
+}
+
+const showDefaultErrorMessage = (error) => {
+	alert(getResource("conditional_formatting.invalid_save_rules_message"), { 
+		type: 'error', 
+		...Boolean(error) && {
+			customization: {
+				descriptionCustomizator: (container) => {
+					container.textContent = error.message;
+				}
+			} 
+		}
+	});
+}
+let error
+const processDialogData = async (items) => {
+	if (!cuiControlId) {
+		try {
+			const result = await odataFetch('method.GetCuiGridControlId', {
+				method: 'POST',
+				body: JSON.stringify({ itemTypeId })
+			});
+			cuiControlId = result.Item['@aras.id']
+		} catch (err) {
+			error = err;
+		}
+	}
+	if (!cuiControlId) {
+		showDefaultErrorMessage(error);
+		return false;
+	}
+	const requestsSettings = items.flatMap((item) => {
+		const results = [];
+
+		if (item.related_id['@action'] === 'edit') {
+			results.push(getManageRulesRequestSettings({
+				...item.related_id,
+				'@type': 'cui_Rule'
+			}));
+		}
+		if (item['@action'] || !results.length) {
+			results.push(getManageRulesRequestSettings({
+				...item,
+				'@type': 'cui_ControlRule',
+				'source_id': cuiControlId
+			}));
+		}
+
+		return results.map((settings) =>
+			Object.assign(settings, {
+				atomicityGroup: 'gridRulesRequest',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+		);
+	});
+
+	try {
+		const result = await odataBatch(requestsSettings);
+		const lastItem = result[result.length -1];
+		const errorResponse = lastItem.status !== 'completed';
+		if (errorResponse) {
+			throw lastItem.reason;
+		}
+	} catch (error) {
+		showDefaultErrorMessage(error);
+		return false;
+	}
+
+	notify(getResource("conditional_formatting.valid_save_rules_message"), { type: 'success' });
+	return true;
+}
+
+return manageRules(rules, itemTypeId, {
+	isViewMode: !item.isEditState(options.itemTypeName, itemTypeId),
+	processDialogData
+});]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivicb_managerules_click</name>
+ </Item>
+</AML>

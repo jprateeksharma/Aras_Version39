@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="8412A113A27A442397DB6B664A7F8E90" action="add">
+  <additional_data>{ "actionName": "tableactions", "actionParameters": { "action": "justify"}}</additional_data>
+  <image>../images/JustifyAlign.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_executeaction" type="Method">94FDE365CA9A402DB808B93FBE53CC4D</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_table_init" type="Method">3FEFE4010E7E4D599601B2816692F458</on_init_handler>
+  <tooltip_template xml:lang="en">Justify align</tooltip_template>
+  <name>tp_justify</name>
+ </Item>
+</AML>

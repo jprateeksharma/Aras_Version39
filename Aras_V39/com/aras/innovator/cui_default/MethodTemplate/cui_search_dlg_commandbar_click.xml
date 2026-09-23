@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="6764736E5450495481494973CA8AEBA2" action="add">
+  <template>import type { Toolbar } from 'core';
+import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import type { Options, ClickHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+export async function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'SearchDialog'&gt;
+): ClickHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_search_dlg_commandbar_click</name>
+ </Item>
+</AML>

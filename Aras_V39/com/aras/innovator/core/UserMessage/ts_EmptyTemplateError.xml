@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="70774FBABCB14DA3A6272DAFEDFE182D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The TypeScript method should have a template specified</text>
+  <name>ts_EmptyTemplateError</name>
+ </Item>
+</AML>

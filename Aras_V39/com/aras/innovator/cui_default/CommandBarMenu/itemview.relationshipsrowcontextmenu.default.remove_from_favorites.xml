@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="28ED7A70EB144DE78442F69C125E9C90" action="add">
+  <image>../images/FavoriteOn.svg</image>
+  <label xml:lang="en">Edit Favorite</label>
+  <on_click_handler keyed_name="cui_ivrcm_edit_favorites_click" type="Method">8F52FAFAD9B041638E34CBD6103419D8</on_click_handler>
+  <on_init_handler keyed_name="cui_ivrcm_edit_favorites_init" type="Method">498DEE34A19B44BEB63B9FEE0A764C75</on_init_handler>
+  <name>itemview.relationshipsrowcontextmenu.default.remove_from_favorites</name>
+ </Item>
+</AML>

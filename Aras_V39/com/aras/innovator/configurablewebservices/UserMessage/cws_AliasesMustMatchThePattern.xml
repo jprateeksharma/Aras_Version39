@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="C5977DD020B74878AD3CCC29A86572D3" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Alias naming violation. Alias maximum length should be 128 characters. Alias must contain only letters, underscores (_) and numbers, except for alias leading character: it only can start with letter or underscore (_). Incorrect aliases: {0}.</text>
+  <name>cws_AliasesMustMatchThePattern</name>
+ </Item>
+</AML>

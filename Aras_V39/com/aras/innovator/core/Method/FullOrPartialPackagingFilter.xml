@@ -1,0 +1,239 @@
+﻿<AML>
+ <Item type="Method" id="E48D282E53FD42AC8CF94C3E8C9D334A" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer();
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer);
+
+	try
+	{
+		return businessLogic.RunLogic(this);
+	}
+	catch (Aras.Server.Core.InnovatorServerException ex)
+	{
+		return innovator.newError(ex.Message);
+	}
+}
+
+internal class BusinessLogic
+{
+	private readonly Innovator _innovator;
+	private readonly IDataAccessLayer _dataAccessLayer;
+
+	private const string IdsParameterName = "ids";
+
+	internal BusinessLogic(
+		Innovator innovator,
+		IDataAccessLayer dataAccessLayer
+	)
+	{
+		_innovator = innovator;
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public Item RunLogic(Item methodItem)
+	{
+		var formIdsToValidateString = methodItem.getProperty(IdsParameterName);
+		var formItemsWithControlsToProcess = GetForms(String.Join(",", formIdsToValidateString.Split(',').Select(formId=> $"'{formId}'")));
+
+		List<FormStructure> formStructures = new List<FormStructure>();
+		for (int i = 0; i < formItemsWithControlsToProcess.getItemCount(); i++)
+		{
+			Item formItem = formItemsWithControlsToProcess.getItemByIndex(i);
+			FormStructure formStructure = new FormStructure(_innovator, _dataAccessLayer, formItem);
+			formStructures.Add(formStructure);
+		}
+
+    var formsToAddFull = new Newtonsoft.Json.Linq.JArray();
+    var formsToAddPartial = new Newtonsoft.Json.Linq.JArray();
+
+    foreach(FormStructure formStructureWithPartialAdd in formStructures.Where(f=>f.IsPartialAdd))
+    {
+      Newtonsoft.Json.Linq.JObject formToAddPartial = new Newtonsoft.Json.Linq.JObject
+      {
+        { "id", formStructureWithPartialAdd.Form.Id },
+        { "controlId", formStructureWithPartialAdd.Controls.Where(c => c.IsSealed == false).FirstOrDefault().Id }
+      };
+      formsToAddPartial.Add(formToAddPartial);
+    }
+
+    foreach(FormStructure formStructureWithFullAdd in formStructures.Where(f=>f.IsPartialAdd == false))
+    {
+      Newtonsoft.Json.Linq.JObject formToAddFull = new Newtonsoft.Json.Linq.JObject
+      {
+        { "id", formStructureWithFullAdd.Form.Id }
+      };
+      formsToAddFull.Add(formToAddFull);
+    }
+
+    Newtonsoft.Json.Linq.JObject result = new Newtonsoft.Json.Linq.JObject
+		{
+			{ "formsToAddFull", formsToAddFull },
+			{ "formsToAddPartial", formsToAddPartial }
+		};
+
+		return _innovator.newResult(result.ToString(Newtonsoft.Json.Formatting.None));
+	}
+
+	private Item GetForms(string formIdsString)
+	{
+		Item cuiControl = _innovator.newItem("cui_Control", "get");
+		cuiControl.setAttribute("select", "id,sealed");
+
+		Item cuiWindowSectionControl = _innovator.newItem("cui_WindowSectionControl", "get");
+		cuiWindowSectionControl.setPropertyItem("related_id", cuiControl);
+
+		Item cuiWindowSection = _innovator.newItem("cui_WindowSection", "get");
+		cuiWindowSection.setAttribute("select", "id");
+		cuiWindowSection.addRelationship(cuiWindowSectionControl);
+
+		Item formComposite = _innovator.newItem("FormComposite", "get");
+		formComposite.setAttribute("select", "related_id(id)");
+		formComposite.setPropertyItem("related_id", cuiWindowSection);
+
+		var form = _innovator.newItem("Form", "get");
+		form.setAttribute("select", "id,name,keyed_name,");
+		form.setPropertyCondition("id", "in");
+		form.setProperty("id", formIdsString);
+		form.addRelationship(formComposite);
+
+		return _dataAccessLayer.ApplyItem(form);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	public Item ApplyItem(Item item)
+	{
+		item = item.apply();
+		if (item.isError() && !item.isEmpty())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(item.getErrorString());
+		}
+
+		return item;
+	}
+}
+
+static Item GetPackageDefinitionWithItem(Innovator innovator, IDataAccessLayer dal, string itemId, string type)
+{
+	Item packageElementItem = innovator.newItem("PackageElement", "get");
+	packageElementItem.setAttribute("select", "id, element_id");
+	packageElementItem.setProperty("element_id", itemId);
+	packageElementItem.setPropertyAttribute("element_id", "condition", "eq");
+	packageElementItem.setProperty("element_type", type);
+	packageElementItem.setPropertyAttribute("element_type", "condition", "eq");
+
+	Item packageGroupItem = innovator.newItem("PackageGroup", "get");
+	packageGroupItem.setAttribute("select", "id");
+	packageGroupItem.addRelationship(packageElementItem);
+
+	Item packageDefinitionItems = innovator.newItem("PackageDefinition", "get");
+	packageDefinitionItems.setAttribute("select", "id,name");
+	packageDefinitionItems.addRelationship(packageGroupItem);
+
+	return dal.ApplyItem(packageDefinitionItems);
+}
+
+internal class FormStructure
+{
+	private readonly Innovator _innovator;
+	private readonly IDataAccessLayer _dal;
+
+	internal Form Form { get; private set; }
+	internal List<Control> Controls = new List<Control>();
+	internal bool IsPartialAdd { get; private set; }
+
+	internal FormStructure(Innovator innovator, IDataAccessLayer dal, Item formItem)
+	{
+		_innovator = innovator;
+		_dal = dal;
+		ParseFormItem(formItem);
+		SetTypeOfAdd();
+	}
+
+	private void SetTypeOfAdd()
+	{
+		var sealedControl = Controls.Where(c=>c.IsSealed).SingleOrDefault();
+		var customControl = Controls.Where(c=>c.IsSealed == false).SingleOrDefault();
+
+		if (sealedControl?.PackageId != customControl?.PackageId)
+		{
+			IsPartialAdd = true;
+		}
+	}
+
+	private void ParseFormItem(Item formItem)
+	{
+		// need to take Form
+		Form form = new Form();
+		form.Id = formItem.getID();
+		form.Name = formItem.getProperty("name");
+		var packageWithForm = GetPackageDefinitionWithItem(_innovator, _dal, form.Id, "Form");
+
+		if (packageWithForm.getItemCount() == 0)
+		{
+			form.IsInPackage = false;
+		}
+		else
+		{
+			var packageItem = packageWithForm.getItemByIndex(0);
+			form.PackageId = packageItem.getID();
+			form.IsInPackage = true;
+			form.PackageName = packageItem.getProperty("name");
+		}
+		Form = form;
+
+		var formCuiControls = formItem.getItemsByXPath($"//Item[@type='Form' and @id='{formItem.getID()}']/Relationships/Item/related_id/Item/Relationships/Item/related_id/Item[@type='cui_Control']");
+
+		if (formCuiControls.getItemCount() > 0)
+		{
+			for (int controlIndex = 0; controlIndex < formCuiControls.getItemCount(); controlIndex++)
+			{
+				Control control = new Control();
+				var controlItem = formCuiControls.getItemByIndex(controlIndex);
+				var isSealed = controlItem.getProperty("sealed");
+				var packageDefinitionWithControl = GetPackageDefinitionWithItem(_innovator, _dal, controlItem.getID(), "cui_Control");
+
+				control.Id = controlItem.getID();
+				control.IsSealed = isSealed == "1";
+
+				if (packageDefinitionWithControl.getItemCount() > 0)
+				{
+					control.PackageId = packageDefinitionWithControl.getID();
+					control.IsInPackage = true;
+				}
+
+				Controls.Add(control);
+			}
+		}
+	}
+}
+
+internal class PackageElement
+{
+	internal string PackageId { get; set; }
+	internal string PackageName { get; set; }
+	internal bool IsInPackage { get; set; }
+}
+
+internal class Form : PackageElement
+{
+	internal string Id { get; set; }
+	internal string Name { get; set; }
+}
+
+internal class Control : PackageElement
+{
+	internal string Id { get; set; }
+	internal bool IsSealed { get; set; }
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>FullOrPartialPackagingFilter</name>
+ </Item>
+</AML>

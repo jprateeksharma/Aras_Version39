@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="6F30AE92ED5A42CE8C9990A89672511C" action="add">
+  <template>import type { Toolbar } from 'core';
+import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import type { Options, BaseInitHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+type InitHandlerReturnType = Partial&lt;toolbarItems&gt; &amp; BaseInitHandlerReturnType;
+
+export function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'ItemView'&gt;
+): InitHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_itemview_commandbar_init</name>
+ </Item>
+</AML>

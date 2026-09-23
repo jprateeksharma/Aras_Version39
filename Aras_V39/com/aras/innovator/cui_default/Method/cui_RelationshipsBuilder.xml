@@ -1,0 +1,235 @@
+﻿<AML>
+ <Item type="Method" id="A7E8F9623E274EE182710DF802E8B5BB" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	DataAccessLayer dataAccessLayer = new DataAccessLayer(innovator);
+	BusinessLogic businessLogic = new BusinessLogic(dataAccessLayer, innovator);
+	return businessLogic.GetRelationshipTabs(this);
+}
+
+internal class BusinessLogic
+{
+	private const string relationshipsTabAccordionControlId = "4053A433596B4FE5900B9BE6B62B65CC";
+	private const string relationshipsTabContainerControlId = "88D09A43049E4341A99E4DF63B81C236";
+	private const string relationshipsAccordionControlName = "ItemView.RelationshipAccordion";
+	private IDataAccessLayer dataAccessLayer;
+	private Innovator innovator;
+
+	internal BusinessLogic(IDataAccessLayer dataAccessLayer, Innovator innovator)
+	{
+		this.dataAccessLayer = dataAccessLayer;
+		this.innovator = innovator;
+	}
+
+	internal Item GetRelationshipTabs(Item commandBarSectionItem)
+	{
+		string itemTypeId = commandBarSectionItem.getProperty("item_type_id");
+		string itemClassification = commandBarSectionItem.getProperty("item_classification");
+
+		Item itemTypeItem = dataAccessLayer.GetItemTypeItemById(itemTypeId, itemClassification);
+		string itemTypeStructureView = itemTypeItem.getProperty("structure_view");
+		bool noRelationshipTabsRequired = itemTypeStructureView == "tabs off";
+
+		List<Newtonsoft.Json.Linq.JObject> tabs = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Newtonsoft.Json.Linq.JObject>>(dataAccessLayer.GetTabs(commandBarSectionItem).getResult());
+
+		if (noRelationshipTabsRequired || tabs.Count == 0)
+		{
+			return CreateWindowSectionControlItem(
+				relationshipsAccordionControlName,
+				cuiControlId: relationshipsTabAccordionControlId,
+				controlType: "AccordionElementControl",
+				cuiAction: "Remove"
+			);
+		}
+
+		Item relationshipTabItems = CreateNewItemWithoutAttributes("");
+
+		if (itemTypeStructureView == "tabs min")
+		{
+			Item relationshipsAccordionControlItem = commandBarSectionItem.getItemsByXPath("./Data/Item[@id='" + relationshipsTabAccordionControlId + "']");
+			Item collapsedAccordionWindowSectionControlItem = GetReplacedRalationshipAccordionWithCollapsedOne(relationshipsAccordionControlItem);
+			relationshipTabItems.appendItem(collapsedAccordionWindowSectionControlItem);
+		}
+
+		foreach (Newtonsoft.Json.Linq.JObject relationshipTab in tabs)
+		{
+			string relationshipItemId = relationshipTab.Value<string>("relTypeId");
+			string relationshipItemName = relationshipTab.Value<string>("name");
+
+			Item windowSectionControl = CreateWindowSectionControlItem(
+				relationshipItemName,
+				relationshipsTabContainerControlId,
+				relationshipTab.Value<string>("additional_data"),
+				relationshipTab.Value<string>("label"),
+				CalculateIdByTwoDataSegments(relationshipItemId, relationshipItemName)
+			);
+			relationshipTabItems.appendItem(windowSectionControl);
+		}
+
+		relationshipTabItems.removeItem(relationshipTabItems.getItemByIndex(0));
+		return relationshipTabItems;
+	}
+
+	private Item GetReplacedRalationshipAccordionWithCollapsedOne(Item originRelationshipsAccordion)
+	{
+		Newtonsoft.Json.Linq.JObject additionalData = null;
+		try
+		{
+			additionalData = Newtonsoft.Json.Linq.JObject.Parse(
+				originRelationshipsAccordion.getProperty("additional_data", "{}")
+			);
+		}
+		catch (Newtonsoft.Json.JsonReaderException)
+		{
+			additionalData = new Newtonsoft.Json.Linq.JObject();
+		}
+
+		Newtonsoft.Json.Linq.JObject attributes = additionalData.Value<Newtonsoft.Json.Linq.JObject>("attributes");
+		if (attributes == null)
+		{
+			additionalData["attributes"] = attributes = new Newtonsoft.Json.Linq.JObject();
+		}
+		attributes["collapsed"] = true;
+		originRelationshipsAccordion.setProperty("additional_data", additionalData.ToString());
+
+		return CreateWindowSectionControlItem(
+			relationshipsAccordionControlName,
+			cuiControlId: relationshipsTabAccordionControlId,
+			controlType: "AccordionElementControl",
+			cuiAction: "Replace",
+			alternateItem: originRelationshipsAccordion
+		);
+	}
+
+	private Item CreateWindowSectionControlItem(
+		string controlName,
+		string parentControlItemId = null,
+		string additionalData = null,
+		string controlLabel = null,
+		string cuiControlId = null,
+		string controlType = "TabElementControl",
+		string cuiAction = "Add",
+		Item alternateItem = null
+	)
+	{
+		Item cuiControl = CreateNewItemWithoutAttributes("cui_Control");
+		SetItemPropertyIfIsNotNullOrEmpty(cuiControl, "parent_control", parentControlItemId);
+		SetItemPropertyIfIsNotNullOrEmpty(cuiControl, "name", controlName);
+		SetItemPropertyIfIsNotNullOrEmpty(cuiControl, "label", controlLabel);
+		SetItemPropertyIfIsNotNullOrEmpty(cuiControl, "additional_data", additionalData);
+		SetItemPropertyIfIsNotNullOrEmpty(cuiControl, "control_type", controlType);
+		if (!string.IsNullOrEmpty(cuiControlId))
+		{
+			cuiControl.setID(cuiControlId);
+		}
+
+		Item windowSectionControl = CreateNewItemWithoutAttributes("cui_WindowSectionControl");
+		windowSectionControl.setProperty("action", cuiAction);
+		windowSectionControl.setRelatedItem(cuiControl);
+		if (alternateItem != null)
+		{
+			windowSectionControl.setPropertyItem("alternate", alternateItem);
+		}
+		return windowSectionControl;
+	}
+
+	private Item CreateNewItemWithoutAttributes(string itemType)
+	{
+		Item item = innovator.newItem(itemType);
+		item.removeAttribute("isNew");
+		item.removeAttribute("isTemp");
+		return item;
+	}
+
+	private static void SetItemPropertyIfIsNotNullOrEmpty(Item item, string propertyName, string propertyValue)
+	{
+		if (!string.IsNullOrEmpty(propertyValue))
+		{
+			item.setProperty(propertyName, propertyValue);
+		}
+	}
+
+	/// <summary>
+	/// Please do not re-use this method if you need to generate deterministic Ids. Use common GuidModule.CalculateDeterministicId instead.
+	/// </summary>
+	private static string CalculateIdByTwoDataSegments(string data1, string data2)
+	{
+		var xxHashAlgorithmHelper = new XxHashAlgorithmHelper();
+		string hash1 = BitConverter.ToString(xxHashAlgorithmHelper.ComputeHash(Encoding.UTF8.GetBytes(data1)));
+		string hash2 = BitConverter.ToString(xxHashAlgorithmHelper.ComputeHash(Encoding.UTF8.GetBytes(data2)));
+
+		return string.Format(CultureInfo.InvariantCulture, "{0}{1}", hash1, hash2).Replace("-", string.Empty, StringComparison.Ordinal);
+	}
+
+	internal class XxHashAlgorithmHelper
+	{
+		private readonly object _xxHashAlgorithm;
+		private readonly System.Reflection.MethodInfo _computeHashMethodInfo;
+
+		internal XxHashAlgorithmHelper()
+		{
+			System.Reflection.Assembly targetAssembly = System.Reflection.Assembly.Load("Aras.Cryptography");
+			Type xxHash64AlgorithmBuilderType = targetAssembly.GetTypes().Single(t => t.Name == "XxHash64AlgorithmBuilder");
+			var xxHash64AlgorithmBuilder = Activator.CreateInstance(xxHash64AlgorithmBuilderType);
+
+			System.Reflection.MethodInfo buildMethodInfo = xxHash64AlgorithmBuilderType.GetMethod("Build");
+
+			_xxHashAlgorithm = buildMethodInfo.Invoke(xxHash64AlgorithmBuilder, null);
+			_computeHashMethodInfo = _xxHashAlgorithm.GetType().GetMethod("ComputeHash", new[] { typeof(byte[]) });
+		}
+
+		internal byte[] ComputeHash(byte[] dataBytes)
+		{
+			byte[] result = (byte[])_computeHashMethodInfo.Invoke(_xxHashAlgorithm, new object[] { dataBytes });
+			return result;
+		}
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item GetItemTypeItemById(string itemTypeId, string classPath);
+	Item GetTabs(Item commandBarSectionItem);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Innovator innovator;
+
+	internal DataAccessLayer(Innovator innovator)
+	{
+		this.innovator = innovator;
+	}
+
+	public Item GetItemTypeItemById(string itemTypeId, string classPath)
+	{
+		Item itemTypeItem = innovator.newItem("ItemType", "get");
+		itemTypeItem.setAttribute("select", "class_structure,show_parameters_tab,structure_view");
+		itemTypeItem.setID(itemTypeId);
+
+		if (!string.IsNullOrEmpty(classPath))
+		{
+			Item currentClassPropertyItem = innovator.newItem("Property", "get");
+			currentClassPropertyItem.setAttribute("select", "class_path");
+			currentClassPropertyItem.setProperty("class_path", classPath);
+			itemTypeItem.addRelationship(currentClassPropertyItem);
+		}
+
+		return itemTypeItem.apply();
+	}
+
+	public Item GetTabs(Item commandBarSectionItem)
+	{
+		Item methodItem = innovator.newItem("Method", "GetRelationshipTabs");
+
+		methodItem.setProperty("item_type_id", commandBarSectionItem.getProperty("item_type_id"));
+		methodItem.setProperty("item_classification", commandBarSectionItem.getProperty("item_classification"));
+		Item result = methodItem.apply();
+
+		return result;
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_RelationshipsBuilder</name>
+ </Item>
+</AML>

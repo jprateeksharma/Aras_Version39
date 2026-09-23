@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarShortcut" id="32C93900D08C4C858E50C56252F5CE95" action="add">
+  <additional_data />
+  <command_alias keyed_name="OpenItem" type="CommandAlias">FE0A88F22DF44FD3BEBE98AF43ADD957</command_alias>
+  <on_click_handler keyed_name="cui_default_mws_ctrl_enter" type="Method">67BE765EC195472DBA3E3F1816CEA334</on_click_handler>
+  <shortcut>ctrl+enter</shortcut>
+  <name>com.aras.innovator.cui_default.mws_ctrl_enter</name>
+ </Item>
+</AML>

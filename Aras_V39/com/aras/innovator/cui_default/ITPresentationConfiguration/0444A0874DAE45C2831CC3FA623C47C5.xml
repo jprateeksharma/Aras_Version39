@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="0444A0874DAE45C2831CC3FA623C47C5" action="add">
+  <client>js</client>
+  <related_id keyed_name="CommandBarDropDown Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="330C2024D3F1454AB7C6AFD98EB694B4" action="add">
+    <color>#3845dc</color>
+    <name>CommandBarDropDown Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="CommandBarDropDown" type="ItemType" name="CommandBarDropDown">BF62E8B6450447D89EF86B539F49F992</source_id>
+ </Item>
+</AML>

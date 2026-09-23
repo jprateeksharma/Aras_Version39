@@ -1,0 +1,424 @@
+﻿<AML>
+ <Item type="Method" id="7862604208184EAEBDC975E8B6206808" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[require([
+	'dojo/dom', 'dojo/_base/window', 'dojo/domReady!'
+], function() {
+	initializeRootElementsInfo();
+	const propertyDependency = document.getElementById('property-dependency');
+	if (propertyDependency.children.length > 0) {
+		while (propertyDependency.children.length > 0) {
+			propertyDependency.removeChild(propertyDependency.children[0]);
+		}
+	}
+	const form = document.createElement('form');
+	const multiselect = document.createElement('div');
+	multiselect.className += 'multiselect';
+	multiselect.style.width = '150px';
+
+	const selectBox = createSelectbox();
+	const span = createSelectLabel();
+
+	const select = createSelect();
+	selectBox.appendChild(select);
+	selectBox.appendChild(span);
+
+	const overSelect = createOverSelect();
+	selectBox.appendChild(overSelect);
+
+	multiselect.appendChild(selectBox);
+
+	const checkboxes = createCheckboxDiv();
+
+	multiselect.appendChild(checkboxes);
+	form.appendChild(multiselect);
+	propertyDependency.appendChild(form);
+	setSelectionStyle();
+
+	const propertyNode = this.document.item.selectSingleNode('property');
+	const currentPropertyId = propertyNode ? propertyNode.text : null;
+	const additionalProperty = this.document.item.selectSingleNode('Relationships' +
+		'/Item[@type = \'cmf_AdditionalPropertyType\' and not(@action=\'delete\')]/additional_property');
+	const additionalId = additionalProperty ? additionalProperty.text : null;
+
+	if (propertyNode) {
+		span.textContent = propertyNode.getAttribute('keyed_name');
+	}
+
+	const properties = getAllContentTypeProperties();
+
+	for (let i = 0; i < properties.length; i++) {
+		const propertyId = properties[i].getAttribute('id');
+		const action = properties[i].getAttribute('action');
+		const elementAction = properties[i].parentNode.parentNode.getAttribute('action');
+		const label = document.createElement('label');
+		const nameTag = properties[i].getElementsByTagName('name');
+		if (nameTag.length === 0 || !nameTag[0].text) {
+			continue;
+		}
+
+		if (propertyId !== currentPropertyId && propertyId !== additionalId) {
+			if (action === 'delete' || elementAction === 'delete') {
+				continue; // if property or element was deleted we won't display it
+			}
+		}
+
+		const name = nameTag[0].text;
+
+		label.setAttribute('for', propertyId);
+		label.style.display = 'block';
+
+		const input = document.createElement('input');
+		input.setAttribute('type', 'checkbox');
+		input.setAttribute('id', propertyId);
+		input.setAttribute('onchange', 'onChangeProperty(event);');
+
+		if (propertyId === currentPropertyId || propertyId === additionalId) {
+		    document.item.contexRootElement = getRootElementNameByPropertyName(nameTag[0].text);
+			input.setAttribute('checked', true);
+		}
+
+		label.appendChild(input);
+		label.innerHTML = label.innerHTML + name;
+		checkboxes.appendChild(label);
+	}
+
+	window.onChangeProperty = function(event) {
+		const currentState = event.target.checked;
+
+		const checkboxes = document.getElementById('checkboxes');
+		const count = getCheckedCount(checkboxes);
+		let parentNode = event.target.parentNode;
+		const name = parentNode.text ? parentNode.text : parentNode.innerText;
+		const elementNameOfCurrentProperty = getRootElementNameByPropertyName(name);
+
+		if (currentState && document.item.contexRootElement && document.item.contexRootElement !== elementNameOfCurrentProperty && !checkIfPropertyIsRelatedToSelectedContextRootElement(name)) {
+			event.target.checked = false;
+
+			aras.AlertError(aras.getResource('', 'cmf.same_element_type_structure', elementNameOfCurrentProperty));
+
+			return;
+		}
+
+		if (count > 1) {
+			// set additional property
+			parentNode = event.target.parentNode;
+			addAdditionalProperty(event.target.id, parentNode.text ? parentNode.text : parentNode.innerText);
+			document.item.contexRootElement = elementNameOfCurrentProperty;
+			setCheckboxDisabled(checkboxes);
+		} else {
+			setCheckboxEnabled(checkboxes);
+		}
+
+		const option = document.getElementById('checkbox-label');
+		if (count === 1) {
+
+			if (currentState) {
+				// set property
+				parentNode = event.target.parentNode;
+				option.textContent = parentNode.text ? parentNode.text : parentNode.innerText;
+				document.item.contexRootElement = elementNameOfCurrentProperty;
+				setColumnProperty(event.target.id, option.textContent);
+			} else {
+				// remove additional property
+				const propertyNode = this.document.item.selectSingleNode('property');
+				const propertyId = propertyNode.text;
+				const checkedInput = getCheckedElement(checkboxes);
+				parentNode = checkedInput.parentNode;
+				option.textContent = parentNode.text ? parentNode.text : parentNode.innerText;
+
+				if (propertyId === checkedInput.id) {
+					removeAdditionalProperty(event.target.id);
+				} else {
+					parentNode = checkedInput.parentNode;
+					setColumnProperty(checkedInput.id, parentNode.text ? parentNode.text : parentNode.innerText);
+					removeAdditionalProperty(checkedInput.id);
+				}
+			}
+		}
+
+		if (count === 0) {
+			// remove property
+			option.textContent = '';
+			removeColumnProperty(event.target.id);
+			document.item.contexRootElement = '';
+		}
+	};
+
+	function removeColumnProperty(id) {
+		const propertyNode = document.item.selectSingleNode('property');
+		if (!propertyNode) {
+			return;
+		}
+		const currentId = propertyNode.text;
+		if (currentId !== id) {
+			return;
+		}
+
+		propertyNode.setAttribute('keyed_name', '');
+		propertyNode.text = '';
+
+		if (document.item.getAttribute('action') !== 'add') {
+			document.item.setAttribute('action', 'update');
+		}
+
+		if (parent.updateTabularViewColumn) {
+			parent.updateTabularViewColumn('', document.item.getAttribute('id'));
+		}
+	}
+
+	function setColumnProperty(id, name) {
+		let propertyNode = document.item.selectSingleNode('property');
+		if (!propertyNode) {
+			propertyNode = document.item.ownerDocument.createElement('property');
+			document.item.appendChild(propertyNode);
+		}
+		propertyNode.setAttribute('keyed_name', name);
+		propertyNode.text = id;
+
+		if (document.item.getAttribute('action') !== 'add') {
+			document.item.setAttribute('action', 'update');
+		}
+
+		if (parent.updateTabularViewColumn) {
+			parent.updateTabularViewColumn(name, document.item.getAttribute('id'));
+		}
+	}
+
+	function addAdditionalProperty(id, name) {
+		const additionalProperty = document.item.selectSingleNode('Relationships/Item/additional_property[text() = \'' + id + '\']');
+		if (additionalProperty) {
+			// when we removed and then add the same property
+			const relNode = additionalProperty.parentNode;
+			relNode.setAttribute('action', 'update');
+		} else {
+			const newAdditionalProperty = aras.IomInnovator.newItem('cmf_AdditionalPropertyType', 'add');
+			newAdditionalProperty.setAttribute('id', aras.generateNewGUID());
+			newAdditionalProperty.setProperty('source_id', document.item.getAttribute('id'));
+			newAdditionalProperty.setProperty('additional_property', id);
+			newAdditionalProperty.setPropertyAttribute('additional_property', 'keyed_name', name);
+			newAdditionalProperty.setPropertyAttribute('additional_property', 'type', 'cmf_PropertyType');
+			let rel = document.item.selectSingleNode('Relationships');
+			if (!rel) {
+				rel = document.item.ownerDocument.createElement('Relationships');
+				document.item.appendChild(rel);
+			}
+			rel.appendChild(newAdditionalProperty.node);
+		}
+		onAdditionalPropertyChanged();
+		if (document.item.getAttribute('action') !== 'add') {
+			document.item.setAttribute('action', 'update');
+		}
+	}
+
+	function removeAdditionalProperty(id) {
+		const additionalProperty = document.item.selectSingleNode('Relationships/Item/additional_property[text() = \'' + id + '\']');
+		if (additionalProperty) {
+			const relNode = additionalProperty.parentNode;
+			if (relNode.getAttribute('action') === 'add') {
+				relNode.parentNode.removeChild(relNode);
+				onAdditionalPropertyChanged();
+				return;
+			}
+			relNode.setAttribute('action', 'delete');
+			onAdditionalPropertyChanged();
+			if (document.item.getAttribute('action') !== 'add') {
+				document.item.setAttribute('action', 'update');
+			}
+		}
+	}
+
+	function onAdditionalPropertyChanged() {
+		if (parent.onAdditionalPropertyChanged) {
+			const tabPropertyNode = this.document.item.getAttribute('id');
+			if (tabPropertyNode) {
+				parent.onAdditionalPropertyChanged(tabPropertyNode);
+			}
+		}
+	}
+
+	// Initializes information about all root Elements
+	function initializeRootElementsInfo() {
+		const rootElementsDictionary = {};
+		const rootElements = parent.item.selectNodes('Relationships/Item[@type=\'cmf_ElementType\' and not(@action=\'add\') and not(parent)]');
+
+		for (let i = 0; i < rootElements.length; i++) {
+			const rootElementName = aras.getItemProperty(rootElements[i], 'name');
+			const rootElementId = rootElements[i].selectSingleNode('id').text;
+			const rootProperties = rootElements[i].selectNodes('./Relationships/Item[@type=\'cmf_PropertyType\' and not(@action=\'add\')]');
+			let rootChildProperties = parent.item.selectNodes('Relationships/Item[@type=\'cmf_ElementType\' and not(@action=\'add\') and parent=\'' + rootElementId + '\']' +
+				'/Relationships/Item[@type=\'cmf_PropertyType\' and not(@action=\'add\')]');
+			rootChildProperties = rootProperties.concat(rootChildProperties);
+
+			const properties = {};
+
+			for (let j = 0; j < rootChildProperties.length; j++) {
+				const propertyName = aras.getItemProperty(rootChildProperties[j], 'name');
+
+				properties[propertyName] = rootChildProperties[i];
+			}
+
+			rootElementsDictionary[rootElementName] = {
+				properties: properties
+			};
+		}
+
+		document.rootElements = rootElementsDictionary;
+	}
+
+	// Checks whether Property is related to the context root Element
+	function checkIfPropertyIsRelatedToSelectedContextRootElement(propertyName) {
+		const contextProperties = document.rootElements[document.item.contexRootElement].properties;
+
+		return !!contextProperties[propertyName];
+	}
+
+	// Gets root Element name by Property name
+	function getRootElementNameByPropertyName(propertyName) {
+		for (const key of Object.keys(document.rootElements)) {
+			if (document.rootElements[key].properties[propertyName]) {
+				return key;
+			}
+		}
+	}
+
+	function getAllContentTypeProperties() {
+		return parent.item.selectNodes('Relationships/Item[@type=\'cmf_ElementType\' and not(@action=\'add\')]' +
+			'/Relationships/Item[@type=\'cmf_PropertyType\' and not(@action=\'add\')]');
+	}
+
+	function createSelect() {
+		const select = document.createElement('select');
+		const option = document.createElement('option');
+		option.textContent = 'Select an option';
+		option.id = 'selected-option';
+		select.appendChild(option);
+		select.style.opacity = '0';
+		if (!parent.isEditMode) {
+			select.disabled = true;
+		}
+		return select;
+	}
+
+	function setSelectionStyle() {
+		const css = '#checkboxes label:hover{ background-color: #b3b3b3 }';
+		const style = document.createElement('style');
+
+		if (style.styleSheet) {
+			style.styleSheet.cssText = css;
+		} else {
+			style.appendChild(document.createTextNode(css));
+		}
+
+		document.getElementsByTagName('head')[0].appendChild(style);
+	}
+
+	function createCheckboxDiv() {
+		const checkboxes = document.createElement('div');
+		checkboxes.id = 'checkboxes';
+		checkboxes.style.overflowX = 'hidden';
+		checkboxes.style.height = '150px';
+		checkboxes.style.display = 'none';
+		checkboxes.style.border = '1px #dadada solid';
+		checkboxes.style.backgroundColor = 'white';
+		return checkboxes;
+	}
+
+	function createOverSelect() {
+		const overSelect = document.createElement('div');
+		overSelect.className += 'overSelect';
+		overSelect.style.position = 'absolute';
+		overSelect.style.left = '0';
+		overSelect.style.right = '0';
+		overSelect.style.top = '0';
+		overSelect.style.bottom = '0';
+		return overSelect;
+	}
+
+	function createSelectLabel() {
+		const span = document.createElement('span');
+		span.style.left = '3px';
+		span.style.position = 'absolute';
+		span.style.top = '0px';
+		span.style.zIndex = '1';
+		span.style.whiteSpace = 'nowrap';
+		span.style.overflow = 'hidden';
+		span.style.fontSize = '8pt';
+		span.style.color = '#444444';
+		span.style.height = '100%';
+		span.id = 'checkbox-label';
+		return span;
+	}
+
+	function createSelectbox() {
+		const selectBox = document.createElement('div');
+		selectBox.className += 'selectBox';
+		selectBox.style.border = '1px solid #505050';
+		if (parent.isEditMode) {
+			selectBox.style.background = 'url(\'../images/dropdown-arrow.svg\') no-repeat scroll right ' + 'top' + ' / 17px 17px #DDE7F5';
+		} else {
+			selectBox.style.background = 'url(\'../images/dropdown-disabled.svg\') no-repeat scroll right ' + 'top' + ' / 17px 17px #DDE7F5';
+		}
+		selectBox.style.height = '17px';
+		selectBox.style.position = 'relative';
+		selectBox.onclick = function() {
+			showCheckboxes();
+		};
+		return selectBox;
+	}
+
+	function getCheckedElement(checkboxes) {
+		const labels = checkboxes.childNodes;
+		for (let i = 0; i < labels.length; i++) {
+			if (labels[i].firstChild.checked) {
+				return labels[i].firstChild;
+			}
+		}
+	}
+
+	function setCheckboxDisabled(checkboxes) {
+		const labels = checkboxes.childNodes;
+		for (let i = 0; i < labels.length; i++) {
+			labels[i].firstChild.disabled = !labels[i].firstChild.checked;
+		}
+	}
+
+	function setCheckboxEnabled(checkboxes) {
+		const labels = checkboxes.childNodes;
+		for (let i = 0; i < labels.length; i++) {
+			labels[i].firstChild.disabled = false;
+		}
+	}
+
+	function getCheckedCount(checkboxes) {
+		const labels = checkboxes.childNodes;
+		let count = 0;
+		for (let i = 0; i < labels.length; i++) {
+
+			if (labels[i].firstChild.checked) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	let expanded = false;
+	function showCheckboxes() {
+		if (!parent.isEditMode) {
+			return;
+		}
+		const checkboxes = document.getElementById('checkboxes');
+		if (!expanded) {
+			checkboxes.style.display = 'block';
+			expanded = true;
+		} else {
+			checkboxes.style.display = 'none';
+			expanded = false;
+		}
+	}
+});
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cmf_OnTabularColumnFormPopulate</name>
+ </Item>
+</AML>

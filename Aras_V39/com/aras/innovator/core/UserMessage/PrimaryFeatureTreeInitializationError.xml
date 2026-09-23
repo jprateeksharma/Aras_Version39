@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="95262F439ACE43AA98FDFCF85AA79C71" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Feature Tree initialization failed. Run Update Feature Tree to resolve.</text>
+  <name>PrimaryFeatureTreeInitializationError</name>
+ </Item>
+</AML>

@@ -1,0 +1,24 @@
+﻿<AML>
+ <Item type="List" id="4D24A32DC5634197BCDEA0A95F2D1EF4" action="add">
+  <description>Used to defines the font weight for Field labels.</description>
+  <label>Font Weight</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Font Weight</name>
+  <Relationships>
+   <Item type="Value" id="834FFA8D70B74CF1A208E40C94B2BA67" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Normal</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Font Weight" type="List">4D24A32DC5634197BCDEA0A95F2D1EF4</source_id>
+    <value>normal</value>
+   </Item>
+   <Item type="Value" id="305A782CA86049489188035CF8E0AB44" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Bold</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Font Weight" type="List">4D24A32DC5634197BCDEA0A95F2D1EF4</source_id>
+    <value>bold</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

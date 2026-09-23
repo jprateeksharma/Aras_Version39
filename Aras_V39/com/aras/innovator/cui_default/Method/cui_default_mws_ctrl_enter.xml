@@ -1,0 +1,22 @@
+﻿<AML>
+ <Item type="Method" id="67BE765EC195472DBA3E3F1816CEA334" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { getState, itemType, commandFactory } = options;
+const state = getState();
+const { selectedRows } = state.grid;
+if (selectedRows.length !== 1) {
+	return;
+}
+
+const rows = window.grid._grid.rows;
+const selectedRowId = selectedRows[0];
+const item = rows.get(selectedRowId);
+const commandOptions = { itemType, item };
+const commandAlias = target['command_alias@keyed_name'];
+const openItemCommand = commandFactory(commandAlias, commandOptions);
+
+return openItemCommand.execute();]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_mws_ctrl_enter</name>
+ </Item>
+</AML>

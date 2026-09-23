@@ -1,0 +1,56 @@
+﻿<AML>
+ <Item type="Method" id="4AFFE8DC6EED4FAEA0B306D9C16DEDFA" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const showDialog = () => {
+	const text = aras.getResource('', 'common.discard');
+	const actionName = 'discard';
+	const okButtonText = aras.getResource('', 'common.save');
+	const title = aras.getResource('', 'item_methods_ex.unsaved_changes');
+	const dialogMessage = aras.getResource('', 'item_methods_ex.changes_not_saved');
+	const dialogParams = {
+		additionalButtons: [{ text, actionName }],
+		buttonsOrdering: ['ok', 'discard', 'cancel'],
+		okButtonText,
+		title
+	};
+
+	return ArasModules.Dialog.confirm(dialogMessage, dialogParams);
+};
+const { item, itemType, itemTypeName, ignoreChanges = false } = options;
+let { itemNode } = options;
+
+if (!ignoreChanges) {
+	let isDirty = false;
+	const id = item?.id ?? itemNode.id;
+	const isEditState = ArasModules.item.isEditState(itemTypeName, id);
+	if (isEditState) {
+		itemNode = itemNode ?? aras.getItemById(itemTypeName, id);
+		isDirty = aras.isDirtyEx(itemNode);
+	}
+	if (isDirty) {
+		const result = await showDialog();
+		if (!result || result === 'cancel') {
+			return null;
+		}
+
+		if (result === 'ok') {
+			itemNode = itemNode || aras.getItemById(itemTypeName, item.id);
+			const saveCommand = commands.commandFactory('SaveItem', {
+				itemNode,
+				itemType,
+				itemTypeName
+			});
+			itemNode = await saveCommand.execute();
+			if (!itemNode) {
+				return null;
+			}
+		}
+	}
+}
+const itemId = itemNode?.getAttribute('id') || item.id;
+
+return aras.unlockItemAsync(itemId, itemTypeName);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_unlock_item_execute</name>
+ </Item>
+</AML>

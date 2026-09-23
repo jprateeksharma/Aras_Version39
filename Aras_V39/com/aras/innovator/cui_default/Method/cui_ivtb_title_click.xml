@@ -1,0 +1,26 @@
+﻿<AML>
+ <Item type="Method" id="DA4B06E1DE614F3EA2FED71F61AE6FA4" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const isNewItem = item.getAttribute('action') === 'add';
+if (isNewItem) {
+	return;
+}
+
+const topWindow = aras.getMostTopWindowWithAras(window);
+const notify = aras.getNotifyByContext(topWindow);
+const notifyInfo = (message) => notify(message, {type: 'info'});
+
+const {itemId, itemTypeName, currentTarget} = options;
+const itemLabel = currentTarget.label;
+
+const url = new URL(`${aras.getInnovatorUrl()}?StartItem=${itemTypeName}:${itemId}`);
+
+const linkNode = window.HyperHTMLElement.hyper`<a href="${url.toString()}" >${itemLabel}</a>`;
+
+ArasModules.copyHtmlToBuffer(linkNode);
+notifyInfo(aras.getResource('', 'toolbar.message.copied_to_clipboard', itemLabel));
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivtb_title_click</name>
+ </Item>
+</AML>

@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="046C49B7515646D99BC9FED71D7373C2" action="add">
+  <image>../images/DisplayOptions.svg</image>
+  <include_events>UpdateState</include_events>
+  <label xml:lang="en">Display</label>
+  <tooltip_template xml:lang="en">Display</tooltip_template>
+  <name>searchview.commandbar.default.display</name>
+ </Item>
+</AML>

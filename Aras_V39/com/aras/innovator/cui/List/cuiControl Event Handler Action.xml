@@ -1,0 +1,28 @@
+﻿<AML>
+ <Item type="List" id="D5FABC095FCD4F99BBB1AC530D0070C1" action="add">
+  <name>cuiControl Event Handler Action</name>
+  <Relationships>
+   <Item type="Value" id="51E914E907F34A0EB0740EA83530FBDC" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Add</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cuiControl Event Handler Action" type="List">D5FABC095FCD4F99BBB1AC530D0070C1</source_id>
+    <value>Add</value>
+   </Item>
+   <Item type="Value" id="5CE0F39812BF41E3B54639E86CCA2CA3" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Remove</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cuiControl Event Handler Action" type="List">D5FABC095FCD4F99BBB1AC530D0070C1</source_id>
+    <value>Remove</value>
+   </Item>
+   <Item type="Value" id="BC106AF8D5384AE7917D3B3F56ACAE30" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Clear All</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="cuiControl Event Handler Action" type="List">D5FABC095FCD4F99BBB1AC530D0070C1</source_id>
+    <value>ClearAll</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

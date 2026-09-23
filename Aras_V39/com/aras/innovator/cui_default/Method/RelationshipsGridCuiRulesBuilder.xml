@@ -1,0 +1,62 @@
+﻿<AML>
+ <Item type="Method" id="C846C0AB583542D5A128B1278314CE53" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Innovator innovator = this.getInnovator();
+Item cuiControls = innovator.newItem("");
+cuiControls.removeAttribute("isNew");
+cuiControls.removeAttribute("isTemp");
+Item methodItem = innovator.newItem("Method", "GridCuiRulesBuilder");
+string relationshipsId = this.getProperty("item_type_id");
+methodItem.setProperty("item_type_id", relationshipsId);
+Item relationshipsCuiControls = methodItem.apply();
+
+if (relationshipsCuiControls.getItemCount() != -1)
+{
+	cuiControls.appendItem(relationshipsCuiControls);
+}
+
+Item relatedItemType = innovator.newItem("Property", "get");
+relatedItemType.setAttribute("select", "data_source(name)");
+relatedItemType.setProperty("name", "related_id");
+relatedItemType.setProperty("source_id", relationshipsId);
+relatedItemType = relatedItemType.apply();
+
+if (!relatedItemType.isError())
+{
+	relatedItemType = relatedItemType.getItemsByXPath("//Item[@type='ItemType']");
+
+	if (relatedItemType.getItemCount() == 0) 
+	{
+		if (cuiControls.getItemCount() > 1) {
+			cuiControls.removeItem(cuiControls.getItemByIndex(0));
+			return cuiControls;
+		} else {
+			return innovator.newResult(string.Empty);
+		}
+	}
+
+	string relatedItemTypeId = relatedItemType.getItemByIndex(0).getID();
+	if (!string.IsNullOrEmpty(relatedItemTypeId)) 
+	{
+		Item relatedItemCuiControl = innovator.newItem("Method", "GridCuiRulesBuilder");
+		relatedItemCuiControl.setProperty("item_type_id", relatedItemTypeId);
+		relatedItemCuiControl = relatedItemCuiControl.apply();
+
+		if (relatedItemCuiControl.getItemCount() != -1)
+		{
+			cuiControls.appendItem(relatedItemCuiControl);
+		}
+	}
+}
+
+if (cuiControls.getItemCount() > 1) {
+	cuiControls.removeItem(cuiControls.getItemByIndex(0));
+	return cuiControls;
+} else {
+	return innovator.newResult(string.Empty);
+}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>RelationshipsGridCuiRulesBuilder</name>
+ </Item>
+</AML>

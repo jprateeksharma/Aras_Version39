@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="0124AC5B27DE49CD9E35F972C825B2B8" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Unable to rebuild view for responsive forms</text>
+  <name>RebuildView_ResponsiveFormError</name>
+ </Item>
+</AML>

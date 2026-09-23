@@ -1,0 +1,24 @@
+﻿<AML>
+ <Item type="List" id="B29EB5554C824065BAF7E4E93155CCF7" action="add">
+  <description>The sort direction options for Property ordering.</description>
+  <label>Sort Direction</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Sort Direction</name>
+  <Relationships>
+   <Item type="Value" id="CA426562A7544944879634005DD581DE" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Ascending</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Sort Direction" type="List">B29EB5554C824065BAF7E4E93155CCF7</source_id>
+    <value>asc</value>
+   </Item>
+   <Item type="Value" id="307595078A94428CAFD253532B2AA2A8" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Descending</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Sort Direction" type="List">B29EB5554C824065BAF7E4E93155CCF7</source_id>
+    <value>desc</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

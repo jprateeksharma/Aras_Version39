@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="4FB4799BBE8B4B139DA9D99E2E88E7B0" action="add">
+  <can_execute keyed_name="cui_command_lock_item_can_exec" type="Method">5B6C91CB6F774210B00CBD59DA27396D</can_execute>
+  <execute_handler keyed_name="cui_command_lock_item_execute" type="Method">2C63260BC8274E3897FE12F5D7D7BF23</execute_handler>
+  <name>LockItem</name>
+ </Item>
+</AML>

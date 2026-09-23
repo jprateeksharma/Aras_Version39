@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="DC7A13020628492691CCBE26E8126B2D" action="add">
+  <include_events>UpdateTearOffWindowState</include_events>
+  <label xml:lang="en">Reset to Original Form Design</label>
+  <on_click_handler keyed_name="cuiform_reset_to_original_click" type="Method">5CD108630EDA4A1290EAE4B365D9735C</on_click_handler>
+  <on_init_handler keyed_name="cuiform_reset_to_original_init" type="Method">7290B48B591C466EAE17FA3B30BDE4F5</on_init_handler>
+  <parent_menu keyed_name="itemview.itemcommandbar.default.more.deletemenu" type="CommandBarMenu">98EA3F71E2CF406F91C35E8612A0BF7E</parent_menu>
+  <name>itemview.itemcommandbar.form.deletemenu.reset_to_original</name>
+ </Item>
+</AML>

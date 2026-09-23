@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="2051BF172D9F414B81B143838699325D" action="add">
+  <image>../images/SaveUnlockClose.svg</image>
+  <label xml:lang="en">Done Editing</label>
+  <on_click_handler keyed_name="cui_default_pmig_done_click" type="Method">5A933866A5FD426986A521961B6A576F</on_click_handler>
+  <on_init_handler keyed_name="cui_default_pmig_done_init" type="Method">E719D1A9C62A46178FAF33F536174C37</on_init_handler>
+  <name>com.aras.innovator.cui_default.pmig_done</name>
+ </Item>
+</AML>

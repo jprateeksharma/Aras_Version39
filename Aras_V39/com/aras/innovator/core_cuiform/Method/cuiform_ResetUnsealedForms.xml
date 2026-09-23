@@ -1,0 +1,128 @@
+﻿<AML>
+ <Item type="Method" id="2F0BD1E0B4174C28B9B8551E82A686F1" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	DataAccessLayer dataAccessLayer = new DataAccessLayer(innovator);
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer);
+
+	return businessLogic.ProcessRequest(this);
+}
+
+internal class BusinessLogic
+{
+	private Innovator _innovator;
+	private IDataAccessLayer _dataAccessLayer;
+
+	internal BusinessLogic(Innovator innovator, IDataAccessLayer dataAccessLayer)
+	{
+		this._innovator = innovator;
+		this._dataAccessLayer = dataAccessLayer;
+	}
+
+	internal Item ProcessRequest(Item methodRequestItem)
+	{
+		string formId = methodRequestItem.getID();
+		Item sealedForms = this.GetFormComposites(formId, true, "1");
+
+		if (sealedForms.isEmpty())
+		{
+			return this._innovator.newResult("OK");
+		}
+		if (sealedForms.isError())
+		{
+			return sealedForms;
+		}
+
+		Item unsealedForms = this.GetFormComposites(formId, false, string.Empty);
+		if (unsealedForms.isEmpty())
+		{
+			return this._innovator.newResult("OK");
+		}
+		if (unsealedForms.isError())
+		{
+			return unsealedForms;
+		}
+
+		Item itemsToRemove = unsealedForms.getItemsByXPath("//Item");
+		StringBuilder sb = new System.Text.StringBuilder();
+		for (var i = 0; i < itemsToRemove.getItemCount(); i++)
+		{
+			Item itemToRemove = itemsToRemove.getItemByIndex(i);
+			string id = itemToRemove.getID();
+			string type = itemToRemove.getType();
+			sb.AppendLine(CultureInfo.InvariantCulture, $"<Item type='{type}' id='{id}' action='delete' />");
+		}
+
+		Item deleteItems = this._dataAccessLayer.ApplyAML($"<AML>{sb.ToString()}</AML>");
+		if (deleteItems.isError())
+		{
+			return deleteItems;
+		}
+
+		return this._innovator.newResult("OK");
+	}
+
+	private Item GetFormComposites(string formId, bool isSealed, string records)
+	{
+		const string ItemViewFormTabId = "6C6B5EDBB53F4762A582D8D4AD3418AB";
+		string sourceId = System.Security.SecurityElement.Escape(formId);
+		string maxRecords = System.Security.SecurityElement.Escape(records);
+		int arasBool = isSealed ? 1 : 0;
+
+		string aml = $@"
+			<AML>
+				<Item type='FormComposite' maxRecords='{maxRecords}' action='get' select='id,related_id'>
+					<source_id>{sourceId}</source_id>
+					<related_id>
+						<Item type='cui_WindowSection' action='get' select='id'>
+							<classification>Data Model</classification>
+							<Relationships>
+								<Item type='cui_WindowSectionControl' action='get' select='id,related_id'>
+									<action>Add</action>
+									<related_id>
+										<Item type='cui_Control' action='get' select='id'>
+											<name>ItemView.Form</name>
+											<control_type>FormControl</control_type>
+											<sealed>{arasBool}</sealed>
+											<parent_control>{ItemViewFormTabId}</parent_control>
+										</Item>
+									</related_id>
+								</Item>
+							</Relationships>
+						</Item>
+					</related_id>
+				</Item>
+			</AML>
+		";
+
+		return this._dataAccessLayer.ApplyAML(aml);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyAML(string aml);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Innovator _innovator;
+
+	internal DataAccessLayer(Innovator innovator)
+	{
+		this._innovator = innovator;
+	}
+
+	public Item ApplyAML(string aml)
+	{
+		ArgumentNullException.ThrowIfNull(aml);
+
+		#pragma warning disable IA1000 // Improper escaping of Special Elements used in an AML Query
+		return _innovator.applyAML(aml);
+		#pragma warning restore IA1000 // Improper escaping of Special Elements used in an AML Query
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>cuiform_ResetUnsealedForms</name>
+ </Item>
+</AML>

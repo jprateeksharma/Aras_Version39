@@ -1,0 +1,381 @@
+﻿<AML>
+ <Item type="RelationshipType" id="632AFE92E2D243B0BFFADFE1E0119CB7" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <new_show_related>0</new_show_related>
+  <permission_id keyed_name="ItemType" type="Permission">102D29B8CD9948BFB5F558341DF4C0F9</permission_id>
+  <related_notnull>0</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="Grid Column" type="ItemType" name="Grid Column">
+   <Item type="ItemType" id="C24A87B33E3740B3B01254DC776F1EFE" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <close_icon>../images/GridColumn.svg</close_icon>
+    <default_page_size>25</default_page_size>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>GRID_COLUMN</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Grid Column</label>
+    <label_plural xml:lang="en">Grid Columns</label_plural>
+    <large_icon>../images/GridColumn.svg</large_icon>
+    <open_icon>../images/GridColumn.svg</open_icon>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs on</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>Grid Column</name>
+    <Relationships>
+     <Item type="ITPresentationConfiguration" id="481828D798B5EAC26B77D6069BFA2DFF" action="add">
+      <client>js</client>
+      <related_id keyed_name="Grid Column Presentation Configuration" type="PresentationConfiguration">481828D798B5EAC236326AA7318BB90D</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+     </Item>
+     <Item type="Property" id="F372056D497F48368C6557A249607228" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>40</column_width>
+      <data_source keyed_name="Text Alignment">9BFEBD027DA34E4CBC50B55DA25F722A</data_source>
+      <data_type>list</data_type>
+      <default_value xml:lang="en">left</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Align</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>5</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>align</name>
+     </Item>
+     <Item type="Property" id="2818D231F08948EBABBBFFEA42549C99" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_source keyed_name="Grid Data Types">A9C396BE225C4E3CAD1B888DC2AFC60C</data_source>
+      <data_type>list</data_type>
+      <default_value xml:lang="en">default</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Data Type</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>9</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>datatype</name>
+     </Item>
+     <Item type="Property" id="97C07529908849ECB37B6B531BD93E6F" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>70</column_width>
+      <data_type>ml_string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Label</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <stored_length>32</stored_length>
+      <track_history>0</track_history>
+      <name>label</name>
+     </Item>
+     <Item type="Property" id="A7A6DC96B31C45C7BED7D8F39C32D7FF" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>100</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Property</label>
+      <pattern>^[a-z_][a-z0-9_]*$</pattern>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>7</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <stored_length>32</stored_length>
+      <track_history>0</track_history>
+      <name>property</name>
+     </Item>
+     <Item type="Property" id="2F3E52DF21CC4FD69C24EB3B150ABAAC" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>100</column_width>
+      <data_source keyed_name="Method" type="ItemType" name="Method">87879A09B8044DE380D59DF22DE1867F</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Select Method</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>12</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <track_history>0</track_history>
+      <name>select_method</name>
+      <Relationships>
+       <Item type="Grid Event" id="6A12ECD86EF74E7AB477F2CE2364F396" action="add">
+        <grid_event>onchangecell</grid_event>
+        <related_id keyed_name="Grid Column rel grid constraints" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>Grid Column rel grid constraints</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="select_method" type="Property">2F3E52DF21CC4FD69C24EB3B150ABAAC</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="952E46A78B9A441CA9E9D8B5ECE540E4" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>150</column_width>
+      <data_type>text</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Select Query</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>11</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <track_history>0</track_history>
+      <name>select_query</name>
+      <Relationships>
+       <Item type="Grid Event" id="C4788AB1115147A6955244D1552D6F31" action="add">
+        <grid_event>onchangecell</grid_event>
+        <related_id keyed_name="Grid Column rel grid constraints" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>Grid Column rel grid constraints</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="select_query" type="Property">952E46A78B9A441CA9E9D8B5ECE540E4</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="B810BFCDB3BE48408B751853BDD51A35" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>40</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Sort</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>10</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <track_history>0</track_history>
+      <name>sort</name>
+     </Item>
+     <Item type="Property" id="6918543D04994C55A7FBDD20BC77E2E4" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>100</column_width>
+      <data_source keyed_name="Form" type="ItemType" name="Form">47573682FB7549F59ADECD4BFE04F1DE</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Source Form</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>13</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <track_history>0</track_history>
+      <name>source_form</name>
+      <Relationships>
+       <Item type="Grid Event" id="6B502BCD0853427CA232E52866F95D15" action="add">
+        <grid_event>onchangecell</grid_event>
+        <related_id keyed_name="Grid Column rel grid constraints" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>Grid Column rel grid constraints</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="source_form" type="Property">6918543D04994C55A7FBDD20BC77E2E4</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="208B6A23324D4B58BC4370621094DABD" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>90</column_width>
+      <data_type>boolean</data_type>
+      <default_value xml:lang="en">0</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Starts Nested Row</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>8</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <track_history>0</track_history>
+      <name>starts_nested_row</name>
+     </Item>
+     <Item type="Property" id="71DAE239E6F24F0999D4294FB9641F1B" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>40</column_width>
+      <data_type>boolean</data_type>
+      <default_value xml:lang="en">1</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Visible</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>2</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <track_history>0</track_history>
+      <name>visible</name>
+     </Item>
+     <Item type="Property" id="750E06A05D3649528B1217B8C30ABD4C" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>40</column_width>
+      <data_type>integer</data_type>
+      <default_value xml:lang="en">100</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Width</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <track_history>0</track_history>
+      <name>width</name>
+     </Item>
+     <Item type="Property" id="12603F5042F84D4BA4B30D269180A7ED" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>250</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Xpath</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>6</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <stored_length>512</stored_length>
+      <track_history>0</track_history>
+      <name>xpath</name>
+     </Item>
+     <Item type="View" id="D305221830C64F369263EE40665525E3" action="add">
+      <client>js</client>
+      <related_id keyed_name="Grid Column" type="Form">2FD1520FE5294589BB20BA13BB837EC0</related_id>
+      <role keyed_name="World" type="Identity">
+       <Item type="Identity" action="get" select="id">
+        <name>World</name>
+       </Item>
+      </role>
+      <show_ssvc>0</show_ssvc>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+      <type>default</type>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Grid" type="ItemType" name="Grid">8EABD91B465443F0A4995418F483DC51</source_id>
+  <name>Grid Column</name>
+ </Item>
+ <Item type="ItemType" id="C24A87B33E3740B3B01254DC776F1EFE" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='C24A87B33E3740B3B01254DC776F1EFE' and name='sort_order'">
+    <column_alignment>right</column_alignment>
+    <column_width>60</column_width>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <order_by>1</order_by>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+    <track_history>0</track_history>
+    <name>sort_order</name>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

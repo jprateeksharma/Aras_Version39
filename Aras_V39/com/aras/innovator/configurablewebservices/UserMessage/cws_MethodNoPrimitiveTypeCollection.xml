@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="FC0C0CE020424672AF4F743CA9E78A05" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid '{0}' method definition: primitive type can not be marked as collection neither in return type nor parameter type.</text>
+  <name>cws_MethodNoPrimitiveTypeCollection</name>
+ </Item>
+</AML>

@@ -1,0 +1,43 @@
+﻿<AML>
+ <Item type="Method" id="984B66F9ADB24C4CA04416DE48BB3E9D" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const { selectedId, tocData } = options.getState();
+const itemCommandBarItem = tocData.get(selectedId);
+const sectionId = itemCommandBarItem['source_id@aras.id'];
+const relatedId = itemCommandBarItem.related_id;
+const selectedButton = tocData.get(relatedId);
+const odataType = selectedButton["@odata.type"];
+const realButtonType = odataType.substring(1);
+const buttonItem = { id: relatedId, itemTypeName: realButtonType };
+const sectionItem = { id: sectionId, itemTypeName: 'CommandBarSection' };
+const itemToAddToPackage = [buttonItem, sectionItem];
+
+try {
+	const result = await ArasModules.metadata.addToPackage(itemToAddToPackage);
+	if (!result) {
+		return;
+	}
+
+	const buttonErrorResult = result.find(({ id, type}) => id === relatedId && type === 'Error');
+	if (buttonErrorResult) {
+		await ArasModules.Dialog.alert(buttonErrorResult.message, { type: 'error' });
+	} else {
+		const successMessage = aras.getResource('', 'item_methods.item_added_successfully');
+		const notify = aras.getNotifyByContext(window);
+		notify(successMessage, { type: 'success' });
+	}
+} catch(e) {
+	const { cause, message } = e;
+	const type = cause ? 'stack' : 'error';
+	const alertOptions = { type };
+	if (cause) {
+		alertOptions.technicalMessage = cause.message;
+	}
+
+	await ArasModules.Dialog.alert(message, alertOptions);
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_toc_editor_addpackage_click</name>
+ </Item>
+</AML>

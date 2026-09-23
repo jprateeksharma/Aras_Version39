@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="Dashboard Widget Template" id="CEDC92EE4FE842DDA3FF52140E16E8E4" action="add">
+  <height_size>8</height_size>
+  <label xml:lang="en">Tree Grid Widget</label>
+  <type>TreeGrid</type>
+  <width_size>8</width_size>
+  <name>Tree Grid Template</name>
+  <Relationships>
+   <Item type="Dashboard Widget Template Prop" id="DBE429E176D24AACA9CDE1AB45C2C7A4" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">Tree Grid View</label>
+    <name>tgvd_id</name>
+    <prop_source keyed_name="rb_TreeGridViewDefinition" type="ItemType" name="rb_TreeGridViewDefinition">6AFE8A9127ED48FFB2F9183B9922981B</prop_source>
+    <prop_type>item</prop_type>
+    <required>1</required>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Tree Grid Template" type="Dashboard Widget Template">CEDC92EE4FE842DDA3FF52140E16E8E4</source_id>
+   </Item>
+   <Item type="Dashboard Widget Template Prop" id="885F59B90D084B36AD0E20DD2DF2D654" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">Context Item</label>
+    <name>item_id</name>
+    <prop_type>item</prop_type>
+    <required>1</required>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Tree Grid Template" type="Dashboard Widget Template">CEDC92EE4FE842DDA3FF52140E16E8E4</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

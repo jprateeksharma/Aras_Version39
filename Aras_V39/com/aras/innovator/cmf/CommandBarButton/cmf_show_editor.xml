@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="05706351DB5040909C9A09AB501B984B" action="add">
+  <image>../images/QualityDocEditorOff.svg</image>
+  <image_additional>../images/QualityDocEditorOn.svg</image_additional>
+  <include_events>UpdateTearOffWindowState</include_events>
+  <on_click_handler keyed_name="cmf_ShowEditor_ButtonClick" type="Method">D349BB4B5C22495AA69265E033427FE2</on_click_handler>
+  <tooltip_template xml:lang="en">Editor</tooltip_template>
+  <name>cmf_editor_container</name>
+ </Item>
+</AML>

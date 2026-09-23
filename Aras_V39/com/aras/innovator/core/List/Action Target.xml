@@ -1,0 +1,37 @@
+﻿<AML>
+ <Item type="List" id="EE8F5C300BD3486A928056C4E44B4C56" action="add">
+  <description>Where the Action results will be displayed</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Action Target</name>
+  <Relationships>
+   <Item type="Value" id="8A0B42140F314F9E91A5D26B01D693D4" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Main</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Action Target" type="List">EE8F5C300BD3486A928056C4E44B4C56</source_id>
+    <value>main</value>
+   </Item>
+   <Item type="Value" id="84428521D398455AA2A17B8E454BDDCE" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Window</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Action Target" type="List">EE8F5C300BD3486A928056C4E44B4C56</source_id>
+    <value>window</value>
+   </Item>
+   <Item type="Value" id="1289FF60100646F8A7230DA32EE0F9AF" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">One Window</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Action Target" type="List">EE8F5C300BD3486A928056C4E44B4C56</source_id>
+    <value>one window</value>
+   </Item>
+   <Item type="Value" id="CCCFF363F2614271804E4F7F85CCF051" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">None</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Action Target" type="List">EE8F5C300BD3486A928056C4E44B4C56</source_id>
+    <value>none</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

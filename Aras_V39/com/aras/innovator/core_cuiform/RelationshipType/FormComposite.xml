@@ -1,0 +1,44 @@
+﻿<AML>
+ <Item type="RelationshipType" id="146412F349804EDF89C0CFC8395D9405" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Form Composite</label>
+  <new_show_related>0</new_show_related>
+  <related_id keyed_name="cui_WindowSection" type="ItemType" name="cui_WindowSection">4BFB7C5855AA4A04AA596CF9C4271584</related_id>
+  <related_notnull>1</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="FormComposite" type="ItemType" name="FormComposite">
+   <Item type="ItemType" id="EB9D096F3A7B4FD690E12514C6C2BE7F" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <default_page_size>25</default_page_size>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>FORMCOMPOSITE</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Form Composite</label>
+    <label_plural xml:lang="en">Form Composites</label_plural>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>FormComposite</name>
+   </Item>
+  </relationship_id>
+  <sort_order>256</sort_order>
+  <source_id keyed_name="Form" type="ItemType" name="Form">47573682FB7549F59ADECD4BFE04F1DE</source_id>
+  <name>FormComposite</name>
+ </Item>
+ <Item type="View" action="delete" where="source_id='EB9D096F3A7B4FD690E12514C6C2BE7F'" />
+ <Item type="Form" action="delete" where="name='FormComposite'" />
+</AML>

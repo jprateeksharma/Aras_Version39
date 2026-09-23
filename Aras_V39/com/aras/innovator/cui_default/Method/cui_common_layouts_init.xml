@@ -1,0 +1,85 @@
+﻿<AML>
+ <Item type="Method" id="137DB3D60D8C4FD8B4398915832131C5" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { data: targetData, roots } = target;
+const { favoriteLayout } = options.getState();
+if (target.subMenuKey) {
+	const favoriteLayoutData = targetData.get(favoriteLayout);
+	if (!favoriteLayoutData?.settings) {
+		return {
+			label: favoriteLayoutData.label
+		};
+	}
+
+	const { pagination, grid, previewState, queryType, redlineView} = favoriteLayoutData.settings;
+	const layoutDataForComparing = {
+		maxResults: pagination.maxResults,
+		pageSize: pagination.pageSize,
+		frozenColumns: grid.frozenColumns,
+		order: grid.order,
+		orderBy: grid.orderBy ?? [],
+		widths: grid.widths,
+		redlineView,
+		previewState,
+		queryType
+	};
+
+	const {
+		pagination: statePagination,
+		grid: stateGrid,
+		previewState: statePreview,
+		queryType: stateQuery,
+		redlineView: stateRedlineView
+	} = options.getState();
+	const columnWasHide = stateGrid.order.length < stateGrid.widths.size;
+	const stateWidths = columnWasHide
+		? stateGrid.order.reduce((acc, columnName) => acc.set(columnName, stateGrid.widths.get(columnName)), new Map())
+		: stateGrid.widths;
+	const stateDataForComparing = {
+		maxResults: statePagination.maxResults,
+		pageSize: statePagination.pageSize,
+		frozenColumns: stateGrid.frozenColumns,
+		order: stateGrid.order,
+		orderBy: stateGrid.orderBy,
+		widths: stateWidths,
+		redlineView: stateRedlineView,
+		previewState: statePreview,
+		queryType: queryType ? stateQuery : undefined
+	};
+
+	const isEqual = ArasModules.utils.areEqual(
+		layoutDataForComparing,
+		stateDataForComparing
+	);
+
+	const marker = isEqual ? '' : ' *';
+
+	return {
+		label: `${favoriteLayoutData.label}${marker}`
+	};
+}
+
+const subMenuKey = 'searchview.commandbar.layouts.favoritelayouts';
+const data = new Map();
+targetData.forEach(item => {
+	data.set(item.name, item);
+});
+
+const customEventName = 'ReinitLayoutLabel';
+let { include_events: events } = target;
+if (!events.includes(customEventName)) {
+	events += `,${customEventName}`;
+}
+
+return {
+	subMenuKey,
+	data,
+	roots: roots.filter((itemName) => itemName !== subMenuKey),
+	label: data.get(favoriteLayout).label,
+	include_events: events
+};
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_common_layouts_init</name>
+ </Item>
+</AML>

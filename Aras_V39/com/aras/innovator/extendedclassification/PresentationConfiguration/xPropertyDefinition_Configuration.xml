@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="7D6F7DA4B6CD496DBA87EC17439E7EBF" action="add">
+  <name>xPropertyDefinition_Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommand" id="8E1D66F3A4154A35B73DA5FB522DFCB6" action="add">
+    <command_alias keyed_name="ClaimItem" type="CommandAlias">36118109ED0F4D0BBDE0E09629B35FF8</command_alias>
+    <related_id keyed_name="DisabledCommand" type="Command">EC695757B8DF46E8943B3F6BB0916025</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="xPropertyDefinition_Configuration" type="PresentationConfiguration">7D6F7DA4B6CD496DBA87EC17439E7EBF</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="F10FD36A07644EAB833BFB211A362750" action="add">
+    <command_alias keyed_name="UnclaimItem" type="CommandAlias">32EF3DD970324E6A9807C900B03329F0</command_alias>
+    <related_id keyed_name="DisabledCommand" type="Command">EC695757B8DF46E8943B3F6BB0916025</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="xPropertyDefinition_Configuration" type="PresentationConfiguration">7D6F7DA4B6CD496DBA87EC17439E7EBF</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

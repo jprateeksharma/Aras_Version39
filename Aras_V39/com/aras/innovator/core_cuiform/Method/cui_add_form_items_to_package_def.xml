@@ -1,0 +1,75 @@
+﻿<AML>
+ <Item type="Method" id="E7ED67D0F0C24F5B876A8664FCDCE05E" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[
+	interface Form {
+		id: string;
+	};
+
+	interface FormInPackage extends Form {
+		name: string;
+		keyedName: string;
+		packageName: string;
+	};
+
+	const instructUserToUseUpdatePackageAction = async (
+		items: FormInPackage[]
+		) => {
+			if (items.length === 0) {
+				return;
+			}
+
+		const newLine = '\r\n';
+		const errorMessages: string = items
+			.map(({ name, keyedName, packageName }) => {
+				return getResource(
+					'item_methods.package_with_form_already_exists',
+					keyedName,
+					options.itemTypeName,
+					packageName
+				)
+			})
+			.join(newLine);
+
+		if (errorMessages.length == 0) {
+			return;
+		}
+
+		await alert(
+			`${errorMessages}${newLine}${getResource(
+				'item_methods.use_update_package_action_message'
+			)}`
+		);
+	};
+
+	const { itemTypeName, getState } = options;
+	const state = getState();
+
+	const selectedInGridForms = state.grid.selectedRows.reduce(
+	(filtered: string[], rowId: string) => {
+		if(!item.isNew(itemTypeName, rowId))
+		{
+			filtered.push(rowId);
+		}
+		return filtered;
+	}, []);
+
+	const response : { formsToAdd: Form[]; formsToUpdate: FormInPackage[] } = await odataFetch('method.FilterFormItemsBeforePackage', {
+		method: 'POST',
+		body: JSON.stringify({
+			ids: selectedInGridForms.toString()
+		})
+	});
+
+	if (response.formsToAdd && response.formsToAdd.length > 0) {
+		await window.aras.addItemToPackageDef(response.formsToAdd, options.itemTypeName);
+	}
+
+	if (response.formsToUpdate && response.formsToUpdate.length > 0) {
+		await instructUserToUseUpdatePackageAction(response.formsToUpdate);
+	}]]></method_code>
+  <method_type>TypeScript</method_type>
+  <template keyed_name="cui_form_grid_contextmenu_click" type="MethodTemplate">DEDCD79931E6497A88193DC40BB99B32</template>
+  <name>addFormsToPackageDef</name>
+ </Item>
+</AML>

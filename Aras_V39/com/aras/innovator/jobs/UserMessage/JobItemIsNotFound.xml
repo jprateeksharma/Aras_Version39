@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="A124A8733F9C4B3EA5A14FA333C02A9D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Job Item with '{0}' id is not found.</text>
+  <name>JobItemIsNotFound</name>
+ </Item>
+</AML>

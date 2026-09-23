@@ -1,0 +1,28 @@
+﻿<AML>
+ <Item type="List" id="36A81877E8FA4575AD29A2FBB2B9F89A" action="add">
+  <name>OutputDevice</name>
+  <Relationships>
+   <Item type="Value" id="BA587359D27247B389CAE2FBB49F2144" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Log File</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="OutputDevice" type="List">36A81877E8FA4575AD29A2FBB2B9F89A</source_id>
+    <value>Log File</value>
+   </Item>
+   <Item type="Value" id="AEF56B57262C479E961102913F86ADAF" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Jabber Client</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="OutputDevice" type="List">36A81877E8FA4575AD29A2FBB2B9F89A</source_id>
+    <value>Jabber Client</value>
+   </Item>
+   <Item type="Value" id="82A544443FD6446D863543C01DA5EC0A" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Database Table</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="OutputDevice" type="List">36A81877E8FA4575AD29A2FBB2B9F89A</source_id>
+    <value>Database Table</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

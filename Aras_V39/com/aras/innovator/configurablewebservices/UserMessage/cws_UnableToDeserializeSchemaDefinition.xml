@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="3F06D086C532426682689AD05D58352F" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Unable to deserialize Schema definition due to the error: {0}.</text>
+  <name>cws_UnableToDeserializeSchemaDefinition</name>
+ </Item>
+</AML>

@@ -1,0 +1,196 @@
+﻿<AML>
+ <Item type="Method" id="1A6842F7CA434C53A59558CE6459992F" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	var formComposites = GetFormComposites(this.getID());
+	if (formComposites.isError())
+	{
+		return formComposites;
+	}
+	string cuiControlXpath = "//Item[@type='FormComposite']/related_id/Item/Relationships/Item/related_id/Item[@type='cui_Control']";
+	Item controlItems = formComposites.getItemsByXPath(cuiControlXpath);
+
+	if (controlItems.getItemCount() > 1 || controlItems.getItemByIndex(0).getProperty("sealed") != "1")
+	{
+		return this.getInnovator().newResult(string.Empty);
+	}
+
+	var formComposite = formComposites.getItemByIndex(0);
+	var newFormComposite = CreateCopyFormComposite(formComposite);
+
+	return newFormComposite.apply();
+}
+
+private readonly string[] _formCompositePropertyNames = { "behavior", "is_current", "is_released", "not_lockable", "permission_id", "sort_order", "source_id", "generation", "major_rev", "new_version" };
+private readonly string[] _windowSectionPropertyNames = { "classification", "generation", "is_current", "is_released", "location", "major_rev", "new_version", "not_lockable", "permission_id" };
+private readonly string[] _windowSectionControlPropertyNames = { "behavior", "generation", "is_current", "is_released", "major_rev", "new_version", "not_lockable", "permission_id", "role", "sort_order", "action" };
+private readonly string[] _controlPropertyNames = { "additional_data", "control_type", "generation", "is_current", "is_released", "keyed_name", "major_rev", "new_version", "not_lockable", "parent_control", "permission_id", "name" };
+private readonly string[] _controlFormFieldPropertyNames = { "action", "behavior", "generation", "is_current", "is_released", "major_rev", "new_version", "not_lockable", "permission_id", "role", "sort_order" };
+private readonly string[] _formFieldPropertyNames = { "data_source", "disabled", "field_type", "generation", "hidden", "is_current", "is_released", "major_rev", "new_version", "not_lockable", "override_prop_readonly", "override_prop_required", "permission_id", "readonly", "required", "show_help", "show_label", "name" };
+private readonly string[] _controlFormFieldIdentityPropertyNames = { "behavior", "classification", "current_state", "generation", "is_current", "is_released", "major_rev", "new_version", "permission_id", "related_id", "sort_order" };
+private readonly string[] _controlRulePropertyNames = { "behavior", "generation", "is_current", "is_released", "major_rev", "new_version", "not_lockable", "permission_id", "related_id", "sort_order" };
+
+private Item GetFormComposites(string id)
+{
+	//find form composites (select sealed property)
+	const string itemViewFormTabId = "6C6B5EDBB53F4762A582D8D4AD3418AB";
+
+	Item compositeRelationship = this.newItem();
+	compositeRelationship.loadAML(string.Format(CultureInfo.InvariantCulture,
+		@"<Item type='FormComposite' action='get'>
+			<source_id>{0}</source_id>
+			<related_id>
+				<Item type='cui_WindowSection' action='get'>
+					<classification>Data Model</classification>
+					<Relationships>
+						<Item type='cui_WindowSectionControl' action='get'>
+							<action>Add</action>
+							<related_id>
+								<Item type='cui_Control' action='get'>
+									<name>ItemView.Form</name>
+									<control_type>FormControl</control_type>
+									<parent_control>{1}</parent_control>
+									<Relationships>
+										<Item type='cui_ControlFormField' action='get'>
+											<Relationships>
+												<Item type='cui_ControlFormFieldIdentities' action='get'>
+													<related_id>
+														<Item type='Identity' action='get' select ='id'/>
+													</related_id>
+												</Item>
+											</Relationships>
+											<related_id>
+												<Item type='cui_FormField' action='get'/>
+											</related_id>
+										</Item>
+										<Item type='cui_ControlRule' action='get'>
+											<related_id>
+												<Item type='cui_Rule' action='get' select ='id'/>
+											</related_id>
+										</Item>
+									</Relationships>
+								</Item>
+							</related_id>
+						</Item>
+					</Relationships>
+				</Item>
+			</related_id>
+		</Item>",
+		System.Security.SecurityElement.Escape(id),
+		System.Security.SecurityElement.Escape(itemViewFormTabId)));
+
+	return compositeRelationship.apply();
+}
+
+private Item CreateCopyFormComposite(Item formComposite)
+{
+	Item newFormComposite = this.newItem("FormComposite", "add");
+	CopyProperties(formComposite, newFormComposite, _formCompositePropertyNames);
+
+	var windowSection = formComposite.getRelatedItem();
+	var newWindowSection = CreateCopyWindowSection(windowSection);
+	newFormComposite.setRelatedItem(newWindowSection);
+	newFormComposite.setAttribute("doGetItem", "0");
+	return newFormComposite;
+}
+
+private Item CreateCopyWindowSection(Item windowSection)
+{
+	Item newWindowSection = this.newItem("cui_WindowSection", "add");
+	CopyProperties(windowSection, newWindowSection, _windowSectionPropertyNames);
+	newWindowSection.setProperty("name", this.getInnovator().getNewID());
+
+	var windowSectionControl = windowSection.getRelationships("cui_WindowSectionControl").getItemByIndex(0);
+	var newWindowSectionControl = CreateCopyWindowSectionControl(windowSectionControl);
+	newWindowSection.addRelationship(newWindowSectionControl);
+	return newWindowSection;
+}
+
+private Item CreateCopyWindowSectionControl(Item windowSectionControl)
+{
+	Item newWindowSectionControl = this.newItem("cui_WindowSectionControl", "add");
+	CopyProperties(windowSectionControl, newWindowSectionControl, _windowSectionControlPropertyNames);
+
+	var control = windowSectionControl.getRelatedItem();
+	var newControl = CreateCopyControl(control);
+	newWindowSectionControl.setRelatedItem(newControl);
+
+	return newWindowSectionControl;
+}
+
+private Item CreateCopyControl(Item control)
+{
+	Item newControl = this.newItem("cui_Control", "add");
+	CopyProperties(control, newControl, _controlPropertyNames);
+	newControl.setProperty("sealed", "0");
+
+	var controlFormFields = control.getRelationships("cui_ControlFormField");
+	for (var i = 0; i < controlFormFields.getItemCount(); ++i)
+	{
+		var controlFormField = controlFormFields.getItemByIndex(i);
+		var newControlFormField = CreateCopyControlFromField(controlFormField);
+		newControl.addRelationship(newControlFormField);
+	}
+
+	var controlRules = control.getRelationships("cui_ControlRule");
+	for (var i = 0; i < controlRules.getItemCount(); ++i)
+	{
+		var controlRule = controlRules.getItemByIndex(i);
+		var newControlRuled = CreateCopyControlRule(controlRule);
+		newControl.addRelationship(newControlRuled);
+	}
+
+	return newControl;
+}
+
+private Item CreateCopyControlFromField(Item controlFormField)
+{
+	var newControlFormField = this.newItem("cui_ControlFormField", "add");
+
+	CopyProperties(controlFormField, newControlFormField, _controlFormFieldPropertyNames);
+
+	var formField = controlFormField.getRelatedItem();
+	var newFormField = CreateCopyFormField(formField);
+	newControlFormField.setRelatedItem(newFormField);
+
+	var controlFormFieldIdentities = controlFormField.getRelationships("cui_ControlFormFieldIdentities");
+	for (var i = 0; i < controlFormFieldIdentities.getItemCount(); ++i)
+	{
+		var controlFormFieldIdentity = controlFormFieldIdentities.getItemByIndex(i);
+		var newControlFormFieldIdentity = CreateCopyControlFormFieldIdentity(controlFormFieldIdentity);
+		newControlFormField.addRelationship(newControlFormFieldIdentity);
+	}
+
+	return newControlFormField;
+}
+
+private Item CreateCopyFormField(Item formField)
+{
+	var newFormField = this.newItem("cui_FormField", "add");
+	CopyProperties(formField, newFormField, _formFieldPropertyNames);
+	return newFormField;
+}
+
+private Item CreateCopyControlFormFieldIdentity(Item controlFormFieldIdentity)
+{
+	var newControlFormFieldIdentity = this.newItem("cui_ControlFormFieldIdentities", "add");
+	CopyProperties(controlFormFieldIdentity, newControlFormFieldIdentity, _controlFormFieldIdentityPropertyNames);
+	return newControlFormFieldIdentity;
+}
+
+private Item CreateCopyControlRule(Item controlRule)
+{
+	var newControlRuled = this.newItem("cui_ControlRule", "add");
+	CopyProperties(controlRule, newControlRuled, _controlRulePropertyNames);
+	return newControlRuled;
+}
+
+private static void CopyProperties(Item source, Item destination, string[] propertyNames)
+{
+	foreach (var propertyName in propertyNames)
+	{
+		destination.setProperty(propertyName, source.getProperty(propertyName));
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_CreateCopyFromSealedForm</name>
+ </Item>
+</AML>

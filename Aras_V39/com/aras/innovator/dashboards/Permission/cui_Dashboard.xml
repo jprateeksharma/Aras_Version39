@@ -1,0 +1,56 @@
+﻿<AML>
+ <Item type="Permission" id="5C9221550F5E49009745450D4CC8DA68" action="add">
+  <is_private>0</is_private>
+  <name>cui_Dashboard</name>
+  <Relationships>
+   <Item type="Access" id="4257C1FC449E4616BBA9304EC2ACB944" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Full Access Sharing" type="Identity">C925B4C261D44A138A5D5B6F050EFB6A</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="Permission">5C9221550F5E49009745450D4CC8DA68</source_id>
+   </Item>
+   <Item type="Access" id="5F1DB28690A24181A94C8AF9FC5A6139" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Dashboard Administrators" type="Identity">2374FB2B74994D73AC7B4E929C379A6F</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="Permission">5C9221550F5E49009745450D4CC8DA68</source_id>
+   </Item>
+   <Item type="Access" id="914866097BAB4DC694F56D4C2E9603CF" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="Read Only Sharing" type="Identity">9FF8AB7E8F934140BE23DEF6FF8E338D</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="Permission">5C9221550F5E49009745450D4CC8DA68</source_id>
+   </Item>
+   <Item type="Access" id="C3B77AB9B7CB4BBC9FF0EE17AFC91F9C" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="Permission">5C9221550F5E49009745450D4CC8DA68</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

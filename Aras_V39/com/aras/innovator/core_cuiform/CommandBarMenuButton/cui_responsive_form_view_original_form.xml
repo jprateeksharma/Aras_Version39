@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="F0B4135C67DB42208132DE494B426697" action="add">
+  <include_events>UpdateTearOffWindowState</include_events>
+  <label xml:lang="en">View Original Form Design</label>
+  <on_click_handler keyed_name="cui_view_original_form_click" type="Method">1DC2ABBA86C6436C928BA13926DFB99F</on_click_handler>
+  <on_init_handler keyed_name="cui_view_original_form_init" type="Method">688D21708E3145B4BB5E52640B8D61B1</on_init_handler>
+  <parent_menu keyed_name="itemview.itemcommandbar.default.more" type="CommandBarMenu">FFEBAEC1DE43491D8AF7C2684253E34A</parent_menu>
+  <name>cui_responsive_form_view_original_form</name>
+ </Item>
+</AML>

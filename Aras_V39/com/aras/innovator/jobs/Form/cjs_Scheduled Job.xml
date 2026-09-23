@@ -1,0 +1,191 @@
+﻿<AML>
+ <Item type="Form" id="444806531C9647B2962F378DF35B48F8" action="add">
+  <height>249</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>699</width>
+  <name>cjs_Scheduled Job</name>
+  <Relationships>
+   <Item type="Body" id="D442FE9C27EE49939ADF9A8BA98FE4C3" action="add">
+    <bg_color>#FFFFFF</bg_color>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job" type="Form">444806531C9647B2962F378DF35B48F8</source_id>
+    <Relationships>
+     <Item type="Field" id="B80471ED89344DFFAF7A5927C6D8FC03" action="add">
+      <border_width>0</border_width>
+      <display_length>156</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>class structure</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Schedule</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <positioning>absolute</positioning>
+      <show_help>1</show_help>
+      <sort_order>768</sort_order>
+      <source_id keyed_name="D442FE9C27EE49939ADF9A8BA98FE4C3" type="Body">D442FE9C27EE49939ADF9A8BA98FE4C3</source_id>
+      <tab_index>128</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>737</x>
+      <y>5</y>
+      <name>classification</name>
+     </Item>
+     <Item type="Field" id="32D6F36C6D274973B1DA3C6871D4376B" action="add">
+      <border_width>0</border_width>
+      <display_length>252</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Name</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="name" type="Property">90B641AC8E2946DEB5403277D3701E0C</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="D442FE9C27EE49939ADF9A8BA98FE4C3" type="Body">D442FE9C27EE49939ADF9A8BA98FE4C3</source_id>
+      <tab_index>3200</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>1</x>
+      <y>5</y>
+      <name>name</name>
+     </Item>
+     <Item type="Field" id="F83F5C155758464FBA99385A80706F4F" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>textarea</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Parameters</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="parameters" type="Property">26F35461A3E3421DBA9C72C13B0637D2</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>640</sort_order>
+      <source_id keyed_name="D442FE9C27EE49939ADF9A8BA98FE4C3" type="Body">D442FE9C27EE49939ADF9A8BA98FE4C3</source_id>
+      <tab_index>3456</tab_index>
+      <tab_stop>1</tab_stop>
+      <textarea_cols>428</textarea_cols>
+      <textarea_rows>173</textarea_rows>
+      <x>1</x>
+      <y>49</y>
+      <name>parameters</name>
+     </Item>
+     <Item type="Field" id="565EC104E96E43F6AA21825F2251D674" action="add">
+      <border_width>0</border_width>
+      <display_length>137</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>item</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Run As User</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="run_as_user" type="Property">C76BE917020540D6A6BC9FA748DF70A8</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="D442FE9C27EE49939ADF9A8BA98FE4C3" type="Body">D442FE9C27EE49939ADF9A8BA98FE4C3</source_id>
+      <tab_index>3328</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>273</x>
+      <y>5</y>
+      <name>run_as_user</name>
+     </Item>
+     <Item type="Field" id="084AEA8778444F48BB389B01DBC2B6C2" action="add">
+      <border_width>0</border_width>
+      <display_length>220</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Start Schedule On</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="start_schedule_on" type="Property">36163FC5B6874290A56AEC739C9467AB</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="D442FE9C27EE49939ADF9A8BA98FE4C3" type="Body">D442FE9C27EE49939ADF9A8BA98FE4C3</source_id>
+      <tab_index>3584</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>473</x>
+      <y>5</y>
+      <name>start_schedule_on</name>
+     </Item>
+     <Item type="Field" id="128CCBFE875348568CA2AB7B13C8FF1C" action="add">
+      <border_width>0</border_width>
+      <display_length>220</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>dropdown</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Time Zone</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <show_help>1</show_help>
+      <sort_order>1024</sort_order>
+      <source_id keyed_name="D442FE9C27EE49939ADF9A8BA98FE4C3" type="Body">D442FE9C27EE49939ADF9A8BA98FE4C3</source_id>
+      <tab_stop>1</tab_stop>
+      <x>473</x>
+      <y>49</y>
+      <name>timezone_dropdown</name>
+      <Relationships>
+       <Item type="Field Event" id="51DF3C3DF9654A88B441662210B297D4" action="add">
+        <field_event>onchange</field_event>
+        <related_id keyed_name="cjs_SchedJob_ZoneDrpdwn_onChange" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>cjs_SchedJob_ZoneDrpdwn_onChange</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="timezone_dropdown" type="Field">128CCBFE875348568CA2AB7B13C8FF1C</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+    </Relationships>
+   </Item>
+   <Item type="Form Event" id="08E66B8617AF407F986EBDF7FF9C378D" action="add">
+    <form_event>onformpopulated</form_event>
+    <related_id keyed_name="cjs_SchedJob_Form_onPopulated" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>cjs_SchedJob_Form_onPopulated</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job" type="Form">444806531C9647B2962F378DF35B48F8</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="Field" id="B80471ED89344DFFAF7A5927C6D8FC03" action="edit">
+  <!-- Please note: this AML depends on the "cjs_Scheduled Job" ItemType. Please make sure it exists before running this. -->
+  <propertytype_id>
+   <Item type="Property" action="get" select="id">
+    <name>classification</name>
+    <source_id type="ItemType" keyed_name="cjs_Scheduled Job">7D090036D04C4FC6AC0F2EC2F0E781B8</source_id>
+   </Item>
+  </propertytype_id>
+ </Item>
+</AML>

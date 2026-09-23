@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="4672F8C82FB041DC89B3732F72EC193D" action="add">
+  <control_type>ContextMenu</control_type>
+  <location keyed_name="PopupMenuItemGrid" type="cui_Location">1DCBBA8DA6D14F37AD5A6FAA795058A3</location>
+  <sealed>0</sealed>
+  <name>SearchView.GridRowContextMenu</name>
+ </Item>
+</AML>

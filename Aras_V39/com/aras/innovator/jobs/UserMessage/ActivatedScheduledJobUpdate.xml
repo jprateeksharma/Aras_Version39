@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="45D4B737333641BD8DF05F696CC5D791" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The value of "{0}" property can not be updated for activated scheduled job.</text>
+  <name>ActivatedScheduledJobUpdate</name>
+ </Item>
+</AML>

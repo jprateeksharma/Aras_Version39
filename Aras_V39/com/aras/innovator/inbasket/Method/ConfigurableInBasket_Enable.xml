@@ -1,0 +1,83 @@
+﻿<AML>
+ <Item type="Method" id="34B1BCEEF4334C19BA5CE73F3693AF75" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const oldInbasketId = 'FD3C8A3C8E4A9E99A67D2271846FB79B';
+const configInbasketId = '67A153F611FDD9F599E9D85137DB46EF';
+const worldIdentityId = 'A73B655731924CD0B027E4F4D5FCC0A9';
+const superUserIdentityId = '6B14D33C4A7D41C188CCF2BC15BD01A3';
+const odataFilter = `(related_id eq '${oldInbasketId}' or related_id eq '${configInbasketId}')`;
+const requestURL = `
+	CommandBarSectionItem?
+	$select=id,related_id,role,source_id&
+	$filter=${odataFilter}
+`;
+
+return (async () => {
+	const commandBarSectionItems = await ArasModules.odataFetch(requestURL);
+	const notify = aras.getNotifyByContext(window);
+	const oldInbasketRelship =
+		commandBarSectionItems.value.find(
+			(relship) => relship['related_id@aras.id'] === oldInbasketId
+		) || {};
+	if (oldInbasketRelship['role@aras.id'] === worldIdentityId) {
+		const successMessage = aras.getResource(
+			'',
+			'configurable_inbasket.enabled_already'
+		);
+		notify(successMessage, { type: 'info' });
+		return;
+	}
+
+	const confirmLabel = aras.getResource(
+		'',
+		'configurable_inbasket.enable_confirm'
+	);
+	const confirmResult = await ArasModules.Dialog.confirm(confirmLabel);
+	if (confirmResult !== 'ok') {
+		return;
+	}
+
+	const configInbasketRelship =
+		commandBarSectionItems.value.find(
+			(relship) => relship['related_id@aras.id'] === configInbasketId
+		) || {};
+	const {
+		'source_id@aras.id': oldInbasketSourceId,
+		id: oldInbasketRelshipId
+	} = oldInbasketRelship;
+	const {
+		'source_id@aras.id': configInbasketSourceId,
+		id: configInbasketRelshipId
+	} = configInbasketRelship;
+	const aml = `
+		<AML>
+			<Item type="CommandBarSection" action="edit" id="${oldInbasketSourceId}" doGetItem="0">
+				<Relationships>
+					<Item type="CommandBarSectionItem" action="edit" id="${oldInbasketRelshipId}">
+						<role>${worldIdentityId}</role>
+					</Item>
+				</Relationships>
+			</Item>
+			<Item type="CommandBarSection" action="edit" id="${configInbasketSourceId}" doGetItem="0">
+				<Relationships>
+					<Item type="CommandBarSectionItem" action="edit" id="${configInbasketRelshipId}">
+						<role>${superUserIdentityId}</role>
+					</Item>
+				</Relationships>
+			</Item>
+		</AML>
+	`;
+
+	await ArasModules.soap(aml, { method: 'ApplyAML', async: true });
+	const successMessage = aras.getResource(
+		'',
+		'configurable_inbasket.enabled_successfully'
+	);
+	notify(successMessage, { type: 'success' });
+	window.mainLayout.observer.notify('UpdateTOC');
+})();
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>ConfigurableInBasket_Enable</name>
+ </Item>
+</AML>

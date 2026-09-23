@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="List" id="9481330AF61C4FD0AA5F7B020335C5E7" action="add">
+  <description>A scheduled task can be ran hourly, daily, or weekly.</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Scheduled Task Granularity</name>
+  <Relationships>
+   <Item type="Value" id="F4FF1F585BC249DB9AC5B319CD457D44" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Hourly</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Scheduled Task Granularity" type="List">9481330AF61C4FD0AA5F7B020335C5E7</source_id>
+    <value>hourly</value>
+   </Item>
+   <Item type="Value" id="04CCBCF6461A45558AE489578309F3A3" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Daily</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Scheduled Task Granularity" type="List">9481330AF61C4FD0AA5F7B020335C5E7</source_id>
+    <value>daily</value>
+   </Item>
+   <Item type="Value" id="5F54FC0348E641A49F0869BF1F67044E" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Weekly</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Scheduled Task Granularity" type="List">9481330AF61C4FD0AA5F7B020335C5E7</source_id>
+    <value>weekly</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="9F32A6C8CDD14E4A86F590179F25BD37" action="add">
+  <image>../images/AddFolder.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_toc_editor_addFolder_click" type="Method">45264800FD2C441B8DA1E8895D9617B1</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_add_init" type="Method">A53BA118C339421F9E865CBE208D214F</on_init_handler>
+  <tooltip_template xml:lang="en">Add Category</tooltip_template>
+  <name>toceditor.commandbar.default.addfolder</name>
+ </Item>
+</AML>

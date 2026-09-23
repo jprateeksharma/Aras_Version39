@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="5BE501966612430BB855E98CA06DD527" action="add">
+  <additional_data>{
+  "cssClass": "aras-button_secondary",
+  "cssStyle": {
+    "padding-left": "16px",
+    "padding-right": "16px"
+  }
+}</additional_data>
+  <include_events>UpdateState</include_events>
+  <label xml:lang="en">Discard</label>
+  <on_click_handler keyed_name="cui_toc_editor_discard_click" type="Method">E097A165AA724ECEA36DDCF92E6EFDAC</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_discard_init" type="Method">13E3667DBD564A4E926A9183CE8077DA</on_init_handler>
+  <tooltip_template xml:lang="en">Discard Changes</tooltip_template>
+  <name>toceditor.commandbar.default.discard</name>
+ </Item>
+</AML>

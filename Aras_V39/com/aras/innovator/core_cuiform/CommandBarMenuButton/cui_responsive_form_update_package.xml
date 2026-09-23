@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="F01F34855E3C4FD4927F85474E6C3524" action="add">
+  <label xml:lang="en">Update Package Definition</label>
+  <on_click_handler keyed_name="itemViewUpdateItemsInPackage" type="Method">83BD40430E6144FE9BF54242672C63A1</on_click_handler>
+  <parent_menu keyed_name="itemview.itemcommandbar.default.more" type="CommandBarMenu">FFEBAEC1DE43491D8AF7C2684253E34A</parent_menu>
+  <name>cui_responsive_form_update_package</name>
+ </Item>
+</AML>

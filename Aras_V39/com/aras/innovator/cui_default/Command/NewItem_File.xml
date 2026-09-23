@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="6B394A1F68494FFABE42E03DB31E2B05" action="add">
+  <can_execute keyed_name="cui_command_new_fileItem_can_exe" type="Method">C44D829C9EF54C9E8045E5B60C26E0AD</can_execute>
+  <execute_handler keyed_name="cui_command_new_fileItem_execute" type="Method">25269F29A066490FAD7467575EDF0D1E</execute_handler>
+  <name>NewItem_File</name>
+ </Item>
+</AML>

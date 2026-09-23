@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="FileType" id="F9128A932C5545268BF76CA911897AB9" action="add">
+  <description>IGES Exchange</description>
+  <extension>igs,iges</extension>
+  <mimetype>model/iges</mimetype>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>IGES Exchange</name>
+ </Item>
+</AML>

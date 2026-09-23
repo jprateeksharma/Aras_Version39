@@ -1,0 +1,43 @@
+﻿<AML>
+ <Item type="List" id="35D393C348F04C09946AB57A48E3E51F" action="add">
+  <description>A List of available property types that can be added to the widget</description>
+  <name>Dashboard Widget Property Types</name>
+  <Relationships>
+   <Item type="Value" id="E61961F67C2F42A1B6714C809E3A43CA" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Integer</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Dashboard Widget Property Types" type="List">35D393C348F04C09946AB57A48E3E51F</source_id>
+    <value>integer</value>
+   </Item>
+   <Item type="Value" id="B01F7DA26E044DAC88C168A335985E56" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Item</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Dashboard Widget Property Types" type="List">35D393C348F04C09946AB57A48E3E51F</source_id>
+    <value>item</value>
+   </Item>
+   <Item type="Value" id="D48B48484E154E37BC09FF1050015682" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Text</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Dashboard Widget Property Types" type="List">35D393C348F04C09946AB57A48E3E51F</source_id>
+    <value>text</value>
+   </Item>
+   <Item type="Value" id="1293D434FBAE4C7B8F2C0954FF4EDF3C" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Boolean</label>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="Dashboard Widget Property Types" type="List">35D393C348F04C09946AB57A48E3E51F</source_id>
+    <value>boolean</value>
+   </Item>
+   <Item type="Value" id="1E438B099D0440AA939FFC0C364A0833" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">List</label>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="Dashboard Widget Property Types" type="List">35D393C348F04C09946AB57A48E3E51F</source_id>
+    <value>list</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

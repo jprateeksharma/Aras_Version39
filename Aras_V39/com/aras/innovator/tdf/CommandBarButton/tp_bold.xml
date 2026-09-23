@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="C48F4764CA314ACF882ADC57D697E0F0" action="add">
+  <additional_data>{ "actionName": "arastextactions", "actionParameters": { "actionName": "bold"}}</additional_data>
+  <image>../images/Bold.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_executeaction" type="Method">94FDE365CA9A402DB808B93FBE53CC4D</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_style_init" type="Method">C84B4265134744499FB85A502361A30A</on_init_handler>
+  <tooltip_template xml:lang="en">Bold</tooltip_template>
+  <name>tp_bold</name>
+ </Item>
+</AML>

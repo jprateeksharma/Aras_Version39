@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="UserMessage" id="863C8460ACAC49F897C79FC5FD89598E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">A SQL exception occurred (Error Number = "{0}").
+Administrator can turn on application logging for more information.
+Please contact your administrator.</text>
+  <name>Aras.Server.Core.SqlExceptionOccurred_Hidden_LogsOff</name>
+ </Item>
+</AML>

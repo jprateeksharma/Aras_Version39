@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Revision" id="7FE395DD8B9F4E1090756A34B733D75E" action="add">
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <revision>A B C D E F G H J K L M N P Q R S T U V W X Y Z</revision>
+  <name>Default</name>
+ </Item>
+</AML>

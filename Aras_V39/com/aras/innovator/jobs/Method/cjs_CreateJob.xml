@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="Method" id="7BD2916005B74CC3980720ED60F1A488" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[Aras.Server.Jobs.InternalMethods.CreateJob,Aras.Server.Jobs]]></method_code>
+  <method_type>Internal</method_type>
+  <name>cjs_CreateJob</name>
+ </Item>
+</AML>

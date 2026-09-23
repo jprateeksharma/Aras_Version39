@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="2883D83A3DF64642A7FB8471714F2366" action="add">
+  <can_execute keyed_name="cui_command_delete_item_can_exec" type="Method">C056BBB3A4BC43BB8753E20A7A68F36B</can_execute>
+  <execute_handler keyed_name="cui_command_delete_item_execute" type="Method">E740A49C7C0B412C98B7D934D8F91489</execute_handler>
+  <name>DeleteItem</name>
+ </Item>
+</AML>

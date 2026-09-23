@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="6487D047E03840748EB114AED8B39AC3" action="add">
+  <control_type>ShortcutsControl</control_type>
+  <location keyed_name="SearchDialog.Shortcuts" type="cui_Location">F102A176A847484AAD4418AFF7ABAAF5</location>
+  <sealed>0</sealed>
+  <name>SearchDialog.Shortcuts</name>
+ </Item>
+</AML>

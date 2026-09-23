@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="A5BE5F4BC0694EC1BA21668AD1B75003" action="add">
+  <client>js</client>
+  <related_id keyed_name="CuiDependency Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="FA35266B8B55477997A462D3CD146EC3" action="add">
+    <color>#23222f</color>
+    <name>CuiDependency Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="CuiDependency" type="ItemType" name="CuiDependency">508A62C48ED64BEBB3931384B726AF94</source_id>
+ </Item>
+</AML>

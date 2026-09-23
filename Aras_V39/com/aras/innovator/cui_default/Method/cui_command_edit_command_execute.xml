@@ -1,0 +1,92 @@
+﻿<AML>
+ <Item type="Method" id="87A85D00BFF94A3495E3C43456468582" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[let { itemNode } = options;
+const { item, itemType, itemTypeName, sourceItem } = options;
+const id = item ? item.id : itemNode.getAttribute('id');
+const lockedById = item
+	? item['locked_by_id']
+	: window.aras.getItemProperty(itemNode, 'locked_by_id');
+const isNew = window.ArasModules.item.isNew(itemTypeName, id);
+const needClaim = !lockedById && !isNew;
+if (needClaim) {
+	const claimCommand = commands.commandFactory('LockItem', options);
+	try {
+		itemNode = await claimCommand.execute();
+	} catch (error) {
+		if (error.message === 'Aras.Server.Core.ItemIsAlreadyLockedException') {
+			const itemTypeLabel = itemType.label || itemType.name;
+			const itemKeyedName = window.aras.getItemProperty(itemNode, 'keyed_name');
+			const dialogSettings = {
+				title: window.aras.getResource(
+					'',
+					'common.discard_changeelsewhere_confirmationtitle'
+				),
+				okButtonText: window.aras.getResource('', 'common.continue_anyway'),
+				cancelButtonText: window.aras.getResource('', 'common.cancel')
+			};
+			const dialogMessage = window.aras.getResource(
+				'',
+				'common.discard_changeelsewhere_confirmationmessage',
+				itemTypeLabel,
+				itemKeyedName
+			);
+
+			const result = await window.ArasModules.Dialog.confirm(
+				dialogMessage,
+				dialogSettings
+			);
+			if (result === 'ok') {
+				itemNode = window.aras.getItemById(itemTypeName, id, 0);
+				window.aras.itemsCache.updateItem(itemNode);
+				window.aras.fireEvent('ItemLock', {
+					itemID: itemNode.getAttribute('id'),
+					itemNd:itemNode,
+					newLockedValue: window.aras.isLocked(itemNode),
+					itemNodeClone: itemNode.cloneNode(true)
+				});
+			} else {
+				const message = window.aras.getResource(
+					'',
+					'cui.editcommand.item_is_claimed_error',
+					itemTypeLabel,
+					itemKeyedName
+				);
+				const err = new Error(message,{ cause: error });
+				err.name = 'CUIError';
+				throw err;
+			}
+		} else {
+			throw error;
+		}
+	}
+}
+
+if (!itemNode) {
+	return;
+}
+
+const itemNodeId = itemNode.getAttribute('id');
+itemNode.setAttribute('isEditState', '1');
+const nodes = window.aras.itemsCache.getItemsByXPath(
+	`//Item[@id='${itemNodeId}']`
+);
+
+nodes.forEach((node) => node.setAttribute('isEditState', '1'));
+
+const actions = window.aras.getMainWindow().store.boundActionCreators;
+const changes = needClaim ? {} : { '@isClaimed': true };
+const shouldCreateDependencyInStore = itemType.is_relationship !== '1';
+
+actions.createItemLocalChangesRecord(
+	itemTypeName,
+	itemNodeId,
+	changes,
+	shouldCreateDependencyInStore ? sourceItem : null
+);
+
+return itemNode;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_edit_command_execute</name>
+ </Item>
+</AML>

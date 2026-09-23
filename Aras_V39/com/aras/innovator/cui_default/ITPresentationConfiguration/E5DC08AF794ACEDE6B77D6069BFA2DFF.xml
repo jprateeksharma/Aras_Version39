@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="E5DC08AF794ACEDE6B77D6069BFA2DFF" action="add">
+  <client>js</client>
+  <related_id keyed_name="PackageDependsOn Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="E5DC08AF794ACEDE36326AA7318BB90D" action="add">
+    <color>#303f9f</color>
+    <name>PackageDependsOn Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="PackageDependsOn" type="ItemType" name="PackageDependsOn">5D6C6E00F2114D678570FC877B6F44BC</source_id>
+ </Item>
+</AML>

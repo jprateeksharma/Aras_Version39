@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="cui_Location" id="9794720F4D45415880B5712BE52345B6" action="add">
+  <description>Location for Grid component on Search View, Relationships View and Search Dialog.</description>
+  <name>SearchGrid</name>
+ </Item>
+</AML>

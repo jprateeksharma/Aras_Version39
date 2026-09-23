@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="7F030AF296A5404BA17E40D899D084D9" action="add">
+  <image>../images/AddFile.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_toc_editor_addPage_click" type="Method">7A8F8F0AF0954AC3A404182713A400CE</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_add_init" type="Method">A53BA118C339421F9E865CBE208D214F</on_init_handler>
+  <tooltip_template xml:lang="en">Add Page</tooltip_template>
+  <name>toceditor.commandbar.default.addpage</name>
+ </Item>
+</AML>

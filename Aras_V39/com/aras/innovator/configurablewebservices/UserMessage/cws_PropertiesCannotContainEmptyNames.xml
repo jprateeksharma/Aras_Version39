@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="6DED5CD79D06421E9669F183C6B57ED0" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Properties cannot contain empty names.</text>
+  <name>cws_PropertiesCannotContainEmptyNames</name>
+ </Item>
+</AML>

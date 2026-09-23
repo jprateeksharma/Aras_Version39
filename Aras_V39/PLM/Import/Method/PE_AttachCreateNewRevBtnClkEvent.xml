@@ -1,0 +1,51 @@
+﻿<AML>
+ <Item type="Method" id="314FDC09EEBC4A01958E4E9EE817B3EE" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const createNewRevisionButton = document.getElementsByName('major_rev_increment')[0];
+
+	createNewRevisionButton.addEventListener('click', () => {
+		const aras = window.aras;
+
+		if (!aras.confirm(aras.getResource('plm', 'createnewrevision.confirm'))) {
+			return;
+		}
+
+		const dom = aras.createXMLDocument();
+		dom.loadXML(parent.item.xml);
+
+		const innerItem = dom.selectSingleNode("//Item");
+
+		const expectedChildSet = new Set([
+			"config_id",
+			"id",
+			"keyed_name",
+			"owned_by_id",
+			"state",
+			"itemtype"
+		]);
+
+		const loopStartIndex = innerItem.childNodes.length - 1;
+		for (let i = loopStartIndex; i >= 0; i--) {
+			const childNode = innerItem.childNodes[i];
+			if (!expectedChildSet.has(childNode.localName)) {
+				innerItem.removeChild(childNode);
+			}
+		}
+
+		innerItem.setAttribute('action', 'PE_CreateNewRevision');
+		const createNewRevisionResponse = aras.soapSend('ApplyMethod', innerItem.xml);
+
+		if (createNewRevisionResponse.getFaultCode() !== 0) {
+			aras.AlertError(createNewRevisionResponse);
+			return;
+		}
+
+		const createNewRevisionResult = createNewRevisionResponse.getResultsBody();
+		dom.loadXML(createNewRevisionResult);
+
+		aras.uiReShowItemEx(parent.itemID, dom.documentElement, parent.viewMode);
+	});]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>PE_AttachCreateNewRevBtnClkEvent</name>
+ </Item>
+</AML>

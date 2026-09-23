@@ -1,0 +1,38 @@
+﻿<AML>
+ <Item type="List" id="666C5DECC3994EAFB4430E279DD76C5A" action="add">
+  <description>Used to position the label on the Field.</description>
+  <label>Label Positioning</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Label Positioning</name>
+  <Relationships>
+   <Item type="Value" id="9FF2F65D26F84D47A8A7E36A8C47C0BF" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Left</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Label Positioning" type="List">666C5DECC3994EAFB4430E279DD76C5A</source_id>
+    <value>left</value>
+   </Item>
+   <Item type="Value" id="B01ACDE5600F4DB3B8DCC10475E1FC5F" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Right</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Label Positioning" type="List">666C5DECC3994EAFB4430E279DD76C5A</source_id>
+    <value>right</value>
+   </Item>
+   <Item type="Value" id="54D3987417BD4FFA871972CA85576975" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Top</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Label Positioning" type="List">666C5DECC3994EAFB4430E279DD76C5A</source_id>
+    <value>top</value>
+   </Item>
+   <Item type="Value" id="D7148D11E3E94938A086B3FEAD4E0298" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Bottom</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Label Positioning" type="List">666C5DECC3994EAFB4430E279DD76C5A</source_id>
+    <value>bottom</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

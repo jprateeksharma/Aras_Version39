@@ -1,0 +1,1066 @@
+﻿<AML>
+ <Item type="RelationshipType" id="0387FDF536AC4D18AF37CBF03DC53DBA" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <grid_view>right</grid_view>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">RelationshipTypes</label>
+  <new_show_related>0</new_show_related>
+  <related_id keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</related_id>
+  <related_notnull>0</related_notnull>
+  <related_option>0</related_option>
+  <relationship_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">
+   <Item type="ItemType" id="471932C33B604C3099070F4106EE5024" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <close_icon>../images/RelationshipType.svg</close_icon>
+    <default_page_size>25</default_page_size>
+    <enforce_discovery>0</enforce_discovery>
+    <help_url xml:lang="en">About_RelationshipTypes.htm</help_url>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>RELATIONSHIPTYPE</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">RelationshipType</label>
+    <label_plural xml:lang="en">RelationshipTypes</label_plural>
+    <large_icon>../images/RelationshipType.svg</large_icon>
+    <open_icon>../images/RelationshipType.svg</open_icon>
+    <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs on</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>0</use_src_access>
+    <name>RelationshipType</name>
+    <Relationships>
+     <Item type="ITPresentationConfiguration" id="597857F1B81D32976B77D6069BFA2DFF" action="add">
+      <client>js</client>
+      <related_id keyed_name="RelationshipType_TOC_Configuration" type="PresentationConfiguration">597857F1B81D329736326AA7318BB90D</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+     </Item>
+     <Item type="Property" id="8C5D2E00D49247E1809C796BFFEB37EC" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>80</column_width>
+      <data_type>boolean</data_type>
+      <default_value xml:lang="en">1</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Auto Search</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>auto_search</name>
+     </Item>
+     <Item type="Property" id="21B45248377048D7B6E04A817C226031" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Copy Permissions</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4992</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>copy_permissions</name>
+     </Item>
+     <Item type="Property" id="4CCAB879836041569008F845B312ABC5" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>30</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Core</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>45</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>core</name>
+     </Item>
+     <Item type="Property" id="B2DD61383D154310AA56A90C0167ED47" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Create Related</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>5120</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>create_related</name>
+     </Item>
+     <Item type="Property" id="45A6284AF6564E03880812B095368AAA" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>60</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Default Page Size</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>default_page_size</name>
+     </Item>
+     <Item type="Property" id="E2AB25F1EC724850BE3D50ECB8A8B75B" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>400</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Description</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>40</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>description</name>
+     </Item>
+     <Item type="Property" id="A70A0B5D0B8B467A81AB25F054EFFD7B" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>100</column_width>
+      <data_source keyed_name="Relationship Grid Views">130DEDB4C8F742AFB7C2A4D801B17518</data_source>
+      <data_type>list</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Grid View</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>grid_view</name>
+     </Item>
+     <Item type="Property" id="D175FA2CB8D742BD926BEE548C5895D4" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="Help" type="ItemType" name="Help">1718DC9FB25043B9A3F0B76DB5DC6637</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Help Item</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>5376</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>help_item</name>
+     </Item>
+     <Item type="Property" id="2DC71D5162444DC78DF49F695D0E065E" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Help Url</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>5248</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <stored_length>80</stored_length>
+      <track_history>0</track_history>
+      <name>help_url</name>
+     </Item>
+     <Item type="Property" id="C607D6D90E2A423FB97776DE86AD4233" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>80</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Hide In All</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>hide_in_all</name>
+     </Item>
+     <Item type="Property" id="92C8466394AD4EA9A6BE7D47E952E877" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>80</column_width>
+      <data_type>boolean</data_type>
+      <default_value xml:lang="en">1</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Include Rel Keyed Name</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4736</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>inc_rel_key_name</name>
+     </Item>
+     <Item type="Property" id="A1C0BFA176A540BB884903B725BB4486" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>80</column_width>
+      <data_type>boolean</data_type>
+      <default_value xml:lang="en">1</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Include Related Keyed Name</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4864</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>inc_related_key_name</name>
+     </Item>
+     <Item type="Property" id="D949825AD8624137A3A672FA72D816D7" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>60</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">List Type</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>70</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>is_list_type</name>
+     </Item>
+     <Item type="Property" id="9A509F25C9AD45B9A0BF58CC974B83EF" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_type>ml_string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Tab Label</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>20</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>label</name>
+     </Item>
+     <Item type="Property" id="895BD09B895641978DAC0A4D6A72B522" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>60</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Max Occurs</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>max_occurs</name>
+     </Item>
+     <Item type="Property" id="39DE53135FCE40D984244916BAA99029" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>60</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Min Occurs</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>min_occurs</name>
+     </Item>
+     <Item type="Property" id="FF5CE18E844E48209C9743FACB53B9D9" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>30</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Show Related</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>50</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>new_show_related</name>
+     </Item>
+     <Item type="Property" id="54F2D51DAE09486CAE1A657A24DDF83B" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Related Not Null</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4608</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>related_notnull</name>
+     </Item>
+     <Item type="Property" id="508CE51FF14247E188FF4186D3B654EF" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="for_related_option">88AE39F11BA54399B3B4FD2B684036AD</data_source>
+      <data_type>list</data_type>
+      <default_value xml:lang="en">2</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Related Option</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4480</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>related_option</name>
+     </Item>
+     <Item type="Property" id="6A76DF2C10D9442DAA17609C6DD86766" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Relationship ItemType</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>35</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <track_history>0</track_history>
+      <name>relationship_id</name>
+     </Item>
+     <Item type="View" id="C096A9FD11F142C08903072709A7B731" action="add">
+      <client>js</client>
+      <related_id keyed_name="RelationshipType" type="Form">B88214022BC34C37A687E5FFA19D15FB</related_id>
+      <role keyed_name="World" type="Identity">
+       <Item type="Identity" action="get" select="id">
+        <name>World</name>
+       </Item>
+      </role>
+      <show_ssvc>0</show_ssvc>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+      <type>default</type>
+     </Item>
+     <Item type="Can Add" id="13148E3018384A02BFBB665C9301A015" action="add">
+      <can_add>1</can_add>
+      <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+     </Item>
+     <Item type="Allowed Permission" id="62A8816806404100B2878EAF7AE83708" action="add">
+      <is_default>1</is_default>
+      <related_id keyed_name="RelationshipType" type="Permission">5E288B5D095747598621C86230BCC16A</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>1</sort_order>
+  <source_id keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</source_id>
+  <name>RelationshipType</name>
+  <Relationships>
+   <Item type="Exclusion" id="ED860B4388E54E4693106A5F08C10E93" action="add">
+    <related_id keyed_name="Hide In" type="RelationshipType">0A5C3D26B1C14BC4B28D643DDEAFAA98</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="RelationshipType" type="RelationshipType">0387FDF536AC4D18AF37CBF03DC53DBA</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="471932C33B604C3099070F4106EE5024" action="edit">
+  <Relationships>
+   <Item type="Property" id="4CA345BDAAEF45D592C1C1D848BACE73" action="add">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <keyed_name_order>1</keyed_name_order>
+    <label xml:lang="en">Relationship Name</label>
+    <order_by>1</order_by>
+    <pattern>^[a-zA-Z](\w*| +\w+)*$</pattern>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>15</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <stored_length>32</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='behavior'">
+    <column_alignment>left</column_alignment>
+    <column_width>100</column_width>
+    <data_source keyed_name="Item Behavior">1585083C7438460F8FA48F4774505062</data_source>
+    <data_type>list</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Behavior</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>behavior</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='classification'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Classification</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <stored_length>512</stored_length>
+    <track_history>0</track_history>
+    <name>classification</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='config_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Config_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2688</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>config_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='created_by_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Created By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>created_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='created_on'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>date</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <label xml:lang="en">Created On</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>created_on</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='css'">
+    <column_alignment>left</column_alignment>
+    <column_width>240</column_width>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">CSS</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>css</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='current_state'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="Life Cycle State" type="ItemType" name="Life Cycle State">5EFB53D35BAE468B851CD388BEA46B30</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">State</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>current_state</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='generation'">
+    <column_alignment>left</column_alignment>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Generation</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2432</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>generation</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Item ID</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='is_current'">
+    <column_alignment>center</column_alignment>
+    <column_width>60</column_width>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Current</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>65</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>is_current</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='is_released'">
+    <column_alignment>center</column_alignment>
+    <column_width>30</column_width>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Is Released</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>56</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>is_released</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='keyed_name'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Keyed Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>75</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>keyed_name</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='locked_by_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Locked By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>60</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>locked_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='major_rev'">
+    <column_alignment>left</column_alignment>
+    <column_width>60</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Rev</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>80</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <stored_length>8</stored_length>
+    <track_history>0</track_history>
+    <name>major_rev</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='managed_by_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Managed_by_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4096</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>managed_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='minor_rev'">
+    <column_alignment>left</column_alignment>
+    <column_width>60</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Minor Rev</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <stored_length>8</stored_length>
+    <track_history>0</track_history>
+    <name>minor_rev</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='modified_by_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Modified By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>85</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>modified_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='modified_on'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>date</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Modified On</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>90</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>modified_on</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='new_version'">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">New_version</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4352</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>new_version</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='not_lockable'">
+    <column_alignment>center</column_alignment>
+    <column_width>30</column_width>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Not Lockable</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>54</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>not_lockable</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='owned_by_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Owned_by_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3968</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>owned_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='permission_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Permission" type="ItemType" name="Permission">C6A89FDE1294451497801DF78341B473</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Permission id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4224</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>permission_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='related_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Related ItemType</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>30</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>related_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='sort_order'">
+    <column_alignment>right</column_alignment>
+    <column_width>60</column_width>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Tab Order</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>12</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>sort_order</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='source_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Source ItemType</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>25</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <track_history>0</track_history>
+    <name>source_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='471932C33B604C3099070F4106EE5024' and name='state'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">State</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>95</sort_order>
+    <source_id keyed_name="RelationshipType" type="ItemType" name="RelationshipType">471932C33B604C3099070F4106EE5024</source_id>
+    <stored_length>32</stored_length>
+    <track_history>0</track_history>
+    <name>state</name>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

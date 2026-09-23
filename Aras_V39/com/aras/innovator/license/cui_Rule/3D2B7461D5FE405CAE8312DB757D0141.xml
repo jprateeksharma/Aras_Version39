@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="3D2B7461D5FE405CAE8312DB757D0141" action="add">
+  <behavior_text>{"Property":{"expiration_status":{"styles":{"backgroundColor":"#d46a6a","color":"#550000"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"EF76F81480EA42158FFC2DCA90EA88C4","function":"value_of_property","property":"expiration_status_mark","operator":"is","criteria":"expired"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>RedStatusState</name>
+ </Item>
+</AML>

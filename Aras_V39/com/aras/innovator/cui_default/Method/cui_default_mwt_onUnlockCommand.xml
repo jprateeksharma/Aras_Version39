@@ -1,0 +1,48 @@
+﻿<AML>
+ <Item type="Method" id="5F5AA75A870E4347B58475686D2016BE" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	getState,
+	itemType,
+	rows,
+	commandFactory,
+	polySources
+} = options;
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(itemType.id);
+const getItemType = (item) => {
+	if (isPolymorphic) {
+		const itemTypeId = item.itemtype;
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return itemType;
+};
+const state = getState();
+const commandAlias = target['command_alias@keyed_name'];
+
+const promises = state.grid.selectedRows.map(async (rowId) => {
+	const item = rows.get(rowId);
+	const itemType = getItemType(item);
+	const itemTypeName = itemType.name;
+	const unclaimCommand = commandFactory(commandAlias, { item, itemType, itemTypeName });
+	const unlockEnabled = !window.isFunctionDisabled(itemTypeName, 'Unlock');
+	const canExecute = unlockEnabled && unclaimCommand.canExecute();
+	if (!canExecute) {
+		return null;
+	}
+
+	const execInWin = window.execInTearOffWin(rowId, 'unlock');
+	if (execInWin) {
+		return null;
+	}
+
+	return unclaimCommand.execute();
+});
+return Promise.allSettled(promises);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_mwt_onUnlockCommand</name>
+ </Item>
+</AML>

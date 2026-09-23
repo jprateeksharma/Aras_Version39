@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="1F7A88F4A8FE4CD99E47E43916CFB38B" action="add">
+  <additional_data>{"itemTypeId":"6D03355E96334F21A4B969F64AB600BF"}</additional_data>
+  <image>../images/Widget.svg</image>
+  <label xml:lang="en">Widget Templates</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_Configuration" type="CommandBarMenu">C599EA936834459F83CC0D3B09BF5856</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_Dashboard Widget Template_1F7A88F4A8FE4CD99E47E43916CFB38B</name>
+ </Item>
+</AML>

@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="577F0963EC654422961AAA8AEDCE251C" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#fdf4ed","color":"#7b3f0e"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"7412F688DA6442A19FBAD1EEB22E6897","function":"value_of_property","property":"state","operator":"is","criteria":"In Change|In CRB|In Verification|In Work|InWork"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>OrangeLifeCycleState</name>
+ </Item>
+</AML>

@@ -1,0 +1,175 @@
+﻿<AML>
+ <Item type="Method" id="097F792B0DB042A7825C041B53C1ECD5" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Innovator innovator = this.getInnovator();
+
+Item isAliasUserIdentityItem = innovator.newItem("User", "VC_GetUserIsAliasIdentity");
+isAliasUserIdentityItem.setID(innovator.getUserID());
+isAliasUserIdentityItem = isAliasUserIdentityItem.apply();
+if (isAliasUserIdentityItem.isError()) {
+	return isAliasUserIdentityItem;
+}
+
+string favoriteOwnedById = isAliasUserIdentityItem.getID();
+string favoriteMustViewById = this.getProperty("mustViewById");
+string favoriteCategory = this.getProperty("category");
+string contextTypeName = this.getProperty("contextType");
+string favoriteLabel = this.getProperty("label");
+string quickAccessFlag = this.getProperty("quickAccessFlag");
+string favoriteItemId = this.getProperty("id");
+string favoriteOrder = this.getProperty("favoriteOrder");
+string additionalDataJson = this.getProperty("additional_data");
+string defaultLanguageCode = innovator.getI18NSessionContext().GetDefaultLanguageCode();
+string currentLanguageCode = innovator.getI18NSessionContext().GetLanguageCode();
+
+Dictionary<string, string> existingI18nLabels = new Dictionary<string, string>();
+XmlNodeList i18nLabelNodes = this.node.SelectNodes("*[local-name()='label']");
+foreach (XmlNode labelNode in i18nLabelNodes) {
+	XmlAttribute langAttr = labelNode.Attributes["xml:lang"];
+	if (langAttr != null && !string.IsNullOrEmpty(labelNode.InnerText)) {
+		existingI18nLabels[langAttr.Value] = labelNode.InnerText;
+	}
+}
+
+Item favoriteItem = innovator.newItem("Favorite", "add");
+favoriteItem.setProperty("category", favoriteCategory);
+favoriteItem.setProperty("classification", "Favorites");
+favoriteItem.setProperty("context_type", contextTypeName);
+favoriteItem.setProperty("owned_by_id", favoriteOwnedById);
+favoriteItem.setProperty("label", favoriteLabel);
+favoriteItem.setProperty("quick_access_flag", quickAccessFlag);
+favoriteItem.setProperty("favorite_order", favoriteOrder);
+
+if (string.IsNullOrEmpty(additionalDataJson)) {
+	additionalDataJson = "{}";
+}
+var additionalData = Newtonsoft.Json.Linq.JObject.Parse(additionalDataJson);
+string favoriteAdditionalDataJson = null;
+if (favoriteCategory == "Item") {
+	favoriteAdditionalDataJson = additionalDataJson;
+}
+
+Item relatedItem = null;
+Item autoSavedLayout = null;
+string relatedItemId = null;
+if (favoriteCategory == "Search" || favoriteCategory == "Grid Layout") {
+	relatedItemId = additionalData.Value<string>("id");
+	string category = favoriteCategory == "Search" ? "SavedSearch" : favoriteCategory;
+	relatedItem = innovator.newItem(category, "add");
+	relatedItem.setID(relatedItemId);
+}
+
+if (favoriteCategory == "Search") {
+	var additionalDataObj = new Newtonsoft.Json.Linq.JObject() {
+		{"id", relatedItemId},
+		{"location", additionalData["location"]},
+		{"search_mode", additionalData["search_mode"]}
+	};
+
+	var layoutData = additionalData.Value<Newtonsoft.Json.Linq.JObject>("layoutData");
+	if (layoutData != null)
+	{
+		autoSavedLayout = innovator.newItem("Grid Layout", "add");
+
+		additionalDataObj["layout_id"] = autoSavedLayout.getID();
+		additionalDataObj["linked_favorite_layout"] = layoutData.Value<string>("linked_favorite_layout");
+		layoutData.Remove("linked_favorite_layout");
+
+		foreach (var prop in layoutData)
+		{
+			autoSavedLayout.setProperty(prop.Key, (string)prop.Value);
+		}
+		autoSavedLayout.setProperty("itname", additionalData.Value<string>("itname"));
+		autoSavedLayout.setProperty("location", additionalData.Value<string>("location"));
+		autoSavedLayout.setProperty("owned_by_id", favoriteOwnedById);
+
+		additionalData.Remove("layoutData");
+	}
+
+	favoriteAdditionalDataJson = Newtonsoft.Json.JsonConvert.SerializeObject(additionalDataObj);
+
+	foreach (var prop in additionalData)
+	{
+		relatedItem.setProperty(prop.Key, (string)prop.Value);
+	}
+
+	XmlNodeList nodes = this.node.ChildNodes;
+	foreach (XmlNode targetNode in nodes) {
+		if (targetNode.Name == "i18n:label") {
+			XmlNode importNode =  relatedItem.node.OwnerDocument.ImportNode(targetNode, true);
+			relatedItem.node.AppendChild(importNode);
+		}
+	}
+}
+
+if (favoriteCategory == "Grid Layout") {
+	var additionalDataObj = new
+	{
+		id = relatedItemId,
+		label = (string)additionalData["label"]
+	};
+	favoriteAdditionalDataJson = Newtonsoft.Json.JsonConvert.SerializeObject(additionalDataObj);
+
+	foreach (var prop in additionalData)
+	{
+		relatedItem.setProperty(prop.Key, (string)prop.Value);
+	}
+}
+
+foreach (var i18nLabel in existingI18nLabels) {
+	favoriteItem.setProperty("label", i18nLabel.Value, i18nLabel.Key);
+}
+
+if (defaultLanguageCode != currentLanguageCode && !existingI18nLabels.ContainsKey(defaultLanguageCode) && !string.IsNullOrEmpty(favoriteLabel)) {
+	favoriteItem.setProperty("label", favoriteLabel, defaultLanguageCode);
+}
+
+favoriteItem.setProperty("additional_data", favoriteAdditionalDataJson);
+
+if (!string.IsNullOrEmpty(favoriteItemId)) {
+	favoriteItem.setID(favoriteItemId);
+}
+
+if (!string.IsNullOrEmpty(favoriteMustViewById) && favoriteOwnedById != favoriteMustViewById)
+{
+	Item favoriteMustViewByItem = innovator.newItem("FavoriteMustViewBy", "add");
+	favoriteMustViewByItem.setProperty("related_id", favoriteMustViewById);
+	favoriteItem.addRelationship(favoriteMustViewByItem);
+}
+
+favoriteItem = favoriteItem.apply();
+if (favoriteItem.isError())
+{
+	return favoriteItem;
+}
+
+if (autoSavedLayout != null)
+{
+	if (!string.IsNullOrEmpty(favoriteMustViewById) && favoriteOwnedById != favoriteMustViewById)
+	{
+		string favoriteTeamId = favoriteItem.getProperty("team_id");
+		autoSavedLayout.setProperty("team_id", favoriteTeamId);
+	}
+
+	autoSavedLayout = autoSavedLayout.apply();
+	if (autoSavedLayout.isError())
+	{
+		return autoSavedLayout;
+	}
+}
+
+if (relatedItem != null)
+{
+	relatedItem = relatedItem.apply();
+	if (relatedItem.isError())
+	{
+		return relatedItem;
+	}
+}
+
+return innovator.applyMethod("Fav_FavoriteItemJsonBuilder", favoriteItem.node.InnerXml);
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>Fav_AddFavoriteItem</name>
+ </Item>
+</AML>

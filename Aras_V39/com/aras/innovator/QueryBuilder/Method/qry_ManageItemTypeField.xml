@@ -1,0 +1,74 @@
+﻿<AML>
+ <Item type="Method" id="C9AF48BE125B49FA9C6BF6D079721AFA" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const iFrm = document.getElementById('qb_iframe');
+if (!iFrm) {
+	return;
+}
+iFrm.addEventListener('load', function() {
+	const itemTypeField = iFrm.closest('div[name="item_type"]');
+	const fieldComponent = this.contentWindow.getFieldComponentByName('item_type');
+	const dom = fieldComponent.dom.querySelector('.aras-dropdown');
+	const observer = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutation) {
+			const isOpened = mutation.target.classList.contains('aras-dropdown_opened');
+			itemTypeField.style.zIndex = isOpened ? 1000 : '';
+		});
+	});
+	this.contentWindow.document.body.style.background = 'none';
+	observer.observe(dom, {
+		attributes: true,
+		attributeFilter: ['class']
+	});
+});
+const aras = parent.aras;
+const formNm = 'qry_QueryItemForQueryDefinition';
+let formNd = aras.getItem('Form', 'name="' + formNm + '"', '<name>' + formNm + '</name>');
+if (!formNd) {
+	return;
+}
+formNd = aras.getFormForDisplay(formNd.getAttribute('id')).node;
+const qryDefinition = document.thisItem;
+if (!formNd || !qryDefinition) {
+	return;
+}
+const rootQryReferenceXpath = 'Relationships/Item[@type="qry_QueryReference" and (parent_ref_id="" or not(parent_ref_id))]';
+let rootQryReference = qryDefinition.getItemsByXPath(rootQryReferenceXpath);
+if (!rootQryReference.node) {
+	qryDefinition.fetchRelationships('qry_QueryReference');
+	rootQryReference = qryDefinition.getItemsByXPath(rootQryReferenceXpath);
+}
+let childRefId;
+let rootQryItem;
+if (rootQryReference.node) {
+	childRefId = rootQryReference.getProperty('child_ref_id');
+	const rootQryItemXpath = 'Relationships/Item[@type="qry_QueryItem" and ref_id="' + childRefId + '"]';
+	rootQryItem = qryDefinition.getItemsByXPath(rootQryItemXpath);
+	if (!rootQryItem.node) {
+		qryDefinition.fetchRelationships('qry_QueryItem');
+		rootQryItem = qryDefinition.getItemsByXPath(rootQryItemXpath);
+	}
+	if (!rootQryItem.node && qryDefinition.getAction() !== 'add') {
+		aras.AlertError(aras.getResource('../Modules/aras.innovator.QueryBuilder/', 'error_wrong_configuration_qry_def'));
+		return;
+	}
+} else if (qryDefinition.getAction() !== 'add') {
+	aras.AlertError(aras.getResource('../Modules/aras.innovator.QueryBuilder/', 'error_wrong_configuration_qry_def'));
+	return;
+} else {
+	rootQryItem = aras.newIOMItem('qry_QueryItem', 'add');
+	rootQryReference = aras.newIOMItem('qry_QueryReference', 'add');
+	const itemRefId = aras.IomInnovator.getNewID();
+	rootQryItem.setProperty('ref_id', itemRefId);
+	rootQryReference.setProperty('child_ref_id', itemRefId);
+	qryDefinition.addRelationship(rootQryItem);
+	qryDefinition.addRelationship(rootQryReference);
+}
+const isItemTypeSet = rootQryItem.getProperty('item_type');
+const isNewItem = aras.isNew(qryDefinition);
+const formType = isItemTypeSet && !isNewItem ? 'view' : 'edit';
+aras.uiShowItemInFrameEx(iFrm, rootQryItem.node, formType, 0, formNd);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>qry_ManageItemTypeField</name>
+ </Item>
+</AML>

@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="52DA934B73A1422DB975C2F103AC21E2" action="add">
+  <include_events>UpdateState</include_events>
+  <label xml:lang="en">Delete Layout</label>
+  <on_click_handler keyed_name="cui_common_deletelayout_click" type="Method">BF3BF9DB8C5C404B855D74F6AB82A254</on_click_handler>
+  <on_init_handler keyed_name="cui_common_deletelayout_init" type="Method">02B46DE970E6489B848308B76F575E18</on_init_handler>
+  <parent_menu keyed_name="searchview.commandbar.layouts" type="CommandBarMenu">527EED10910B4C8CBFAA73BC80E6247C</parent_menu>
+  <name>searchview.commandbar.layouts.deletelayout</name>
+ </Item>
+</AML>

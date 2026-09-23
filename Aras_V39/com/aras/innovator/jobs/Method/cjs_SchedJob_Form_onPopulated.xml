@@ -1,0 +1,59 @@
+﻿<AML>
+ <Item type="Method" id="225927CECD5243929AB351473A6686A0" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const getTimezones = function() {
+	const cachedList = aras.getCommonPropertyValue('ScheduledJob_TimezonesList');
+	if (cachedList !== undefined) {
+		return cachedList;
+	}
+
+	const getTimezonesResultItem = document.thisItem.apply('cjs_SchedJob_Form_GetTimezones');
+	const timezonesNodes = getTimezonesResultItem.dom.firstChild.firstChild.getElementsByTagName('timezone');
+
+	const options = [];
+	for (let i = 0; i < timezonesNodes.length; i++) {
+		const displayName = timezonesNodes[i].getElementsByTagName('display_name')[0].firstChild.nodeValue;
+		const standardName = timezonesNodes[i].getElementsByTagName('standard_name')[0].firstChild.nodeValue;
+
+		options.push({
+			label: displayName,
+			value: standardName
+		});
+	}
+	aras.setCommonPropertyValue('ScheduledJob_TimezonesList', options);
+	return options;
+};
+
+const timezones = getTimezones();
+let dropdownValue = '';
+let timezoneValue = document.thisItem.getProperty('timezone', '');
+let setupDefaultTimezone = false;
+// try to take default timezone for new scheduled job
+if (!timezoneValue) {
+	setupDefaultTimezone = true;
+	const localTimeZoneJsonString = localStorage.getItem('timeZone');
+	if (localTimeZoneJsonString) {
+		const clientTimeZoneJson = JSON.parse(localTimeZoneJsonString);
+		timezoneValue = Object.values(clientTimeZoneJson)[0];
+	}
+}
+
+if (timezoneValue) {
+	const innovatorDbTimezone = timezones.find(x => x.value === timezoneValue);
+	if (innovatorDbTimezone) {
+		dropdownValue = innovatorDbTimezone.value;
+		if (setupDefaultTimezone) {
+			document.thisItem.setProperty('timezone', dropdownValue);
+		}
+	}
+}
+
+const dropdown = getFieldComponentByName('timezone_dropdown');
+dropdown.component.setState({
+	list: timezones,
+	value: dropdownValue
+});]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cjs_SchedJob_Form_onPopulated</name>
+ </Item>
+</AML>

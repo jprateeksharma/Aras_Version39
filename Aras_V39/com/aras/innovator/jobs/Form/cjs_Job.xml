@@ -1,0 +1,187 @@
+﻿<AML>
+ <Item type="Form" id="6704334C16184F68AF23AA4C4C9F6BA2" action="add">
+  <height>157</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>699</width>
+  <name>cjs_Job</name>
+  <Relationships>
+   <Item type="Body" id="1EA20A0F22C84D92976E4BE072059BC7" action="add">
+    <bg_color>#FFFFFF</bg_color>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Job" type="Form">6704334C16184F68AF23AA4C4C9F6BA2</source_id>
+    <Relationships>
+     <Item type="Field" id="37E8425DA4E6455F92709D8BB3410208" action="add">
+      <border_width>0</border_width>
+      <display_length>140</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>date</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Ended On</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="finished_on" type="Property">71A3233687A146F4A9F58EE124EBD0D9</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>640</sort_order>
+      <source_id keyed_name="1EA20A0F22C84D92976E4BE072059BC7" type="Body">1EA20A0F22C84D92976E4BE072059BC7</source_id>
+      <tab_index>3584</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>425</x>
+      <y>93</y>
+      <name>finished_on</name>
+     </Item>
+     <Item type="Field" id="9F177813864E4E2EB4CDA1875FD02BC0" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>textarea</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Parameters</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="parameters" type="Property">18EE88DFB5484F28BAF08D04BAE19FCB</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="1EA20A0F22C84D92976E4BE072059BC7" type="Body">1EA20A0F22C84D92976E4BE072059BC7</source_id>
+      <tab_index>3968</tab_index>
+      <tab_stop>1</tab_stop>
+      <textarea_cols>380</textarea_cols>
+      <textarea_rows>57</textarea_rows>
+      <x>1</x>
+      <y>49</y>
+      <name>parameters</name>
+     </Item>
+     <Item type="Field" id="F3F16BB17B774FE68F72C6397D18AB21" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>textarea</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Result Message</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="result_message" type="Property">5527D42D8BDC4026B8FA7AD60457F2F0</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="1EA20A0F22C84D92976E4BE072059BC7" type="Body">1EA20A0F22C84D92976E4BE072059BC7</source_id>
+      <tab_index>3840</tab_index>
+      <tab_stop>1</tab_stop>
+      <textarea_cols>252</textarea_cols>
+      <textarea_rows>101</textarea_rows>
+      <x>625</x>
+      <y>5</y>
+      <name>result_message</name>
+     </Item>
+     <Item type="Field" id="DD028ED0F7114C6289F97715A0350D5E" action="add">
+      <border_width>0</border_width>
+      <display_length>140</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>date</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Scheduled For</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="scheduled_for" type="Property">493D1DA756BA49828BAA3C9C3A725023</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>768</sort_order>
+      <source_id keyed_name="1EA20A0F22C84D92976E4BE072059BC7" type="Body">1EA20A0F22C84D92976E4BE072059BC7</source_id>
+      <tab_index>3328</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>425</x>
+      <y>5</y>
+      <name>scheduled_for</name>
+     </Item>
+     <Item type="Field" id="FE4ECB95565C4F06877A33670B21CF85" action="add">
+      <border_width>0</border_width>
+      <display_length>140</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>date</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Started On</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="started_on" type="Property">43976AE0C626424B9B4B7DF5628F89B5</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="1EA20A0F22C84D92976E4BE072059BC7" type="Body">1EA20A0F22C84D92976E4BE072059BC7</source_id>
+      <tab_index>3456</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>425</x>
+      <y>49</y>
+      <name>started_on</name>
+     </Item>
+     <Item type="Field" id="39DDA012D9AB4F3B8CDE2805A7CA0AA3" action="add">
+      <border_width>0</border_width>
+      <display_length>208</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>dropdown</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Status</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="status" type="Property">CBC52040154546B09FAC1C2AA6B78F8C</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="1EA20A0F22C84D92976E4BE072059BC7" type="Body">1EA20A0F22C84D92976E4BE072059BC7</source_id>
+      <tab_index>3712</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>1</x>
+      <y>5</y>
+      <name>status</name>
+     </Item>
+     <Item type="Field" id="641C331ABFBA46FEA6D0A74950DFE80A" action="add">
+      <border_width>0</border_width>
+      <display_length>137</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>item</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Run As User</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="user_id" type="Property">058B7132F2B545B39B062175B7C94B06</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>896</sort_order>
+      <source_id keyed_name="1EA20A0F22C84D92976E4BE072059BC7" type="Body">1EA20A0F22C84D92976E4BE072059BC7</source_id>
+      <tab_index>3200</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>225</x>
+      <y>5</y>
+      <name>user_id</name>
+     </Item>
+    </Relationships>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

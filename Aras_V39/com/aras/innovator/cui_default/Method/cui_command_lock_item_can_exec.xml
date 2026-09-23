@@ -1,0 +1,36 @@
+﻿<AML>
+ <Item type="Method" id="5B6C91CB6F774210B00CBD59DA27396D" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, itemNode, itemType, itemTypeName } = options;
+if (!item && !itemNode) {
+	return false;
+}
+
+const isRelationship = itemType['is_relationship'] === '1';
+const useSrcAccess = itemType['use_src_access'] === '1';
+if (isRelationship && useSrcAccess) {
+	const node = itemNode || aras.getItemById(itemType.name, item.id);
+	const sourceItemClaimed = aras.uiItemCanBeLockedByUser(node, isRelationship, useSrcAccess);
+	if (!sourceItemClaimed) {
+		return false;
+	}
+}
+
+const isCurrent = item ? item['is_current'] : aras.getItemProperty(itemNode, 'is_current');
+const isLastVersion = !isCurrent || isCurrent === '1';
+if (!isLastVersion) {
+	return false;
+}
+
+const lockedById = item ? item['locked_by_id'] : aras.getItemProperty(itemNode, 'locked_by_id');
+const notLocked = !lockedById;
+const isNew = item
+	? ArasModules.item.isNew(itemTypeName, item?.id)
+	: itemNode.getAttribute('action') === 'add';
+const canExecute = notLocked && !isNew;
+
+return canExecute;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_lock_item_can_exec</name>
+ </Item>
+</AML>

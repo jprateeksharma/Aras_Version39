@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="77C947CC42E0423D9AB0B12C7D444974" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid value '{0}' for parameter '{1}' of type '{2}'.</text>
+  <name>ApplySql_InvalidParameterValue</name>
+ </Item>
+</AML>

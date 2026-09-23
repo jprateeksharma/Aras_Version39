@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="9CC83057AB144E1993B6261E86EEAC85" action="add">
+  <command_alias keyed_name="OpenItem" type="CommandAlias">FE0A88F22DF44FD3BEBE98AF43ADD957</command_alias>
+  <include_events>UpdateTearOffWindowState</include_events>
+  <on_click_handler keyed_name="cui_ivtb_version_link_click" type="Method">C77B385350FF41C3B40CC01B3A50E911</on_click_handler>
+  <on_init_handler keyed_name="cui_ivtb_version_link_init" type="Method">E647441E72AD41D7ABBD91AEFA3C578C</on_init_handler>
+  <name>itemview.titlebar.default.version.link</name>
+ </Item>
+</AML>

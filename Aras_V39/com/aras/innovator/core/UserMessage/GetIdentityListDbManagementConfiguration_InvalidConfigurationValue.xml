@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="6AAA6EA9187C42A9A1E0E44BFA975A0F" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid configuration value for {0}. Please contact your administrator.</text>
+  <name>GetIdentityListDbManagementConfiguration_InvalidConfigurationValue</name>
+ </Item>
+</AML>

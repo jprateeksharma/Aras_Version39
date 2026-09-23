@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="List" id="256035C8F3464252962479FDFE530900" action="add">
+  <description>Possible search conditions used by the Search ItemType.</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Search Conditions</name>
+  <Relationships>
+   <Item type="Value" id="3FC7E5C0B8AE4455A8D872B0FE4DF9E4" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Like</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Search Conditions" type="List">256035C8F3464252962479FDFE530900</source_id>
+    <value>like</value>
+   </Item>
+   <Item type="Value" id="262AF3299D424873BC171DA551CA52F8" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Equals</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Search Conditions" type="List">256035C8F3464252962479FDFE530900</source_id>
+    <value>=</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

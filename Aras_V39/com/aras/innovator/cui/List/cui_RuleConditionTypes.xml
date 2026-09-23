@@ -1,0 +1,21 @@
+﻿<AML>
+ <Item type="List" id="B2184B76D5D24C04AFD2716B460523CB" action="add">
+  <name>cui_RuleConditionTypes</name>
+  <Relationships>
+   <Item type="Value" id="D65DAE829ED447BB804FA952C9BA0EB8" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Property</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_RuleConditionTypes" type="List">B2184B76D5D24C04AFD2716B460523CB</source_id>
+    <value>property</value>
+   </Item>
+   <Item type="Value" id="8D036BA29A6444E1A273406A56F6FCD5" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Identity</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_RuleConditionTypes" type="List">B2184B76D5D24C04AFD2716B460523CB</source_id>
+    <value>identity</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

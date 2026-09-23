@@ -1,0 +1,917 @@
+﻿<AML>
+ <Item type="SearchMode" id="B15D4F9EAEF24C8F8CB9A4CA89402B1F" action="add">
+  <is_active>0</is_active>
+  <label xml:lang="en">Advanced</label>
+  <search_handler>window.Advanced = function Advanced(searchContainer, aras) {
+	this.supportXClassSearch = true;
+	// Call base SearchMode constructor
+	SearchMode.prototype.constructor.call(this, searchContainer, aras);
+	this.complexity = 2;
+
+	this.mainItemTypeName = this.searchContainer.itemTypeName;
+
+	this.criteria_counter = 0;
+	this.itemTypesList = {};
+	this.operationsList = {
+		'like': 'like',
+		'not like': 'not like',
+		'=': 'eq',
+		'\u2260': 'ne',
+		'null': 'is null',
+		'not null': 'is not null',
+		'&lt;': 'lt',
+		'&gt;': 'gt',
+		'&lt;=': 'le',
+		'&gt;=': 'ge'
+	};
+	this.advanceGrid = document.createElement('div');
+	this.advanceGrid.setAttribute('id', 'advanceGrid');
+	this.editingCellColumnName = '';
+	searchContainer.setStyleAttribute('height', '0');
+	searchContainer.searchPlaceholderCell.appendChild(this.advanceGrid);
+	searchContainer.setStyleAttribute('display', '');
+	searchContainer.toggleSearchPlaceholderVisibility(false);
+
+	require(['Aras/Client/Controls/Public/GridContainer', 'dojo/_base/connect']);
+	var advanced_grid = new Aras.Client.Controls.Public.GridContainer({connectId: 'advanceGrid'});
+
+	advanced_grid.setLayout_Experimental([{
+		field: 'item_type',
+		name: aras.getResource('', 'advanced_search.item_type'),
+		editable: true,
+		editableType: 'FilterComboBox',
+		width: '225px',
+		styles: 'text-align: left;',
+		headerStyles: 'text-align: left;'
+	}, {
+		field: 'property',
+		name: aras.getResource('', 'advanced_search.property'),
+		editable: true,
+		editableType: 'FilterComboBoxHelper',
+		width: '150px',
+		classes: 'InputHelper',
+		styles: 'text-align: left;',
+		headerStyles: 'text-align: left;'
+	}, {
+		field: 'operation',
+		name: aras.getResource('', 'advanced_search.operation'),
+		editable: true,
+		editableType: 'FilterComboBox',
+		width: '100px',
+		styles: 'text-align: left;',
+		headerStyles: 'text-align: left;'
+	}, {
+		field: 'criteria',
+		name: aras.getResource('', 'advanced_search.criteria'),
+		itemPropertyValidation: false,
+		editable: true,
+		width: '200px',
+		styles: 'text-align: left;',
+		headerStyles: 'text-align: left;'
+	}]);
+
+	var self = this;
+	advanced_grid.contexMenu_Experimental.addRange([{
+		id: 'delete_criteria',
+		name: aras.getResource('', 'advanced_search.ppm.delete_criteria'),
+		onClick: function() {
+			self.advanced_grid.removeSelectedRows_Experimental();
+			self.setupAdvancedSearchFrameHeight();
+			storeCondition(self);
+		}
+	}]);
+	dojo.connect(advanced_grid, 'onStartEdit_Experimental', this, this.onGridCellStartEdit);
+	dojo.connect(advanced_grid, 'onApplyEdit_Experimental', this, this.onGridCellEditApply);
+	dojo.connect(advanced_grid, 'gridClick', this, this.onGridClick);
+	dojo.connect(advanced_grid, 'onInputHelperShow_Experimental', this, this.showModalDialog);
+	dojo.connect(advanced_grid, 'gridKeyPress', this, onKeyPressed);
+	advanced_grid.canEdit_Experimental = this.onGridCellCanEdit.bind(this);
+	this.advanced_grid = advanced_grid;
+	this.aras = aras;
+}
+
+Advanced.prototype = new SearchMode();
+Advanced.prototype.onStartSearchMode = function AdvancedSearchMode_onStartSearchMode(sContainer) {
+	// Call base onStartSearchMode method.
+	SearchMode.prototype.onStartSearchMode.call(this, sContainer);
+
+	this.searchContainer.setStyleAttribute('display', '');
+	this.searchContainer.toggleSearchPlaceholderVisibility(false);
+	this.setupAdvancedSearchFrameHeight();
+};
+
+Advanced.prototype.onEndSearchMode = function SimpleSearchMode_onStartSearchMode(sContainer) {
+	// Call base onEndSearchMode method.
+	SearchMode.prototype.onEndSearchMode.call(this);
+
+	this.searchContainer.setStyleAttribute('display', 'none');
+	this.searchContainer.toggleSearchPlaceholderVisibility(true);
+};
+
+Advanced.prototype.generateValidationInfo = function AdvancedSearchMode_generateValidationInfo() {
+	var validationInfo = {};
+
+	var rootItemXPath = 'Item[@type=\'' + this.mainItemTypeName + '\']';
+	var propertiesXPath = 'Relationships/Item[@type="Property" and (name!="id")]';
+
+	var currItemType = this.aras.getItemTypeForClient(this.mainItemTypeName, 'name');
+	if (!currItemType || !currItemType.node) {
+		return null;
+	}
+
+	currItemType = currItemType.node;
+
+	var props = currItemType.selectNodes(propertiesXPath);
+	const xProps = currItemType.selectNodes('Relationships/Item[@type=\'xItemTypeAllowedProperty\' and not(inactive=\'1\')]' +
+			'/related_id/Item[@type=\'xPropertyDefinition\']');
+	var i;
+	if (xProps.length &gt; 0) {
+		for (i = 0; i &lt; xProps.length; i++) {
+			validationInfo[rootItemXPath + '/' + this.aras.getItemProperty(xProps[i], 'name')] = xProps[i];
+		}
+	}
+	for (i = 0; i &lt; props.length; i++) {
+		validationInfo[rootItemXPath + '/' + this.aras.getItemProperty(props[i], 'name')] = props[i];
+	}
+
+	if (this.aras.getItemProperty(currItemType, 'is_relationship') == 1) {
+		var relshipType = this.aras.getRelationshipType(this.aras.getRelationshipTypeId(this.mainItemTypeName));
+		if (relshipType) {
+			var related_id = relshipType.getProperty('related_id');
+			if (related_id) {
+				var relatedItemTypeName = this.aras.getItemTypeName(related_id);
+				var relatedItemType = this.aras.getItemTypeForClient(relatedItemTypeName, 'name');
+				if (relatedItemType &amp;&amp; relatedItemType.node) {
+					var newRelatedXPath = rootItemXPath + '/related_id/Item[@type=\'' + relatedItemTypeName + '\']/';
+					var relatedProps = relatedItemType.node.selectNodes(propertiesXPath);
+					for (i = 0; i &lt; relatedProps.length; i++) {
+						validationInfo[newRelatedXPath + this.aras.getItemProperty(relatedProps[i], 'name')] = relatedProps[i];
+					}
+				}
+			}
+		}
+	}
+
+	var rels = currItemType.selectNodes('Relationships/Item[@type="RelationshipType"]');
+	var rel;
+	for (i = 0; !!(rel = rels[i]); i++) {
+		var relshipName = this.aras.getItemProperty(rel, 'name');
+		var relationshipType = this.aras.getItemTypeForClient(relshipName, 'name');
+		if (relationshipType &amp;&amp; relationshipType.node) {
+			var newRelationshipXPath = rootItemXPath + '/Relationships/Item[@type=\'' + relshipName + '\']/';
+			var relationshipProps = relationshipType.node.selectNodes(propertiesXPath);
+			for (var j = 0; j &lt; relationshipProps.length; j++) {
+				validationInfo[newRelationshipXPath + this.aras.getItemProperty(relationshipProps[j], 'name')] = relationshipProps[j];
+			}
+		}
+	}
+
+	return validationInfo;
+};
+
+Advanced.prototype.clearSearchCriteria = function AdvancedSearchMode_clearSearchCriteria() {
+	// Call base onStartSearchMode method.
+	SearchMode.prototype.clearSearchCriteria.call(this);
+	this.emptyGrid();
+};
+
+Advanced.prototype.setAml = async function AdvancedSearchMode_setAml(searchAML) {
+	if (await SearchMode.prototype.setAml.call(this, searchAML)) {
+		this.mainItemTypeName = this.searchContainer.itemTypeName;
+		await this.initSearch_inner();
+	}
+};
+
+Advanced.prototype.getAml = async function() {
+	const criteriaAml = await SearchMode.prototype.getAml.call(this);
+	if (!criteriaAml) {
+		return;
+	}
+
+	const { xml } = window.ArasModules;
+	const searchItem = xml.parseString(criteriaAml).documentElement;
+	const itemNodes = searchItem.querySelectorAll('Item');
+	itemNodes.forEach((element) =&gt; {
+		if (element.parentElement?.nodeName === 'Relationships') {
+			if (element.getAttribute('action') === null) {
+				element.setAttribute('action', 'get');
+			}
+
+			if (element.getAttribute('select') === null) {
+				element.setAttribute('select', 'id');
+			}
+		}
+	});
+
+	return xml.getXml(searchItem);
+};
+
+Advanced.prototype.testAmlForCompatibility = async function(searchAml) {
+	let searchQuery = searchAml;
+	if (this.supportXClassSearch) {
+		const queryDom = this.aras.createXMLDocument();
+		queryDom.loadXML(searchAml);
+		const xClassCriteria = queryDom.documentElement.selectSingleNode(this.xClassSearchCriteriaXPath);
+		if (xClassCriteria) {
+			queryDom.documentElement.removeChild(xClassCriteria);
+			searchQuery = queryDom.documentElement.xml;
+		}
+	}
+	return SearchMode.prototype.testAmlForCompatibility.call(this, searchQuery);
+};
+
+Advanced.prototype.trimEndNodeFromXpath = function AdvancedSearchMode_trimEndNodeFromXpath(xpath, count) {
+	var nodeNames = xpath.split('/');
+
+	var path = '';
+	for (var i = 0; i &lt; nodeNames.length - count; i++) {
+		path += nodeNames[i];
+		if (i + 1 != nodeNames.length - count) {
+			path += '/';
+		}
+	}
+
+	return path;
+};
+
+Advanced.prototype.getLastNodeName = function AdvancedSearchMode_getLastNodeName(xpath) {
+	var nodeNames = xpath.split('/');
+
+	return nodeNames[nodeNames.length - 1];
+};
+
+Advanced.prototype.addItemCriteria = async function AdvancedSearchMode_addItemCriteria() {
+	const propList = window.layout.state.searching.criteriaJson;
+
+	if (propList) {
+		const simplifiedItemTypesList = {};
+		for (const basePath in this.itemTypesList) {
+			const reg = new RegExp(/Relationships\/|related_id\//, 'g');
+			const simplePath = basePath.replace(reg, '');
+			simplifiedItemTypesList[simplePath] = basePath;
+		}
+		const rootType = propList['@rootType'];
+
+		for (const [key, value] of Object.entries(propList)) {
+			if (key.includes('@')) {
+				continue;
+			}
+			const _value = Array.isArray(value) ? value : [value];
+			_value.forEach((value) =&gt; {
+				const splittedKey = key.split('/');
+				const isSimpleKey = splittedKey.length === 1;
+
+				const propName = splittedKey.pop();
+				const keyPath = isSimpleKey ? '' : splittedKey.join('/');
+				const condition = value.condition || 'eq';
+				const criteria = Object.hasOwn(value, 'value') ? value.value : value;
+				const element = isSimpleKey ? rootType : simplifiedItemTypesList[keyPath];
+
+				this.newCriteriaRow(this.generateNewRowID(), element, propName, condition, criteria);
+			});
+		}
+	}
+	this.isAdvancedModeStarted = true;
+};
+
+Advanced.prototype.initSearch_inner = async function AdvancedSearchMode_initSearch_inner() {
+	this.emptyGrid();
+	this.populateItemTypesList();
+	await this.addItemCriteria();
+};
+
+Advanced.prototype.emptyGrid = function AdvancedSearchMode_emptyGrid() {
+	this.criteria_counter = 0;
+	this.advanced_grid.removeAllRows();
+	this.setupAdvancedSearchFrameHeight();
+};
+
+Advanced.prototype.getPropsList = function AdvancedSearchMode_getPropsList(itName, currVal) {
+	var res = {};
+
+	var keyVals = this.aras.CreateCacheKey('getPropsList_advanced_search_property_values', itName);
+	var keyLabs = this.aras.CreateCacheKey('getPropsList_advanced_search_property_labels', itName);
+
+	var cachedResult = this.aras.MetadataCache.GetItem(keyVals);
+	if (!cachedResult) {
+		var itemType = this.aras.getItemTypeDictionary(itName);
+		if (!itemType || !itemType.node) {
+			return false;
+		}
+
+		var propLabs = this.aras.newArray();
+		var propVals = this.aras.newArray();
+		var propNodes = itemType.node.selectNodes('Relationships/Item[@type="Property" and (name!="id")]');
+		const xProps = itemType.node.selectNodes('Relationships/Item[@type=\'xItemTypeAllowedProperty\' and not(inactive=\'1\')]' +
+				'/related_id/Item[@type=\'xPropertyDefinition\']');
+		var i;
+		var prop;
+		var propName;
+		var propLabel;
+		if (xProps.length &gt; 0) {
+			for (i = 0; !!(prop = xProps[i]); i++) {
+				propName = this.aras.getItemProperty(prop, 'name');
+				propLabel = this.aras.getItemProperty(prop, 'label');
+				propVals.push(propName);
+				propLabs.push(propLabel || propName);
+			}
+		}
+		for (i = 0; !!(prop = propNodes[i]); i++) {
+			propName = this.aras.getItemProperty(prop, 'name');
+			propLabel = this.aras.getItemProperty(prop, 'label');
+			propVals.push(propName);
+			propLabs.push(propLabel || propName);
+		}
+
+		res.propVals = propVals;
+		res.propLabs = propLabs;
+
+		this.aras.MetadataCache.SetItem(keyVals, this.aras.IomFactory.CreateCacheableContainer(propVals, itemType.node));
+		this.aras.MetadataCache.SetItem(keyLabs, this.aras.IomFactory.CreateCacheableContainer(propLabs, itemType.node));
+	} else {
+		res.propVals = cachedResult.content;
+		res.propLabs = this.aras.MetadataCache.GetItem(keyLabs).content;
+	}
+
+	return res;
+};
+
+Advanced.prototype.populateItemTypesList = function AdvancedSearchMode_populateItemTypesList() {
+	this.itemTypesList = {};
+
+	var rootItemXPath = 'Item[@type=\'' + this.mainItemTypeName + '\']';
+	this.itemTypesList[this.mainItemTypeName] = rootItemXPath;
+
+	var currItemType = this.aras.getItemTypeForClient(this.mainItemTypeName, 'name').node;
+	if (this.aras.getItemProperty(currItemType, 'is_relationship') == 1) {
+		var relshipType = this.aras.getRelationshipType(this.aras.getRelationshipTypeId(this.mainItemTypeName));
+		if (relshipType) {
+			var related_id = relshipType.getProperty('related_id');
+			if (related_id) {
+				var relatedItem = this.aras.getItemTypeName(related_id);
+				this.itemTypesList[this.mainItemTypeName + '/related_id/' + relatedItem] = rootItemXPath + '/related_id/Item[@type=\'' + relatedItem + '\']';
+			}
+		}
+	}
+
+	var rels = currItemType.selectNodes('Relationships/Item[@type="RelationshipType"]');
+	for (var i = 0, rel; !!(rel = rels[i]); i++) {
+		var relshipId = this.aras.getItemProperty(rel, 'relationship_id');
+		var relshipName = rel.selectSingleNode('relationship_id').getAttribute('name');
+		var newXPath = this.mainItemTypeName + '/Relationships/' + relshipName;
+		if (!this.itemTypesList[newXPath]) {
+			this.itemTypesList[newXPath] = rootItemXPath + '/Relationships/Item[@type=\'' + relshipName + '\']';
+		}
+	}
+
+	var res = [];
+	for (var XPath in this.itemTypesList) {
+		res.push(XPath);
+	}
+
+	this.advanced_grid.columns_Experimental.set('item_type', 'comboList', res);
+};
+
+Advanced.prototype.setupPropertyCell = function AdvancedSearchMode_setupPropertyCell(rowID, itemTypeName, propertyToSelect) {
+	var props = this.getPropsList(itemTypeName);
+	this.advanced_grid.columns_Experimental.set('property', 'comboList', props.propVals, props.propLabs);
+
+	if (propertyToSelect) {
+		this.advanced_grid.items_Experimental.set(rowID, 'value', 'property', propertyToSelect);
+	} else {
+		// If no property to select specified, first in list will be selected
+		this.advanced_grid.items_Experimental.set(rowID, 'value', 'property', props.propVals[0]);
+	}
+};
+
+Advanced.prototype.setupOperationCell = function AdvancedSearchMode_setupOperationCell(rowID, operationToSelect) {
+	var itName = this.getItemTypeName(rowID);
+	var propNm = this.advanced_grid.items_Experimental.get(rowID, 'value', 'property');
+
+	var prop = this.getItemTypeProperty(itName, propNm);
+	var realPropertyDef = aras.getRealPropertyForForeignProperty(prop);
+	var propDT = aras.getItemProperty(realPropertyDef, 'data_type');
+
+	var wildCardAllowed = false;
+
+	//  Operators allowed per property type:
+	let listVals = [];
+	switch(propDT) {
+		case 'boolean': {
+			listVals = ['=', '\u2260'];
+			break;
+		}
+		case 'string':
+		case 'ml_string':
+		case 'text':
+		case 'formatted text':
+		case 'item':
+		case 'image':
+		case 'color':
+		case 'list':
+		case 'filter list':
+		case 'color list': {
+			wildCardAllowed = true;
+			listVals = ['=', '\u2260', 'like', 'not like', 'null', 'not null'];
+			break;
+		}
+		case 'md5': {
+			listVals = ['=', '\u2260', 'null', 'not null'];
+			break;
+		}
+		case 'integer':
+		case 'float':
+		case 'decimal':
+		case 'sequence':
+		case 'date':
+		case 'global_version':
+		case 'ubigint': {
+			listVals = ['=', '\u2260', '&lt;', '&gt;', '&lt;=', '&gt;=', 'null', 'not null'];
+			break;
+		}
+		default: {
+			for (var operationId in this.operationsList) {
+				listVals.push(operationId);
+			}
+			break;
+		}
+	}
+
+	this.advanced_grid.columns_Experimental.set('operation', 'comboList', listVals);
+
+	if (operationToSelect) {
+		if (operationToSelect == 'between' || (operationToSelect == 'like' &amp;&amp; !wildCardAllowed)) {
+			operationToSelect = '=';
+		} else if (operationToSelect == 'not between' || (operationToSelect == 'not like' &amp;&amp; !wildCardAllowed)) {
+			operationToSelect = '\u2260';
+		} else {
+			for (var operation in this.operationsList) {
+				if (this.operationsList[operation] == operationToSelect) {
+					operationToSelect = operation;
+					break;
+				}
+			}
+		}
+
+		this.advanced_grid.items_Experimental.set(rowID, 'value', 'operation', operationToSelect);
+	} else if (listVals.length &gt; 0) {
+		this.advanced_grid.items_Experimental.set(rowID, 'value', 'operation', listVals[0]);
+	}
+};
+
+Advanced.prototype.onGridCellCanEdit = function AdvancedSearchMode_onGridCellCanEdit(rowID, field) {
+	if ('criteria' === field) {
+		const grid = this.advanced_grid;
+		const searchMode = this;
+		var operation = grid.items_Experimental.get(rowID, 'value', 'operation');
+		if (operation == 'null' || operation == 'not null') {
+			return false;
+		}
+
+		var itName = searchMode.getItemTypeName(rowID);
+		var propNm = searchMode.advanced_grid.items_Experimental.get(rowID, 'value', 'property');
+		var prop = searchMode.getItemTypeProperty(itName, propNm);
+		var propDT = searchMode.aras.getItemProperty(prop, 'data_type');
+		var propItemTypeName = searchMode.aras.getItemPropertyAttribute(prop, 'data_source', 'name');
+		if (propDT == 'date') {
+			return false;
+		}
+		if (propDT === 'item') {
+			var columnIndex = grid.columns_Experimental.get(field, 'index');
+			grid.grid_Experimental.getCell(columnIndex).dataSourceName = propItemTypeName;
+		}
+	}
+	return true;
+};
+
+Advanced.prototype.setupCriteriaColumn = function AdvancedSearchMode_setupCriteriaColumn(rowID, valueToSet) {
+	var itName = this.getItemTypeName(rowID);
+	var propNm = this.advanced_grid.items_Experimental.get(rowID, 'value', 'property');
+
+	var prop = this.getItemTypeProperty(itName, propNm);
+	var propDT = this.aras.getItemProperty(prop, 'data_type');
+
+	if (!valueToSet &amp;&amp; valueToSet !== '') {
+		valueToSet = this.advanced_grid.items_Experimental.get(rowID, 'value', 'criteria');
+		if ('boolean' === typeof(valueToSet)) {
+			valueToSet = (valueToSet ? '1' : '0');
+		}
+	}
+
+	var operation = this.advanced_grid.items_Experimental.get(rowID, 'value', 'operation');
+	if (operation == 'null' || operation == 'not null') {
+		this.advanced_grid.items_Experimental.set(rowID, 'value', 'criteria', '');
+
+		return;
+	}
+
+	const cell = this.advanced_grid.cells(rowID, this.advanced_grid.getColumnIndex('criteria'));
+	cell.resetCellInfo();
+
+	if ('boolean' === propDT) {
+		valueToSet = (valueToSet != '1' ? false : true);
+
+	} else if (propDT == 'date' &amp;&amp; valueToSet &amp;&amp; valueToSet.indexOf(' and ') != -1) {
+		var format = this.aras.getItemProperty(prop, 'pattern');
+		format = this.aras.getDotNetDatePattern(format);
+		var rex = new RegExp('[ and ].*$');
+		valueToSet = valueToSet.replace(rex, '');
+		valueToSet = this.aras.convertToNeutral(valueToSet, 'date', format);
+
+	} else if (['list', 'filter list', 'color list'].includes(propDT)) {
+		var propDS = this.aras.getItemProperty(prop, 'data_source');
+		if (propDS) {
+			var __listVals;
+			if (propDT == 'filter list') {
+				__listVals = aras.getListFilterValues(propDS);
+			} else {
+				__listVals = aras.getListValues(propDS);
+			}
+
+			var listVals = [];
+			var listLabs = [];
+
+			for (var i = 0; i &lt; __listVals.length; i++) {
+				var val = this.aras.getItemProperty(__listVals[i], 'value');
+				var lab = this.aras.getItemProperty(__listVals[i], 'label') || val;
+
+				listVals.push(val);
+				listLabs.push(lab);
+			}
+
+			cell.setListId(propDS);
+			const gridDelimeter= this.advanced_grid.delimeter;
+			cell.setCombo(listLabs.join(gridDelimeter), listVals.join(gridDelimeter));
+
+			if (!valueToSet) {
+				valueToSet = listLabs[0] || '';
+			}
+		}
+	}
+
+	this.advanced_grid.items_Experimental.set(rowID, 'value', 'criteria', valueToSet);
+};
+
+Advanced.prototype.onGridClick = function AdvancedSearchMode_onGridClick(rowID, columnIndex) {
+	var colName = this.advanced_grid.GetColumnName(columnIndex);
+	if (colName === 'criteria') {
+		var itName = this.getItemTypeName(rowID);
+		var propNm = this.advanced_grid.items_Experimental.get(rowID, 'value', 'property');
+		var propDef = this.getItemTypeProperty(itName, propNm);
+		var realPropertyDef = aras.getRealPropertyForForeignProperty(propDef);
+		var propDT = aras.getItemProperty(realPropertyDef, 'data_type');
+
+		if (propDT === 'date') {
+			const self = this;
+			const gridCell = this.advanced_grid.cells(rowID, columnIndex);
+			const wndRect = aras.uiGetElementCoordinates(
+				gridCell.cellNod_Experimental
+			);
+			const datePattern = aras.getItemProperty(realPropertyDef, 'pattern');
+			const dialogOptions = {
+				left: wndRect.left - wndRect.screenLeft,
+				top: wndRect.top - wndRect.screenTop,
+				withTime: datePattern &amp;&amp; datePattern.endsWith('date_time')
+			};
+			const topWindow = aras.getMostTopWindowWithAras(window);
+			const dialogPromise = topWindow.ArasCore.Dialogs.datePicker(dialogOptions);
+			dialogPromise.then(({ result }) =&gt; {
+				if (result !== undefined) {
+					self.setupCriteriaColumn(rowID, result);
+					storeCondition(self);
+				}
+			});
+		}
+	}
+};
+
+Advanced.prototype.onGridCellStartEdit = function AdvancedSearchMode_onGridCellStartEdit(rowID, columnName) {
+	this.editingCellColumnName = columnName;
+	var itName = this.getItemTypeName(rowID);
+	var propNm = this.advanced_grid.items_Experimental.get(rowID, 'value', 'property');
+
+	switch (columnName) {
+		case 'property':
+			var props = this.getPropsList(itName, propNm);
+			this.advanced_grid.columns_Experimental.set('property', 'comboList', props.propVals, props.propLabs);
+			break;
+		case 'operation':
+			this.setupOperationCell(rowID, this.operationsList[this.advanced_grid.items_Experimental.get(rowID, 'value', 'operation')]);
+			break;
+		case 'criteria':
+			var prop = this.getItemTypeProperty(itName, propNm);
+			var propDT = this.aras.getItemProperty(prop, 'data_type');
+
+			if (['list', 'filter list', 'color list'].includes(propDT)) {
+				this.advanced_grid.columns_Experimental.set('criteria', 'editType', 'ListHelper');
+			} else if (propDT === 'item' &amp;&amp; propNm !== 'current_state') {
+				this.advanced_grid.columns_Experimental.set('criteria', 'editType', 'InputHelper');
+			} else {
+				this.advanced_grid.columns_Experimental.set('criteria', 'editType', 'Input');
+			}
+			break;
+	}
+	this.setupCriteriaColumn(rowID, this.advanced_grid.items_Experimental.get(rowID, 'value', 'criteria'));
+};
+
+Advanced.prototype.getItemTypeName = function AdvancedSearchMode_getItemTypeName(rowID) {
+	return /([^\/]*)$/.exec(this.advanced_grid.items_Experimental.get(rowID, 'value', 'item_type'))[1];
+};
+
+Advanced.prototype.onGridCellEditApply = function AdvancedSearchMode_onGridCellEditApply(rowID, field, value) {
+	this.editingCellColumnName = '';
+	if ('item_type' === field) {
+		var itName = this.getItemTypeName(rowID);
+		this.setupPropertyCell(rowID, itName);
+		this.setupOperationCell(rowID);
+		this.setupCriteriaColumn(rowID, '');
+
+	} else if ('property' === field) {
+		this.setupOperationCell(rowID);
+		this.setupCriteriaColumn(rowID, '');
+
+	} else if ('operation' === field) {
+		this.setupCriteriaColumn(rowID);
+
+	} else if ('criteria' === field) {
+		let criteria = value;
+		if ('boolean' === typeof(criteria)) {
+			criteria = (criteria ? '1' : '0');
+		}
+
+		const condition = this.advanced_grid.items_Experimental.get(rowID, 'value', 'operation');
+		const criteriaToAml = this.aras.getMainWindow().ArasCore.searchConverter.criteriaToAml;
+		const result = criteriaToAml(
+			`${criteria}`,
+			'validate',
+			{
+				condition: this.operationsList[condition],
+			},
+			true
+		);
+		if (!result) {
+			if (!window.isOnBeforeUnload &amp;&amp; aras.confirm(this.aras.getResource('', 'search.invalid_criteria'))) {
+				this.advanced_grid.requestFocus();
+				return false;
+			}
+			this.advanced_grid.items_Experimental.set(rowID, 'value', 'criteria', '');
+		}
+	}
+	storeCondition(this);
+};
+
+Advanced.prototype.getItemTypeProperty = function AdvancedSearchMode_getItemTypeProperty(itName, propNm) {
+	var itemType = this.aras.getItemTypeDictionary(itName).node;
+	if (propNm.startsWith('xp-')) {
+		propXPath = 'Relationships/Item[@type=\'xItemTypeAllowedProperty\' and not(inactive=\'1\')]' +
+			'/related_id/Item[@type=\'xPropertyDefinition\' and name=\'' + propNm + '\']';
+		return itemType.selectSingleNode(propXPath);
+	}
+
+	return itemType.selectSingleNode('Relationships/Item[@type="Property" and name="' + propNm + '"]');
+};
+
+Advanced.prototype.newCriteriaRow = function AdvancedSearchMode_newCriteriaRow(newRowID, itemTypeXpath, propertyName, operation, value) {
+	var emptyRowFlg = (itemTypeXpath == undefined || propertyName == undefined);
+	newRowID = newRowID || this.generateNewRowID();
+
+	this.advanced_grid.items_Experimental.add({uniqueId: newRowID,
+							item_type: (emptyRowFlg ? this.mainItemTypeName : itemTypeXpath),
+							property: (emptyRowFlg ? '' : propertyName),
+							operation: (emptyRowFlg ? '' : operation),
+							criteria: (emptyRowFlg ? '' : value)});
+
+	if (emptyRowFlg) {
+		this.onGridCellEditApply(newRowID, 'item_type', this.mainItemTypeName);
+	} else {
+		var itemTypeName = this.getLastNodeName(itemTypeXpath);
+		this.setupPropertyCell(newRowID, itemTypeName, propertyName);
+		this.setupOperationCell(newRowID, operation);
+		this.setupCriteriaColumn(newRowID, value);
+	}
+
+	this.advanced_grid.setSelectedRow(newRowID, false);
+	this.setupAdvancedSearchFrameHeight();
+};
+
+Advanced.prototype.showModalDialog = function AdvancedSearchMode_showModalDialog(rowID, columnId) {
+	var itName = this.getItemTypeName(rowID);
+	var propNm = this.advanced_grid.items_Experimental.get(rowID, 'value', 'property');
+
+	var prop = this.getItemTypeProperty(itName, propNm);
+	var propDT = this.aras.getItemProperty(prop, 'data_type');
+	var topWindow = window.aras.getMostTopWindowWithAras();
+	var self = this;
+
+	if (this.advanced_grid.getColumnName(columnId) === 'property') {
+		const dialogPromise = topWindow.ArasCore.Dialogs.propertySelection(itName, xPropertiesUtils);
+
+		dialogPromise.then(function(res) {
+			if (res) {
+				self.advanced_grid.items_Experimental.set(rowID, 'value', 'property', res[0]);
+				self.onGridCellEditApply(rowID, 'property', res[0]);
+			}
+		});
+	} else if (propDT == 'item') {
+		var propDS = this.aras.getItemProperty(prop, 'data_source');
+		if (!propDS) {
+			return;
+		}
+		var it_name = this.aras.getItemTypeName(propDS);
+		if (!it_name) {
+			return;
+		}
+
+		topWindow.ArasModules.MaximazableDialog.show('iframe', {
+			aras: this.aras,
+			itemtypeName: it_name,
+			type: 'SearchDialog',
+			multiselect: true,
+			fullMultiResponse: true
+		}).promise.then(function (res) {
+			if (res) {
+				const inputValue = res.map((item) =&gt; item.keyed_name).join('|');
+				self.advanced_grid.items_Experimental.set(
+					rowID,
+					'value',
+					'criteria',
+					inputValue
+				);
+
+				storeCondition(self);
+			}
+		});
+	}
+};
+
+const storeCondition = function(searchMode){
+	const advanced_grid = searchMode.advanced_grid;
+	const resultJson = {};
+	const itName = searchMode.mainItemTypeName;
+	resultJson["@rootType"] = itName;
+	for (let i = 0; i &lt; advanced_grid.getRowCount(); i++) {
+		const rowId = advanced_grid.items_Experimental.get(i, 'id');
+		if (!rowId) {
+			continue;
+		}
+		const itemTypeName = advanced_grid.items_Experimental.get(rowId, 'value', 'item_type');
+		let propName = advanced_grid.items_Experimental.get(rowId, 'value', 'property');
+		let operation = advanced_grid.items_Experimental.get(rowId, 'value', 'operation');
+		let criteria = advanced_grid.items_Experimental.get(rowId, 'value', 'criteria');
+
+		if (typeof criteria === 'boolean') {
+			criteria = criteria ? '1' : '0';
+		}
+
+		operation = searchMode.operationsList[operation];
+
+		propName = itemTypeName===itName ? propName : itemTypeName.replaceAll("Relationships/", '').replaceAll('related_id/', '') + '/' + propName;
+
+		const rowCriteria = {
+			value: criteria,
+			condition: operation
+		};
+
+		if (!resultJson[propName]) {
+			resultJson[propName] = rowCriteria;
+		} else {
+			if (!Array.isArray(resultJson[propName])) {
+				resultJson[propName] = [resultJson[propName]];
+			}
+			resultJson[propName].push(rowCriteria);
+		}
+	}
+
+	window.layout.actions.updateSearchCriteria(resultJson);
+}
+
+function lookup(searchMode) {
+	var advanced_grid = searchMode.advanced_grid;
+	var selectedRowID = advanced_grid.getSelectedId();
+
+	if (!selectedRowID) {
+		aras.AlertError(aras.getResource('', 'advanced_search.criteria_row_must_be_selected'));
+		return;
+	}
+
+	var itName = searchMode.getItemTypeName(selectedRowID);
+	var propNm = advanced_grid.items_Experimental.get(selectedRowID, 'value', 'property');
+	var oldValue = advanced_grid.items_Experimental.get(selectedRowID, 'value', 'criteria');
+
+	var propDef = searchMode.getItemTypeProperty(itName, propNm);
+	var realPropertyDef = aras.getRealPropertyForForeignProperty(propDef);
+
+	var propDT = aras.getItemProperty(realPropertyDef, 'data_type');
+	var topWindow = window.parent || window;
+
+	if ('image' === propDT) {
+		topWindow.ArasModules.MaximazableDialog.show('iframe', {
+			aras: aras,
+			image: oldValue,
+			type: 'ImageBrowser'
+		}).promise.then(function(res) {
+			if (res !== undefined) {
+				res = (res === 'set_nothing') ? '' : res;
+				searchMode.setupCriteriaColumn(selectedRowID, res);
+			}
+		});
+	} else if ('item' === propDT) {
+	} else if ('text' === propDT) {
+		topWindow.ArasModules.Dialog.show('iframe', {
+			isEditMode: true,
+			content: oldValue,
+			aras: aras,
+			type: 'Text'
+		}).promise.then(function(res) {
+			if (res !== undefined) {
+				searchMode.setupCriteriaColumn(selectedRowID, res);
+			}
+		});
+
+	} else if ('formatted text' == propDT) {
+		topWindow.ArasModules.MaximazableDialog.show('iframe', {
+			aras: aras,
+			sHTML: oldValue,
+			type: 'HTMLEditorDialog'
+		}).promise.then(function(res) {
+			if (res != undefined) {
+				searchMode.setupCriteriaColumn(selectedRowID, res);
+			}
+		});
+
+	} else if ('color' === propDT) {
+		topWindow.ArasModules.Dialog.show('iframe', {
+			oldColor: oldValue,
+			aras: aras,
+			type: 'Color'
+		}).promise.then(function(newColor) {
+			if (newColor !== undefined) {
+				searchMode.setupCriteriaColumn(selectedRowID, newColor);
+			}
+		});
+	} else {
+		aras.AlertError(aras.getResource('', 'advanced_search.lookup_is_not_available', propDT));
+	}
+}
+
+function onKeyPressed(keyEvent) {
+	const searchMode = this;
+	if (searchMode.editingCellColumnName === 'criteria') {
+		var F2_pressed = (113 === keyEvent.keyCode);
+		if (F2_pressed) {
+			var rowID = searchMode.advanced_grid.getSelectedId();
+
+			var itName = searchMode.getItemTypeName(rowID);
+			var propNm = searchMode.advanced_grid.items_Experimental.get(rowID, 'value', 'property');
+
+			var prop = searchMode.getItemTypeProperty(itName, propNm);
+			var propDT = aras.getItemProperty(prop, 'data_type');
+
+			searchMode.advanced_grid.turnEditOff();
+			lookup(searchMode);
+		} else if (keyEvent.keyCode === 13) {
+			// need to wait until search criteria will changed
+			setTimeout(async function() {
+				await doSearch(); // global function
+			}, 0);
+		}
+	}
+}
+
+Advanced.prototype.setupAdvancedSearchFrameHeight = function AdvancedSearchMode_setupAdvancedSearchFrameHeight() {
+	var critCount = this.advanced_grid.getRowCount();
+	var newHeight = critCount * 30 + 21;
+	if (newHeight &lt; 70) {
+		newHeight = 70;
+	} else if (newHeight &gt; 150) {
+		newHeight = 150;
+	}
+	this.searchContainer.setStyleAttribute('height', newHeight + 'px');
+	var self = this;
+	setTimeout(function() { self.advanceGrid.style.height = newHeight + 'px'; self.advanced_grid.grid_Experimental.resize(); }, 100);
+};
+
+Advanced.prototype.hide = function AdvancedSearchMode_hide() {
+	this.advanceGrid.style.display = 'none';
+};
+
+Advanced.prototype.show = function AdvancedSearchMode_show() {
+	this.advanceGrid.style.display = '';
+};
+
+Advanced.prototype.remove = function AdvancedSearchMode_remove() {
+	this.advanced_grid.destroy_Experimental();
+	this.searchContainer.searchPlaceholderCell.removeChild(this.advanceGrid);
+
+};
+
+Advanced.prototype.generateNewRowID = function AdvancedSearchMode_generateNewRowID() {
+	var newRowID = 'criteria_' + this.criteria_counter;
+	this.criteria_counter++;
+	return newRowID;
+};
+</search_handler>
+  <search_mode_order>256</search_mode_order>
+  <name>Advanced</name>
+ </Item>
+</AML>

@@ -1,0 +1,451 @@
+﻿<AML>
+ <Item type="SearchMode" id="BD84BCA3EC064D77BF3772A9D93308B6" action="add">
+  <is_active>0</is_active>
+  <label xml:lang="en">Simple</label>
+  <search_handler>
+const typesWithRangeSupport = [
+	'float',
+	'decimal',
+	'integer',
+	'ubigint',
+	'global_version',
+	'date'
+];
+
+const typesWithEqualCondition = new Set(['boolean',	'date']);
+
+window.Simple = function Simple(searchContainer, aras) {
+	function updateSearchCriteriaBasedOnPreferences(params) {
+		if (params?.propertyName !== 'core_use_wildcards') {
+			return;
+		}
+
+		const useWildcards =
+			window.aras.getPreferenceItemProperty(
+				'Core_GlobalLayout',
+				null,
+				'core_use_wildcards'
+			) === 'true';
+
+		
+
+		const { searching } = window.layout.state;
+		const criteriaJson = searching.criteriaJson;
+		const { itemType, foreignPropertySources, relatedForeignPropertySources, relatedItemType } = window.layout.options;
+		let updateRequired = false;
+		let newCriteriaJson = Object.assign({}, criteriaJson);
+
+		Object.entries(criteriaJson).forEach(([key, criteria]) =&gt; {
+			if (!key.startsWith('@') &amp;&amp; !key.endsWith('locked_by_id')) {
+				const { value, condition } = criteria;
+
+				let propertyName = key;
+				let contextItemType = itemType;
+				let foreignSource = foreignPropertySources;
+
+				if (key.indexOf('/') !== -1) {
+					contextItemType = relatedItemType;
+					foreignSource = relatedForeignPropertySources;
+					propertyName = propertyName.split('/').pop();
+				}
+
+				const property = contextItemType.Property.find((property) =&gt; property.name === propertyName);
+				let propertyDataType = property['data_type'];
+				if (propertyDataType === 'foreign') {
+					const realProperty = foreignSource.get(property.id);
+					propertyDataType = realProperty['data_type'];
+				}
+
+				const newCondition = useWildcards &amp;&amp;
+				/[%*]/.test(value) &amp;&amp;
+				!typesWithEqualCondition.has(propertyDataType) ? 'like' : 'eq';
+
+				if (condition !== newCondition) {
+					updateRequired = true;
+					Object.assign(newCriteriaJson, { [key]: { value, condition: newCondition } });
+				}
+			}
+		});
+
+		if (updateRequired) {
+			window.layout.actions.updateSearchCriteria(newCriteriaJson, 'Simple');
+		}
+	};
+
+	this.supportXClassSearch = true;
+	// Call base SearchMode constructor
+	SearchMode.prototype.constructor.call(this, searchContainer, aras);
+	this.userID = this.aras.getUserID();
+	this.loggedUserKeyedName = this.aras.user.userInfo.keyedName;
+	this.complexity = 1;
+
+	this._searchByWildcardIsEnabled = function() {
+		return (this.aras.getPreferenceItemProperty('Core_GlobalLayout', null, 'core_use_wildcards') == 'true');
+	};
+
+	this._applyWildcard = function(itemNd, useWildcards) {
+		var itemTypeName = itemNd.getAttribute('type');
+		var isItemNode = itemNd.nodeName == 'Item';
+		var childNodes = itemNd.childNodes;
+		var currentNode;
+		var i;
+
+		if (itemTypeName &amp;&amp; isItemNode) {
+			var globalCondition = (useWildcards ? 'like' : 'eq');
+			var wildcardConditions = /^(like|eq)$/;
+			var itemTypeDef;
+			var currentCondition;
+
+			//"null" is string here. Note, that it's possible case, see steps in IR-028333
+			if (itemTypeName !== 'null') {
+				itemTypeDef = this.aras.getItemTypeForClient(itemTypeName).node;
+			}
+
+			for (i = 0; i &lt; childNodes.length; i++) {
+				currentNode = childNodes[i];
+				// get attribute when currentNode is ELEMENT_NODE
+				if (currentNode.nodeType === 1) {
+					currentCondition = currentNode.getAttribute('condition');
+				}
+
+				if (wildcardConditions.test(currentCondition)) {
+					if (itemTypeName === 'null') {
+						currentNode.setAttribute('condition', globalCondition);
+						continue;
+					}
+
+					var propDef = itemTypeDef.selectSingleNode('Relationships/Item[@type="Property"][name="' + currentNode.nodeName + '"]');
+					if (currentNode.nodeName.indexOf('xp-') === 0) {
+						propXPath = 'Relationships/Item[@type=\'xItemTypeAllowedProperty\' and not(inactive=\'1\')]' +
+							'/related_id/Item[@type=\'xPropertyDefinition\' and name=\'' + currentNode.nodeName + '\']';
+						propDef = itemTypeDef.selectSingleNode(propXPath);
+					}
+
+					if (propDef) {
+						var conditionChangeAllowed = true;
+						var childNodeValue = currentNode.text;
+						var realPropertyDef = this.aras.getRealPropertyForForeignProperty(propDef);
+						var propName = this.aras.getItemProperty(propDef, 'name');
+						var propDT = this.aras.getItemProperty(realPropertyDef, 'data_type');
+						var localCondition = globalCondition;
+
+						switch (propDT) {
+							case 'item':
+								if (propName == 'locked_by_id') {
+									conditionChangeAllowed = false;
+								}
+								break;
+						}
+
+						if (conditionChangeAllowed) {
+							if (!this._containsWildcardCharacter(childNodeValue) || 'list' == propDT || 'filter list' == propDT || 'color list' == propDT || 'boolean' == propDT) {
+								localCondition = 'eq';
+							}
+
+							currentNode.setAttribute('condition', localCondition);
+						}
+					}
+				}
+			}
+		}
+
+		for (i = 0; i &lt; childNodes.length; i++) {
+			currentNode = childNodes[i];
+
+			if (currentNode.childNodes.length) {
+				this._applyWildcard(currentNode, useWildcards);
+			}
+		}
+	};
+
+	this.onStartSearchMode = function SimpleSearchMode_onStartSearchMode(sContainer) {
+		this.aras.registerEventHandler('PreferenceValueChanged', window, updateSearchCriteriaBasedOnPreferences);
+
+		// Call base onStartSearchMode method.
+		SearchMode.prototype.onStartSearchMode.call(this, sContainer);
+
+		if (this.grid) {
+			this.grid.ShowInputRow(true);
+		}
+	};
+
+	this.onEndSearchMode = function SimpleSearchMode_onStartSearchMode(sContainer) {
+		this.aras.unregisterEventHandler('PreferenceValueChanged', window, updateSearchCriteriaBasedOnPreferences);
+		// Call base onEndSearchMode method.
+		SearchMode.prototype.onEndSearchMode.call(this);
+
+		if (this.grid) {
+			this.grid.ShowInputRow(false);
+		}
+	};
+}
+
+Simple.prototype = Object.create(SearchMode.prototype);
+Simple.prototype.constructor = Simple;
+
+Simple.prototype.clearSearchCriteria = function Simple_clearSearchCriteria() {
+	const { actions, options, state } = window.layout;
+	const { itemTypeName } = options;
+
+	let newCriteriaJson = {};
+
+	if (!this.onSearchDialogUpdatesQueryExplicitly) {
+		actions.clearSearchCriteria(itemTypeName);
+	} else {
+		const { criteriaJson } = state.searching;
+		newCriteriaJson = {...criteriaJson};
+	}
+
+	if (this.grid &amp;&amp; this.grid.inputRow.get('visible')) {
+		for (var i = 0, j = this.grid.columns_Experimental.get('count'); i &lt; j; i++) {
+			if (this.grid.inputRow.get(i, 'disabled') === false) {
+				const columnName = this.grid.GetColumnName(i);
+				const propertyName = this.grid._grid.head.get(columnName, 'name');
+
+				delete newCriteriaJson[propertyName];
+
+				this.grid.inputRow.set(i, 'value', '');
+			}
+		}
+	}
+
+	if (this.userMethodColumnCfgs) {
+		var useWildcards = this._searchByWildcardIsEnabled();
+		newCriteriaJson['@rootType'] = itemTypeName;
+
+		for (var propName in this.userMethodColumnCfgs) {
+			if (this.userMethodColumnCfgs[propName] &amp;&amp; this.userMethodColumnCfgs[propName].isFilterFixed) {
+				const value = this.userMethodColumnCfgs[propName].filterValue;
+				const condition = useWildcards &amp;&amp; this._containsWildcardCharacter(value) ? 'like' : 'eq';
+
+				newCriteriaJson[propName] = {
+					value,
+					condition
+				};
+			}
+		}
+	}
+
+	const propertyCriterias = Object.keys(newCriteriaJson);
+	const attrsCount = propertyCriterias.filter(key =&gt; key.startsWith('@')).length;
+
+	if (propertyCriterias.length &gt; attrsCount) {
+		actions.updateSearchCriteria(newCriteriaJson);
+	}
+};
+
+Simple.prototype.generateValidationInfo = function SimpleSearchMode_generateValidationInfo() {
+	if (!this.grid) {
+		return null;
+	}
+
+	var validationInfo = {};
+	for (var i = 0, j = this.grid.GetColumnCount(); i &lt; j; i++) {
+		validationInfo[this.searchContainer.getPropertyXPathByColumnIndex(i)] = this.searchContainer.getPropertyDefinitionByColumnIndex(i);
+	}
+
+	return validationInfo;
+};
+
+Simple.prototype.setAml = async function SimpleSearchMode_setAml(searchAML) {
+	// Call base initSearch method.
+	let xClassCriteria;
+	await SearchMode.prototype.setAml.call(this, searchAML);
+	if (this.grid &amp;&amp; this.grid.IsInputRowVisible()) {
+		let propList;
+		const amlToSimple = this.aras.getMainWindow().searchAmlToJson.searchAmlToSimple;
+		try {
+			let searchCriteria = searchAML;
+			if (this.supportXClassSearch) {
+				const aml = await SearchMode.prototype.getCriteriaAml.call(this);
+				const qryDom = this.aras.createXMLDocument();
+				qryDom.loadXML(aml);
+				xClassCriteria = qryDom.documentElement.selectSingleNode(this.xClassSearchCriteriaXPath);
+				if (xClassCriteria) {
+					xClassCriteria = qryDom.documentElement.removeChild(xClassCriteria);
+					searchCriteria = qryDom.documentElement.xml;
+				}
+			}
+			let relatedItemPropList;
+			let rootItemPropList;
+
+			const parsedSearchAml = ArasModules.xml.parseString(searchCriteria);
+			const relatedItems = parsedSearchAml.selectNodes(
+				'/Item/related_id/Item'
+			);
+			const rootItem = parsedSearchAml.selectSingleNode('/Item');
+
+			if (this.searchContainer.searchLocation === 'Relationships Grid' &amp;&amp; relatedItems.length &gt; 0) {
+				for (const relatedItem of relatedItems) {
+					rootItem.removeChild(relatedItem.parentNode);
+				}
+				const formattedNode = mergeNodes(relatedItems);
+				relatedItemPropList = await amlToSimple(ArasModules.xml.getXml(formattedNode));
+			}
+			rootItemPropList = await amlToSimple(ArasModules.xml.getXml(rootItem));
+			propList = {};
+			propList[rootItemPropList['@rootType']] = rootItemPropList;
+			if (relatedItemPropList) {
+				propList[relatedItemPropList['@rootType']] = relatedItemPropList;
+			}
+		}
+		catch (err) {
+			propList = undefined;
+		}
+
+		const columnsToShow = { order: [], widths: new Map() };
+
+		for (var i = 0, j = this.grid.GetColumnCount(); i &lt; j; i++) {
+			var propXpath = this.searchContainer.getPropertyXPathByColumnIndex(i);
+			var realPropertyXpath = propXpath;
+			var propDef = this.searchContainer.getPropertyDefinitionByColumnIndex(i);
+			var propName = this.aras.getItemProperty(propDef, 'name');
+			const propertySourceName = this.aras.getItemPropertyAttribute(propDef, 'source_id', 'name');
+			if (!this.grid.IsColumnVisible(i)) {
+				if (propList?.[propertySourceName]?.[propName]) {
+					var colName = this.grid.GetColumnName(i);
+					const colWidth = this.grid._grid.head.get(colName, 'width');
+					columnsToShow.order.push(colName);
+					columnsToShow.widths.set(colName, colWidth);
+				} else {
+					continue;
+				}
+			}
+			var realPropertyDef = this.aras.getRealPropertyForForeignProperty(propDef);
+
+			var propDT = this.aras.getItemProperty(realPropertyDef, 'data_type');
+			if (propDT == 'item') {
+				var propertyDataSource = this.aras.getItemPropertyAttribute(realPropertyDef, 'data_source', 'name');
+				var typeCriterion = propertyDataSource || '';
+
+				if (!propertyDataSource) {
+					this.grid.cells('input_row', i).setEditable(false);
+				}
+
+				const defaultXPath = '/Item' + (typeCriterion === '' ? '' : ('[@type=\'' + typeCriterion + '\']'));
+				if (propName === 'current_state') {
+					realPropertyXpath += defaultXPath + '/label';
+				} else {
+					realPropertyXpath += defaultXPath + '/keyed_name';
+				}
+			}
+
+			let valueToSet = '';
+			let propValue = {};
+			if (propList &amp;&amp; propList[propertySourceName] &amp;&amp; propList[propertySourceName][propName]) {
+				propValue = propList[propertySourceName][propName];
+				if (typeof propValue === 'object') {
+					valueToSet = propValue.value;
+				} else {
+					valueToSet = propValue;
+				}
+			}
+
+			if (!valueToSet) {
+				valueToSet = '';
+			}
+
+			let condition;
+			switch (propDT) {
+				case 'item':
+					if (propName == 'locked_by_id' &amp;&amp; this.grid.GetColumnName(i) == 'L') { //L - lock column
+						condition = propValue.condition || 'eq';
+						var imageStyle = 'margin-right: 4px; height: auto; width: auto; max-width: 20px; max-height: 20px;';
+
+						if (condition == 'eq' || condition == 'like') {
+							if (!valueToSet) {
+								valueToSet = '';
+							} else if (valueToSet == '%') {
+								valueToSet = '&lt;img src="../images/ClaimAnyone.svg" style="' + imageStyle + '" /&gt;';
+							} else if (valueToSet == this.loggedUserKeyedName) {
+								valueToSet = '&lt;img src="../images/ClaimOn.svg" style="' + imageStyle + '" /&gt;';
+							} else {
+								valueToSet = '&lt;img src="../images/ClaimOther.svg" style="' + imageStyle + '" /&gt;';
+							}
+						} else if (condition == '≠') {
+							if (valueToSet) {
+								valueToSet = '&lt;img src="../images/ClaimOther.svg" style="' + imageStyle + '" /&gt;';
+								condition = 'eq';
+							}
+						}
+					} else {
+						const valueHasWildCard = this._containsWildcardCharacter(valueToSet);
+						condition = (valueHasWildCard ? 'like' : 'eq');
+					}
+					break;
+				case 'date':
+					if (valueToSet) {
+						const topWnd = this.aras.getMostTopWindowWithAras();
+						valueToSet = topWnd.ArasCore.searchConverter.convertDatesFromNeutral(valueToSet);
+					}
+					break;
+				default:
+					var useWildcards = this._searchByWildcardIsEnabled();
+					if (typeof propValue === 'object') {
+						condition = propValue.condition;
+					} else {
+						condition = (useWildcards ? 'like' : 'eq');
+					}
+			}
+
+			this.grid.inputRow.set(i, 'value', valueToSet);
+		}
+
+		const { order, widths } = columnsToShow;
+		if (order.length !== 0) {
+			layout.actions.updateLayoutData({grid: {order: [...layout.state.grid.order, ...order], widths}});
+		}
+	}
+};
+
+Simple.prototype.testAmlForCompatibility = async function(searchAml) {
+	let searchQuery = searchAml;
+	if (this.supportXClassSearch) {
+		const queryDom = this.aras.createXMLDocument();
+		queryDom.loadXML(searchAml);
+		const xClassCriteria = queryDom.documentElement.selectSingleNode(this.xClassSearchCriteriaXPath);
+		if (xClassCriteria) {
+			queryDom.documentElement.removeChild(xClassCriteria);
+			searchQuery = queryDom.documentElement.xml;
+		}
+	}
+	const converter = window.searchAmlToJson;
+	const baseJson = await converter.searchAmlToSimple(
+		searchQuery,
+		window.layout.location === 'RelationshipsView'
+	);
+
+	this.isValidAML = !baseJson['@invalid'];
+
+	return this.isValidAML;
+};
+
+
+Simple.prototype._containsWildcardCharacter = function(criteria) {
+	return /[%*]/.test(criteria);
+};
+
+function mergeNodes(relatedItems) {
+	const items = [...relatedItems];
+	const assembledNode = items.shift().cloneNode(true);
+	const itemType = assembledNode.getAttribute('type');
+
+	for (const relatedItem of items) {
+		if (
+			relatedItem.hasAttribute('where') ||
+			itemType !== relatedItem.getAttribute('type')
+		) {
+			return null;
+		}
+		const properties = relatedItem.children;
+		[...properties].forEach((property) =&gt; {
+			assembledNode.appendChild(property.cloneNode(true));
+		});
+	}
+	return assembledNode;
+};
+</search_handler>
+  <search_mode_order>128</search_mode_order>
+  <name>Simple</name>
+ </Item>
+</AML>

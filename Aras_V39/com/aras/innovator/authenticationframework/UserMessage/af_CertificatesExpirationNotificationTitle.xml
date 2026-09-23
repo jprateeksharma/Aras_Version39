@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="E83285C385144A9E950D57709A1BCB9D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Aras Authentication certificates expiration</text>
+  <name>af_CertificatesExpirationNotificationTitle</name>
+ </Item>
+</AML>

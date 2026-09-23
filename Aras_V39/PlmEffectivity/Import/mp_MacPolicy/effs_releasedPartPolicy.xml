@@ -1,0 +1,53 @@
+﻿<AML>
+ <Item type="mp_MacPolicy" id="8197D817A2E54B5BA136486964C9530E" action="add">
+  <can_delete>2C8D7B257AA74846A0BAD8EE9D25BB43</can_delete>
+  <can_update>2C8D7B257AA74846A0BAD8EE9D25BB43</can_update>
+  <description>The policy manages access to effs_Part_BOM_expression items with respect to a flag "Released" on source Part items of effective Part BOM items, supplementing any other permissions assigned to the effs_Part_BOM_expression ItemType.
+If the policy is active and a source Part item has the flag "Released", then "update" and "delete" operations will be prohibited for nested effectivity expressions.</description>
+  <name>effs_releasedPartPolicy</name>
+  <Relationships>
+   <Item type="mp_MacCondition" action="add">
+    <condition_xml><![CDATA[<Item type="qry_QueryDefinition">
+  <Relationships>
+    <Item type="qry_QueryItem">
+      <item_type>D4E6378D54A3427F89BECDC52A0034D5</item_type>
+      <alias>CurrentItem</alias>
+      <ref_id>89B61DF8C9D04FA689BF3C01E934E0D7</ref_id>
+      <filter_xml><![CDATA[<condition>
+<eq>
+<constant>0</constant>
+<all>
+  <query_reference_path></query_reference_path>
+  <child_property_name>effs_isSrcPartItemReleasedAttr</child_property_name>
+</all>
+</eq>
+</condition>]]]]><![CDATA[></filter_xml>
+    </Item>
+    <Item type="qry_QueryItem">
+      <alias>CurrentUser</alias>
+      <item_type>45E899CD2859442982EB22BB2DF683E5</item_type>
+      <ref_id>11BB8EB866DB47AC858B39845CACC733</ref_id>
+    </Item>
+    <Item type="qry_QueryReference">
+      <child_ref_id>89B61DF8C9D04FA689BF3C01E934E0D7</child_ref_id>
+    </Item>
+    <Item type="qry_QueryReference">
+      <child_ref_id>11BB8EB866DB47AC858B39845CACC733</child_ref_id>
+      <parent_ref_id>89B61DF8C9D04FA689BF3C01E934E0D7</parent_ref_id>
+      <ref_id>87D239DCABEC4BF5B6C6B1FDDEFD6A0C</ref_id>
+    </Item>
+  </Relationships>
+</Item>]]></condition_xml>
+    <name>effs_releasedPartPolicy rule</name>
+    <ref_id>2C8D7B257AA74846A0BAD8EE9D25BB43</ref_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="effs_releasedPartPolicy" type="mp_MacPolicy">8197D817A2E54B5BA136486964C9530E</source_id>
+   </Item>
+   <Item type="mp_MacPolicyControlledType" action="add">
+    <related_id keyed_name="effs_Part_BOM_expression" type="ItemType" name="effs_Part_BOM_expression">8610F1E7609D4226A90561A96F3648A6</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="effs_releasedPartPolicy" type="mp_MacPolicy">8197D817A2E54B5BA136486964C9530E</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

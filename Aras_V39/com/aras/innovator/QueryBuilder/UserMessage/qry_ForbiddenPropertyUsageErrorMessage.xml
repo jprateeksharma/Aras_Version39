@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="A736C2BB1968419F8BBD3DFB3703433C" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">{0}/{1} cannot be directly obtained from QueryBuilderNode. Please refer to documentation for more details.</text>
+  <name>qry_ForbiddenPropertyUsageErrorMessage</name>
+ </Item>
+</AML>

@@ -1,0 +1,152 @@
+﻿<AML>
+ <Item type="Method" id="4788A3297828486ABBC8FC4CA09EDA4B" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+
+	Newtonsoft.Json.Linq.JObject favoriteObject = GetGenericJsonObjectForFavorite(this);
+	string favoriteCategory = this.getProperty("category");
+	Newtonsoft.Json.Linq.JObject additionalData = favoriteObject.Value<Newtonsoft.Json.Linq.JObject>("additional_data");
+	if (additionalData == null)
+	{
+		favoriteObject["additional_data"] = additionalData = new Newtonsoft.Json.Linq.JObject();
+	}
+
+	Item contextTypeItem = innovator.newItem("ItemType", "get");
+	contextTypeItem.setProperty("name", this.getProperty("context_type"));
+	contextTypeItem = contextTypeItem.apply();
+
+	if (contextTypeItem.isError())
+	{
+		additionalData["image"] = "../images/DefaultItemType.svg";
+	}
+	else
+	{
+		additionalData["image"] = contextTypeItem.getProperty("open_icon", "../images/DefaultItemType.svg");
+	}
+
+	switch (favoriteCategory)
+	{
+		case "ItemType":
+			if (!contextTypeItem.isError())
+			{
+				additionalData["label"] = contextTypeItem.getProperty("label_plural", contextTypeItem.getProperty("name"));
+				additionalData["id"] = contextTypeItem.getID();
+				additionalData["name"]  = contextTypeItem.getProperty("name");
+			}
+			break;
+		case "Search":
+			Item savedSearchItem = innovator.newItem("SavedSearch", "get");
+			savedSearchItem.setID(additionalData.Value<string>("id"));
+			savedSearchItem.setAttribute("select", "criteria, search_mode, location");
+			savedSearchItem = savedSearchItem.apply();
+
+			if (savedSearchItem.isError())
+			{
+				break;
+			}
+
+			additionalData["criteria"] = savedSearchItem.getProperty("criteria");
+			additionalData["search_mode"] = savedSearchItem.getProperty("search_mode");
+			additionalData["location"] = savedSearchItem.getProperty("location");
+
+			string layoutId = additionalData.Value<string>("layout_id");
+			if (!string.IsNullOrEmpty(layoutId))
+			{
+				Item relatedLayoutItem = innovator.newItem("Grid Layout", "get");
+				relatedLayoutItem.setID(layoutId);
+				relatedLayoutItem.setAttribute("select", "column_widths, column_order, itname, page_size, max_records, frozen_columns, location, order_by, additional_settings");
+				relatedLayoutItem = relatedLayoutItem.apply();
+				if (relatedLayoutItem.isError())
+				{
+					break;
+				}
+				additionalData["layoutData"] = new Newtonsoft.Json.Linq.JObject()
+				{
+					{"column_widths", relatedLayoutItem.getProperty("column_widths")},
+					{"column_order", relatedLayoutItem.getProperty("column_order")},
+					{"order_by", relatedLayoutItem.getProperty("order_by")},
+					{"page_size", relatedLayoutItem.getProperty("page_size")},
+					{"max_records", relatedLayoutItem.getProperty("max_records")},
+					{"frozen_columns", relatedLayoutItem.getProperty("frozen_columns")},
+					{"additional_settings", relatedLayoutItem.getProperty("additional_settings")},
+					{"location", additionalData.Value<string>("location")},
+					{"linked_favorite_layout", additionalData.Value<string>("linked_favorite_layout")},
+				};
+				additionalData.Remove("linked_favorite_layout");
+				additionalData.Remove("layout_id");
+			}
+			break;
+		case "Grid Layout":
+			Item gridLayoutItem = innovator.newItem("Grid Layout", "get");
+			gridLayoutItem.setID(additionalData.Value<string>("id"));
+			gridLayoutItem.setAttribute("select", "column_widths, column_order, itname, page_size, max_records, frozen_columns, location, order_by, additional_settings");
+			gridLayoutItem = gridLayoutItem.apply();
+				if (gridLayoutItem.isError())
+			{
+				break;
+			}
+			additionalData["column_widths"] = gridLayoutItem.getProperty("column_widths");
+			additionalData["column_order"] = gridLayoutItem.getProperty("column_order");
+			additionalData["itname"] = gridLayoutItem.getProperty("itname");
+			additionalData["page_size"] = gridLayoutItem.getProperty("page_size");
+			additionalData["max_records"] = gridLayoutItem.getProperty("max_records");
+			additionalData["frozen_columns"] = gridLayoutItem.getProperty("frozen_columns");
+			additionalData["location"] = gridLayoutItem.getProperty("location");
+			additionalData["order_by"] = gridLayoutItem.getProperty("order_by");
+			additionalData["additional_settings"] = gridLayoutItem.getProperty("additional_settings");
+			break;
+		default:
+			break;
+	}
+
+	return innovator.newResult(favoriteObject.ToString());
+}
+
+private static Newtonsoft.Json.Linq.JObject GetGenericJsonObjectForFavorite(Item favoriteItem)
+{
+	Newtonsoft.Json.Linq.JObject favoriteObject = new Newtonsoft.Json.Linq.JObject();
+
+	SetJsonPropertyIfIsNotNullOrEmpty(favoriteObject, "quickAccessFlag", favoriteItem.getProperty("quick_access_flag"));
+	SetJsonPropertyIfIsNotNullOrEmpty(favoriteObject, "favoriteOrder", favoriteItem.getProperty("favorite_order"));
+	SetJsonPropertyIfIsNotNullOrEmpty(favoriteObject, "folderId", favoriteItem.getProperty("folder_id"));
+	SetJsonPropertyIfIsNotNullOrEmpty(favoriteObject, "contextType", favoriteItem.getProperty("context_type"));
+	SetJsonPropertyIfIsNotNullOrEmpty(favoriteObject, "category", favoriteItem.getProperty("category"));
+	string label = favoriteItem.getProperty("label");
+	if (string.IsNullOrEmpty(label)) {
+		string defaultLanguageCode = favoriteItem.getInnovator().getI18NSessionContext().GetDefaultLanguageCode();
+		label = favoriteItem.getProperty("label", string.Empty, defaultLanguageCode);
+	}
+	SetJsonPropertyIfIsNotNullOrEmpty(favoriteObject, "label", label);
+	SetJsonPropertyIfIsNotNullOrEmpty(favoriteObject, "id", favoriteItem.getID());
+	SetJsonPropertyIfIsNotNullOrEmpty(favoriteObject, "ownedBy", favoriteItem.getProperty("owned_by_id"));
+
+	try
+	{
+		favoriteObject["additional_data"] = Newtonsoft.Json.Linq.JObject.Parse(favoriteItem.getProperty("additional_data", string.Empty));
+	}
+	catch (Newtonsoft.Json.JsonReaderException)
+	{
+	}
+
+	Item mustViewByItems = favoriteItem.getRelationships("FavoriteMustViewBy", "related_id", null);
+	if (!mustViewByItems.isError() && mustViewByItems.getItemCount() > 0)
+	{
+		Item rel = mustViewByItems.getItemByIndex(0);
+		favoriteObject["mustViewById"] = rel.getProperty("related_id");
+		favoriteObject["mustViewById@aras.keyed_name"] = rel.getPropertyAttribute("related_id", "keyed_name");
+	}
+
+	return favoriteObject;
+}
+
+private static void SetJsonPropertyIfIsNotNullOrEmpty(Newtonsoft.Json.Linq.JObject jObject, string propName, string propValue)
+{
+	if (!string.IsNullOrEmpty(propValue))
+	{
+		jObject[propName] = propValue;
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>Fav_FavoriteItemJsonBuilder</name>
+ </Item>
+</AML>

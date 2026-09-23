@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="20FB207E1D4A4BA18AF60DB919826A4F" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Properties must contain 'Type' specified.</text>
+  <name>cws_PropertiesMustContainTypeSpecified</name>
+ </Item>
+</AML>

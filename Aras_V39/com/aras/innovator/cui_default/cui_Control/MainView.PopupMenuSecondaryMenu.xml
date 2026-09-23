@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="659E7D5FD6D34CD2A0B4E1284A9013A2" action="add">
+  <control_type>ContextMenu</control_type>
+  <location keyed_name="PopupMenuSecondaryMenu" type="cui_Location">51AFD3A20DB14B88AFECCD747E1F63AE</location>
+  <sealed>0</sealed>
+  <name>MainView.PopupMenuSecondaryMenu</name>
+ </Item>
+</AML>

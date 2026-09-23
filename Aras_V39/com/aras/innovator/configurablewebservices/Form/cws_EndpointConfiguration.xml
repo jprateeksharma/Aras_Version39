@@ -1,0 +1,119 @@
+﻿<AML>
+ <Item type="Form" id="FF5B97CD420040A8801F8F625918552B" action="add">
+  <height>120</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>699</width>
+  <name>cws_EndpointConfiguration</name>
+  <Relationships>
+   <Item type="Body" id="1BB3DF01D83541FB89AABF0E700A37DC" action="add">
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cws_EndpointConfiguration" type="Form">FF5B97CD420040A8801F8F625918552B</source_id>
+    <Relationships>
+     <Item type="Field" id="463415504ABC4CE2A9909CE20AA3B298" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>checkbox</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Active</label>
+      <label_position>right</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="is_active" type="Property">A380D7480DB545A1BB499A257F42F8B3</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="1BB3DF01D83541FB89AABF0E700A37DC" type="Body">1BB3DF01D83541FB89AABF0E700A37DC</source_id>
+      <tab_index>3584</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>1</x>
+      <y>96</y>
+      <name>is_active</name>
+     </Item>
+     <Item type="Field" id="333F53192C0443D2AF185B2E61AC7642" action="add">
+      <border_width>0</border_width>
+      <display_length>233</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>item</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>1</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Web Service</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <show_help>1</show_help>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="1BB3DF01D83541FB89AABF0E700A37DC" type="Body">1BB3DF01D83541FB89AABF0E700A37DC</source_id>
+      <tab_index>2944</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>1</x>
+      <y>5</y>
+      <name>source_id</name>
+     </Item>
+     <Item type="Field" id="94A16E291DA24510B4CA462170E9DEE4" action="add">
+      <border_width>0</border_width>
+      <display_length>508</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>1</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">URL</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="url" type="Property">385B649F3ECB4789B75FE9926B7C3748</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="1BB3DF01D83541FB89AABF0E700A37DC" type="Body">1BB3DF01D83541FB89AABF0E700A37DC</source_id>
+      <tab_index>4224</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>81</x>
+      <y>49</y>
+      <name>url</name>
+     </Item>
+     <Item type="Field" id="215A05EF439A4A4C94C23D02B79CDB18" action="add">
+      <border_width>0</border_width>
+      <display_length>60</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Version</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="version" type="Property">685259FB66C44414AF1DAF83369E3B3F</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="1BB3DF01D83541FB89AABF0E700A37DC" type="Body">1BB3DF01D83541FB89AABF0E700A37DC</source_id>
+      <tab_index>3712</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>1</x>
+      <y>49</y>
+      <name>version</name>
+     </Item>
+    </Relationships>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="Field" id="333F53192C0443D2AF185B2E61AC7642" action="edit">
+  <!-- Please note: this AML depends on the "cws_EndpointConfiguration" ItemType. Please make sure it exists before running this. -->
+  <propertytype_id>
+   <Item type="Property" action="get" select="id">
+    <name>source_id</name>
+    <source_id type="ItemType" keyed_name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+   </Item>
+  </propertytype_id>
+ </Item>
+</AML>

@@ -1,0 +1,12 @@
+﻿<AML>
+ <Item type="Identity" id="8EB1099425594CA387CC7A5C31BD9E2F" action="add">
+  <description>System Identity is used to configure jobs scheduling</description>
+  <is_alias>0</is_alias>
+  <name>cjs_Job Manager</name>
+ </Item>
+ <Item type="Member" id="4BB13BDFC0314A29B3CE13F672F1CAB6" action="add">
+  <related_id keyed_name="cjs_Job Agent" type="Identity">82B8860AC92047979CDE2CBF063FFA79</related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="cjs_Job Manager" type="Identity">8EB1099425594CA387CC7A5C31BD9E2F</source_id>
+ </Item>
+</AML>

@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="C9C45616439B44D1853C1D16025F10F5" action="add">
+  <control_type>ToolbarControl</control_type>
+  <location keyed_name="TocEditor.Commandbar" type="cui_Location">D61CBC2755A140B3A10258F9714D79FB</location>
+  <sealed>0</sealed>
+  <name>TocEditor.CommandBar</name>
+ </Item>
+</AML>

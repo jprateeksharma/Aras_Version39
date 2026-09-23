@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="CommandBarMenuSeparator" id="80598DF8BE2F43D59F69102723FB2E4B" action="add">
+  <parent_menu keyed_name="itemview.relationshipsrowcontextmenu.default.relationship" type="CommandBarMenu">C61C0B4E3AC04EB89B14DD6F94EF2EA0</parent_menu>
+  <name>itemview.relationshipsrowcontextmenu.default.relationship.after_open_sep</name>
+ </Item>
+</AML>

@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="AC571F5BBEC64CE1B26D1F6A74DC513E" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="TDF.EditorView" type="cui_Location">817B83013241468581109A828C1C198A</location>
+  <name>tdf.editorview.default</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="B2FC631268DC490380D19FAC2736D5CA" action="add">
+    <action>Add</action>
+    <related_id keyed_name="TDF.EditorView.Toolbar_C8F19E0BF34F4337A93E1AD483A9D6F6" type="cui_Control">C8F19E0BF34F4337A93E1AD483A9D6F6</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="tdf.editorview.default" type="cui_WindowSection">AC571F5BBEC64CE1B26D1F6A74DC513E</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

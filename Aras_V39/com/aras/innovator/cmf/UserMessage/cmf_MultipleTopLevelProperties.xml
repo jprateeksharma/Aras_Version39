@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="EB6F017DCF0241EB94551FEB94B8CE09" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">All mapped properties in the View should belong to the same Top Level Element Type. Invalid property: {0}.</text>
+  <name>cmf_MultipleTopLevelProperties</name>
+ </Item>
+</AML>

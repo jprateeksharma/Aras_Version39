@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="C2790958CFCC4AA4B8A4330171AC6266" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Property {1} of type Multi-Value List should be declared in section Collections not in Properties.</text>
+  <name>cws_PropertiesContainRestrictedMultiValueProperty</name>
+ </Item>
+</AML>

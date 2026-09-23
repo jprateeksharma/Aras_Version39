@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="7D2AAA6E534E4BBE987A824047E6A128" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The "{0}" field is required. You must provide a value for this field before saving.</text>
+  <name>ScheduledJobFieldIsRequired</name>
+ </Item>
+</AML>

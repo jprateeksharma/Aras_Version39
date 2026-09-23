@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="Method" id="2052A0A45CE24922BA6EF74122F5880D" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const { selectedId, changes, viewAs, tocData } = options.getState();
+const itemChanges = changes[selectedId];
+const isItemInStore = tocData.has(selectedId);
+if (!selectedId || viewAs || itemChanges || !isItemInStore) {
+	return { disabled: true };
+}
+
+const { related_id: relatedId } = tocData.get(selectedId);
+const relatedChanges = changes[relatedId];
+const disabled = !!relatedChanges;
+return { disabled };
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_toc_editor_addpackage_init</name>
+ </Item>
+</AML>

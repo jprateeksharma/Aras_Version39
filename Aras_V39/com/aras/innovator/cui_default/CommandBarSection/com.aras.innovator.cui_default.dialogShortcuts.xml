@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="4524343104C04375A34173C4420A7F6F" action="add">
+  <classification>Data Model</classification>
+  <label xml:lang="en">Search Dialog Shortcuts</label>
+  <location keyed_name="SearchDialog.Shortcuts" type="cui_Location">F102A176A847484AAD4418AFF7ABAAF5</location>
+  <name>com.aras.innovator.cui_default.dialogShortcuts</name>
+ </Item>
+</AML>

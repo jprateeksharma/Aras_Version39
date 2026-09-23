@@ -1,0 +1,175 @@
+﻿<AML>
+ <Item type="Preference" id="507A16AA36F94513AD7EC1F948B5B48F" action="add">
+  <permission_id keyed_name="World preference" type="Permission">E734B425C0F144EB825A5FB1023FEBC1</permission_id>
+  <identity_id keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</identity_id>
+  <Relationships>
+   <Item type="Core_GlobalLayout" id="DB4652A5C55D4EB38F39E5C0602CEC48" action="add">
+    <core_append_items>false</core_append_items>
+    <core_debug>false</core_debug>
+    <core_default_download_location>0</core_default_download_location>
+    <core_popupmessage_timeout>0</core_popupmessage_timeout>
+    <core_show_item_properties>true</core_show_item_properties>
+    <core_show_labels>false</core_show_labels>
+    <core_show_scan_button_for_file>0</core_show_scan_button_for_file>
+    <core_structure_layout>9</core_structure_layout>
+    <core_successmessage_type>Popup</core_successmessage_type>
+    <core_tear_off>true</core_tear_off>
+    <core_toc_pinned>0</core_toc_pinned>
+    <core_toc_sorting_type>Alphabetical</core_toc_sorting_type>
+    <core_use_wildcards>true</core_use_wildcards>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="1A86C58CE7244729BFD106E5D566FA3F" action="add">
+    <related_id keyed_name="ReplicationTxn" type="ItemType" name="ReplicationTxn">2DAC2B407B0043A692905CF6A94296A8</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="2533E29F3074456A9071837B2F5CE401" action="add">
+    <related_id keyed_name="tp_Image" type="ItemType" name="tp_Image">E4A23B0AC84D4155BF4C1E44B84CBD45</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="34AF9F4783EB4872BBCAFB9DAA856DA4" action="add">
+    <related_id keyed_name="Measurement Unit" type="ItemType" name="Measurement Unit">6AC851D83E4A465CAB4E06E164B905D8</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="620EC5B6511A4E79A88CF10B1E94E89E" action="add">
+    <related_id keyed_name="uvp_UserVisibilityRule" type="ItemType" name="uvp_UserVisibilityRule">CBAADF17BF494B62AA5604AFEB9AF7C2</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="89A4053FCE4A49FCA4002240EF57816B" action="add">
+    <related_id keyed_name="effs_scope" type="ItemType" name="effs_scope">63449FB1A2EE411ABFEE16109A5576C3</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="8BFFA9F29DD043E0BA8EB316894C991B" action="add">
+    <related_id keyed_name="cmf_Style" type="ItemType" name="cmf_Style">94E345F15EB94D86ADE8FF1B6AE2B439</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="8FB882EDB083492F899E09EB0F5B5B43" action="add">
+    <related_id keyed_name="ConversionRule" type="ItemType" name="ConversionRule">05DF56FF833542F98251528F3FFE2FA0</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="A573E347D329409EBD1C5C959D74E114" action="add">
+    <related_id keyed_name="Forum" type="ItemType" name="Forum">2E25B49E218A45D28D0C7D3C0633710C</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="CE601C023F254A3DBD8D6937683104C5" action="add">
+    <related_id keyed_name="gn_SystemDefaultCard" type="ItemType" name="gn_SystemDefaultCard">BB9C415B65E0480C96C99C07EB3FCA88</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="ECFC93518BF34E8484018DC4383ED9C2" action="add">
+    <related_id keyed_name="PDFWMConfiguration" type="ItemType" name="PDFWMConfiguration">327998A4BAFF4CE4B29AD5AC4D37C0C1</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="292B538433EC4507B15C6FB8FDEC8DB9" action="add">
+    <related_id keyed_name="ConversionServer" type="ItemType" name="ConversionServer">02FA838247DF47C2BB85AAB299E646B2</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="494B1400EEC24606958DA31737F18463" action="add">
+    <related_id keyed_name="gn_ViewCard" type="ItemType" name="gn_ViewCard">B5B1E4E180CF43A986D05ED063EA7D67</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="6838142FF0FC45C3B16F1E08CCF63AE0" action="add">
+    <related_id keyed_name="WMSet" type="ItemType" name="WMSet">08CC14292189425B9FBC68937CC5BD33</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="7C82E7911E9B4A5CBCCF3900CC2DE3EB" action="add">
+    <related_id keyed_name="Command" type="ItemType" name="Command">4BE59ABCA5644D11B430808476D8553A</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="7D2B794CBC394B97B9171655C0976B90" action="add">
+    <related_id keyed_name="ReplicationTxnLog" type="ItemType" name="ReplicationTxnLog">98FF7C1BFDFA43448B1EC5A95EA13AEA</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="4A4E19AA20B74EBD8A76858865C76EF8" action="add">
+    <related_id keyed_name="WMSettings" type="ItemType" name="WMSettings">14479E1ADA444096B3116018A0012EB3</related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="BB1DDC0BF04F4A90AE5318C29CA79127" action="add">
+    <related_id keyed_name="FileType" type="ItemType" name="FileType">13EC84A626F1457BB5F60A13DA03580B</related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="E5EFD2AB3F79488C98602297B29B4030" action="add">
+    <related_id keyed_name="EMail Message" type="ItemType" name="EMail Message">F91DE6AE038A4CC8B53D47D5A7FA49FC</related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="76EBB85842CD493391547150BBF38CDB" action="add">
+    <related_id keyed_name="WMType" type="ItemType" name="WMType">C8BC1FE465374CE290C61FCFEA67F4DB</related_id>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="A08508C6B68A4506865B0B237C8ED6F9" action="add">
+    <related_id keyed_name="Form" type="ItemType" name="Form">47573682FB7549F59ADECD4BFE04F1DE</related_id>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="176D12B9B2924C12986E906C00DDB8E3" action="add">
+    <related_id keyed_name="Language" type="ItemType" name="Language">030019FA30FE40FEB5E32AD2FC9B1F20</related_id>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="0DC9E2B717BF4F7182269EE421A309B0" action="add">
+    <related_id keyed_name="Life Cycle Map" type="ItemType" name="Life Cycle Map">AC32527D85604A4D9FC9107C516AEF47</related_id>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="36D912C23DCF4F34A05344B6F8A5D476" action="add">
+    <related_id keyed_name="Locale" type="ItemType" name="Locale">137D24DFD9AC4D0CA2ABF8D90346AABB</related_id>
+    <sort_order>896</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="D5DE231EAC564275BA6AA5DD0E18899F" action="add">
+    <related_id keyed_name="Revision" type="ItemType" name="Revision">F81CDEF9FE324D01947CC9023BC38317</related_id>
+    <sort_order>1024</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="14192D916D824D03A60CCAE4F09D5F60" action="add">
+    <related_id keyed_name="Sequence" type="ItemType" name="Sequence">2B46201802CE46708C269667DB4798AC</related_id>
+    <sort_order>1152</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="8621959023CE4B19A44E497D1489B142" action="add">
+    <related_id keyed_name="SQL" type="ItemType" name="SQL">FC3E32F18F804FD9BE4B175973D29112</related_id>
+    <sort_order>1280</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="3D5F21937E044C0AA372CD26A97A8A3B" action="add">
+    <related_id keyed_name="SystemEvent" type="ItemType" name="SystemEvent">B30032741C894BB086148DDB551D3BEE</related_id>
+    <sort_order>1408</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="2F9B0671DA1B4F58B89B365CC579E433" action="add">
+    <related_id keyed_name="SystemEventLogDescriptor" type="ItemType" name="SystemEventLogDescriptor">FF53A19A424D4B2F80938A5A5C1A29EA</related_id>
+    <sort_order>1536</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="0A782F9DBF35419A835B454DDD72AE14" action="add">
+    <related_id keyed_name="Viewer" type="ItemType" name="Viewer">602D9828174C48EBA648B1D261C54E43</related_id>
+    <sort_order>1664</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+   <Item type="CoreSearchGridEnabledEditing" id="B313D9A0B1C7489DA528DFAC2F45C144" action="add">
+    <related_id keyed_name="Workflow Process" type="ItemType" name="Workflow Process">261EAC08AE9144FC95C49182ACE0D3FE</related_id>
+    <sort_order>1792</sort_order>
+    <source_id keyed_name="World" type="Preference">507A16AA36F94513AD7EC1F948B5B48F</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

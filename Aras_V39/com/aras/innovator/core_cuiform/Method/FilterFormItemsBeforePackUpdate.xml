@@ -1,0 +1,408 @@
+﻿<AML>
+ <Item type="Method" id="48E1AC4A1542428F9AB49EBB59BDBC51" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer();
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer, CCO.Permissions);
+
+	try
+	{
+		return businessLogic.FilterFormItemsBeforeUpdatePackage(this);
+	}
+	catch (Aras.Server.Core.InnovatorServerException ex)
+	{
+		return innovator.newError(ex.Message);
+	}
+}
+
+internal class BusinessLogic
+{
+	private readonly Innovator _innovator;
+	private readonly IDataAccessLayer _dataAccessLayer;
+	private readonly Aras.Server.Core.Abstractions.IPermissions _permissions;
+
+	private const string IdsParameterName = "ids";
+
+	internal BusinessLogic(
+		Innovator innovator,
+		IDataAccessLayer dataAccessLayer,
+		Aras.Server.Core.Abstractions.IPermissions permissions
+	)
+	{
+		this._innovator = innovator;
+		this._dataAccessLayer = dataAccessLayer;
+		this._permissions = permissions;
+	}
+
+	public Item FilterFormItemsBeforeUpdatePackage(Item methodItem)
+	{
+		var formIdsToValidateString = methodItem.getProperty(IdsParameterName);
+		List<string> formsToProcess = new List<string>(formIdsToValidateString.Split(','));
+
+		var existPackagesWithForms = GetPackageDefinitionWithItems(
+			this._innovator,
+			this._dataAccessLayer,
+			String.Join(",", formsToProcess.Select(formId=> $"'{formId}'")), "Form");
+
+		List<string> formsInPackagesIds = GetFormsInPackagesIds(existPackagesWithForms);
+		var formsNotInPackageIds = formsToProcess.Except(formsInPackagesIds);
+
+		// init response collections
+		var formsNotInPackageArray = this.GetFormsNotInPackagaCollection(formsNotInPackageIds);
+		var formsToUpdateArray = new Newtonsoft.Json.Linq.JArray();
+		var formsWithNoPermissionsToUpdateArray = new Newtonsoft.Json.Linq.JArray(); // form with sealed control can be updated only by Root user
+		var formsWithCustomPartUpdateArray = new Newtonsoft.Json.Linq.JArray(); // form with sealed and custom controls in package, only custom control should be updatedif custom control not in the same package as sealed
+
+		if (formsInPackagesIds.Any())
+		{
+			this.FillResultCollectionsWithFormItems(formsInPackagesIds, formsToUpdateArray, formsWithNoPermissionsToUpdateArray, formsWithCustomPartUpdateArray);
+		}
+
+		Newtonsoft.Json.Linq.JObject result = new Newtonsoft.Json.Linq.JObject
+		{
+			{ "formsNotInPackage", formsNotInPackageArray },
+			{ "formsToUpdate", formsToUpdateArray },
+			{ "formsWithNoPermissionsToUpdate", formsWithNoPermissionsToUpdateArray },
+			{ "formsWithCustomPartUpdate", formsWithCustomPartUpdateArray }
+		};
+
+		return this._innovator.newResult(result.ToString(Newtonsoft.Json.Formatting.None));
+	}
+
+	private void FillResultCollectionsWithFormItems(
+		List<string> formsInPackagesIds,
+		Newtonsoft.Json.Linq.JArray formsToUpdateArray,
+		Newtonsoft.Json.Linq.JArray formsWithNoPermissionsToUpdateArray,
+		Newtonsoft.Json.Linq.JArray formsWithCustomPartUpdateArray)
+	{
+		var formItemsWithControlsToProcess = GetForms(String.Join(",", formsInPackagesIds.Select(formId=> $"'{formId}'")));
+
+		List<FormStructure> formStructures = new List<FormStructure>();
+		for (int i = 0; i < formItemsWithControlsToProcess.getItemCount(); i++)
+		{
+			Item formItem = formItemsWithControlsToProcess.getItemByIndex(i);
+			FormStructure formStructure = new FormStructure(this._innovator, this._dataAccessLayer, formItem);
+			formStructures.Add(formStructure);
+		}
+
+		var formStructuresWithSealedControl = formStructures.Where(x=>x.Controls.Where(c=>c.IsSealed == true).Any());
+		if (formStructuresWithSealedControl.Any())
+		{
+			FillResultCollectionsWithFormWithSealedControlData(
+				formStructuresWithSealedControl,
+				formsToUpdateArray,
+				formsWithNoPermissionsToUpdateArray,
+				formsWithCustomPartUpdateArray);
+		}
+
+		var formStructuresWithoutSealedControl = formStructures.Except(formStructuresWithSealedControl);
+
+		if (formStructuresWithoutSealedControl.Any())
+		{
+			// process forms without sealed control in package
+			FillFormsToUpdateCollectionWithFormStructuresData(formStructuresWithoutSealedControl, formsToUpdateArray);
+		}
+	}
+
+	private void FillResultCollectionsWithFormWithSealedControlData(
+		IEnumerable<FormStructure> formStructuresWithSealedControl,
+		Newtonsoft.Json.Linq.JArray formsToUpdateArray,
+		Newtonsoft.Json.Linq.JArray formsWithNoPermissionsToUpdateArray,
+		Newtonsoft.Json.Linq.JArray formsWithCustomPartUpdateArray )
+	{
+		foreach (var formStructureWithSealedControl in formStructuresWithSealedControl)
+		{
+			Newtonsoft.Json.Linq.JObject formWithSealedControlObject = new Newtonsoft.Json.Linq.JObject
+			{
+				{ "id", formStructureWithSealedControl.Form.Id },
+				{ "name", formStructureWithSealedControl.Form.Name },
+				{ "packageName", formStructureWithSealedControl.Form.PackageName }
+			};
+
+			var sealedControl = formStructureWithSealedControl.Controls.Where(c => c.IsSealed).First();
+			// if only sealed control
+			if (formStructureWithSealedControl.Controls.Count == 1)
+			{
+				if(this._permissions.UserHasRootIdentity())
+				{
+					formsToUpdateArray.Add(formWithSealedControlObject);
+				}
+				else
+				{
+					formsWithNoPermissionsToUpdateArray.Add(formWithSealedControlObject);
+				}
+
+				continue;
+			}
+
+			var customControl = formStructureWithSealedControl.Controls.Where(c => c.IsSealed == false).First();
+			// if custom control in the same package with sealed -> error for admin
+			// else can be updated, but only custom part can be updated
+			if (!sealedControl.IsInPackage)
+			{
+				if (this._permissions.UserHasRootIdentity())
+				{
+					formsToUpdateArray.Add(formWithSealedControlObject);
+				}
+				else
+				{
+					formsWithNoPermissionsToUpdateArray.Add(formWithSealedControlObject);
+				}
+			}
+			else if (sealedControl.IsInPackage)
+			{
+				if (!customControl.IsInPackage)
+				{
+					if (this._permissions.UserHasRootIdentity())
+					{
+						formsToUpdateArray.Add(formWithSealedControlObject);
+					}
+					else
+					{
+						formsWithNoPermissionsToUpdateArray.Add(formWithSealedControlObject);
+					}
+				}
+				else // customControl.IsInPackage == true
+				{
+					if (sealedControl.PackageId == customControl.PackageId)
+					{
+						if (this._permissions.UserHasRootIdentity())
+						{
+							formsToUpdateArray.Add(formWithSealedControlObject);
+						}
+						else
+						{
+							formsWithNoPermissionsToUpdateArray.Add(formWithSealedControlObject);
+						}
+					}
+					else // in different packages, need to update custom part of form for both Root and Admin
+					{
+						var customControlToProcess = formStructureWithSealedControl.Controls.Where(c => c.IsSealed == false).FirstOrDefault();
+
+						formWithSealedControlObject.Add("controlId", customControlToProcess?.Id);
+						formWithSealedControlObject.Add("controlPackageName", customControlToProcess?.PackageName);
+
+						formsWithCustomPartUpdateArray.Add(formWithSealedControlObject);
+					}
+				}
+			}
+		}
+	}
+
+	private static void FillFormsToUpdateCollectionWithFormStructuresData(IEnumerable<FormStructure> formStructures, Newtonsoft.Json.Linq.JArray formsArray)
+	{
+		foreach (var formStructure in formStructures)
+		{
+			Newtonsoft.Json.Linq.JObject formInPackageObject = new Newtonsoft.Json.Linq.JObject
+			{
+				{ "id", formStructure.Form.Id },
+				{ "name", formStructure.Form.Name },
+				{ "packageName", formStructure.Form.PackageName }
+			};
+
+			formsArray.Add(formInPackageObject);
+		}
+	}
+
+	private static List<string> GetFormsInPackagesIds(Item packagesWithForms)
+	{
+		List<string> formsInPackages = new List<string>();
+		for (int i = 0; i < packagesWithForms.getItemCount(); i++)
+		{
+			Item package = packagesWithForms.getItemByIndex(i);
+			foreach(XmlNode elementIdNode in package.node.GetElementsByTagName("element_id"))
+			{
+				var formId = elementIdNode.InnerText;
+				formsInPackages.Add(formId);
+			}
+		}
+
+		return formsInPackages;
+	}
+
+	private Newtonsoft.Json.Linq.JArray GetFormsNotInPackagaCollection(IEnumerable<string> formsNotInPackageIds)
+	{
+		var formsNotInPackageArray = new Newtonsoft.Json.Linq.JArray();
+		foreach (var formNotInPackageId in formsNotInPackageIds)
+		{
+			var formData = GetFormData(formNotInPackageId);
+			var formName = formData.getProperty("name");
+
+			Newtonsoft.Json.Linq.JObject formWithoutPackageObject = new Newtonsoft.Json.Linq.JObject
+			{
+				{ "id", formNotInPackageId },
+				{ "name", formName },
+			};
+
+			formsNotInPackageArray.Add(formWithoutPackageObject);
+		}
+
+		return formsNotInPackageArray;
+	}
+
+	private Item GetFormData(string formId)
+	{
+		var form = this._innovator.newItem("Form", "get");
+		form.setAttribute("select", "id,name,keyed_name,");
+		form.setProperty("id", formId);
+
+		return this._dataAccessLayer.ApplyItem(form);
+	}
+
+	private Item GetForms(string formIdsToValidateString)
+	{
+		Item cuiControl = this._innovator.newItem("cui_Control", "get");
+		cuiControl.setAttribute("select", "id,sealed");
+
+		Item cuiWindowSectionControl = this._innovator.newItem("cui_WindowSectionControl", "get");
+		cuiWindowSectionControl.setPropertyItem("related_id", cuiControl);
+
+		Item cuiWindowSection = this._innovator.newItem("cui_WindowSection", "get");
+		cuiWindowSection.setAttribute("select", "id");
+		cuiWindowSection.addRelationship(cuiWindowSectionControl);
+
+		Item formComposite = this._innovator.newItem("FormComposite", "get");
+		formComposite.setAttribute("select", "related_id(id)");
+		formComposite.setPropertyItem("related_id", cuiWindowSection);
+
+		var form = this._innovator.newItem("Form", "get");
+		form.setAttribute("select", "id,name,keyed_name,");
+		form.setPropertyCondition("id", "in");
+		form.setProperty("id", formIdsToValidateString);
+		form.addRelationship(formComposite);
+
+		return this._dataAccessLayer.ApplyItem(form);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	public Item ApplyItem(Item item)
+	{
+		item = item.apply();
+		if (item.isError() && !item.isEmpty())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(item.ToString());
+		}
+
+		return item;
+	}
+}
+
+static Item GetPackageDefinitionWithItems(Innovator innovator, IDataAccessLayer dal, string itemTypeIds, string type, string packageName = null)
+{
+	Item packageElementItem = innovator.newItem("PackageElement", "get");
+	packageElementItem.setAttribute("select", "id, element_id");
+	packageElementItem.setProperty("element_id", itemTypeIds);
+	packageElementItem.setPropertyAttribute("element_id", "condition", "in");
+	packageElementItem.setProperty("element_type", type);
+	packageElementItem.setPropertyAttribute("element_type", "condition", "eq");
+
+	Item packageGroupItem = innovator.newItem("PackageGroup", "get");
+	packageGroupItem.setAttribute("select", "id");
+	packageGroupItem.addRelationship(packageElementItem);
+
+	Item packageDefinitionItems = innovator.newItem("PackageDefinition", "get");
+	packageDefinitionItems.setAttribute("select", "id,name");
+	if (!string.IsNullOrEmpty(packageName))
+	{
+		packageDefinitionItems.setProperty("name", packageName);
+	}
+
+	packageDefinitionItems.addRelationship(packageGroupItem);
+
+	return dal.ApplyItem(packageDefinitionItems);
+}
+
+internal class FormStructure
+{
+	private readonly Innovator _innovator;
+	private readonly IDataAccessLayer _dal;
+
+	internal Form Form { get; private set; }
+	internal List<Control> Controls = new List<Control>();
+
+	internal FormStructure(Innovator innovator, IDataAccessLayer dal, Item formItem)
+	{
+		this._innovator = innovator;
+		this._dal = dal;
+		ParseFormItem(formItem);
+	}
+
+	private void ParseFormItem(Item formItem)
+	{
+		// parse Form
+		Form form = new Form();
+		form.Id = formItem.getID();
+		form.Name = formItem.getProperty("name");
+		var packageWithForm = GetPackageDefinitionWithItems(this._innovator, this._dal, $"'{form.Id}'", "Form");
+
+		if (packageWithForm.getItemCount() == 0)
+		{
+			form.IsInPackage = false;
+		}
+		else
+		{
+			var packageItem = packageWithForm.getItemByIndex(0);
+			form.PackageId = packageItem.getID();
+			form.IsInPackage = true;
+			form.PackageName = packageItem.getProperty("name");
+		}
+		this.Form = form;
+
+		// parse Controls
+		var formCuiControls = formItem.getItemsByXPath("//Item[@type='cui_Control']");
+
+		if (formCuiControls.getItemCount() > 0)
+		{
+			for (int controlIndex = 0; controlIndex < formCuiControls.getItemCount(); controlIndex++)
+			{
+				Control control = new Control();
+				var controlItem = formCuiControls.getItemByIndex(controlIndex);
+				var isSealed = controlItem.getProperty("sealed");
+				var controlIdString = $"'{controlItem.getID()}'";
+				var packageDefinitionWithControl = GetPackageDefinitionWithItems(this._innovator, this._dal, controlIdString, "cui_Control");
+
+				control.Id = controlItem.getID();
+				control.IsSealed = isSealed == "0" ? false : true;
+
+				if (packageDefinitionWithControl.getItemCount() > 0)
+				{
+					control.PackageId = packageDefinitionWithControl.getID();
+					control.PackageName = packageDefinitionWithControl.getProperty("name");
+					control.IsInPackage = true;
+				}
+
+				this.Controls.Add(control);
+			}
+		}
+	}
+}
+
+internal class PackageElement
+{
+	internal string PackageId { get; set; }
+	internal string PackageName { get; set; }
+	internal bool IsInPackage { get; set; }
+}
+
+internal class Form : PackageElement
+{
+	internal string Id { get; set; }
+	internal string Name { get; set; }
+}
+
+internal class Control : PackageElement
+{
+	internal string Id { get; set; }
+	internal bool IsSealed { get; set; }
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>FilterFormItemsBeforePackUpdate</name>
+ </Item>
+</AML>

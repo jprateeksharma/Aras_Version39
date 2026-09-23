@@ -1,0 +1,126 @@
+﻿<AML>
+ <Item type="Method" id="5A933866A5FD426986A521961B6A576F" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	getState,
+	itemType,
+	rows,
+	polySources,
+	commandFactory
+} = options;
+
+const { ArasModules, store } = aras.getMostTopWindowWithAras();
+
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(itemType.id);
+
+const getItemType = (item) => {
+	if (isPolymorphic) {
+		const itemTypeId = item.itemtype;
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return itemType;
+};
+
+const state = getState();
+
+const editableItems = state.grid.selectedRows.filter((itemId) => {
+	return state.editableItems.has(itemId);
+});
+
+const itemsData = editableItems.map(itemId => {
+	const item = rows.get(itemId);
+	const itemType = getItemType(item);
+
+	return {
+		id: itemId,
+		type: itemType.name
+	};
+});
+
+const executeRequests = (savedItems, itemTypesList) => savedItems.map((savedItem, index) => {
+	const updatedSavedItem = {
+		...savedItem,
+		locked_by_id: aras.user.id,
+	};
+	const itemId = updatedSavedItem['@attrs'].id;
+	const item = rows.get(itemId);
+
+	const itemType = itemTypesList[index];
+	const itemTypeName = itemType.name;
+
+	const xmlItemStr = ArasModules.jsonToXml({ Item: updatedSavedItem });
+	const { documentElement: itemNode } =
+		ArasModules.xml.parseString(xmlItemStr);
+
+	const isNew = ArasModules.item.isNew(itemTypeName, itemId);
+	const isDirty = aras.isDirtyEx(itemNode);
+
+	if (isNew || isDirty) {
+		const { execute } = commandFactory('SaveItem', {
+			itemNode,
+			itemType,
+			itemTypeName,
+			isDone: true
+		});
+
+		return execute();
+	}
+
+	const { execute } = commandFactory('DiscardItem', {
+		item,
+		itemNode,
+		itemType,
+		itemTypeName
+	});
+
+	return execute();
+});
+
+const cleanUpLocalChanges = (savedItems, itemTypesList) => savedItems.forEach((savedItem, index) => {
+	const itemId = savedItem['@attrs'].id;
+	const itemType = itemTypesList[index];
+	const itemTypeName = itemType.name;
+
+	if (itemTypeName === 'File') {
+		store.boundActionCreators.deleteItemLocalChangesRecord(
+			itemTypeName,
+			itemId
+		);
+	}
+});
+
+const { getItemsWithDependency } = ArasModules.item;
+const dependencies = getItemsWithDependency(itemsData);
+const itemTypesList = await Promise.all(dependencies.map(async (savedItem) => {
+	const itemId = savedItem['@attrs'].id;
+	const item = rows.get(itemId);
+
+	return item 
+		? Promise.resolve(getItemType(item))
+		: itemTypeMetadata.getItemType(savedItem['@attrs'].type);
+}));
+
+ArasModules.bunchSoap.collect();
+const promises = executeRequests(dependencies, itemTypesList);
+
+let results;
+try {
+	await ArasModules.bunchSoap.complete();
+	results = await Promise.all(promises);
+} catch (error) {
+	const errorMessage = error.message;
+	editableItems.forEach((id) => rows.set(id, errorMessage, '_error'))
+	aras.AlertError(errorMessage);
+}
+
+if (results?.some(Boolean)) {
+	cleanUpLocalChanges(dependencies, itemTypesList);
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_pmig_done_click</name>
+ </Item>
+</AML>

@@ -1,0 +1,238 @@
+﻿<AML>
+ <Item type="Method" id="B156EA6B390A44A794FC4FED2B901FF1" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[ChooseCMDialog = function ()
+{
+	document.isEditMode = true;
+	this.allEmployeesId = "B32BD81D1AD04207BF1E61E39A4E0E13";
+	this.arasPLMId = "56A96DA9E981481688563E2D14D5D878";
+	this.cuiSections = {
+		'ECN': '2A47D9813AD702BE618120D9625E4BB8',
+		'ECR': '1FE904A9F9E4309B618120D9625E4BB8',
+		'Express DCO': '58760DF3A2841D7F618120D9625E4BB8',
+		'Express ECO': '069A701FD797BDD8618120D9625E4BB8',
+		'Express EDR': '9BACEFA0E258215B618120D9625E4BB8',
+		'PR': '7DA520C5F475427A618120D9625E4BB8',
+		'Simple ECO': '0DA315AA05E0E3EE618120D9625E4BB8',
+		'Simple MCO': '2D5B27794BBE101A618120D9625E4BB8'
+	};
+
+	const defaultChangesList = ["change_type_part", "change_type_document", "change_type_cad_document"];
+	const changeItemList = Object.keys(this.cuiSections);
+
+	this.ChangeItemList = changeItemList;
+	this.ChangeItemInputHash = initChangeItemInputHash();
+	this.DefaultChangesList = defaultChangesList;
+	this.DefaultChangesInputHash = initDefaultChangesInputHash();
+
+	this.PopulateTocAccess();
+	this.PopulateDefaultChanges();
+
+	//method implementation
+	function initChangeItemInputHash()
+	{
+		var hash = {};
+		for (var i = 0; i < changeItemList.length; i++)
+		{
+			var changeItemName = changeItemList[i];
+			const input = document.querySelector(`input[name="${changeItemName}"]`);
+			if (input) {
+				hash[changeItemName] = input;
+			}
+		}
+		return hash;
+	}
+
+	function initDefaultChangesInputHash()
+	{
+		var hash = {};
+		for (var i = 0; i < defaultChangesList.length; i++)
+		{
+			var inputName = defaultChangesList[i];
+			hash[inputName] = document.querySelector("select[name='" + inputName + "']");
+		}
+
+		return hash;
+	}
+}
+
+ChooseCMDialog.prototype.PopulateTocAccess = async function ChooseCMDialog_PopulateTocAccess()
+{
+
+	const cuiSections = Object.entries(this.cuiSections);
+	const relatedIdsFilter = cuiSections
+		.map(([name, id]) => `source_id eq '${id}'`)
+		.join(' or ');
+	const odataFilter = `(${relatedIdsFilter})`;
+	const requestURL = `
+		CommandBarSectionItem?
+		$select=id,related_id,role,source_id&
+		$format=application/json;odata.metadata=none&
+		$filter=${odataFilter}
+	`;
+
+	const commandBarSectionItems = await ArasModules.odataFetch(requestURL);
+	this.commandBarSectionItems = commandBarSectionItems.value;
+	cuiSections.forEach(([name, id]) => {
+		const input = this.ChangeItemInputHash[name];
+		const item = this.commandBarSectionItems.find((item) => {
+			const { 'source_id@aras.id': sourceId, 'role@aras.id': role } = item;
+			return sourceId === id && role === this.allEmployeesId;
+		});
+		const checked = item !== undefined;
+		if (input) {
+			input.checked = checked;
+		}
+	});
+}
+
+ChooseCMDialog.prototype.GetDefaultChangesPreferences = function ChooseCMDialog_LoadDefaultChangesPreferences()
+{
+	var preferencesAml = '' +
+	'<AML>' +
+	'<Item type="PE_MainPreferences" action="get" select="change_type_part,change_type_document,change_type_cad_document">' +
+	'  <source_id>' +
+	'    <Item type="Preference" action="get">' +
+	'      <identity_id>' +
+	'        <Item type="Identity" action="get">' +
+	'          <name>World</name>' +
+	'        </Item>' +
+	'      </identity_id>' +
+	'    </Item>' +
+	'  </source_id>' +
+	'</Item>' +
+	'</AML>';
+
+	var preferenceXml = aras.applyAML(preferencesAml);
+	var preferenceDom = aras.createXMLDocument();
+	preferenceDom.loadXML(preferenceXml);
+	preferenceDom = preferenceDom.documentElement;
+
+	this.PreferenceItem = preferenceDom;
+
+	var change_type_part = aras.getItemProperty(preferenceDom, "change_type_part", "ECR");
+	var change_type_document = aras.getItemProperty(preferenceDom, "change_type_document", "ECR");
+	var change_type_cad_document = aras.getItemProperty(preferenceDom, "change_type_cad_document", "ECR");
+
+	var result = aras.newObject();
+
+	for (var i = 0; i < this.DefaultChangesList.length; i++)
+	{
+		var defaultChangesName = this.DefaultChangesList[i];
+		result[defaultChangesName] = aras.getItemProperty(preferenceDom, defaultChangesName, "ECR");
+	}
+
+	return result;
+}
+
+ChooseCMDialog.prototype.PopulateDefaultChanges = function ChooseCMDialog_PopulateDefaultChanges()
+{
+	var preferenceHash = this.GetDefaultChangesPreferences();
+	for (defaultChangesInputName in this.DefaultChangesInputHash)
+	{
+		var defaultChangesInput = this.DefaultChangesInputHash[defaultChangesInputName];
+		var defaultValue = preferenceHash[defaultChangesInputName];
+		defaultChangesInput.remove(0);
+		for (var changeItemIndex = 0; changeItemIndex < this.ChangeItemList.length; changeItemIndex++)
+		{
+			var changeItemName = this.ChangeItemList[changeItemIndex];
+			if (defaultChangesInputName == "change_type_part" && changeItemName == "Express DCO")
+				continue;
+
+			if ((defaultChangesInputName == "change_type_document" || defaultChangesInputName == "change_type_cad_document") && changeItemName == "Express ECO")
+				continue;
+
+			var option = addOptionToDropDown(defaultChangesInput, changeItemName);
+
+			if (changeItemName == defaultValue)
+				option.selected = true;
+		}
+		aras.updateDomSelectLabel(defaultChangesInput);
+	}
+
+	function addOptionToDropDown(dropdown, optionName)
+	{
+		var newOption = document.createElement("option");
+		newOption.id = optionName;
+		newOption.text = optionName;
+		dropdown.add(newOption);
+		return newOption;
+	}
+}
+
+
+ChooseCMDialog.prototype.ApplyChanges = async function ChooseCMDialog_ApplyChanges()
+{
+	const saveTOCPromise = this.SaveTocAccessChanges();
+	this.SaveDefaultChangesPreferences();
+	await saveTOCPromise;
+	var topWnd = parent.aras.getMostTopWindowWithAras(window);
+	topWnd.mainLayout.observer.notify('UpdateTOC');
+	parent.args.dialog.close();
+}
+
+ChooseCMDialog.prototype.SaveTocAccessChanges = async function ChooseCMDialog_SaveTocAccessChanges()
+{
+	const items = Object.entries(this.cuiSections).map(([name, sectionId]) => {
+		const inputName = name === 'Express EDR' ? 'Express ECO' : name;
+		const input = this.ChangeItemInputHash[inputName];
+		const newRole = input.checked ? this.allEmployeesId : this.arasPLMId;
+		const itemsToUpdate = this.commandBarSectionItems.filter((item) => {
+			const { 'source_id@aras.id': sourceId, 'role@aras.id': role } = item;
+			return sourceId === sectionId && role !== newRole;
+		});
+		if (itemsToUpdate.length === 0) {
+			return '';
+		}
+
+		const item = `
+			<Item type="CommandBarSection" action="edit" id="${sectionId}" doGetItem="0">
+				<Relationships>
+					<Item type="CommandBarSectionItem" where="source_id='${sectionId}'" action="edit">
+						<role>${newRole}</role>
+					</Item>
+				</Relationships>
+			</Item>
+		`;
+		return item;
+	})
+	.join('');
+
+	if (items.length === 0) {
+		return;
+	}
+
+	const aml = `
+		<AML>
+			${items}
+		</AML>
+	`;
+	await ArasModules.soap(aml, { method: 'ApplyAML', async: true });
+}
+
+ChooseCMDialog.prototype.SaveDefaultChangesPreferences = function ChooseCMDialog_SaveDefaultChangesPreferences()
+{
+	var preferenceId = aras.getItemProperty(this.PreferenceItem, "id");
+	var preferencesAml = '<AML><Item type="PE_MainPreferences" action="edit" id="' + preferenceId + '" doGetItem="0">';
+
+	for (var i = 0; i < this.DefaultChangesList.length; i++)
+	{
+		var inputName = this.DefaultChangesList[i];
+		var input = this.DefaultChangesInputHash[inputName];
+		preferencesAml += '<' + inputName + '>' + input[input.selectedIndex].text + '</' + inputName + '>'
+	}
+
+	preferencesAml += '</Item></AML>';
+
+	var preferenceXml = aras.applyAML(preferencesAml);
+	var preferenceDom = aras.createXMLDocument();
+}
+
+ChooseCMDialog.prototype.RejectChanges = function ChooseCMDialog_RejectChanges()
+{
+	parent.args.dialog.close();
+}]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>PE_ChooseCMOptions_API</name>
+ </Item>
+</AML>

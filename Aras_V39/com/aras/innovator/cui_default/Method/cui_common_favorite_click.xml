@@ -1,0 +1,53 @@
+﻿<AML>
+ <Item type="Method" id="98D8707EE119464382133F5879DF593D" action="add">
+  <comments>Click method for button "favorite" on relationship and main grid title bars</comments>
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { getState, getProps, getActions, itemTypeName, location } = options;
+const { favoriteSearch } = getState();
+const { favorites } = getProps();
+if (favoriteSearch && favorites[favoriteSearch]) {
+  const result = await aras.getMainWindow().ArasCore.Dialogs.openFavoriteDialog(favorites[favoriteSearch]);
+	if (result.action === 'delete' && currentSearchMode) {
+		currentSearchMode.clearSearchCriteria();
+	}
+} else {
+	const [{ store }, { randomUUID }] = await Promise.all([
+		import('../jsBundles/store.es.js'),
+		import('../jsBundles/core.es.js')
+	]);
+	const currentSearchMode = window.currentSearchMode;
+	const criteria = await currentSearchMode.getAml();
+	const aliasIdentityId = store.getState().system.user.identityId;
+
+	const searchLocationMapping = new Map([
+		['SearchView', 'Main Grid'],
+		['RelationshipsView', 'Relationships Grid']
+	]);
+	const newFavorite = {
+		'@action': 'add',
+		category: 'Search',
+		contextType: itemTypeName,
+		label: '',
+		quickAccessFlag: '0',
+		ownedBy: aliasIdentityId,
+		additional_data: {
+			id: randomUUID(),
+			location: searchLocationMapping.get(location),
+			search_mode: currentSearchMode.id,
+			criteria: criteria,
+			itname: itemTypeName,
+			auto_saved: '0',
+		}
+	};
+  const result = await window.aras.getMainWindow().ArasCore.Dialogs.openFavoriteDialog(newFavorite, {
+    layoutState: window.layout?.state
+  });
+  if(result.action === 'save' && result.id) {
+    getActions().setCurrentFavorite(result.id);
+  }
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_common_favorite_click</name>
+ </Item>
+</AML>

@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="Method" id="1A3BF5113D8D4E2189408066938E4A2B" action="add">
+  <execution_allowed_to keyed_name="cjs_Job Manager" type="Identity">8EB1099425594CA387CC7A5C31BD9E2F</execution_allowed_to>
+  <method_code><![CDATA[Aras.Server.Jobs.InternalMethods.CalculateNextExecutionTime,Aras.Server.Jobs]]></method_code>
+  <method_type>Internal</method_type>
+  <name>cjs_CalculateNextExecutionTime</name>
+ </Item>
+</AML>

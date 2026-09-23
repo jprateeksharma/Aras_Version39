@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="F8D9771DF2D7443D837327D937545FB8" action="add">
+  <include_events>UpdateState</include_events>
+  <label xml:lang="en">Update Active Layout</label>
+  <on_click_handler keyed_name="cui_common_updateactlayout_click" type="Method">D391C4F6E4F24250A78450BB85AA1C7B</on_click_handler>
+  <on_init_handler keyed_name="cui_common_deletelayout_init" type="Method">02B46DE970E6489B848308B76F575E18</on_init_handler>
+  <parent_menu keyed_name="searchview.commandbar.layouts" type="CommandBarMenu">527EED10910B4C8CBFAA73BC80E6247C</parent_menu>
+  <name>searchview.commandbar.layouts.updateactivelayout</name>
+ </Item>
+</AML>

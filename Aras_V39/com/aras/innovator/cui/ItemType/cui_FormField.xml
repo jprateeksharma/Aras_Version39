@@ -1,0 +1,470 @@
+﻿<AML>
+ <Item type="ItemType" id="FB82230C08A345AB8C134BC320D93A66" action="add">
+  <allow_private_permission>1</allow_private_permission>
+  <auto_search>0</auto_search>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>table</implementation_type>
+  <instance_data>CUI_FORMFIELD</instance_data>
+  <is_dependent>1</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <label xml:lang="en">CUI Form Field</label>
+  <large_icon>../images/CuiFormField.svg</large_icon>
+  <open_icon>../images/CuiFormField.svg</open_icon>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs off</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>cui_FormField</name>
+  <Relationships>
+   <Item type="ITPresentationConfiguration" id="76557D27274B445AA9BB40F633B21B41" action="add">
+    <client>js</client>
+    <related_id keyed_name="cui_FormField Presentation Configuration" type="PresentationConfiguration">5F6A9E96FDF344A18BB49DD5CFCFED46</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+   </Item>
+   <Item type="Property" id="3CDAAC71A4904BEB8B264099561A65F9" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Additional Data</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>5376</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>additional_data</name>
+   </Item>
+   <Item type="Property" id="B1C7FFA309D143DDBB9256A7EF1D7B83" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>ml_string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">ARIA Label</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3456</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>aria_label</name>
+   </Item>
+   <Item type="Property" id="CA865A79B20E499BBE26D3816AB6443A" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Box Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3840</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>box_name</name>
+   </Item>
+   <Item type="Property" id="554BA0CBB4C64288BD09379E4A86CD0D" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3712</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>data_source</name>
+   </Item>
+   <Item type="Property" id="D52B297729954AB3860A0175F092E4F0" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>ml_string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">description</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>5632</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>512</stored_length>
+    <track_history>0</track_history>
+    <name>description</name>
+   </Item>
+   <Item type="Property" id="488C42528E9344A28AE3C8B9A6FD9B91" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Disabled</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4736</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>disabled</name>
+   </Item>
+   <Item type="Property" id="C12D8C826F3041838DE5E9548E2FB6B3" action="add">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Method" type="ItemType" name="Method">87879A09B8044DE380D59DF22DE1867F</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Execute Method</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>5120</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>execute_method</name>
+   </Item>
+   <Item type="Property" id="0D05FA092D204D379801CEA7DAF94875" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Field Type</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3584</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>field_type</name>
+   </Item>
+   <Item type="Property" id="AB2979A83CE548088194667782A15390" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Help Text</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4864</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>help_text</name>
+   </Item>
+   <Item type="Property" id="CA5222F227EE4BF7A083BE46BED42FC2" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>ml_string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Help Tooltip</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>5504</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>help_tooltip</name>
+   </Item>
+   <Item type="Property" id="4FDE671935514A6FB7961E7C886C9055" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Hidden</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4096</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>hidden</name>
+   </Item>
+   <Item type="Property" id="328DFD0BD925402FA293C50762F9BA54" action="add">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="ChangeStatesEvents">ECCCE93A50B94900B45125958BB755B1</data_source>
+    <data_type>mv_list</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Include Events</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>5248</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>256</stored_length>
+    <track_history>0</track_history>
+    <name>include_events</name>
+   </Item>
+   <Item type="Property" id="FEE42ACF5532435AB5734AC2AD1EBE37" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>ml_string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Label</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3200</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>label</name>
+   </Item>
+   <Item type="Property" id="BE9F292987BA4BA9B18B447A2614661D" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <keyed_name_order>0</keyed_name_order>
+    <label xml:lang="en">Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3072</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+   <Item type="Property" id="4A33150A271842AC9093D09A9D645121" action="add">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Method" type="ItemType" name="Method">87879A09B8044DE380D59DF22DE1867F</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Init Method</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4992</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>on_init_handler</name>
+   </Item>
+   <Item type="Property" id="1D166C87B8574C72B3408070DCBCF7B1" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Override Property Read Only</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4608</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>override_prop_readonly</name>
+   </Item>
+   <Item type="Property" id="F4C82A863649423598F469414654CE53" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Override Property Required</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4352</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>override_prop_required</name>
+   </Item>
+   <Item type="Property" id="14B2E776175641EF8B540C302586F99C" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Read Only</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4480</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>readonly</name>
+   </Item>
+   <Item type="Property" id="8329440B5BD14912A65D0E496E9BA5C5" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Required</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4224</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>required</name>
+   </Item>
+   <Item type="Property" id="56E730517097437682C212BEBDB7E6CD" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <default_value xml:lang="en">1</default_value>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Show Help</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3968</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>show_help</name>
+   </Item>
+   <Item type="Property" id="DF30848136D2453EA992E9D217AC78AB" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <default_value xml:lang="en">1</default_value>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Show Label</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3328</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <track_history>0</track_history>
+    <name>show_label</name>
+   </Item>
+   <Item type="View" id="F8EDEF2B5A6B404DA93EEF0361AE6574" action="add">
+    <client>js</client>
+    <related_id keyed_name="cui_FormField" type="Form">326810B8FA7B44BBB05A1EF0EE4D69D7</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="Can Add" id="6EE42BA5267C4C9CA898DDEE302D2EF5" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="1B8A4830DAAA4FC4BE8ECE192ABB4EAC" action="add">
+    <is_default>1</is_default>
+    <related_id keyed_name="Default Access" type="Permission">9122CD065CF04141B8EFE263FC80BEA4</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_FormField" type="ItemType" name="cui_FormField">FB82230C08A345AB8C134BC320D93A66</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

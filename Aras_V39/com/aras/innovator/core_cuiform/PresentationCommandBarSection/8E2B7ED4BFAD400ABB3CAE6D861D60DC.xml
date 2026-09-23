@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="PresentationCommandBarSection" id="8E2B7ED4BFAD400ABB3CAE6D861D60DC" action="add">
+  <related_id keyed_name="itemview.itemcommandbar.form" type="CommandBarSection">
+   <Item type="CommandBarSection" id="C736813A83824DE2A32ADF67A7B3D46A" action="add">
+    <classification>Data Model</classification>
+    <location keyed_name="ItemView.ItemCommandBar" type="cui_Location">830EE31D213649DA934EE655E894EA3A</location>
+    <name>itemview.itemcommandbar.form</name>
+    <Relationships>
+     <Item type="CommandBarSectionItem" id="C798CB7483544702A2792F41DC68CDDC" action="add">
+      <action>Add</action>
+      <related_id keyed_name="itemview.itemcommandbar.form.switch" type="CommandBarItem">90AF651281904EE198C7C03260F962E4</related_id>
+      <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="itemview.itemcommandbar.form" type="CommandBarSection">C736813A83824DE2A32ADF67A7B3D46A</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+  <sort_order>512</sort_order>
+  <source_id keyed_name="Form Presentation Configuration" type="PresentationConfiguration">42F0FF594878407F9B4D94E53B84F426</source_id>
+ </Item>
+</AML>

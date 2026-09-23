@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="FC0BFCE020424672AF4F743CA9E78A05" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid '{0}' method definition: missing type of '{1}' parameter.</text>
+  <name>cws_UnboundMethodNoParamType</name>
+ </Item>
+</AML>

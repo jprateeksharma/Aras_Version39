@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="305C5FFC9C3641C6B0E37C5DD26626FB" action="add">
+  <control_type>ContextMenu</control_type>
+  <location keyed_name="ItemView.RelationshipsGridContextMenu" type="cui_Location">12CC1786F8C54D569692F13B212B4634</location>
+  <sealed>0</sealed>
+  <name>RelationshipsView.GridRowContextMenu</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="C50A54072D2C3AF1A430756036B043EF" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: property '{1}' type '{2}' does not correspond to type from database.</text>
+  <name>cws_PropertyTypeIsNotPropertyFromDatabase</name>
+ </Item>
+</AML>

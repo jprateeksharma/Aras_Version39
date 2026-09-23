@@ -1,0 +1,68 @@
+﻿<AML>
+ <Item type="Method" id="C42C28F2F8214013AA18C18514B7699B" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	rows,
+	getState,
+	getActions,
+	commandFactory,
+	relatedItemType,
+	polySources
+} = options;
+const { grid } = getState();
+const { addItemToEditMode } = getActions();
+const selectedRows = grid.selectedRows;
+const commandAlias = target['command_alias@keyed_name'];
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(relatedItemType?.id);
+const getItemType = (rowId) => {
+	if (isPolymorphic) {
+		const relatedId = rows.get(rowId, 'related_id');
+		const itemTypeId = rows.get(relatedId, 'itemtype');
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return relatedItemType;
+};
+
+const promises = selectedRows.map(async (rowId) => {
+	const relatedItemNode = window.item.selectSingleNode(`Relationships/Item[@id="${rowId}"]/related_id/Item`);
+	const itemType = getItemType(rowId);
+	const itemTypeName = itemType.name;
+	const sourceItem = {
+		type: window.item.getAttribute('type'),
+		id: window.item.getAttribute('id')
+	};
+	const editCommand = commandFactory(commandAlias, {
+		itemType,
+		itemNode: relatedItemNode,
+		itemTypeName,
+		sourceItem
+	});
+	try {
+		const itemNode = await editCommand.execute();
+		addItemToEditMode(itemNode.id);
+		return itemNode;
+	} catch (error) {
+		if (error.code === 'Client.EditOldItemVersionException') {
+			const itemId = relatedItemNode.getAttribute('id');
+			const itemLatestVersion = await window.aras.getItemLastVersion(
+				itemTypeName,
+				itemId
+			);
+			window.replaceRelatedItem({
+				itemLatestVersion,
+				relationshipId: rowId
+			});
+		}
+		throw error;
+	}
+});
+
+return Promise.allSettled(promises);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivrcm_edit_click</name>
+ </Item>
+</AML>

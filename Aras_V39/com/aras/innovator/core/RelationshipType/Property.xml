@@ -1,0 +1,1513 @@
+﻿<AML>
+ <Item type="RelationshipType" id="D98433ED30FF48CDA8D2A84E846EC2DF" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <grid_view>intermix</grid_view>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>1</is_list_type>
+  <label xml:lang="en">Properties</label>
+  <new_show_related>0</new_show_related>
+  <related_notnull>1</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="Property" type="ItemType" name="Property">
+   <Item type="ItemType" id="26D7CD4E033242148E2724D3D054B4D3" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <close_icon>../images/Properties.svg</close_icon>
+    <default_page_size>25</default_page_size>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>PROPERTY</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Property</label>
+    <label_plural xml:lang="en">Properties</label_plural>
+    <large_icon>../images/Properties.svg</large_icon>
+    <open_icon>../images/Properties.svg</open_icon>
+    <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs on</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>Property</name>
+    <Relationships>
+     <Item type="ITPresentationConfiguration" id="4F40F9732F80BEAF6B77D6069BFA2DFF" action="add">
+      <client>js</client>
+      <related_id keyed_name="Property Presentation Configuration" type="PresentationConfiguration">4F40F9732F80BEAF36326AA7318BB90D</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+     <Item type="Property" id="9E718A01DDD64BA281FC2330BAFA06F5" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>60</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Category By</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>19</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>category_by</name>
+     </Item>
+     <Item type="Property" id="303C5B12CEC24D1D9434875E343CF787" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>80</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Class Path</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>512</stored_length>
+      <track_history>0</track_history>
+      <name>class_path</name>
+     </Item>
+     <Item type="Property" id="336AA6E5142343D991F356E3BD7BAADD" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>60</column_width>
+      <data_source keyed_name="Text Alignment">9BFEBD027DA34E4CBC50B55DA25F722A</data_source>
+      <data_type>list</data_type>
+      <default_value xml:lang="en">left</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Alignment</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>14</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>column_alignment</name>
+     </Item>
+     <Item type="Property" id="F5776A2FB4E149EA986F9F12C2C1EE9A" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>50</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Width</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>15</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>column_width</name>
+     </Item>
+     <Item type="Property" id="9D628B020CA241908F91503DED1B014E" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Data Source</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>5</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>data_source</name>
+      <Relationships>
+       <Item type="Grid Event" id="2B0769B2707F4910B1B9F50CED553B55" action="add">
+        <grid_event>oneditstart</grid_event>
+        <related_id keyed_name="On Property Edit Start Cell" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>On Property Edit Start Cell</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="data_source" type="Property">9D628B020CA241908F91503DED1B014E</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="B82EDB4E3E0847CA9088C9C87BDE186B" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>100</column_width>
+      <data_source keyed_name="Data Types">858DCAAD7FF94EDC969A1C3CFA57FA93</data_source>
+      <data_type>list</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Data Type</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>data_type</name>
+      <Relationships>
+       <Item type="Grid Event" id="50EB1FF906E14632903E1629972BDB97" action="add">
+        <grid_event>onchangecell</grid_event>
+        <related_id keyed_name="On Property DataType Changed" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>On Property DataType Changed</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="data_type" type="Property">B82EDB4E3E0847CA9088C9C87BDE186B</source_id>
+       </Item>
+       <Item type="Grid Event" id="562A80F2B4FC413E9E4F30451D02B91B" action="add">
+        <grid_event>validate</grid_event>
+        <related_id keyed_name="Check if property value is set" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>Check if property value is set</name>
+         </Item>
+        </related_id>
+        <sort_order>120</sort_order>
+        <source_id keyed_name="data_type" type="Property">B82EDB4E3E0847CA9088C9C87BDE186B</source_id>
+       </Item>
+       <Item type="Grid Event" id="09A3F6AE2A2D44D682B62CEA2FED2BC9" action="add">
+        <grid_event>validate</grid_event>
+        <related_id keyed_name="Validate Federated DataType" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>Validate Federated DataType</name>
+         </Item>
+        </related_id>
+        <sort_order>127</sort_order>
+        <source_id keyed_name="data_type" type="Property">B82EDB4E3E0847CA9088C9C87BDE186B</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="A1D4B9AC8E1F4353AD5F74ACD06D029A" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Default Search</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>21</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>32</stored_length>
+      <track_history>0</track_history>
+      <name>default_search</name>
+     </Item>
+     <Item type="Property" id="FBEB9F8373C64891A60392065A087CEF" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_type>ml_string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Default Value</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>20</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>128</stored_length>
+      <track_history>0</track_history>
+      <name>default_value</name>
+     </Item>
+     <Item type="Property" id="793DA21351114F57812ECA150387D35D" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Foreign Property</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>4480</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>foreign_property</name>
+     </Item>
+     <Item type="Property" id="72EE651E1A644E3288E226E9049A569C" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>text</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Help Text</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4736</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>help_text</name>
+     </Item>
+     <Item type="Property" id="EE3BC88FB1B845699CE39E2283F66768" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>ml_string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Tooltip</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4608</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>80</stored_length>
+      <track_history>0</track_history>
+      <name>help_tooltip</name>
+     </Item>
+     <Item type="Property" id="A1D961C927B9403C842735950D7E49F4" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <default_value xml:lang="en">1</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Discoverable</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>13</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>is_discoverable</name>
+     </Item>
+     <Item type="Property" id="BFB2603200D74804BAB1C59853D65B47" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Federated</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>12</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>is_federated</name>
+      <Relationships>
+       <Item type="Grid Event" id="4E6A839F56184603AF9F3CB3E31624B3" action="add">
+        <grid_event>change</grid_event>
+        <related_id keyed_name="Validate losing data of property" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>Validate losing data of property</name>
+         </Item>
+        </related_id>
+        <sort_order>256</sort_order>
+        <source_id keyed_name="is_federated" type="Property">BFB2603200D74804BAB1C59853D65B47</source_id>
+       </Item>
+       <Item type="Grid Event" id="FD09A89119194D9CA985FBCE247907BE" action="add">
+        <grid_event>validate</grid_event>
+        <related_id keyed_name="Validate Federated DataType" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>Validate Federated DataType</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="is_federated" type="Property">BFB2603200D74804BAB1C59853D65B47</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="0E0F8A8C99334DFAB0D111B549E0F26C" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Hidden</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>13</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>is_hidden</name>
+     </Item>
+     <Item type="Property" id="BD209E0C21C74E82BF0BAE36F8AD9370" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Hidden2</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>13</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>is_hidden2</name>
+     </Item>
+     <Item type="Property" id="A0045139888D4FD3B77A7BD7D337B705" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Indexed</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>11</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>is_indexed</name>
+     </Item>
+     <Item type="Property" id="8D01E18AF9F545878F570B67F8530155" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <default_value xml:lang="en">0</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Unique</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>10</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>is_keyed</name>
+     </Item>
+     <Item type="Property" id="4B4101D5CE3F43B0976D13B5F6ED5759" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Multi Valued</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>is_multi_valued</name>
+     </Item>
+     <Item type="Property" id="A10369E639D842B9874065B1C4D40C03" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Required</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>9</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>is_required</name>
+     </Item>
+     <Item type="Property" id="AD5A54761A8D4F0EAB96EBA3DCE9CB87" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="Item Behavior">1585083C7438460F8FA48F4774505062</data_source>
+      <data_type>list</data_type>
+      <default_value xml:lang="en">float</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Item Behavior</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>item_behavior</name>
+      <Relationships>
+       <Item type="Grid Event" id="654A54467430429C8F675AD07A08DD4B" action="add">
+        <grid_event>oneditstart</grid_event>
+        <related_id keyed_name="OnEditStart for item_behavior" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>OnEditStart for item_behavior</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="item_behavior" type="Property">AD5A54761A8D4F0EAB96EBA3DCE9CB87</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="D12608FEE84C49E8A7DC4C4A591786C8" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>100</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Keyed Name Order</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>17</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>keyed_name_order</name>
+     </Item>
+     <Item type="Property" id="3E0CFBD1BA074E098DEA660F744E3435" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_type>ml_string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Label</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>label</name>
+     </Item>
+     <Item type="Property" id="C32D0625353B41C8A7F8F0179E3EF210" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>60</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Max Range</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>max_range</name>
+     </Item>
+     <Item type="Property" id="5CAB5FA006284F109491F5CDA0FD00CE" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>60</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Min Range</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>min_range</name>
+     </Item>
+     <Item type="Property" id="27DE43CD52A94B898B403868576E2346" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>1</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <keyed_name_order>0</keyed_name_order>
+      <label xml:lang="en">Name</label>
+      <order_by>0</order_by>
+      <pattern>^\w$|^\w[\w ]*\w$</pattern>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>2</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>32</stored_length>
+      <track_history>0</track_history>
+      <name>name</name>
+      <Relationships>
+       <Item type="Grid Event" id="B04C5C25CE0C4C0AA0319D911DDB6A7F" action="add">
+        <grid_event>onchangecell</grid_event>
+        <related_id keyed_name="On Name Property Change Cell" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>On Name Property Change Cell</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="name" type="Property">27DE43CD52A94B898B403868576E2346</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="228D6AA7FC0B46A88ED11B191B61E364" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>60</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Order By</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>18</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>order_by</name>
+     </Item>
+     <Item type="Property" id="66C28A6B0B8947EA978638735341FC69" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>120</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Pattern</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>22</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>512</stored_length>
+      <track_history>0</track_history>
+      <name>pattern</name>
+      <Relationships>
+       <Item type="Grid Event" id="3DB1DC19D5324E25B276E9877C3B11D6" action="add">
+        <grid_event>oneditstart</grid_event>
+        <related_id keyed_name="date_pattern_validate" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>date_pattern_validate</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="pattern" type="Property">66C28A6B0B8947EA978638735341FC69</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="1EBF3F477AD144E4BB7E332F7D34A3E0" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>44</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Precision</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>7</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>prec</name>
+      <Relationships>
+       <Item type="Grid Event" id="4F85F5856EDD4572AF2D953D2E22A1EB" action="add">
+        <grid_event>oneditstart</grid_event>
+        <related_id keyed_name="On Property Edit Start Cell" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>On Property Edit Start Cell</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="prec" type="Property">1EBF3F477AD144E4BB7E332F7D34A3E0</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="A8B7E2DE256040B3B723D42F5DE84BE8" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>80</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Range Inclusive</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>range_inclusive</name>
+     </Item>
+     <Item type="Property" id="1382FDFFC9F34A678E7D64581BEB64D5" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>60</column_width>
+      <data_type>boolean</data_type>
+      <default_value xml:lang="en">0</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Read Only</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>99</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>readonly</name>
+     </Item>
+     <Item type="Property" id="C831D6425EEA409BB0BA4957094D206D" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>40</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Scale</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>8</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>scale</name>
+      <Relationships>
+       <Item type="Grid Event" id="DC5220D20A9D4043A71C2B617FDC0AD0" action="add">
+        <grid_event>oneditstart</grid_event>
+        <related_id keyed_name="On Property Edit Start Cell" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>On Property Edit Start Cell</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="scale" type="Property">C831D6425EEA409BB0BA4957094D206D</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="5ADF6CF66AD14172963C8CA8E3F0F7AE" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>100</column_width>
+      <data_source keyed_name="Sort Direction">B29EB5554C824065BAF7E4E93155CCF7</data_source>
+      <data_type>list</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Sort Direction</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>19</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <stored_length>256</stored_length>
+      <track_history>0</track_history>
+      <name>sort_direction</name>
+     </Item>
+     <Item type="Property" id="3AF867186D09453984D504FD42B83767" action="add">
+      <column_alignment>right</column_alignment>
+      <column_width>40</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Length</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>6</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>stored_length</name>
+      <Relationships>
+       <Item type="Grid Event" id="8222BFA218B94797AEF1F4617E6BA92B" action="add">
+        <grid_event>oneditstart</grid_event>
+        <related_id keyed_name="On Property Edit Start Cell" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>On Property Edit Start Cell</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="stored_length" type="Property">3AF867186D09453984D504FD42B83767</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="4792CEBE20A145B3849048FC38EFB670" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Track History</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4864</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <track_history>0</track_history>
+      <name>track_history</name>
+     </Item>
+     <Item type="View" id="D282513B316C41A889C14EDDBAC8EFA3" action="add">
+      <client>js</client>
+      <related_id keyed_name="Property" type="Form">4DCAB283948147D184F78A7F69F6A09A</related_id>
+      <role keyed_name="World" type="Identity">
+       <Item type="Identity" action="get" select="id">
+        <name>World</name>
+       </Item>
+      </role>
+      <show_ssvc>0</show_ssvc>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+      <type>default</type>
+     </Item>
+     <Item type="Server Event" id="E8F0104CBB8A48E68A2A6F016402EC0D" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="PropertyOnAfterAdd" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>PropertyOnAfterAdd</name>
+       </Item>
+      </related_id>
+      <server_event>onAfterAdd</server_event>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+     <Item type="Server Event" id="2D025FAAC1F34082AA155E63C2331747" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="PropertyOnAfterDelete" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>PropertyOnAfterDelete</name>
+       </Item>
+      </related_id>
+      <server_event>onAfterDelete</server_event>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+     <Item type="Server Event" id="A31F970958044D6E979E3517FC436CA3" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="PropertyOnAfterUpdate" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>PropertyOnAfterUpdate</name>
+       </Item>
+      </related_id>
+      <server_event>onAfterUpdate</server_event>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+     <Item type="Server Event" id="22AD2A76A05F461A9814F457916C289F" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="PropertyOnBeforeAddAndUpdate" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>PropertyOnBeforeAddAndUpdate</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeAdd</server_event>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+     <Item type="Server Event" id="7B0F91A113004786A692BCF718AE723A" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="PropertyOnBeforeDelete" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>PropertyOnBeforeDelete</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeDelete</server_event>
+      <sort_order>768</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+     <Item type="Server Event" id="4B0B165B62924DFD9AC4B503E56496A8" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="PropertyOnBeforeAddAndUpdate" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>PropertyOnBeforeAddAndUpdate</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeUpdate</server_event>
+      <sort_order>640</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+     <Item type="Can Add" id="1FE77B671363449BA128CF7D38D3024D" action="add">
+      <can_add>1</can_add>
+      <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+     <Item type="Allowed Permission" id="ADFBB6BCA5024408A5AD34146E2E41B4" action="add">
+      <is_default>1</is_default>
+      <related_id keyed_name="Property" type="Permission">10BE484BBAD742789A40D4190E1B32C4</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>0</sort_order>
+  <source_id keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</source_id>
+  <name>Property</name>
+ </Item>
+ <Item type="ItemType" id="26D7CD4E033242148E2724D3D054B4D3" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='behavior'">
+    <column_alignment>left</column_alignment>
+    <column_width>100</column_width>
+    <data_source keyed_name="Item Behavior">1585083C7438460F8FA48F4774505062</data_source>
+    <data_type>list</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Behavior</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>behavior</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='config_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Config_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2688</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>config_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='created_by_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Created By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>created_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='created_on'">
+    <column_alignment>left</column_alignment>
+    <column_width>100</column_width>
+    <data_type>date</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <label xml:lang="en">Created On</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>created_on</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='css'">
+    <column_alignment>left</column_alignment>
+    <column_width>240</column_width>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">CSS</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>css</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='current_state'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="Life Cycle State" type="ItemType" name="Life Cycle State">5EFB53D35BAE468B851CD388BEA46B30</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Current State</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>current_state</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='generation'">
+    <column_alignment>left</column_alignment>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Generation</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2432</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>generation</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Item ID</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='is_current'">
+    <column_alignment>center</column_alignment>
+    <column_width>50</column_width>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Current</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>is_current</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='is_released'">
+    <column_alignment>center</column_alignment>
+    <column_width>30</column_width>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Is Released</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>56</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>is_released</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='keyed_name'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Keyed Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>keyed_name</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='locked_by_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Locked By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>locked_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='major_rev'">
+    <column_alignment>left</column_alignment>
+    <column_width>60</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Rev</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <stored_length>8</stored_length>
+    <track_history>0</track_history>
+    <name>major_rev</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='managed_by_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Managed_by_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4096</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>managed_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='minor_rev'">
+    <column_alignment>left</column_alignment>
+    <column_width>60</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Minor Rev</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <stored_length>8</stored_length>
+    <track_history>0</track_history>
+    <name>minor_rev</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='modified_by_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Modified By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>modified_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='modified_on'">
+    <column_alignment>left</column_alignment>
+    <column_width>100</column_width>
+    <data_type>date</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Modified On</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>modified_on</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='new_version'">
+    <column_alignment>left</column_alignment>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">New_version</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4352</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>new_version</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='not_lockable'">
+    <column_alignment>center</column_alignment>
+    <column_width>30</column_width>
+    <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Not Lockable</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>55</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>not_lockable</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='owned_by_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Owned_by_id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3968</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>owned_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='permission_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Permission" type="ItemType" name="Permission">C6A89FDE1294451497801DF78341B473</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Permission id</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4224</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>permission_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='related_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Related Item</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>related_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='sort_order'">
+    <column_alignment>right</column_alignment>
+    <column_width>60</column_width>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Sort Order</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>16</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>sort_order</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='source_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <label xml:lang="en">Source Item</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <track_history>0</track_history>
+    <name>source_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='26D7CD4E033242148E2724D3D054B4D3' and name='state'">
+    <column_alignment>left</column_alignment>
+    <column_width>120</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">State</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>99</sort_order>
+    <source_id keyed_name="Property" type="ItemType" name="Property">26D7CD4E033242148E2724D3D054B4D3</source_id>
+    <stored_length>32</stored_length>
+    <track_history>0</track_history>
+    <name>state</name>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

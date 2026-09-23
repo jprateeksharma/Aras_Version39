@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="93D6901991424F24AB266CBB29EFC6B3" action="add">
+  <control_type>ContextMenu</control_type>
+  <location keyed_name="SearchView.GridHeaderContextMenu" type="cui_Location">4EB04E09DFC247148A8DA1482467885D</location>
+  <sealed>0</sealed>
+  <name>SearchView.GridHeaderContextMenu</name>
+ </Item>
+</AML>

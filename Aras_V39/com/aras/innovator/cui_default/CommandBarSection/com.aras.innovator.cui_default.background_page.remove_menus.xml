@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="1FD43657408445A9BD62ED18CFA83AE0" action="add">
+  <builder_method keyed_name="cui_BackgroundPage_RemoveMenus" type="Method">CE3A6833C0EF47699D4B64ED486FDA8F</builder_method>
+  <classification>Method</classification>
+  <description>A section that calls a server method that parses all the items for a location, deletes all the menus, and converts the menu items to independent buttons.</description>
+  <location keyed_name="BackgroundPage" type="cui_Location">BE26B1D2992344E2BC55CA656341BB02</location>
+  <name>com.aras.innovator.cui_default.background_page.remove_menus</name>
+ </Item>
+</AML>

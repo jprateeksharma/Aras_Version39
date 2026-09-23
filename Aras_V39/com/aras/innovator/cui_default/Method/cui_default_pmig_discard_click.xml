@@ -1,0 +1,65 @@
+﻿<AML>
+ <Item type="Method" id="F8B60BFCBA76407BBE85DC978216D906" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	getState,
+	itemType,
+	rows
+} = options;
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(itemType.id);
+const getItemTypeName = (itemId) => {
+	if (isPolymorphic) {
+		const itemTypeId = rows.get(itemId, 'itemtype');
+		return itemTypeMetadata.getItemTypeName(itemTypeId);
+	}
+
+	return itemType.name;
+};
+
+const state = getState();
+const discardedItemIds = state.grid.selectedRows.filter((itemId) => {
+	const isEditableItem = state.editableItems.has(itemId);
+	const isNewItem = ArasModules.item.isNew(getItemTypeName(itemId), itemId);
+	return isEditableItem && !isNewItem;
+});
+const existDirtyItem = discardedItemIds.some(itemId => {
+	const itemTypeName = getItemTypeName(itemId);
+	return ArasModules.item.isDirty(itemTypeName, itemId);
+});
+
+(async () => {
+	if (existDirtyItem) {
+		const dialogSettings = {
+			title: window.aras.getResource('', 'common.discard_confirmationtitle')
+		};
+		const dialogMessage = window.aras.getResource('', 'common.discard_confirmationmessage');
+		const confirmResult = await ArasModules.Dialog.confirm(dialogMessage, dialogSettings);
+		if (confirmResult !== 'ok') {
+			return;
+		}
+	}
+
+	discardedItemIds.forEach(async (itemId) => {
+		try {
+			const itemTypeName = getItemTypeName(itemId);
+			const actualItemType = isPolymorphic ? await itemTypeMetadata.getItemType(itemTypeName) : itemType;
+			const item = rows.get(itemId);
+			const { commandFactory } = options;
+			const discardCommand = commandFactory('DiscardItem', {
+				item,
+				itemTypeName,
+				itemType: actualItemType,
+				ignoreDialog: true
+			});
+			return discardCommand.execute();
+		} catch (error) {
+			rows.set(itemId, error, '_error');
+		}
+	});
+})();
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_pmig_discard_click</name>
+ </Item>
+</AML>

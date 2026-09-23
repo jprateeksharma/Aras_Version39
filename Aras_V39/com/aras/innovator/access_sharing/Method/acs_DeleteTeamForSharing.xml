@@ -1,0 +1,103 @@
+﻿<AML>
+ <Item type="Method" id="3E69F2071AAE4834B7F57B4C309BA82A" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[var innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer(CCO.Permissions, innovator);
+	BusinessLogic businessLogic = new BusinessLogic(this, dataAccessLayer);
+
+	return businessLogic.Run();
+}
+
+internal class BusinessLogic
+{
+	private readonly Item _contextItem;
+	private readonly IDataAccessLayer _dataAccessLayer;
+
+	public BusinessLogic(Item context, IDataAccessLayer dataAccessLayer)
+	{
+		_contextItem = context;
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public Item Run()
+	{
+		Item sharedItem = GetSharedItemFromDb();
+		if (sharedItem.isError())
+		{
+			return sharedItem;
+		}
+
+		Item deleteItemResult = DeleteTeam(sharedItem.getProperty("team_id"));
+		if (deleteItemResult.isError())
+		{
+			return deleteItemResult;
+		}
+
+		return _contextItem;
+	}
+	
+	private Item GetSharedItemFromDb()
+	{
+		string typeOfSharedItem = _contextItem.getType();
+		Item sharedItem = _dataAccessLayer.NewItem(typeOfSharedItem, "get");
+		sharedItem.setID(_contextItem.getID());
+		sharedItem.setAttribute("select", "team_id");
+
+		return _dataAccessLayer.ApplyItem(sharedItem);
+	}
+
+	private Item DeleteTeam(string teamId)
+	{
+		if (string.IsNullOrEmpty(teamId))
+		{
+			return _contextItem;
+		}
+
+		Item teamItem = _dataAccessLayer.NewItem("Team", "delete");
+		teamItem.setAttribute("where", $"id='{teamId}' AND is_system='1'");
+
+		return _dataAccessLayer.ApplyItemWithGrantIdentity(teamItem);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+	Item NewItem(string type, string action);
+	Item ApplyItemWithGrantIdentity(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private readonly Aras.Server.Security.Identity _superUserIdentity = Aras.Server.Security.Identity.GetByName("Super User");
+
+	private Aras.Server.Core.Abstractions.IPermissions _permissions;
+	private Innovator _innovator;
+
+	public DataAccessLayer(Aras.Server.Core.Abstractions.IPermissions permissions, Innovator innovator)
+	{
+		_permissions = permissions;
+		_innovator = innovator;
+	}
+
+	public Item ApplyItem(Item item)
+	{
+		return item.apply();
+	}
+
+	public Item NewItem(string type, string action)
+	{
+		return _innovator.newItem(type, action);
+	}
+
+	public virtual Item ApplyItemWithGrantIdentity(Item item)
+	{
+		using(_permissions.GrantIdentity(_superUserIdentity))
+		{
+			return item.apply();
+		}
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>acs_DeleteTeamForSharing</name>
+ </Item>
+</AML>

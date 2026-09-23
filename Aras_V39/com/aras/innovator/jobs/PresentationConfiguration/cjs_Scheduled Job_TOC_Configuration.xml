@@ -1,0 +1,20 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="8C062DC720C84F6A890F3B3EF9F98AD8" action="add">
+  <color>#28762c</color>
+  <name>cjs_Scheduled Job_TOC_Configuration</name>
+  <Relationships>
+   <Item type="cui_PresentConfigWinSection" id="0E85E55066594CC4BF2EFC85CF99AFCF" action="add">
+    <related_id keyed_name="SearchGrid_Content_cjs_Scheduled Job" type="cui_WindowSection">5776204FE8B0424BB242B8EA57CF6647</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job_TOC_Configuration" type="PresentationConfiguration">8C062DC720C84F6A890F3B3EF9F98AD8</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="3204CCF04163422DA333D34799375514" action="add">
+    <related_id keyed_name="cjs_Scheduled Job_TOC_Content" type="CommandBarSection">70FFD73ADAF1480E9CC3A27229A7C6FD</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job_TOC_Configuration" type="PresentationConfiguration">8C062DC720C84F6A890F3B3EF9F98AD8</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

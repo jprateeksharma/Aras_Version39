@@ -1,0 +1,226 @@
+﻿<AML>
+ <Item type="ItemType" id="66C508294DB14A9F8A16661BA715A9AE" action="add">
+  <allow_private_permission>0</allow_private_permission>
+  <auto_search>0</auto_search>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>table</implementation_type>
+  <instance_data>GRID_LAYOUT</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <label xml:lang="en">Grid Layout</label>
+  <label_plural xml:lang="en">Grid Layouts</label_plural>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs on</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>Grid Layout</name>
+  <Relationships>
+   <Item type="Property" id="917C1EA4D4E64A208A439E79BF6BDCA1" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Additional Settings</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3968</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <track_history>0</track_history>
+    <name>additional_settings</name>
+   </Item>
+   <Item type="Property" id="10CE946D522A4EFCBE184605A118417A" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Column Order</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3200</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <track_history>0</track_history>
+    <name>column_order</name>
+   </Item>
+   <Item type="Property" id="5154B8B2F47A4816B3E4F96EF89D508A" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Column Widths</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3072</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <track_history>0</track_history>
+    <name>column_widths</name>
+   </Item>
+   <Item type="Property" id="C68894DB7DF04D3FB5583FDBFCB5A513" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Frozen Columns</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3712</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <track_history>0</track_history>
+    <name>frozen_columns</name>
+   </Item>
+   <Item type="Property" id="F1ADCCD9EF854837ABB911AA9D2050F9" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">ItemType Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3328</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <stored_length>32</stored_length>
+    <track_history>0</track_history>
+    <name>itname</name>
+   </Item>
+   <Item type="Property" id="C84BD1A6C5064E6B824142F973023853" action="add">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Grid Layout Locations">AAE0D4A40C92464DBB00DCF0AD483AAC</data_source>
+    <data_type>list</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Location</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3840</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>location</name>
+   </Item>
+   <Item type="Property" id="7329FA7903044BE488C462954D53A1CA" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Max Records</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3584</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <track_history>0</track_history>
+    <name>max_records</name>
+   </Item>
+   <Item type="Property" id="3DB54140B230402E8D85ED8B4D4ADBC0" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Order By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4096</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <track_history>0</track_history>
+    <name>order_by</name>
+   </Item>
+   <Item type="Property" id="D6F597F892584AF4BC854FC0B1912026" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Page Size</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3456</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <track_history>0</track_history>
+    <name>page_size</name>
+   </Item>
+   <Item type="View" id="1098DA7F7D8C490ABD3293F8B4BD4465" action="add">
+    <client>js</client>
+    <related_id keyed_name="Grid Layout" type="Form">C85FAABF4FF44E86B1B504E0C8CDA1A4</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="Can Add" id="894FB163896A4F09B4BA99B6D503ED26" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="E03F6F2DE0F5444DA1FCC1A2E388C8F2" action="add">
+    <is_default>1</is_default>
+    <related_id keyed_name="Grid Layouts" type="Permission">B07E5A328098420390995A30BF3D5404</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Grid Layout" type="ItemType" name="Grid Layout">66C508294DB14A9F8A16661BA715A9AE</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

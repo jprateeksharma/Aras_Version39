@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="View With" id="6B1F069360744578B31FF46F2AAFDBDF" action="add">
+  <application>SSVC</application>
+  <client>js</client>
+  <related_id keyed_name="VCollab Viewer" type="Viewer">
+   <Item type="Viewer" id="FFBBF54E453A43D78E2579CE3D829F15" action="add">
+    <viewer_url>viewer://?module=Viewers&amp;name=VCollabViewer</viewer_url>
+    <name>VCollab Viewer</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="wCAX 3D Model" type="FileType">CE9280AD70194769A2A7B12BF8C3B32D</source_id>
+ </Item>
+</AML>

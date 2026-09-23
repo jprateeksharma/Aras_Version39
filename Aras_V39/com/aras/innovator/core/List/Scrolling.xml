@@ -1,0 +1,31 @@
+﻿<AML>
+ <Item type="List" id="70CBF6F6597A4C91B68C5F52F1BFF85F" action="add">
+  <description>This defines how the scrollbars are to be shown for Frames and Forms.</description>
+  <label>Scrolling</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Scrolling</name>
+  <Relationships>
+   <Item type="Value" id="6402E0A09DEF403D9364FA07F2F4071E" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Yes</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Scrolling" type="List">70CBF6F6597A4C91B68C5F52F1BFF85F</source_id>
+    <value>yes</value>
+   </Item>
+   <Item type="Value" id="1CCF8E8212A44EAF94E12FE6298A90F4" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">No</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Scrolling" type="List">70CBF6F6597A4C91B68C5F52F1BFF85F</source_id>
+    <value>no</value>
+   </Item>
+   <Item type="Value" id="9C2E04AC88044F1597B1255E4CB6AF6D" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Auto</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Scrolling" type="List">70CBF6F6597A4C91B68C5F52F1BFF85F</source_id>
+    <value>auto</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

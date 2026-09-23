@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="7841758111604B71A3B9874F2F1D2070" action="add">
+  <additional_data>{ "actionName": "arastextactions", "actionParameters": { "actionName": "testlink"}}</additional_data>
+  <image>../images/TestLink.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_executeaction" type="Method">94FDE365CA9A402DB808B93FBE53CC4D</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_testlink_init" type="Method">3E40AA0FA7E7462AA12638165265C67A</on_init_handler>
+  <tooltip_template xml:lang="en">Test link</tooltip_template>
+  <name>tp_testlink</name>
+ </Item>
+</AML>

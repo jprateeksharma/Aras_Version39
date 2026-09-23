@@ -1,0 +1,70 @@
+﻿<AML>
+ <Item type="Method" id="71225CEB765C4509B4E20AA6944E35C1" action="add">
+  <comments />
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	string sectionIds = this.getProperty("section_ids");
+	string toItemRelationshipType = this.getProperty("toitem_relationshiptype");
+	string sectionItemItemType = this.getProperty("sectionitem_itemtype");
+	string parentProperty = this.getProperty("parent_property");
+	string identityList = this.getProperty("identity_list");
+
+	return this.getInnovator().applyAML(string.Format(CultureInfo.InvariantCulture, @"
+		<AML>
+			<Item type=""{0}"" action=""get"" orderBy=""sort_order"">
+				<source_id condition=""in"">{1}</source_id>
+				{3}
+				<related_id>
+					<Item type=""{2}"" action=""get"" select=""{4},additional_data,image,image_additional,include_events,label,aria_label,on_click_handler,on_init_handler,on_keydown_handler,tooltip_template,name,section,control_type,location,sort_order,item_classification,action,itemtype,shortcut,group_id,command_alias"">
+						<Relationships>
+							<Item type=""cui_ControlCommandBarItem"" action=""get"" isCriteria=""0"" select=""classification,action,role,builder_method(name,method_type),related_id(additional_data,image,image_additional,include_events,label,aria_label,on_click_handler,on_init_handler,on_keydown_handler,tooltip_template,name,section,control_type,location,sort_order,item_classification,parent_menu,action,itemtype,shortcut,group_id,command_alias)"">
+								{3}
+							</Item>
+							<Item type=""cui_ControlFormField"" action=""get"" isCriteria=""0"" select=""action,alternate,item_classification,role,sort_order,related_id(additional_data,aria_label,box_name,data_source,disabled,execute_method,field_type,help_text,help_tooltip,hidden,include_events,label,name,on_init_handler,override_prop_readonly,override_prop_required,readonly,required,show_help,show_label,description)"">
+								<OR>
+									{3}
+									<Relationships>
+										<Item type=""cui_ControlFormFieldIdentities"" action=""get"" select=""id, related_id"">
+											{6}
+										</Item>
+									</Relationships>
+								</OR>
+							</Item>
+							<Item type=""cui_ControlEventHandler"" action=""get"" isCriteria=""0"" select=""action,role,control_event(name),related_id"">
+								<related_id>
+									<Item action=""get"" select=""name"">
+										{5}
+									</Item>
+								</related_id>
+							</Item>
+							<Item type=""cui_ControlRule"" action=""get"" isCriteria=""0"" select=""id,action,related_id"">
+								<related_id>
+									<Item type=""cui_Rule"" action=""get"" select=""id,name,condition_version,condition_type,condition_text,behavior_version,behavior_type,behavior_text"" />
+								</related_id>
+							</Item>
+						</Relationships>
+					</Item>
+				</related_id>
+			</Item>
+		</AML>",
+		System.Security.SecurityElement.Escape(toItemRelationshipType),
+		System.Security.SecurityElement.Escape(sectionIds),
+		System.Security.SecurityElement.Escape(sectionItemItemType),
+		GetUserIdentitiesClause(identityList, "role"),
+		System.Security.SecurityElement.Escape(parentProperty),
+		GetUserIdentitiesClause(identityList, "execution_allowed_to"),
+		GetUserIdentitiesClause(identityList, "related_id")));
+}
+
+private static string GetUserIdentitiesClause(string identitiesList, string nodeName)
+{
+	string userIdentitiesClause = string.IsNullOrEmpty(identitiesList)
+		? ""
+		: string.Format(CultureInfo.InvariantCulture, "<{1} condition=\"in\">{0}</{1}>",
+			System.Security.SecurityElement.IsValidText(identitiesList) ? identitiesList : System.Security.SecurityElement.Escape(identitiesList),
+			System.Security.SecurityElement.Escape(nodeName));
+
+	return userIdentitiesClause;]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_GetSectionItems</name>
+ </Item>
+</AML>

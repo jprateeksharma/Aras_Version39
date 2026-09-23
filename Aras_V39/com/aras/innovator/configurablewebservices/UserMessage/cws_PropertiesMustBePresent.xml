@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="D7B6A36D8ADE4C108058D260A7013A31" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: 'Properties' must be present.</text>
+  <name>cws_PropertiesMustBePresent</name>
+ </Item>
+</AML>

@@ -1,0 +1,69 @@
+﻿<AML>
+ <Item type="Method" id="7FF18CA005914493B8EB7BB256BA0420" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	rows,
+	getState,
+	commandFactory,
+	relatedItemType,
+	polySources
+} = options;
+const { editableItems, grid } = getState();
+const selectedRows = grid.selectedRows;
+if (selectedRows.length === 0) {
+	return { hidden: true };
+}
+
+if (!window.aras.isEditStateEx(window.item)) {
+	return { hidden: false, disabled: true };
+}
+
+const commandAlias = target['command_alias@keyed_name'];
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(relatedItemType?.id);
+const getItemType = (rowId) => {
+	if (isPolymorphic) {
+		const relatedId = rows.get(rowId, 'related_id');
+		const itemTypeId = rows.get(relatedId, 'itemtype');
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return relatedItemType;
+};
+
+let disabled = false;
+let hidden = false;
+for (let i = 0; i < selectedRows.length; i++) {
+	const itemId = selectedRows[i];
+	const selectedItem = window.getRelatedItem(itemId);
+	const isDiscoverOnly = selectedItem && selectedItem.parentNode.getAttribute('discover_only') === '1';
+	const isEditableItem = editableItems.has(selectedItem && selectedItem.id);
+	if (!selectedItem || isDiscoverOnly || isEditableItem) {
+		hidden = true;
+		break;
+	}
+
+	const relatedId = rows.get(itemId, 'related_id');
+	const relatedItem = rows.get(relatedId);
+	const itemType = getItemType(itemId);
+	const itemTypeName = itemType.name;
+	const editCommand = commandFactory(commandAlias, {
+		item: relatedItem,
+		itemNode: selectedItem,
+		itemType,
+		itemTypeName
+	});
+	const isEditCommandAvailable = editCommand.canExecute();
+	if (!isEditCommandAvailable) {
+		disabled = true;
+		break;
+	}
+}
+
+return { hidden, disabled };
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivrcm_edit_init</name>
+ </Item>
+</AML>

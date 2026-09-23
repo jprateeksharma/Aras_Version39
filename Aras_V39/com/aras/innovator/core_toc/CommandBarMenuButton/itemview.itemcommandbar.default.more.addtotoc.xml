@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="43A888A4156E4B4CA5D479D4672F58EE" action="add">
+  <include_events>UpdateTearOffWindowState</include_events>
+  <label xml:lang="en">Add to TOC</label>
+  <on_click_handler keyed_name="cui_add_itemtype_to_toc_click" type="Method">E00DAD1EAFBA4FA891A0E05DB6CBA3EB</on_click_handler>
+  <on_init_handler keyed_name="cui_add_itemtype_to_toc_init" type="Method">2C0D4031AA1742AE91E2CDDAA826A781</on_init_handler>
+  <parent_menu keyed_name="itemview.itemcommandbar.default.more" type="CommandBarMenu">FFEBAEC1DE43491D8AF7C2684253E34A</parent_menu>
+  <name>itemview.itemcommandbar.default.more.addtotoc</name>
+ </Item>
+</AML>

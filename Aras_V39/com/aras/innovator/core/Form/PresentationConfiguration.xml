@@ -1,0 +1,165 @@
+﻿<AML>
+ <Item type="Form" id="7139964CCA7D4C0DBE153B3AB9EFD755" action="add">
+  <height>100</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>699</width>
+  <name>PresentationConfiguration</name>
+  <Relationships>
+   <Item type="Body" id="566ACE78E18A4C5AAA01F748A3E211CD" action="add">
+    <bg_color>#FFFFFF</bg_color>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="PresentationConfiguration" type="Form">7139964CCA7D4C0DBE153B3AB9EFD755</source_id>
+    <Relationships>
+     <Item type="Field" id="821DD766CDEA444CA4859D7FE9839384" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>color</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>0</is_visible>
+      <label xml:lang="en">Theme Brand</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="brand_color" type="Property">990BFBC5958443D88B8695091C7D0234</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>896</sort_order>
+      <source_id keyed_name="566ACE78E18A4C5AAA01F748A3E211CD" type="Body">566ACE78E18A4C5AAA01F748A3E211CD</source_id>
+      <tab_index>3200</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>150</x>
+      <y>50</y>
+      <name>brand_color</name>
+     </Item>
+     <Item type="Field" id="8B462BF461A44F9EB8C173D0C7319555" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>color</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Color</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="color" type="Property">A17A151D688F4B5789A86456B0D98C74</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>640</sort_order>
+      <source_id keyed_name="566ACE78E18A4C5AAA01F748A3E211CD" type="Body">566ACE78E18A4C5AAA01F748A3E211CD</source_id>
+      <tab_index>128</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>10</x>
+      <y>10</y>
+      <name>color</name>
+     </Item>
+     <Item type="Field" id="EEA146E007854159B0A811733EC25C6C" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">name</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="name" type="Property">D8BD9FEEEE574886A4C79CB17065D280</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="566ACE78E18A4C5AAA01F748A3E211CD" type="Body">566ACE78E18A4C5AAA01F748A3E211CD</source_id>
+      <tab_index>1</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>10</x>
+      <y>50</y>
+      <name>name</name>
+     </Item>
+     <Item type="Field" id="A8C5D44992C9495C9E0FC8BB12E2E483" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>color</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Relationship Tab Background Color</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="relationship_tab_bg_color" type="Property">8F02A5B81B2140C08FEEF9469137D2D0</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>1024</sort_order>
+      <source_id keyed_name="566ACE78E18A4C5AAA01F748A3E211CD" type="Body">566ACE78E18A4C5AAA01F748A3E211CD</source_id>
+      <tab_index>3328</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>10</x>
+      <y>90</y>
+      <name>relationship_tab_bg_color</name>
+     </Item>
+     <Item type="Field" id="1FD89D5C9E564BEC88CAD000E87FF179" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>color</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Relationship Tab Text Color</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="relationship_tab_text_color" type="Property">4F01B05243C640F29D308742C184D784</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>1152</sort_order>
+      <source_id keyed_name="566ACE78E18A4C5AAA01F748A3E211CD" type="Body">566ACE78E18A4C5AAA01F748A3E211CD</source_id>
+      <tab_index>3456</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>10</x>
+      <y>130</y>
+      <name>relationship_tab_text_color</name>
+     </Item>
+     <Item type="Field" id="5ECF91DCFAD941C1BF3B051E7C60D22D" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>color</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>0</is_visible>
+      <label xml:lang="en">Theme Secondary</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="secondary_color" type="Property">43439D2159C7495FA9DF7C30EE5ED583</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>768</sort_order>
+      <source_id keyed_name="566ACE78E18A4C5AAA01F748A3E211CD" type="Body">566ACE78E18A4C5AAA01F748A3E211CD</source_id>
+      <tab_index>3072</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>150</x>
+      <y>10</y>
+      <name>secondary_color</name>
+     </Item>
+    </Relationships>
+   </Item>
+   <Item type="Form Event" id="E01D9BFFF0FB4BA997B2D0C87195FAF4" action="add">
+    <form_event>onload</form_event>
+    <related_id keyed_name="onloadPresentationConfiguration" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>onloadPresentationConfiguration</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="PresentationConfiguration" type="Form">7139964CCA7D4C0DBE153B3AB9EFD755</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

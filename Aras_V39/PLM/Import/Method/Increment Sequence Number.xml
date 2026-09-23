@@ -1,0 +1,28 @@
+﻿<AML>
+ <Item type="Method" id="DE1740E6A74B4CC4818D7A957D04A797" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const prt =
+	typeof parent.document.item === 'object' ? parent.document : parent.parent;
+const currentItem = prt.item;
+const newRelationships = currentItem.selectNodes(
+	`Relationships/Item[@type="${relationshipTypeName}" and @isTemp="1"]`
+);
+if (!newRelationships || newRelationships.length < 2) {
+	aras.getItemRelationshipsEx(currentItem, relationshipTypeName);
+}
+
+const xPathMaxSortOrder = `Relationships/Item[@type="${relationshipTypeName}"][not(../Item[@type="${relationshipTypeName}"]/sort_order > sort_order)]/sort_order`;
+const maxSortOrderNode = currentItem.selectSingleNode(xPathMaxSortOrder);
+const nextSortOrderValue = maxSortOrderNode
+	? parseInt(maxSortOrderNode.textContent) + 1
+	: 1;
+
+const relationshipItem = currentItem.selectSingleNode(
+	`Relationships/Item[@id="${relationshipID}"]`
+);
+aras.setItemProperty(relationshipItem, 'sort_order', nextSortOrderValue);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>Increment Sequence Number</name>
+ </Item>
+</AML>

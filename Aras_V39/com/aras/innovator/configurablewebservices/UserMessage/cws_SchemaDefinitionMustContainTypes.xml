@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="86BEC49CDA345895FFD5A723C2E17B0C" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Schema definition must contain 'Types' object.</text>
+  <name>cws_SchemaDefinitionMustContainTypes</name>
+ </Item>
+</AML>

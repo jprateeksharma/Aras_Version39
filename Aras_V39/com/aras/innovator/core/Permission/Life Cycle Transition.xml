@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="286B2FD55FA04D8EB3DFC430476526F2" action="add">
+  <is_private>0</is_private>
+  <name>Life Cycle Transition</name>
+  <Relationships>
+   <Item type="Access" id="1975E2A6673049F9AF85A56246837B93" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Life Cycle Transition" type="Permission">286B2FD55FA04D8EB3DFC430476526F2</source_id>
+   </Item>
+   <Item type="Access" id="55C1F097E46F404F9E37DA65A98A7A82" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Life Cycle Transition" type="Permission">286B2FD55FA04D8EB3DFC430476526F2</source_id>
+   </Item>
+   <Item type="Access" id="AC07C49F98704981AA2E91B89593A707" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Life Cycle Transition" type="Permission">286B2FD55FA04D8EB3DFC430476526F2</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

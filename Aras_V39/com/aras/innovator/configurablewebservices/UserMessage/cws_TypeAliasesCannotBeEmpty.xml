@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="577E84D1442E4BBA8EF744F1092DEA03" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Type aliases cannot be empty.</text>
+  <name>cws_TypeAliasesCannotBeEmpty</name>
+ </Item>
+</AML>

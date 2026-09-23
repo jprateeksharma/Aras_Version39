@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="E6A91B9D584F4D1CAB8D2FA2119B706E" action="add">
+  <template>import type { Toolbar } from 'core';
+import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import type { Options, BaseInitHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+type InitHandlerReturnType = Partial&lt;toolbarItems&gt; &amp; BaseInitHandlerReturnType;
+
+export function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'SearchDialog'&gt;
+): InitHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_search_dlg_commandbar_init</name>
+ </Item>
+</AML>

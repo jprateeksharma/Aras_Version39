@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="A4A7AACF023940F2AFC5466BC8FD3559" action="add">
+  <is_private>0</is_private>
+  <name>Filter Value</name>
+  <Relationships>
+   <Item type="Access" id="20A0F49B6A5844A7AB5CAD8AA1951BDA" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Filter Value" type="Permission">A4A7AACF023940F2AFC5466BC8FD3559</source_id>
+   </Item>
+   <Item type="Access" id="754A733D25F44E6D8194705F1AB5B1DE" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Filter Value" type="Permission">A4A7AACF023940F2AFC5466BC8FD3559</source_id>
+   </Item>
+   <Item type="Access" id="FE2B124A8A334ED5AD4AEA445061F3AE" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Filter Value" type="Permission">A4A7AACF023940F2AFC5466BC8FD3559</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,437 @@
+﻿<AML>
+ <Item type="Method" id="03DBA4095E9A4E57A69471F44C287EC9" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[// PE_AddChangeItem
+// Adds a change item (PR, ECR, ECN, ECO or MCO) client-side and attaches the specified items
+//  as affected.  The incoming dom should be an item or item collection to attach to the new change
+//  item. The change item type should be specified as an attribute on the first item.
+
+const aras = window.aras;
+
+// Load the incoming dom into a new item
+const thisItem = this.newItem('', '');
+thisItem.loadAML(this.dom.xml);
+
+// Get the desired change item from the ChangeItem attribute
+const changeType = thisItem.getItemByIndex(0).getAttribute('ChangeItem', '');
+const changeItemName = thisItem
+	.getItemByIndex(0)
+	.getAttribute('ChangeItemName', '');
+
+const changeItem = createChangeItem(changeType, changeItemName);
+
+if (changeItem.setData(thisItem)) {
+	changeItem.show();
+}
+
+function createChangeItem(typeName, instanceName) {
+	class ChangeItem {
+		constructor(item) {
+			this._item = item;
+			this._itemTypeName = this._item.getAttribute('type');
+			this._state = aras.getItemProperty(this._item, 'state');
+		}
+
+		setData(itemsToAdd) {
+			const isTemp = aras.isTempEx(this._item);
+
+			if (isTemp) {
+				return true;
+			}
+
+			const isLocked = aras.isLocked(this._item);
+
+			if (isLocked) {
+				const isLockedByUser = aras.isLockedByUser(this._item);
+				if (!isLockedByUser) {
+					aras.AlertError(
+						aras.getResource(
+							'PLM',
+							'pe_change_management.locked_by_another',
+							aras.getKeyedNameEx(this._item)
+						)
+					);
+					return false;
+				}
+			} else {
+				const lockItemEx = aras.lockItemEx(this._item);
+				if (!lockItemEx) {
+					return false;
+				}
+				this._item = lockItemEx;
+			}
+
+			if (!this._isAddingAffectedItemsAllowed()) {
+				aras.AlertError(
+					aras.getResource(
+						'PLM',
+						'pe_change_management.affected_item_cannot_be_added_due_to_change_item_state',
+						this._state,
+						aras.getItemProperty(this._item, 'item_number')
+					)
+				);
+
+				return false;
+			}
+
+			return true;
+		}
+
+		show() {
+			aras.uiReShowItemEx(
+				this._item.getAttribute('id'),
+				this._item,
+				'tab view'
+			);
+			aras.uiShowItemEx(this._item, 'tab view');
+		}
+
+		_isAddingAffectedItemsAllowed() {
+			return this._state !== 'Released' && this._state !== 'Cancelled';
+		}
+	}
+
+	//+PR ***********************************************************
+	class PRChangeItem extends ChangeItem {
+		setData(itemsToAdd) {
+			if (!super.setData(itemsToAdd)) {
+				return false;
+			}
+
+			// PRs may have only one affected item, so return an error if more than one is passed
+			if (itemsToAdd.getItemCount() > 1) {
+				aras.AlertError(
+					aras.getResource(
+						'PLM',
+						'pe_change_management.onlyone_affected_item'
+					)
+				);
+				return false;
+			}
+
+			const affected_item = aras.getItemProperty(this._item, 'affected_item');
+
+			if (affected_item) {
+				aras.AlertError(
+					aras.getResource(
+						'PLM',
+						'pe_change_management.affected_item_already_exist'
+					)
+				);
+				return false;
+			}
+
+			// Set the affected_item property
+			aras.setItemProperty(
+				this._item,
+				'affected_item',
+				itemsToAdd.getItemByIndex(0).node
+			);
+
+			return true;
+		}
+
+		_isAddingAffectedItemsAllowed() {
+			return super._isAddingAffectedItemsAllowed() && this._state !== 'Closed';
+		}
+	}
+	//-PR ***********************************************************
+
+	//+MCO **********************************************************
+	class MCOChangeItem extends ChangeItem {
+		setData(itemsToAdd) {
+			if (!super.setData(itemsToAdd)) {
+				return false;
+			}
+
+			// Create a new Simple MCO Part relationship for each passed item
+			const mcoPartRelId = aras
+				.getItemFromServerByName('RelationshipType', 'Simple MCO Part', 'id')
+				.node.getAttribute('id');
+			for (let j = 0; j < itemsToAdd.getItemCount(); j++) {
+				const mcoPartRel = aras.newRelationship(mcoPartRelId, this._item);
+				aras.setItemProperty(
+					mcoPartRel,
+					'related_id',
+					itemsToAdd.getItemByIndex(j).node
+				);
+			}
+
+			return true;
+		}
+
+		_isAddingAffectedItemsAllowed() {
+			return super._isAddingAffectedItemsAllowed() && this._state !== 'In Review';
+		}
+	}
+	//-MCO **********************************************************
+
+	//+Generic ******************************************************
+	class GenericChangeItem extends ChangeItem {
+		setData(changeControlledItemsToAdd) {
+			if (!super.setData(changeControlledItemsToAdd)) {
+				return false;
+			}
+
+			let duplicateAffectedChangeControlledItemIds = new Set();
+
+			if (this._itemTypeName === 'Express ECO') {
+				duplicateAffectedChangeControlledItemIds = this.getDuplicateAffectedChangeControlledItemIdsForExpressEco(
+					changeControlledItemsToAdd
+				);
+				if (!duplicateAffectedChangeControlledItemIds) {
+					return false;
+				}
+			}
+
+			// Create a new Affected Item relationship for each passed item
+			const typeID = aras
+				.getItemFromServerByName(
+					'RelationshipType',
+					this._itemTypeName + ' Affected Item',
+					'id'
+				)
+				.node.getAttribute('id');
+
+			for (let i = 0; i < changeControlledItemsToAdd.getItemCount(); i++) {
+				const changeControlledItem = changeControlledItemsToAdd.getItemByIndex(
+					i
+				);
+
+				if (
+					duplicateAffectedChangeControlledItemIds.has(
+						changeControlledItem.getId()
+					)
+				) {
+					aras.AlertError(
+						aras.getResource(
+							'PLM',
+							'impactmatrix.message.affected_item_exists'
+						)
+					);
+					continue;
+				}
+
+				const changeControlledItemNode = changeControlledItem.node;
+				const state = aras.getItemProperty(
+					changeControlledItemNode,
+					'state',
+					''
+				);
+
+				// Set the default Affected Item action based on the state of the item
+				let prop_action;
+				let action;
+				let prop;
+
+				if (this._itemTypeName !== 'Express ECO') {
+					if (state === 'Released') {
+						action = 'Change';
+						prop = 'affected_id';
+					} else {
+						action = 'Add';
+						prop = 'new_item_id';
+					}
+					prop_action = 'action';
+				} else {
+					prop_action = 'item_action';
+					action = 'Review';
+					if (state === 'Preliminary') {
+						prop = 'new_item_id';
+					} else {
+						prop = 'affected_id';
+					}
+				}
+
+				const affItemRel = aras.newRelationship(typeID, this._item);
+				const affItem = aras.newItem('Affected Item');
+
+				aras.setItemProperty(affItem, prop_action, action);
+				aras.setItemProperty(affItem, prop, changeControlledItemNode);
+				aras.setItemPropertyAttribute(
+					affItem,
+					prop,
+					'keyed_name',
+					aras.getKeyedNameEx(changeControlledItemNode)
+				);
+
+				aras.setItemProperty(affItemRel, 'related_id', affItem);
+			}
+
+			return true;
+		}
+
+		getDuplicateAffectedChangeControlledItemIdsForExpressEco(
+			changeControlledItemsToAdd
+		) {
+			const duplicateChangeControlledItemIds = new Set();
+
+			if (aras.isTempEx(this._item)) {
+				return duplicateChangeControlledItemIds;
+			}
+
+			const changeControlledItemCount = changeControlledItemsToAdd.getItemCount();
+			const changeControlledItemIds = [];
+
+			for (let i = 0; i < changeControlledItemCount; i++) {
+				changeControlledItemIds.push(
+					changeControlledItemsToAdd.getItemByIndex(i).getId()
+				);
+			}
+
+			const collectDuplicateChangeControlledItemIds = function (
+				affectedItems
+			) {
+				const affectedItemCount = affectedItems.getItemCount();
+
+				for (let i = 0; i < affectedItemCount; i++) {
+					const affectedItem = affectedItems.getItemByIndex(i);
+					const itemAction = affectedItem.getProperty('item_action');
+					const affectedId = affectedItem.getProperty('affected_id');
+					const newItemId = affectedItem.getProperty('new_item_id');
+
+					if (affectedId && itemAction !== 'Release') {
+						duplicateChangeControlledItemIds.add(affectedId);
+					} else if (
+						newItemId &&
+						(itemAction === 'Release' ||
+							itemAction === 'None' ||
+							itemAction === 'Review')
+					) {
+						duplicateChangeControlledItemIds.add(newItemId);
+					}
+				}
+			};
+
+			const affectedItemXPathFilter = changeControlledItemIds.reduce(
+				function (xpathFilter, id, index) {
+					return (
+						xpathFilter +
+						(index !== 0 ? ' or ' : '') +
+						'affected_id/Item/@id="' +
+						id +
+						'" or ' +
+						'new_item_id/Item/@id="' +
+						id +
+						'" or ' +
+						'affected_id="' +
+						id +
+						'" or ' +
+						'new_item_id="' +
+						id +
+						'"'
+					);
+				},
+				''
+			);
+			const duplicateAffectedItemsXPath =
+				'Relationships/Item[@type="Express ECO Affected Item"]/related_id/Item[' +
+				affectedItemXPathFilter +
+				']';
+
+			const changeItem = aras.newIOMItem();
+			changeItem.dom = this._item.ownerDocument;
+			changeItem.node = this._item;
+
+			const existingAffectedItems = changeItem.getItemsByXPath(
+				duplicateAffectedItemsXPath
+			);
+
+			collectDuplicateChangeControlledItemIds(existingAffectedItems);
+
+			const changeControlledItemIdList = changeControlledItemIds.join(',');
+
+			let affectedItems = aras.newIOMItem('Affected Item', 'get');
+			affectedItems.setAttribute(
+				'select',
+				'new_item_id,affected_id,item_action'
+			);
+
+			const relationshipToAffectedItem = aras.newIOMItem(
+				'Express ECO Affected Item'
+			);
+			relationshipToAffectedItem.setProperty(
+				'source_id',
+				aras.getItemProperty(this._item, 'id')
+			);
+
+			affectedItems.setPropertyItem('id', relationshipToAffectedItem);
+			affectedItems.setPropertyCondition('id', 'in');
+			affectedItems.setPropertyAttribute('id', 'by', 'related_id');
+
+			const logicalOR = affectedItems.newOR();
+			logicalOR.setProperty('affected_id', changeControlledItemIdList);
+			logicalOR.setPropertyCondition('affected_id', 'in');
+
+			logicalOR.setProperty('new_item_id', changeControlledItemIdList);
+			logicalOR.setPropertyCondition('new_item_id', 'in');
+
+			affectedItems = affectedItems.apply();
+
+			if (affectedItems.isError()) {
+				if (affectedItems.getErrorCode() === '0') {
+					return duplicateChangeControlledItemIds;
+				}
+
+				aras.AlertError(affectedItems);
+				return null;
+			}
+
+			collectDuplicateChangeControlledItemIds(affectedItems);
+
+			return duplicateChangeControlledItemIds;
+		}
+
+		_isAddingAffectedItemsAllowed() {
+			if (!super._isAddingAffectedItemsAllowed()) {
+				return false;
+			}
+
+			switch (this._itemTypeName) {
+				case 'ECN':
+				case 'Express ECO':
+					return this._state !== 'In Work' && this._state !== 'In Review';
+				case 'ECR':
+					return this._state !== 'Disapproved';
+				case 'Simple ECO':
+					return this._state !== 'In Review';
+			}
+
+			return true;
+		}
+	}
+	//-Generic ******************************************************
+
+	let item;
+	if (instanceName) {
+		item = aras.getItemByKeyedName(typeName, instanceName);
+	} else {
+		// Do a client-side add of the change item. The new item will not be in the database until the user saves it
+		item = aras.newItem(typeName);
+		aras.itemsCache.addItem(item);
+	}
+
+	let changeItem;
+	switch (typeName) {
+		case 'PR':
+			changeItem = new PRChangeItem(item);
+			break;
+		case 'ECR':
+		case 'ECN':
+		case 'Express ECO':
+		case 'Express DCO':
+		case 'Simple ECO':
+			changeItem = new GenericChangeItem(item);
+			break;
+		case 'Simple MCO':
+			changeItem = new MCOChangeItem(item);
+			break;
+	}
+
+	return changeItem;
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>PE_AddChangeItem</name>
+ </Item>
+</AML>

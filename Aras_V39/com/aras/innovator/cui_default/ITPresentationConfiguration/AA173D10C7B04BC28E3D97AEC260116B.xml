@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="AA173D10C7B04BC28E3D97AEC260116B" action="add">
+  <client>js</client>
+  <related_id keyed_name="cui_Location Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="515C801280B647E6A6935CDF33B191BA" action="add">
+    <color>#777a9c</color>
+    <name>cui_Location Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="cui_Location" type="ItemType" name="cui_Location">649C94F67F494138849680379B7C88BA</source_id>
+ </Item>
+</AML>

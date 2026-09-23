@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="7D64A29CF19A40B7A2EC4C321405B587" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Alias 'File' can be used only with 'File' type.</text>
+  <name>cws_OnlyFileTypeCanHaveFileAlias</name>
+ </Item>
+</AML>

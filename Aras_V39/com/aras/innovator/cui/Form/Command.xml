@@ -1,0 +1,87 @@
+﻿<AML>
+ <Item type="Form" id="411FD9A5C7BD41A6BCA748EF1981B070" action="add">
+  <height>234</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>699</width>
+  <name>Command</name>
+  <Relationships>
+   <Item type="Body" id="8AB299B6591643A4ACB65E90B3F96B1F" action="add">
+    <bg_color>#FFFFFF</bg_color>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Command" type="Form">411FD9A5C7BD41A6BCA748EF1981B070</source_id>
+    <Relationships>
+     <Item type="Field" id="D7E12DA6918E4850896B27F5063547A4" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>item</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Can Execute</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="can_execute" type="Property">DD0B31DBDD47402183495D112CA9247F</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="8AB299B6591643A4ACB65E90B3F96B1F" type="Body">8AB299B6591643A4ACB65E90B3F96B1F</source_id>
+      <tab_index>3328</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>10</x>
+      <y>90</y>
+      <name>can_execute</name>
+     </Item>
+     <Item type="Field" id="AD446E5E457745D4B1475048D18CDE7A" action="add">
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>item</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Execute</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="execute_handler" type="Property">3DA0AB9BFAFC4DFD84A3184952BF3530</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="8AB299B6591643A4ACB65E90B3F96B1F" type="Body">8AB299B6591643A4ACB65E90B3F96B1F</source_id>
+      <tab_index>3200</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>10</x>
+      <y>50</y>
+      <name>execute_handler</name>
+     </Item>
+     <Item type="Field" id="6F4A5C8AACEA4C47990B251E33679F9F" action="add">
+      <border_width>0</border_width>
+      <display_length>64</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#333333</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Name</label>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="name" type="Property">95D894EC814E4637B135171AEA3E6A47</propertytype_id>
+      <show_help>1</show_help>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="8AB299B6591643A4ACB65E90B3F96B1F" type="Body">8AB299B6591643A4ACB65E90B3F96B1F</source_id>
+      <tab_index>3072</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>10</x>
+      <y>10</y>
+      <name>name</name>
+     </Item>
+    </Relationships>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="0DBA6E9572544ABF8BD2B268BC301CE9" action="add">
+  <template>import { type ContextMenu } from 'core';
+import { method } from 'metadata';
+import { item } from 'store'
+import type { Options, ClickHandlerReturnType } from '../Modules/cui/cuiTypes';
+import type { ContextMenuItems } from '../Modules/components/contextMenuTypes';
+
+export async function $method_name(
+	control: ContextMenu ,
+	target: ContextMenuItems,
+	options: Options&lt;'SearchView'&gt;
+): ClickHandlerReturnType {
+	$method_code;
+}
+  </template>
+  <name>gridUpdateItemsInPackage</name>
+ </Item>
+</AML>

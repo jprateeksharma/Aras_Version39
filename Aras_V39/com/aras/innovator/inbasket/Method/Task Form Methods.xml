@@ -1,0 +1,59 @@
+﻿<AML>
+ <Item type="Method" id="A003399F6405496B89A9E3F8EF67BB18" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const topWnd = aras.getMostTopWindowWithAras(window);
+window['TaskForm_HideMenu'] = function() {
+	if (topWnd.item.getAttribute('type') == 'Form') {
+		return;
+	}
+	let style = document.styleSheets[0];
+	const parentDoc = topWnd.document;
+	const menuContainer = parentDoc.getElementById('top');
+
+	style.insertRule('html, body {width: 100%; height: 100%; overflow: hidden;}', 0);
+
+	if (menuContainer) {
+		const formPaneWidget = parentDoc.getElementById('formContentPane');
+		const menuHeight = menuContainer.offsetHeight;
+
+		menuContainer.style.display = 'none';
+		style = parentDoc.styleSheets[parentDoc.styleSheets.length - 1];
+		style.insertRule('#center {top: 0px !important;}', style.cssRules.length);
+		formPaneWidget.style.height = parseInt(formPaneWidget.style.height) + menuHeight + 'px';
+	}
+};
+
+window['TaskForm_CreateDialogFrame'] = function(dialogUrl, onloadHandler) {
+	if (topWnd.item.getAttribute('type') == 'Form') {
+		return;
+	}
+	let iframe = document.createElement('iframe');
+	iframe = document.body.appendChild(iframe);
+	const st = iframe.style;
+	st.width = st.height = '100%';
+	iframe.setAttribute('border', 'no');
+	if (onloadHandler) {
+		iframe.onload = onloadHandler;
+	}
+	iframe.setAttribute('src', dialogUrl);
+	return iframe;
+};
+
+window['TaskForm_InvalidateItemsGridRow'] = function() {
+	const itm = document.item;
+	const id = itm.getAttribute('id');
+	aras.itemsCache.deleteItem(id);
+	const itemTypeName = itm.getAttribute('type');
+	const newItm = aras.getItemById(itemTypeName, id);
+	if (newItm) {
+		aras.fireEvent('ItemSave', { itemNd: newItm, itemID: newItm.id });
+	} else {
+		aras.fireEvent('ItemDelete', { itemID: id, itemTypeName });
+	}
+	aras.itemsCache.deleteItem(id);
+};
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>Task Form Methods</name>
+ </Item>
+</AML>

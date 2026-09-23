@@ -1,0 +1,49 @@
+﻿<AML>
+ <Item type="PresentationCommandBarSection" id="EEC8A3B9E9CD4DBBBA50BF6D7F476B45" action="add">
+  <item_classification>Responsive</item_classification>
+  <related_id keyed_name="itemview.itemcommandbar.responsive_form" type="CommandBarSection">
+   <Item type="CommandBarSection" id="2C9FE5DA977F4326BD395F9768427380" action="add">
+    <classification>Data Model</classification>
+    <location keyed_name="ItemView.ItemCommandBar" type="cui_Location">830EE31D213649DA934EE655E894EA3A</location>
+    <name>itemview.itemcommandbar.responsive_form</name>
+    <Relationships>
+     <Item type="CommandBarSectionItem" id="BCC2498272534CE7982BDDA066564FA4" action="add">
+      <action>Add</action>
+      <item_classification>Responsive</item_classification>
+      <related_id keyed_name="itemview.itemcommandbar.form.deletemenu.reset_to_original" type="CommandBarItem">DC7A13020628492691CCBE26E8126B2D</related_id>
+      <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="itemview.itemcommandbar.responsive_form" type="CommandBarSection">2C9FE5DA977F4326BD395F9768427380</source_id>
+     </Item>
+     <Item type="CommandBarSectionItem" id="D1EDC246027A41188B1A382366DF9E44" action="add">
+      <action>Replace</action>
+      <alternate keyed_name="itemview.itemcommandbar.responsive_form.save" type="CommandBarItem">C8E4CBFFC82F4ADC86796EC0CA330F59</alternate>
+      <related_id keyed_name="itemview.itemcommandbar.default.save" type="CommandBarItem">1733C607C4AB434E9E291DB6F218CD51</related_id>
+      <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+      <sort_order>640</sort_order>
+      <source_id keyed_name="itemview.itemcommandbar.responsive_form" type="CommandBarSection">2C9FE5DA977F4326BD395F9768427380</source_id>
+     </Item>
+     <Item type="CommandBarSectionItem" id="180FD7BE167E400BA168FF182597ED4D" action="add">
+      <action>Replace</action>
+      <alternate keyed_name="itemview.itemcommandbar.responsive_form.done" type="CommandBarItem">9237AD7D41494F058D39CDE99BF7C851</alternate>
+      <related_id keyed_name="itemview.itemcommandbar.default.done" type="CommandBarItem">034BF69C4E794026A86CD5C1D6B1AD1B</related_id>
+      <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+      <sort_order>768</sort_order>
+      <source_id keyed_name="itemview.itemcommandbar.responsive_form" type="CommandBarSection">2C9FE5DA977F4326BD395F9768427380</source_id>
+     </Item>
+     <Item type="CommandBarSectionItem" id="21EBE428546043D7A5305B9F81867CF0" action="add">
+      <action>Replace</action>
+      <alternate keyed_name="itemview.itemcommandbar.responsive_form.discard" type="CommandBarItem">6D6A7EA4774C4065BC02141B1E4D2316</alternate>
+      <related_id keyed_name="itemview.itemcommandbar.default.discard" type="CommandBarItem">7DB0AE8C76A34EB48BF3E339169D00F1</related_id>
+      <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+      <sort_order>896</sort_order>
+      <source_id keyed_name="itemview.itemcommandbar.responsive_form" type="CommandBarSection">2C9FE5DA977F4326BD395F9768427380</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </related_id>
+  <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+  <sort_order>640</sort_order>
+  <source_id keyed_name="Form Presentation Configuration" type="PresentationConfiguration">42F0FF594878407F9B4D94E53B84F426</source_id>
+ </Item>
+</AML>

@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="4E316CD46904488EBAA84D57C9D0C31B" action="add">
+  <client>js</client>
+  <related_id keyed_name="CommandBarSeparator Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="9670E0757D4A4B469FFEA753F22BECBC" action="add">
+    <color>#3845dc</color>
+    <name>CommandBarSeparator Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="CommandBarSeparator" type="ItemType" name="CommandBarSeparator">837D345236384B5DAE4B52042419F966</source_id>
+ </Item>
+</AML>

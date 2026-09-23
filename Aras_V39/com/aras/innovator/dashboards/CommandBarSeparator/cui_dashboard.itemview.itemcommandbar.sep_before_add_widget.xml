@@ -1,0 +1,5 @@
+﻿<AML>
+ <Item type="CommandBarSeparator" id="ED472987FFAF421F99254C7D134ED107" action="add">
+  <name>cui_dashboard.itemview.itemcommandbar.sep_before_add_widget</name>
+ </Item>
+</AML>

@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="155A0FB727B54F459B7DC84C4ABF5347" action="add">
+  <builder_method keyed_name="GridCuiRulesBuilder" type="Method">5EDD4D7306C7459AB1A7CE0792B88151</builder_method>
+  <classification>Method</classification>
+  <location keyed_name="DashboardGridWidget" type="cui_Location">F57AFF3549AD48219A913FE47AC164C2</location>
+  <name>DashboardGrid.GridCuiRules</name>
+ </Item>
+</AML>

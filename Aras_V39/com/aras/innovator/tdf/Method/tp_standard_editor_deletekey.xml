@@ -1,0 +1,133 @@
+﻿<AML>
+ <Item type="Method" id="85D533076A924E5B8D0B5F1230E1A8C2" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[let handleResult = false;
+
+if (this.viewmodel.IsEditable()) {
+	const deleteKeyCode = 46;
+	const keyEvent = options.event;
+	const keyCode = keyEvent.which || keyEvent.keyCode;
+	const selectedItems = this.viewmodel.GetSelectedItems();
+	const contextData = {
+		selectedElement: null,
+		cursorPosition: null
+	};
+
+	if (!target || keyCode !== deleteKeyCode || keyEvent.shiftKey || keyEvent.altKey || keyEvent.ctrlKey || selectedItems.length !== 1) {
+		return;
+	}
+
+	target = this.viewmodel.GetAncestorOrSelfElement(selectedItems[0]); // eslint-disable-line
+
+	try {
+		this.viewmodel.SuspendInvalidation();
+
+		if (this._isTextElement(target)) {
+			// text elements related logic
+			this.control.domRange.refresh();
+
+			const viewCursor = this.viewmodel.Cursor();
+			const textLength = this._getTextElementLength(target);
+
+			if (viewCursor.startOffset === textLength && viewCursor.endOffset === textLength) {
+				const parentElement = target.Parent;
+				const closestElement = this._getClosestTextElementIfExists(target, parentElement);
+
+				this.control.syncBeforeAction(keyEvent);
+
+				if (
+					closestElement &&
+					(closestElement.Parent === target.Parent ||
+						(closestElement.Parent.is('ArasListItemXmlSchemaElement') && target.Parent.is('ArasListItemXmlSchemaElement'))) &&
+					this._mergeTextElements(target, closestElement)
+				) {
+					contextData.cursorPosition = {
+						element: target,
+						position: textLength
+					};
+				} else if (!this._getTextElementLengthWithoutWhitespaces(target)) {
+					const elementToRemove = this._getFarthestParentWithSingleChild(target);
+					const isLastChild = this._isLastChild(elementToRemove);
+
+					this._tryRemoveElement(
+						elementToRemove,
+						isLastChild ? this.enums.Directions.Up : this.enums.Directions.Down,
+						contextData
+					);
+					handleResult = true;
+				} else if (parentElement.is('ArasListItemXmlSchemaElement')) {
+					const listElement = parentElement.List();
+
+					if (listElement) {
+						const listItemChildren = parentElement.ChildItems();
+						const targetIndex = listItemChildren.index(target);
+
+						if (targetIndex === listItemChildren.length() - 1) {
+							const listItems = this._getListItems(listElement);
+							const currentListItemIndex = listItems.indexOf(parentElement);
+							const nextListItem = listItems[currentListItemIndex + 1];
+
+							if (nextListItem && !nextListItem.ChildItems().length()) {
+								this._tryRemoveElement(nextListItem, this.enums.Directions.Up, contextData);
+							}
+						}
+					}
+				}
+
+				handleResult = true;
+			} else if (target.is('ArasTextElement')) {
+				const range = viewCursor.sourceRange;
+				const isTextCursor = range.startContainer.nodeType === Node.TEXT_NODE;
+				const stash = target.getTextStash();
+
+				if (isTextCursor) {
+					const emphNode = range.startContainer.parentNode.closest('.ArasStringElement');
+					const emphId = emphNode.getAttribute('id');
+					const offset = this.control.domRange.getActualTextOffset(emphNode, range.startContainer, range.startOffset);
+					const stash = target.getTextStash();
+					const cursorEmph = stash.getEmphById(emphId);
+
+					if (offset === emphNode.textContent.length) {
+						const nextEmph = stash.getNextEmph(cursorEmph);
+
+						if (nextEmph?.type === 'element') {
+							handleResult = true;
+						}
+					}
+				} else {
+					const nextEmph = stash.getEmphByIndex(range.startOffset);
+
+					if (nextEmph?.type === 'element') {
+						handleResult = true;
+					}
+				}
+			}
+		} else if (!target.is('ArasCellXmlSchemaElement')) {
+			// case when common document element is deleted
+			this._tryRemoveElement(target, this._isLastChild(target) ? this.enums.Directions.Up : this.enums.Directions.Down, contextData);
+
+			handleResult = true;
+		}
+	} finally {
+		if (contextData.selectedElement) {
+			this.viewmodel.SetSelectedItems(contextData.selectedElement);
+		}
+
+		this.viewmodel.ResumeInvalidation();
+	}
+
+	if (contextData.cursorPosition) {
+		const cursorPosition = contextData.cursorPosition;
+		this._setCursorPosition(cursorPosition.element, cursorPosition.position, cursorPosition.element, cursorPosition.position);
+	}
+
+	if (handleResult) {
+		this._stopEvent(keyEvent);
+	}
+}
+
+return handleResult;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>tp_standard_editor_deletekey</name>
+ </Item>
+</AML>

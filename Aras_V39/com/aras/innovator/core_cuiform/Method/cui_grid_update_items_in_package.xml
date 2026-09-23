@@ -1,0 +1,21 @@
+﻿<AML>
+ <Item type="Method" id="7C355C5849CE40C989BBBE44A221801F" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const { itemTypeName, getState, getLayout } = options;
+const state = getState();
+
+const updateItemsInPackage = method.getMethod('updateItemsInPackage')?.method;
+if (!updateItemsInPackage) {
+	return;
+}
+
+const formItems = state.grid.selectedRows
+                  .filter(rowId => !item.isNew(itemTypeName, rowId))
+                  .map(id => ({id, name: getLayout().grid.rows.get<string>(id, 'name') ?? id }));
+
+await updateItemsInPackage(formItems, itemTypeName);]]></method_code>
+  <method_type>TypeScript</method_type>
+  <template keyed_name="gridUpdateItemsInPackage" type="MethodTemplate">0DBA6E9572544ABF8BD2B268BC301CE9</template>
+  <name>gridUpdateItemsInPackage</name>
+ </Item>
+</AML>

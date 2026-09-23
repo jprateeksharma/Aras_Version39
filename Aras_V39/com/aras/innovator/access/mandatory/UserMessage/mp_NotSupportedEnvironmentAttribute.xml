@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="5ABA9D1B5222436CAC90A1AE39F0998D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">GetUsersWithAccessToItems(): The active MAC Policy uses Environment Attribute(s) which are currently not supported by this interface.</text>
+  <name>mp_NotSupportedEnvironmentAttribute</name>
+ </Item>
+</AML>

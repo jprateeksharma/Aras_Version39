@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="7ADA0065250F43A4ADA09C8DB343C7BC" action="add">
+  <label xml:lang="en">Add to Package Definition</label>
+  <on_click_handler keyed_name="addFormToPackageDef" type="Method">38A8F35C7FA242C18CB534C619029F7A</on_click_handler>
+  <parent_menu keyed_name="itemview.itemcommandbar.default.more" type="CommandBarMenu">FFEBAEC1DE43491D8AF7C2684253E34A</parent_menu>
+  <name>cui_responsive_form_add_to_package</name>
+ </Item>
+</AML>

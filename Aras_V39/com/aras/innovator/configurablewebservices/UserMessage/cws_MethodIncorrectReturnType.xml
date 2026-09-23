@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="6398293BEE644C9FA1CAE7B919E5CCA1" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid '{0}' method definition: return type '{1}' is not primitive and not defined among types definitions.</text>
+  <name>cws_MethodIncorrectReturnType</name>
+ </Item>
+</AML>

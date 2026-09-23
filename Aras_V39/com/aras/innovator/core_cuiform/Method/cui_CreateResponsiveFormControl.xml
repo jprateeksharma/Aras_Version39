@@ -1,0 +1,67 @@
+﻿<AML>
+ <Item type="Method" id="7F1B0C252CD841B3B90B3233967ECD8A" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[if (string.Equals(this.getProperty("classification"), "Responsive", StringComparison.Ordinal))
+{
+    const string itemViewFormTabId = "6C6B5EDBB53F4762A582D8D4AD3418AB";
+
+	Item compositeRelationship = this.newItem();
+	compositeRelationship.loadAML(string.Format(CultureInfo.InvariantCulture,
+		@"<Item type='FormComposite' action='get'>
+	<source_id>{0}</source_id>
+	<related_id>
+		<Item type='cui_WindowSection' action='get'>
+			<classification>Data Model</classification>
+			<location>
+				<Item type='cui_Location' action='get'>
+					<name>ItemView</name>
+				</Item>
+			</location>
+			<Relationships>
+				<Item type='cui_WindowSectionControl' action='get'>
+					<action>Add</action>
+					<role>
+						<Item type='Identity' action='get' select='id'>
+							<name>World</name>
+						</Item>
+					</role>
+					<related_id>
+						<Item type='cui_Control' action='get'>
+							<name>ItemView.Form</name>
+							<control_type>FormControl</control_type>
+							<parent_control>{1}</parent_control>
+						</Item>
+					</related_id>
+				</Item>
+			</Relationships>
+		</Item>
+	</related_id>
+</Item>",
+		System.Security.SecurityElement.Escape(this.getID()),
+		System.Security.SecurityElement.Escape(itemViewFormTabId)));
+
+	Item response = compositeRelationship.apply();
+
+	string cuiControlXpath = "//Item[@type='FormComposite']/related_id/Item/Relationships/Item/related_id/Item[@type='cui_Control']";
+	Item controlItem = response.getItemsByXPath(cuiControlXpath);
+
+	if (controlItem.getItemCount() == 0)
+	{
+		Item requestItems = compositeRelationship.getItemsByXPath("//Item[@type != 'cui_Location' and @type != 'Identity']");
+		for (int i = 0; i < requestItems.getItemCount(); i++)
+		{
+			Item requestItem = requestItems.getItemByIndex(i);
+			requestItem.setAction("add");
+		}
+
+		compositeRelationship.getRelatedItem().setProperty("name", this.getProperty("name"));
+
+		return compositeRelationship.apply();
+	}
+}
+
+return this.getInnovator().newResult(string.Empty);]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_CreateResponsiveFormControl</name>
+ </Item>
+</AML>

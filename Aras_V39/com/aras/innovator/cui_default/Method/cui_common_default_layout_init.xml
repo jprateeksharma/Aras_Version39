@@ -1,0 +1,146 @@
+﻿<AML>
+ <Item type="Method" id="27118E40CBE9434C982589B2C5F65C10" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { location, itemType } = options;
+const isRelationshipsGrid = location === 'RelationshipsView';
+const { preferences } = options.getProps();
+const updateLayoutDataBasedOnPreferences = (
+	layoutData: LayoutData,
+	preferences: ReturnType<
+		Options<'SearchView'>['getProps'] | Options<'RelationshipsView'>['getProps']
+	>['preferences']
+) => {
+	if (!preferences) {
+		return;
+	}
+
+	const defaultPageSize = (
+		isRelationshipsGrid
+			? xmlToODataJson<RelationshipType>(
+					options.relationshipTypeNode,
+					false
+				)
+			: itemType
+	)['default_page_size'];
+	const isRelationshipsPreferences =
+		preferences['@type'] === 'RelationshipsView';
+	const preferencesPageSize = preferences['page_size'];
+	const preferencesMaxResults = isRelationshipsPreferences
+		? null
+		: preferences['max_records'];
+	const pageSize =
+		preferencesPageSize ?? parseInt(defaultPageSize?.toString() ?? '');
+	const maxResults = isRelationshipsGrid
+		? 0
+		: preferencesMaxResults ?? itemType.maxrecords;
+
+	layoutData.pagination = {
+		pageSize: pageSize || 0,
+		maxResults: maxResults || 0
+	};
+
+	const isRelatedRelationship = isRelationshipsGrid && options.relatedTypeName;
+	const defaultFrozenColumns =
+		!isRelationshipsGrid || isRelatedRelationship ? 1 : 0;
+	const frozenColumns = preferences['frozen_columns'] ?? defaultFrozenColumns;
+	const orderByStr = preferences['order_by'];
+	if (orderByStr) {
+		layoutData.grid.orderBy = serialization.parseOrderByString(orderByStr);
+	}
+
+	if (preferences['@type'] === 'SearchView') {
+		layoutData.grid.frozenColumns = frozenColumns;
+		layoutData.previewState = preferences['preview_state'] || 'Off';
+		const isVersionableItemType = itemType['is_versionable'] === '1';
+		if (isVersionableItemType) {
+			layoutData.queryType = preferences['query_type'] || 'Current';
+		}
+	}
+
+	if (isRelationshipsPreferences) {
+		layoutData.grid.frozenColumns = frozenColumns;
+		layoutData.redlineView = preferences['redline_view'] === '1';
+	}
+};
+
+if (
+	preferences === null ||
+	!preferences['col_order'] ||
+	!preferences['col_widths']
+) {
+	const standardLayoutInit = method.getMethod(
+		'cui_common_standard_layout_init'
+	)?.method;
+
+	options.notifyObserver('ReinitLayoutLabel');
+
+	const standardLayoutData: {
+		settings?: LayoutData;
+	} = standardLayoutInit
+		? (standardLayoutInit(control, target, options) as {
+				settings: LayoutData;
+			})
+		: {};
+
+	const { settings } = standardLayoutData;
+	if (preferences && settings) {
+		updateLayoutDataBasedOnPreferences(settings, preferences);
+	}
+
+	return standardLayoutData;
+}
+
+const layoutData: LayoutData = {
+	pagination: {
+		pageSize: 0,
+		maxResults: 0
+	},
+	grid: { order: [], widths: new Map() }
+};
+
+const order = preferences['col_order'].split(';');
+const widths = preferences['col_widths'].split(';');
+const { getVisibleProperties } = itemTypeMetadata;
+const properties = getVisibleProperties(itemType, isRelationshipsGrid);
+let relatedProperties: (ItemTypeProperty | ExtendedItemTypeXProperty)[] = [];
+if (isRelationshipsGrid && options.relatedItemType) {
+	relatedProperties = getVisibleProperties(options.relatedItemType, true);
+}
+const isExistingProperty = (
+	properties: (ItemTypeProperty | ExtendedItemTypeXProperty)[],
+	propertyName: string
+): boolean => properties.some(({ name }) => name === propertyName);
+
+order.reduce((acc, columnName, index) => {
+	const columnWidth = parseInt(widths[index]);
+	const columnNameLength = columnName.length;
+	const propertyName = columnName.substring(0, columnNameLength - 2);
+	const currentProperties = columnName.endsWith('_R')
+		? relatedProperties
+		: properties;
+	const isPropertyExist =
+		(columnName === 'L' ||
+			isExistingProperty(currentProperties, propertyName)) &&
+		columnWidth;
+	if (!isPropertyExist) {
+		return acc;
+	}
+
+	acc.order.push(columnName);
+	acc.widths.set(columnName, columnWidth);
+	return acc;
+}, layoutData.grid);
+
+updateLayoutDataBasedOnPreferences(layoutData, preferences);
+
+options.notifyObserver('ReinitLayoutLabel');
+
+return {
+	settings: layoutData
+};
+]]></method_code>
+  <method_type>TypeScript</method_type>
+  <template keyed_name="cui_searchgrid_commandbar_init" type="MethodTemplate">BC175CEA1A2B45AFA11A6CB2AC5B4B8C</template>
+  <name>cui_common_default_layout_init</name>
+ </Item>
+</AML>

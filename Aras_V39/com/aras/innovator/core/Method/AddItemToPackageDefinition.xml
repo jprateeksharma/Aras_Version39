@@ -1,0 +1,192 @@
+﻿<AML>
+ <Item type="Method" id="509A6D835FBC49BE87525DA2055E7EF4" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	DataAccessLayer dataAccessLayer = new DataAccessLayer(innovator);
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer, CCO.ErrorLookup);
+
+	return businessLogic.AddItemsToPackageDefinition(this);
+}
+
+internal class BusinessLogic
+{
+	private Innovator innovator;
+	private IDataAccessLayer dataAccessLayer;
+	private Aras.Server.Core.Abstractions.IErrorLookup errorLookup;
+
+	internal BusinessLogic(Innovator innovator, IDataAccessLayer dataAccessLayer, Aras.Server.Core.Abstractions.IErrorLookup errorLookup)
+	{
+		this.innovator = innovator;
+		this.dataAccessLayer = dataAccessLayer;
+		this.errorLookup = errorLookup;
+	}
+
+	public Item AddItemsToPackageDefinition(Item methodItem)
+	{
+		string packageDefinitionName = methodItem.getProperty("packageName");
+		Item itemsToAddToPackage = methodItem.getRelationships();
+		Dictionary<string, Item> itemTypeNameToItemMap = CollectItemTypes(itemsToAddToPackage);
+
+		Item packageDefinitionItem = this.innovator.newItem("PackageDefinition", "get");
+		packageDefinitionItem.setProperty("name", packageDefinitionName);
+
+		var packageItemsStatuses = new Newtonsoft.Json.Linq.JArray();
+		for (int i = 0; i < itemsToAddToPackage.getItemCount(); i++)
+		{
+			Item itemToAddToPackage = itemsToAddToPackage.getItemByIndex(i);
+			string itemId = itemToAddToPackage.getProperty("id");
+			string itemTypeName = itemToAddToPackage.getProperty("itemTypeName");
+			Item itemTypeItem = itemTypeNameToItemMap[itemTypeName];
+			string itemTypeLabel = itemTypeItem.getProperty("label");
+			if (string.IsNullOrEmpty(itemTypeLabel))
+			{
+				itemTypeLabel = itemTypeName;
+			}
+
+			Item packageGroupItem = this.innovator.newItem("PackageGroup", "create");
+			packageGroupItem.removeAttribute("id");
+			packageGroupItem.setProperty("name", itemTypeLabel);
+			packageGroupItem.setPropertyItem("source_id", packageDefinitionItem);
+			packageGroupItem = packageGroupItem.apply();
+			if (packageGroupItem.isError())
+			{
+				Newtonsoft.Json.Linq.JObject errorItem = new Newtonsoft.Json.Linq.JObject
+				{
+					{ "id", itemId },
+					{ "type", "Error" },
+					{ "message", packageGroupItem.getErrorString() }
+				};
+				packageItemsStatuses.Add(errorItem);
+				continue;
+			}
+
+			string packageGroupId = packageGroupItem.getID();
+			Item currentItem = this.dataAccessLayer.GetItem(itemTypeName, itemId);
+			string itemConfigId = currentItem.getProperty("config_id");
+			string itemKeyedName = currentItem.getProperty("keyed_name");
+
+			Item packageElement = this.innovator.newItem("PackageElement", "get");
+			packageElement.setProperty("source_id", packageGroupId);
+			packageElement.setProperty("element_id", itemConfigId);
+			packageElement = packageElement.apply();
+			if (!packageElement.isError())
+			{
+				string errorMessage = this.errorLookup.Lookup("ItemAlreadyAddedToSelectedPackage", itemKeyedName, packageDefinitionName);
+				Newtonsoft.Json.Linq.JObject errorItem = new Newtonsoft.Json.Linq.JObject
+				{
+					{ "id", itemId },
+					{ "type", "Error" },
+					{ "message", errorMessage }
+				};
+				packageItemsStatuses.Add(errorItem);
+				continue;
+			}
+
+			try
+			{
+				packageElement = this.innovator.newItem("PackageElement", "add");
+				packageElement.setProperty("source_id", packageGroupId);
+				packageElement.setProperty("element_id", itemConfigId);
+				packageElement.setProperty("name", itemKeyedName);
+				packageElement.setProperty("element_type", itemTypeName);
+				packageElement = packageElement.apply();
+				if (!packageElement.isError())
+				{
+					Newtonsoft.Json.Linq.JObject successItem = new Newtonsoft.Json.Linq.JObject {
+						{ "id", itemId },
+						{ "type", "Success" }
+					};
+					packageItemsStatuses.Add(successItem);
+				}
+			}
+			catch(Aras.Server.Core.PropertiesAreNotUniqueException)
+			{
+				string errorMessage = this.errorLookup.Lookup("ItemAlreadyAddedToAnotherPackage", itemKeyedName);
+				Newtonsoft.Json.Linq.JObject errorItem = new Newtonsoft.Json.Linq.JObject
+				{
+					{ "id", itemId },
+					{ "type", "Error" },
+					{ "message", errorMessage }
+				};
+				packageItemsStatuses.Add(errorItem);
+			}
+			catch(Exception e)
+			{
+				Newtonsoft.Json.Linq.JObject errorItem = new Newtonsoft.Json.Linq.JObject
+				{
+					{ "id", itemId },
+					{ "type", "Error" },
+					{ "message", e.Message }
+				};
+				packageItemsStatuses.Add(errorItem);
+			}
+		}
+
+		Newtonsoft.Json.Linq.JObject result = new Newtonsoft.Json.Linq.JObject
+		{
+			{ "statuses", packageItemsStatuses }
+		};
+		string responseString = result.ToString(Newtonsoft.Json.Formatting.None);
+		return innovator.newResult(responseString);
+	}
+
+	private Dictionary<string, Item> CollectItemTypes(Item itemsToAddToPackage)
+	{
+		HashSet<string> itemTypeNames = new HashSet<string>();
+		for (int i = 0; i < itemsToAddToPackage.getItemCount(); i++)
+		{
+			Item item = itemsToAddToPackage.getItemByIndex(i);
+			
+			itemTypeNames.Add(item.getProperty("itemTypeName"));
+		}
+
+		Dictionary<string, Item> itemTypeNameToItemMap = new Dictionary<string, Item>();
+		string itemTypeNamesStr = string.Join(',', itemTypeNames.Select(name => $"'{name}'"));
+		Item allItemTypesItem = this.dataAccessLayer.GetItemTypes(itemTypeNamesStr);
+		for (int i = 0; i < allItemTypesItem.getItemCount(); i++)
+		{
+			Item itemType = allItemTypesItem.getItemByIndex(i);
+
+			itemTypeNameToItemMap.Add(itemType.getProperty("name"), itemType);
+		}
+
+		return itemTypeNameToItemMap;
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item GetItemTypes(string itemTypeNamesStr);
+	Item GetItem(string itemTypeName, string id);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Innovator innovator;
+
+	internal DataAccessLayer(Innovator innovator)
+	{
+		this.innovator = innovator;
+	}
+
+	public Item GetItemTypes(string itemTypeNamesStr)
+	{
+		Item itemType = this.innovator.newItem("ItemType", "get");
+		itemType.setAttribute("select", "name,label");
+		itemType.setAttribute("language", "en");
+		itemType.setProperty("name", itemTypeNamesStr);
+		itemType.setPropertyAttribute("name", "condition", "in");
+		return itemType.apply();
+	}
+
+	public Item GetItem(string itemTypeName, string id)
+	{
+		Item item = this.innovator.newItem(itemTypeName, "get");
+		item.setAttribute("select", "keyed_name,config_id");
+		item.setAttribute("id", id);
+		return item.apply();
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>AddItemToPackageDefinition</name>
+ </Item>
+</AML>

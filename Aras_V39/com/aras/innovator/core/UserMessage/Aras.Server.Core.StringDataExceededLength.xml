@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="CA80D5EB805E40F3B7B4FAE8E6DF1D65" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Property "{0}" with value "{1}" of itemtype "{2}" exceeds the maximum length of {3} characters.</text>
+  <name>Aras.Server.Core.StringDataExceededLength</name>
+ </Item>
+</AML>

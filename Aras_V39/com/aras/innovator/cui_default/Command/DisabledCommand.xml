@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Command" id="EC695757B8DF46E8943B3F6BB0916025" action="add">
+  <can_execute keyed_name="cui_command_disable" type="Method">00E9F6C041DF491BA23BA6F7F82E4C85</can_execute>
+  <name>DisabledCommand</name>
+ </Item>
+</AML>

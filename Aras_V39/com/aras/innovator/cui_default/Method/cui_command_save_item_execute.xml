@@ -1,0 +1,115 @@
+﻿<AML>
+ <Item type="Method" id="65276503431340819F36F5EF9AA56E43" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[let { itemNode } = options;
+const { isDone, itemTypeName } = options;
+const itemChanges = ArasModules.item.getChanges(itemTypeName, itemNode.id);
+if (itemChanges?.['@mergeRequired']) {
+	itemNode = window.aras.mergeItemWithLocalChanges(itemNode);
+}
+const isClaimed = ArasModules.item.isEditedAndClaimed(itemTypeName, itemNode.id);
+const isFixForApplications = ['mpp_ProcessPlan', 'mpp_Operation', 'mpp_Tool', 'Manufacturer Part'].includes(itemTypeName);
+const itemAction = itemNode.getAttribute('action');
+const isNew = isFixForApplications ? itemAction === 'add' : ArasModules.item.isNew(itemTypeName, itemNode.id);
+const lockedById = aras.getItemProperty(itemNode, 'locked_by_id');
+const modifiedRelatedItems = [];
+const cleanUpAfterUnsuccessfulDone = () => {
+	if (!isClaimed && lockedById || isNew) {
+		itemNode.removeAttribute('unlock');
+	}
+	modifiedRelatedItems.forEach((modifiedRelatedItem) => {	
+		const action = modifiedRelatedItem.getAttribute('action') === 'unlock' ? 'action': 'unlock';
+		modifiedRelatedItem.removeAttribute(action);
+	});
+};
+if (isDone) {
+	itemNode.setAttribute('isDone', 'true');
+	const relatedItems = ArasModules.xml.selectNodes(
+		itemNode,
+		"Relationships/Item/related_id/Item[@isEditState='1']"
+	);
+
+	const editedRelatedItems = relatedItems.filter(relatedItem => aras.isEditStateEx(relatedItem));
+	const isItemVersionable = options.itemType.is_versionable === '1';
+	for (const editedRelatedItem of editedRelatedItems) {
+		const typeName = editedRelatedItem.getAttribute('type');
+		const id = editedRelatedItem.id;
+		const isClaimed = ArasModules.item.isEditedAndClaimed(typeName, id);
+		if (editedRelatedItem.hasAttribute('unlock') || isClaimed) {
+			continue
+		}
+		const relatedItemType = await ArasModules.metadata.itemType.getItemType(typeName);
+		const isRelatedItemDependent = Boolean(relatedItemType && relatedItemType.is_dependent === '1');
+		if (!(isItemVersionable && isRelatedItemDependent)) {
+			if (editedRelatedItem.getAttribute('action')) {
+				editedRelatedItem.setAttribute('unlock', '1');
+			} else {
+				editedRelatedItem.setAttribute('action', 'unlock');
+			}
+		}
+		modifiedRelatedItems.push(editedRelatedItem);
+	};
+	if (!isClaimed && lockedById || isNew) {
+		itemNode.setAttribute('unlock', 1);
+	}
+}
+let savedItem;
+try {
+	savedItem = await aras.saveItemAsync(itemNode);
+	if (!savedItem) {
+		cleanUpAfterUnsuccessfulDone();
+	}
+} catch (error) {
+	cleanUpAfterUnsuccessfulDone();
+	if (error.message === "Aras.Server.Core.ItemIsNotLockedException") {
+		const itemTypeLabel = options.itemType.label || options.itemType.name;
+		const itemKeyedName = window.aras.getItemProperty(itemNode, "keyed_name");
+		const discardText = window.aras.getResource(
+			"",
+			"common.discard_and_refresh"
+		);
+		const dialogSettings = {
+			title: window.aras.getResource("", "common.unable_to_save_title"),
+			cancelButtonText: window.aras.getResource("", "common.cancel"),
+			buttonsOrdering: ["discard", "cancel"],
+			additionalButtons: [{ text: discardText, actionName: "discard" }],
+		};
+		const dialogMessage = window.aras.getResource(
+			"",
+			"common.unable_to_save_item_message",
+			itemTypeLabel,
+			itemKeyedName
+		);
+		const result = await window.ArasModules.Dialog.confirm(
+			dialogMessage,
+			dialogSettings
+		);
+		if (result === "discard") {
+			const discardCommand = await commands.commandFactory("DiscardItem", {
+				ignoreDialog: true,
+				...options,
+			});
+			await discardCommand.execute();
+			const itemNd = window.aras.getItemById(itemTypeName, itemNode.id, 0);
+			return itemNd;
+		}
+		const err = new Error(dialogMessage, { cause: error });
+		err.name = "CUIError";
+		throw err;
+	}
+	throw error;
+}
+
+if (savedItem && isDone) {
+	savedItem.removeAttribute('isEditState');
+	const storeActions = aras.getMainWindow().store.boundActionCreators;
+	storeActions.deleteItemLocalChangesRecord(
+		itemTypeName,
+		savedItem.id
+	);
+}
+return savedItem;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_save_item_execute</name>
+ </Item>
+</AML>

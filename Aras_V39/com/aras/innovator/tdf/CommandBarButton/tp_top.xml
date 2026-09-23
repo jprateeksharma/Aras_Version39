@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="1F12AC03B29D47BDB88EC42A140C4130" action="add">
+  <additional_data>{ "actionName": "tableactions", "actionParameters": { "action": "top"}}</additional_data>
+  <image>../images/TopAlign.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_executeaction" type="Method">94FDE365CA9A402DB808B93FBE53CC4D</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_table_init" type="Method">3FEFE4010E7E4D599601B2816692F458</on_init_handler>
+  <tooltip_template xml:lang="en">Top align</tooltip_template>
+  <name>tp_top</name>
+ </Item>
+</AML>

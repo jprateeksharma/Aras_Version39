@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="Method" id="2577332C38044A48AB2B5D6852F79DE7" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const state = options.getState();
+const itemId = state.grid.selectedRows[0];
+if (window.execInTearOffWin(itemId, 'revisions')) {
+	return;
+}
+
+const dialogParams = {
+	aras: window.aras,
+	itemID: itemId,
+	itemTypeName: options.itemTypeName,
+	title: window.aras.getResource('', 'revisiondlg.item_versions'),
+	type: 'RevisionsDialog'
+};
+
+window.parent.ArasModules.MaximazableDialog.show('iframe', dialogParams);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_mwt_onRevisions</name>
+ </Item>
+</AML>

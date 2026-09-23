@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="E841F3F8AF244FE7976C1E80C12AA80E" action="add">
+  <include_events>UpdateTearOffWindowState</include_events>
+  <on_init_handler keyed_name="cui_ivtb_version_indicator_init" type="Method">259E62AC06F245E484AAF351F51A426E</on_init_handler>
+  <name>itemview.titlebar.default.version.indicator</name>
+ </Item>
+</AML>

@@ -1,0 +1,18 @@
+﻿<AML>
+ <Item type="User" id="F5AEED2324574DB9A45C0779A42680CE" action="add">
+  <default_vault keyed_name="Default" type="Vault">67BBB9204FE84A8981ED8313049BA06C</default_vault>
+  <login_name>JobAgentUser</login_name>
+  <logon_enabled>1</logon_enabled>
+  <owned_by_id keyed_name="cjs_Job Agent" type="Identity">82B8860AC92047979CDE2CBF063FFA79</owned_by_id>
+  <first_name>Job</first_name>
+  <last_name>Agent</last_name>
+  <Relationships>
+   <Item type="Alias" id="5CAB9BEEA4934AB596DA608D6DE39BF8" action="add">
+    <from_date>2023-05-05T04:17:10</from_date>
+    <related_id keyed_name="cjs_Job Agent" type="Identity">82B8860AC92047979CDE2CBF063FFA79</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Job Agent" type="User">F5AEED2324574DB9A45C0779A42680CE</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="F722328E3C074AEF840D841E5E62B598" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid '{0}' value. Date must follow pattern 'dd/MM/yyyy HH:mm:ss'.</text>
+  <name>InvalidStartScheduleOnValue</name>
+ </Item>
+</AML>

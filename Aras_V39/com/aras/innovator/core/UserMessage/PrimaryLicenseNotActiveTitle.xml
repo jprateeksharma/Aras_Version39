@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="7ABF90B570B1489EA76F2EC1A1C40398" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Subscription Expired</text>
+  <name>PrimaryLicenseNotActiveTitle</name>
+ </Item>
+</AML>

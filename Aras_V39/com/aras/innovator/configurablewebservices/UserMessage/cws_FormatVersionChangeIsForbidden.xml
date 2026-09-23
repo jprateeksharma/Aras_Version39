@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="9A100671E94944A9B683C98DC6601899" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">'FormatVersion' change is forbidden.</text>
+  <name>cws_FormatVersionChangeIsForbidden</name>
+ </Item>
+</AML>

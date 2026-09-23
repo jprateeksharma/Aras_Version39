@@ -1,0 +1,56 @@
+﻿<AML>
+ <Item type="Dashboard Widget Template" id="621B4886821A4E6399DC704E7510FFB7" action="add">
+  <height_size>8</height_size>
+  <label xml:lang="en">Grid Widget</label>
+  <type>Grid</type>
+  <width_size>8</width_size>
+  <name>Grid Template</name>
+  <Relationships>
+   <Item type="Dashboard Widget Template Prop" id="F1E3DFE4802B43E0A7BA9B4016C760B4" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">ItemType</label>
+    <name>item_type_id</name>
+    <prop_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</prop_source>
+    <prop_type>item</prop_type>
+    <required>1</required>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Grid Template" type="Dashboard Widget Template">621B4886821A4E6399DC704E7510FFB7</source_id>
+   </Item>
+   <Item type="Dashboard Widget Template Prop" id="124C900CACD24630B1C0CD105CDA599B" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">Search</label>
+    <name>favorite_search_id</name>
+    <prop_source keyed_name="Favorite" type="ItemType" name="Favorite">38B831B38A604743B74DE4551ED5BEE8</prop_source>
+    <prop_type>item</prop_type>
+    <required>0</required>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Grid Template" type="Dashboard Widget Template">621B4886821A4E6399DC704E7510FFB7</source_id>
+   </Item>
+   <Item type="Dashboard Widget Template Prop" id="CE2415501F21433F8B2FFF04E34EAEC1" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">Results per Page</label>
+    <name>page_size</name>
+    <prop_predefined>20</prop_predefined>
+    <prop_type>integer</prop_type>
+    <required>0</required>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Grid Template" type="Dashboard Widget Template">621B4886821A4E6399DC704E7510FFB7</source_id>
+   </Item>
+   <Item type="Dashboard Widget Template Prop" id="0060B32CA91F4EDE961160961DA77AD4" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">Maximum Results</label>
+    <name>max_results</name>
+    <prop_type>integer</prop_type>
+    <required>0</required>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="Grid Template" type="Dashboard Widget Template">621B4886821A4E6399DC704E7510FFB7</source_id>
+   </Item>
+   <Item type="Widget Template Shared Props" id="E57E779380B14E40B8BA33758CA0819E" action="add">
+    <name>selected_row_id</name>
+    <prop_type>string</prop_type>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Grid Template" type="Dashboard Widget Template">621B4886821A4E6399DC704E7510FFB7</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

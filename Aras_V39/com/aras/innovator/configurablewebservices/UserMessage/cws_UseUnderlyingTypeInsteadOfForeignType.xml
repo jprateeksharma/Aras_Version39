@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="7AA7407413654F5C9187F14598A144E5" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: '{1}' Property is declared with not supported 'Foreign' type. Use underlying type instead.</text>
+  <name>cws_UseUnderlyingTypeInsteadOfForeignType</name>
+ </Item>
+</AML>

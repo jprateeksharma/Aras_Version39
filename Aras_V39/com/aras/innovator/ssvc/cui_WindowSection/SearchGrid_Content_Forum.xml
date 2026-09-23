@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="72C0138308F34B8C8676D7D7396712F0" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="SearchGrid" type="cui_Location">9794720F4D45415880B5712BE52345B6</location>
+  <name>SearchGrid_Content_Forum</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="EB942642F3634DF1BF48FF61CA04F78F" action="add">
+    <action>Extend</action>
+    <related_id keyed_name="SearchGrid.Grid_7C2F35445D204617BDE378B8C458B38D" type="cui_Control">7C2F35445D204617BDE378B8C458B38D</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="SearchGrid_Content_Forum" type="cui_WindowSection">72C0138308F34B8C8676D7D7396712F0</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

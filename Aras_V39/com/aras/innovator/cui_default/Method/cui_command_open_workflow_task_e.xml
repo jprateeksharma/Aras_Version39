@@ -1,0 +1,81 @@
+﻿<AML>
+ <Item type="Method" id="E4199E3B5428455D970B42C07DFFF1E8" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, itemNode } = options;
+
+const showModalDialog = async (url, paramsObj, windowOptions) => {
+	paramsObj.content = url;
+	paramsObj.isPopup = true;
+	const dialog = ArasModules.Dialog.show(
+		'iframe',
+		Object.assign({}, paramsObj, windowOptions)
+	);
+
+	const result = await dialog.promise;
+	const { updated } = result || {};
+	if (updated) {
+		const inBasketTaskItemTypeName = 'InBasket Task';
+		const inBasketTaskItemTypeId = ArasModules.metadata.itemType.getItemTypeId(
+			inBasketTaskItemTypeName
+		);
+		const itemsGridArray = window.mainLayout.tabsContainer.getSearchGridTabs(
+			inBasketTaskItemTypeId
+		);
+		itemsGridArray.forEach((itemsGrid) => {
+			itemsGrid.doSearch();
+		});
+	}
+};
+
+const getItemFromServer = async (amlQuery) => {
+	const result = await aras.soapSendAsync(amlQuery);
+	if (result.getFaultCode() !== 0) {
+		aras.AlertError(result);
+		return null;
+	}
+	return result.getResult().selectSingleNode('Item');
+};
+
+let assignmentId;
+let wflName;
+let wflId;
+let itemId;
+
+if (item) {
+	assignmentId = item.id;
+	wflName = item['container@aras.keyed_name'];
+	wflId = item['container'];
+	itemId = item['item'];
+} else {
+	assignmentId = itemNode.getAttribute("id");
+	wflName = itemNode.selectSingleNode('container').getAttribute('keyed_name');
+	wflId = aras.getItemProperty(itemNode, 'container');
+	itemId = aras.getItemProperty(itemNode, 'item');
+}
+
+const params = {
+	aras,
+	activity: await getItemFromServer(
+		`<Item type="Activity" action="get">
+			<Relationships>
+				<Item type="Activity Assignment" action="get">
+					<id>${assignmentId}</id>
+				</Item>
+				<Item type="Activity Task" action="get" />
+				<Item type="Activity Variable" action="get" />
+				<Item type="Workflow Process Path" action="get" />
+			</Relationships>
+		</Item>`
+	),
+	wflName,
+	wflId,
+	assignmentId,
+	itemId
+};
+const wndOptions = { dialogHeight: 550, dialogWidth: 700 };
+
+return showModalDialog('InBasket/InBasket-VoteDialog.html', params, wndOptions);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_open_workflow_task_e</name>
+ </Item>
+</AML>

@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="Method" id="E719D1A9C62A46178FAF33F536174C37" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const state = options.getState();
+const selectedRows = state.grid.selectedRows;
+const hidden = !selectedRows.some(itemId => state.editableItems.has(itemId));
+
+return {
+  hidden
+};]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_pmig_done_init</name>
+ </Item>
+</AML>

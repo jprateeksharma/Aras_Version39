@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="User" id="53267AB3CDC94F4ABF9B1D401CDB412F" action="add">
+  <default_vault keyed_name="Default" type="Vault">67BBB9204FE84A8981ED8313049BA06C</default_vault>
+  <last_login_date>2026-09-16T18:25:07</last_login_date>
+  <login_name>clientadmin</login_name>
+  <logon_enabled>1</logon_enabled>
+  <owned_by_id keyed_name="Client Admin" type="Identity">040450BBD762464884DEDF7F1442AC19</owned_by_id>
+  <first_name>Client</first_name>
+  <last_name>Admin</last_name>
+  <Relationships>
+   <Item type="Alias" id="2227FBE9888441D6A8F6E0DB7E868B4D" action="add">
+    <from_date>2022-08-01T09:30:00</from_date>
+    <related_id keyed_name="Client Admin" type="Identity">040450BBD762464884DEDF7F1442AC19</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Client Admin" type="User">53267AB3CDC94F4ABF9B1D401CDB412F</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

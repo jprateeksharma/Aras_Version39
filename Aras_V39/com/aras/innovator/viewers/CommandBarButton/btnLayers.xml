@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="4B05D6EE6F074EA997FFB230385E7D89" action="add">
+  <additional_data />
+  <image>../images/Layers.svg</image>
+  <label xml:lang="en">Layer Display</label>
+  <tooltip_template xml:lang="en">Layer Display</tooltip_template>
+  <name>btnLayers</name>
+ </Item>
+</AML>

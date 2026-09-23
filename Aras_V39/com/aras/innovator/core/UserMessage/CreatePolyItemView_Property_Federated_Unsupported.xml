@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="FC1726C156EF4E6AAEDF4AA25AD0E2D0" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The property '{2}' prevented Poly Item from being saved: Federated Properties are not supported in a Poly Source.</text>
+  <name>CreatePolyItemView_Property_Federated_Unsupported</name>
+ </Item>
+</AML>

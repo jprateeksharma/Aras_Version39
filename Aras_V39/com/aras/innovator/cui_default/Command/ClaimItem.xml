@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="5340D7B3D1804E8C86FD0EBA2404F6A4" action="add">
+  <can_execute keyed_name="cui_command_claim_item_can_exec" type="Method">1DFFC019542647EBA717AA7C280992E2</can_execute>
+  <execute_handler keyed_name="cui_command_claim_item_execute" type="Method">E1B481B20908418F9D93EA6F444D94B2</execute_handler>
+  <name>ClaimItem</name>
+ </Item>
+</AML>

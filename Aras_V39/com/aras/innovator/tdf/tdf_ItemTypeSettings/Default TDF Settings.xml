@@ -1,0 +1,22 @@
+﻿<AML>
+ <Item type="tdf_ItemTypeSettings" id="20A1DD92EA064F378A185F11872FC1FB" action="add">
+  <settings>{
+    "datamodel.relationships.documentReference": "tp_BlockReference",
+    "datamodel.relationships.itemReference": "tp_ItemReference",
+    "datamodel.relationships.imageReference": "tp_ImageReference",
+    "datamodel.relationships.linkReference": "tp_LinkReference",
+    "datamodel.relationships.itemReferenceRelatedType": "tp_Item",
+    "datamodel.relationships.itemReferenceRelatedTypeId": "DE828FBA99FF4ABB9E251E8A4118B397",
+    "datamodel.schemaPropertyName": "xml_schema",
+    "datamodel.filterFamiliesGetter": "tp_GetOptionFamilies",
+    "datamodel.documentContentGetter": "tp_DocumentGet",
+    "editorview.templateContent.enabled": true,
+    "editorview.externalcontent.enabled": true,
+    "editorview.externalcontent.editModeVariable": "tp_ExternalEditMode",
+    "editorview.externalcontent.creationEnabled": false,
+    "editorview.toolbar.extendedTextStyling": false,
+    "publishing.dialogFormId": "C60B0A602ED74D43BE00B90E9BBD3A0A"
+}</settings>
+  <name>Default TDF Settings</name>
+ </Item>
+</AML>

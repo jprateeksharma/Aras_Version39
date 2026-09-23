@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Variable" id="7A8CFF9454D14817922B52EFF1C319F6" action="add">
+  <default_value>none</default_value>
+  <name>tp_ExternalEditMode</name>
+ </Item>
+</AML>

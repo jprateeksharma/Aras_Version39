@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="7055D938F04844FCB22F14ACBEC17471" action="add">
+  <control_type>TabsControl</control_type>
+  <location keyed_name="ItemWindowSidebar" type="cui_Location">BC1CFDCECA434111B7A88A51EE430CC5</location>
+  <sealed>0</sealed>
+  <name>ItemView.Sidebar</name>
+ </Item>
+</AML>

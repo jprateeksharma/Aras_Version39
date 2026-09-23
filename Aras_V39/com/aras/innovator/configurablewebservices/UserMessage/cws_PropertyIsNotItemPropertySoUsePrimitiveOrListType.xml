@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="20E5D33C593F421EADCDEF9129EC5F73" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: '{1}' Property is not Item Property, so use List or supported primitive types instead of '{2}' type.</text>
+  <name>cws_PropertyIsNotItemPropertySoUsePrimitiveOrListType</name>
+ </Item>
+</AML>

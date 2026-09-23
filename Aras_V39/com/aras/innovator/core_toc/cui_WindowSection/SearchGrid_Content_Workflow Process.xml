@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="4CE78B3452994FF98546A8F4F8A084FD" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="SearchGrid" type="cui_Location">9794720F4D45415880B5712BE52345B6</location>
+  <name>SearchGrid_Content_Workflow Process</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="45E6C5E1357642AF9C94DF6C738D2805" action="add">
+    <action>Extend</action>
+    <related_id keyed_name="SearchGrid.Grid_C4625A841D264E1F853C44D80B9B6546" type="cui_Control">C4625A841D264E1F853C44D80B9B6546</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="SearchGrid_Content_Workflow Process" type="cui_WindowSection">4CE78B3452994FF98546A8F4F8A084FD</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

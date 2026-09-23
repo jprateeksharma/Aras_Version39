@@ -1,0 +1,38 @@
+﻿<AML>
+ <Item type="List" id="CE57501B59BE4E3F81DF06E466C20F7A" action="add">
+  <description>An item may have structure (relationships) and there are several ways to show the items structure. In a Tab view, Tree view, or Where Used.</description>
+  <label>Structure Views</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Structure Views</name>
+  <Relationships>
+   <Item type="Value" id="9801EC4DCD60483F84367F8A9D488F65" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tabs On</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Structure Views" type="List">CE57501B59BE4E3F81DF06E466C20F7A</source_id>
+    <value>tabs on</value>
+   </Item>
+   <Item type="Value" id="57C08786DA44490880776630A0EBE4AB" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tabs Off</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Structure Views" type="List">CE57501B59BE4E3F81DF06E466C20F7A</source_id>
+    <value>tabs off</value>
+   </Item>
+   <Item type="Value" id="FC61051A36B740A9B7391DBDE2DDFBE9" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tabs Max</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Structure Views" type="List">CE57501B59BE4E3F81DF06E466C20F7A</source_id>
+    <value>tabs max</value>
+   </Item>
+   <Item type="Value" id="43C1101331504B7D986C200417065A64" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tabs Min</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Structure Views" type="List">CE57501B59BE4E3F81DF06E466C20F7A</source_id>
+    <value>tabs min</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

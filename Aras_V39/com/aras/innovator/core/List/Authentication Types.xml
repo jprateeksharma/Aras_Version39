@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="List" id="EE5C42BD5DB142CB939B6675CDBE42D9" action="add">
+  <description>The types of authentication password, E-signature, or none.</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Authentication Types</name>
+  <Relationships>
+   <Item type="Value" id="A0E04129147D4583BA6469D4451E43FE" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Password</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Authentication Types" type="List">EE5C42BD5DB142CB939B6675CDBE42D9</source_id>
+    <value>password</value>
+   </Item>
+   <Item type="Value" id="F22865C96C1F4E6EA2908747AFE399BD" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">E-signature</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Authentication Types" type="List">EE5C42BD5DB142CB939B6675CDBE42D9</source_id>
+    <value>esignature</value>
+   </Item>
+   <Item type="Value" id="68B3BE4FFCE94BE2A0C9B5978DFBEE95" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">None</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Authentication Types" type="List">EE5C42BD5DB142CB939B6675CDBE42D9</source_id>
+    <value>none</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

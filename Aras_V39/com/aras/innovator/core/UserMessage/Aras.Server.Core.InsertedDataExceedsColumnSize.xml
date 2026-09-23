@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="5B93CC4942D546DA90B5666B5F20343C" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The inserted data is longer than allowed for the property/properties:</text>
+  <name>Aras.Server.Core.InsertedDataExceedsColumnSize</name>
+ </Item>
+</AML>

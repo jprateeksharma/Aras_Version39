@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="F559913B6B014D2F9BB5F14F736428E4" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">A connection attempt failed as ReportingServices settings are not specified in InnovatorServerConfig.xml. Please contact Administrator to fix settings.</text>
+  <name>ReportingServicesSettingsNotSpecifiedInInnovatorConfig</name>
+ </Item>
+</AML>

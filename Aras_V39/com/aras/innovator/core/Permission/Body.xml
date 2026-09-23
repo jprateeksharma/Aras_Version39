@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="67B89111641443239016538BFE069F0B" action="add">
+  <is_private>0</is_private>
+  <name>Body</name>
+  <Relationships>
+   <Item type="Access" id="3C9E5B53A8B1449DA4CF76EFB9DB91DC" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Body" type="Permission">67B89111641443239016538BFE069F0B</source_id>
+   </Item>
+   <Item type="Access" id="ABF4D1DF30EF4B33B338C27F1C352A50" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Body" type="Permission">67B89111641443239016538BFE069F0B</source_id>
+   </Item>
+   <Item type="Access" id="D2CB1A8A86CC49CEAAFC816AAD689510" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Body" type="Permission">67B89111641443239016538BFE069F0B</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

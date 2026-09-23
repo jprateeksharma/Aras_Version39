@@ -1,0 +1,26 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="303FB39244D2744136326AA7318BB90D" action="add">
+  <color>#b0bec5</color>
+  <name>File_TOC_Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommand" id="29EA1A6469CB4F27B7193EC4378A65AF" action="add">
+    <command_alias keyed_name="LockItem" type="CommandAlias">E208A132C59943E3A6BF6AFF6585F9BB</command_alias>
+    <related_id keyed_name="DisabledCommand" type="Command">EC695757B8DF46E8943B3F6BB0916025</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="File_TOC_Configuration" type="PresentationConfiguration">303FB39244D2744136326AA7318BB90D</source_id>
+   </Item>
+   <Item type="PresentationCommand" id="83F76AC5E27B4C0B9D4BD92DE3769F2B" action="add">
+    <command_alias keyed_name="NewItem" type="CommandAlias">2F35C1804CF54992A4EDB239C9F3E569</command_alias>
+    <related_id keyed_name="NewItem_File" type="Command">6B394A1F68494FFABE42E03DB31E2B05</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="File_TOC_Configuration" type="PresentationConfiguration">303FB39244D2744136326AA7318BB90D</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="F14A3A2CFBD34B2AB12D7D6D771EB08F" action="add">
+    <related_id keyed_name="com.aras.innovator.cui_default.popup_menu_for_file" type="CommandBarSection">A7C133B7DB844A8EBBD8F30D267567FC</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="File_TOC_Configuration" type="PresentationConfiguration">303FB39244D2744136326AA7318BB90D</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

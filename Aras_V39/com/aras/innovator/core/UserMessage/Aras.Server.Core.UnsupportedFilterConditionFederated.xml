@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="17DF5000B85D4EC3AAD59BC59A1B8552" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Unsupported filter condition: the federated property type '{0}' of parent item is not comparable with the federated property type '{1}' of referenced item.</text>
+  <name>Aras.Server.Core.UnsupportedFilterConditionFederated</name>
+ </Item>
+</AML>

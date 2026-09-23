@@ -1,0 +1,248 @@
+﻿<AML>
+ <Item type="RelationshipType" id="8142F3634BAB40DBBFF28BE3D4EFF120" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Endpoints</label>
+  <new_show_related>0</new_show_related>
+  <related_notnull>0</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">
+   <Item type="ItemType" id="7F9BA842C44A4540A4A92AD217667E1D" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>CWS_ENDPOINTCONFIGURATION</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Endpoint</label>
+    <label_plural xml:lang="en">Endpoints</label_plural>
+    <large_icon>../images/EndpointConfiguration.svg</large_icon>
+    <open_icon>../images/EndpointConfiguration.svg</open_icon>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>0</use_src_access>
+    <name>cws_EndpointConfiguration</name>
+    <Relationships>
+     <Item type="ITPresentationConfiguration" id="D7F70AF22D904486BC8DD714C1866040" action="add">
+      <client>js</client>
+      <related_id keyed_name="cws_EndpointConfigurationPresentationConfiguration" type="PresentationConfiguration">039210D01E8A4AF59019C2593C808417</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+     <Item type="Property" id="A380D7480DB545A1BB499A257F42F8B3" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>80</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Active</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3584</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+      <track_history>0</track_history>
+      <name>is_active</name>
+     </Item>
+     <Item type="Property" id="D7FDBCE69A2C4B69978D6FA2F027A318" action="add">
+      <column_alignment>center</column_alignment>
+      <column_width>80</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Is Editable</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3968</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+      <track_history>0</track_history>
+      <name>is_editable</name>
+     </Item>
+     <Item type="Property" id="591EB9F48A734EB3ACAE822606063024" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>text</data_type>
+      <default_value xml:lang="en">{ "FormatVersion": "1.0", "Types": {} }</default_value>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Schema Definition</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3840</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+      <track_history>0</track_history>
+      <name>schema_definition</name>
+     </Item>
+     <Item type="Property" id="385B649F3ECB4789B75FE9926B7C3748" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>512</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">URL</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>4224</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+      <stored_length>2048</stored_length>
+      <track_history>0</track_history>
+      <name>url</name>
+     </Item>
+     <Item type="Property" id="685259FB66C44414AF1DAF83369E3B3F" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>96</column_width>
+      <data_type>integer</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <keyed_name_order>2</keyed_name_order>
+      <label xml:lang="en">Version</label>
+      <order_by>1</order_by>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>3712</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+      <track_history>0</track_history>
+      <name>version</name>
+     </Item>
+     <Item type="View" id="EF5D9A41B29A4E65A4B2203A3C8D4F0C" action="add">
+      <client>js</client>
+      <related_id keyed_name="cws_EndpointConfiguration" type="Form">FF5B97CD420040A8801F8F625918552B</related_id>
+      <role keyed_name="World" type="Identity">
+       <Item type="Identity" action="get" select="id">
+        <name>World</name>
+       </Item>
+      </role>
+      <show_ssvc>0</show_ssvc>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+      <type>default</type>
+     </Item>
+     <Item type="Server Event" id="2E389E2510CF475F8E4C468B1272B343" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="cws_UpdateExternalUrl" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>cws_UpdateExternalUrl</name>
+       </Item>
+      </related_id>
+      <server_event>onAfterGet</server_event>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+     <Item type="Server Event" id="493982097FD847A5BA62DBD3E0467DD2" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="cws_EnsureWebServiceExists" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>cws_EnsureWebServiceExists</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeAdd</server_event>
+      <sort_order>64</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+     <Item type="Server Event" id="830A05E7C9AE46AC80D42A3D1B04714B" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="cws_ValidateSchemaDefinition" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>cws_ValidateSchemaDefinition</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeAdd</server_event>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+     <Item type="Server Event" id="67C70493018D4A1A9C797C9E0925A6A8" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="cws_CalculateVersion" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>cws_CalculateVersion</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeAdd</server_event>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+     <Item type="Server Event" id="23E32D1D98884E1AA1E79CD668736016" action="add">
+      <event_version>version_1</event_version>
+      <is_required>1</is_required>
+      <related_id keyed_name="cws_ValidateSchemaDefinition" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>cws_ValidateSchemaDefinition</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeUpdate</server_event>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+     <Item type="Client Event" id="83AE8A294D284C0BAD58D40E8BE5AFFD" action="add">
+      <client_event>OnShowItem</client_event>
+      <related_id keyed_name="cws_OnShowEndpointConfiguration" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>cws_OnShowEndpointConfiguration</name>
+       </Item>
+      </related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+     <Item type="Can Add" id="A56231D59B9042B492B1192F8925340A" action="add">
+      <can_add>1</can_add>
+      <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+     <Item type="Allowed Permission" id="96707966B38D44318EA5C470A9E9EC72" action="add">
+      <is_default>1</is_default>
+      <related_id keyed_name="New cws_EndpointConfiguration" type="Permission">1FFEBCA0A2F54B3BA70E2CFF918E25C3</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_EndpointConfiguration" type="ItemType" name="cws_EndpointConfiguration">7F9BA842C44A4540A4A92AD217667E1D</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="cws_WebService" type="ItemType" name="cws_WebService">AC272B10539240CF89579B4BB75F8CC1</source_id>
+  <name>cws_EndpointConfiguration</name>
+ </Item>
+</AML>

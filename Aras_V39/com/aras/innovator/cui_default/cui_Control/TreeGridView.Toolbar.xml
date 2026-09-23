@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="cui_Control" id="AF66767554124530B7007EE0629BB8E9" action="add">
+  <additional_data>{
+	"cssClass": "aras-commandbar"
+}</additional_data>
+  <control_type>ToolbarControl</control_type>
+  <location keyed_name="TGV_Toolbar" type="cui_Location">5D6FD242D261409E8141F3ED06807868</location>
+  <sealed>0</sealed>
+  <name>TreeGridView.Toolbar</name>
+ </Item>
+</AML>

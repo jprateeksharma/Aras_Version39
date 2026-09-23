@@ -1,0 +1,94 @@
+﻿<AML>
+ <Item type="Method" id="A890F21924B54E0990B8660DC754419F" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	getActions,
+	getState,
+	itemType,
+	rows,
+	commandFactory,
+	polySources
+} = options;
+
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(itemType.id);
+const getItemType = (item) => {
+	if (isPolymorphic) {
+		const itemTypeId = item.itemtype;
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return itemType;
+};
+
+const state = getState();
+const { addItemToEditMode } = getActions();
+const commandAlias = target['command_alias@keyed_name'];
+const promises = state.grid.selectedRows.filter((itemId) => {
+	const item = rows.get(itemId);
+	const itemType = getItemType(item);
+	const itemTypeName = itemType.name;
+	const editCommand = commandFactory(commandAlias, { item, itemType, itemTypeName });
+	const canExecute = editCommand.canExecute();
+	if (!canExecute) {
+		return false;
+	}
+
+	const isLockEnabled = !window.isFunctionDisabled(itemTypeName, 'Lock');
+	const isEditableItem = state.editableItems.has(itemId);
+
+	const isRelationship = itemType['is_relationship'] === '1';
+	const useSrcAccess = itemType['use_src_access'] === '1';
+
+	const isAllowedEdit = isLockEnabled && !isEditableItem;
+
+	if (isRelationship && useSrcAccess) {
+		const sourceItemType = item['source_id@aras.type'];
+		const sourceItemId = item['source_id'];
+		const isEnableForRelationship = ArasModules.item.isEditState(sourceItemType, sourceItemId);
+
+		return isAllowedEdit && isEnableForRelationship;
+	}
+
+	return isAllowedEdit;
+}).map(async (itemId) => {
+	const item = rows.get(itemId);
+	const itemType = getItemType(item);
+	const itemTypeName = itemType.name;
+	const lockedById = item['locked_by_id'];
+	let itemNode;
+	const isNewItem = ArasModules.item.isNew(itemTypeName, itemId);
+	if (lockedById || isNewItem) {
+		itemNode = window.aras.getFromCache(itemId);
+		if (!itemNode) {
+			const getItemRequestAml = `<Item type="${itemTypeName}" id="${itemId}" action="get" />`;
+			const requestResult = await window.aras.soapSendAsync(getItemRequestAml);
+			itemNode = ArasModules.xml.selectSingleNode(requestResult.getResult(), '//Item');
+			window.aras.updateInCache(itemNode);
+			window.updateRow(itemNode);
+		}
+	}
+
+	const editCommand = commandFactory(commandAlias, { item: rows.get(itemId), itemTypeName, itemNode, itemType });
+	let executeResult;
+	try {
+		executeResult = await editCommand.execute();
+		if (executeResult) {
+			addItemToEditMode(executeResult.id);
+		}
+	} catch (error) {
+		if (rows.has(itemId)) {
+			rows.set(itemId, error, '_error');
+			return null;
+		}
+		throw error;
+	}
+	return executeResult;
+});
+
+return Promise.allSettled(promises);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_pmig_edit_click</name>
+ </Item>
+</AML>

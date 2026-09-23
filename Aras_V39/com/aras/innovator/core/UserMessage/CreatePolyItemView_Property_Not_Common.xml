@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="41CC09A54EB9470B8DD5494425BBEB0E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The property '{2}' prevented Poly Item from being saved: Property must be common to all Poly Sources.</text>
+  <name>CreatePolyItemView_Property_Not_Common</name>
+ </Item>
+</AML>

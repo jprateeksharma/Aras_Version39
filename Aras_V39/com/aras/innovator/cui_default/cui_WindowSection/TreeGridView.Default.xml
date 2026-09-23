@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="285B5A86F0344B7AA745C3144978124F" action="add">
+  <classification>Data Model</classification>
+  <description />
+  <location keyed_name="TreeGridView" type="cui_Location">552F9B9A2F244845A3C1583017717D79</location>
+  <name>TreeGridView.Default</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="EE80574AADC64F9E865028A69893C986" action="add">
+    <action>Add</action>
+    <related_id keyed_name="TreeGridView.Toolbar_AF66767554124530B7007EE0629BB8E9" type="cui_Control">AF66767554124530B7007EE0629BB8E9</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="TreeGridView.Default" type="cui_WindowSection">285B5A86F0344B7AA745C3144978124F</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

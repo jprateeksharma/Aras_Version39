@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="7BF546E250DF4AAAAAE5C9FFB5F6B6FB" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">No valid Aras subscription licenses available. User sign-in is blocked until the subscription is renewed. Please contact your administrator to restore access.</text>
+  <name>RequiresPrimaryLicenseNonAdmin</name>
+ </Item>
+</AML>

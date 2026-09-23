@@ -1,0 +1,26 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="039210D01E8A4AF59019C2593C808417" action="add">
+  <color>#1976d2</color>
+  <name>cws_EndpointConfigurationPresentationConfiguration</name>
+  <Relationships>
+   <Item type="cui_PresentConfigWinSection" id="C414C754C4E34414B46B707978D572DC" action="add">
+    <related_id keyed_name="cws_EndpointConfigurationRelationshipsToolbar" type="cui_WindowSection">F2AA41D8F9F04E01BA4E6069E726B606</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cws_EndpointConfigurationPresentationConfiguration" type="PresentationConfiguration">039210D01E8A4AF59019C2593C808417</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="56A488012D8E4B74AC01B99319B4D070" action="add">
+    <related_id keyed_name="cws_EndpointConfigurationSidebarSection" type="CommandBarSection">F0B57B4A5E4C4377BE63516E091622F0</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cws_EndpointConfigurationPresentationConfiguration" type="PresentationConfiguration">039210D01E8A4AF59019C2593C808417</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="92371F7F3812442EB7CAECCD77F76686" action="add">
+    <related_id keyed_name="cws_EndpointConfigurationRelationshipsToolbar" type="CommandBarSection">111874F96A3A4C81B4F85DA947CD137A</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cws_EndpointConfigurationPresentationConfiguration" type="PresentationConfiguration">039210D01E8A4AF59019C2593C808417</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

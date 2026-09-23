@@ -1,0 +1,118 @@
+﻿<AML>
+ <Item type="Method" id="B949760BA59D4844AE521E3337A6FCD5" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, itemType, itemTypeName } = options;
+
+const showModalDialog = async (url, paramsObj, windowOptions) => {
+	paramsObj.content = url;
+	paramsObj.isPopup = true;
+	const dialog = ArasModules.Dialog.show(
+		'iframe',
+		Object.assign({}, paramsObj, windowOptions)
+	);
+
+	const result = await dialog.promise;
+	const { updated } = result || {};
+	if (updated) {
+		const itemsGridArray = window.mainLayout.tabsContainer.getSearchGridTabs(
+			itemType.id
+		);
+		itemsGridArray.forEach((itemsGrid) => {
+			itemsGrid.doSearch();
+		});
+	}
+};
+
+const getItemFromServer = async (amlQuery) => {
+	const result = await aras.soapSendAsync(amlQuery);
+	if (result.getFaultCode() !== 0) {
+		aras.AlertError(result);
+		return null;
+	}
+	return result.getResult().selectSingleNode('Item');
+};
+
+const sourceItemTypeId = item['itemtype'];
+const type = ArasModules.metadata.itemType.getItemTypeName(sourceItemTypeId);
+
+if (type === 'Workflow Task') {
+	const itemType = await ArasModules.metadata.itemType.getItemType(type);
+	const { commandFactory } = commands;
+	const commandOptions = {
+		...options,
+		itemType,
+		itemTypeName: type
+	};
+	const openItemCommand = commandFactory('OpenItem', commandOptions);
+	return openItemCommand.execute();
+}
+
+if (type === 'Project Task') {
+	const activityItem = await getItemFromServer(
+		`<Item type="Activity2" action="get" select="id">
+			<OR>
+				<id>${item.id}</id>
+				<id condition='in'>SELECT source_id FROM Activity2_Assignment WHERE id='${item.id}'</id>
+			</OR>
+		</Item>`
+	);
+
+	if (!activityItem) {
+		return;
+	}
+
+	const acwFormNode = aras.getFormForDisplay(
+		'Activity Completion Worksheet',
+		'by-name',
+		false
+	);
+	const formWidth = acwFormNode && aras.getItemProperty(acwFormNode.node, 'width');
+	const dialogWidth = formWidth || 700;
+	const wndOptions = { dialogWidth, dialogHeight: 800 };
+
+	return showModalDialog(
+		'../Solutions/Project/scripts/ActivityCompletionWorksheet/ACWDialog.html',
+		[window, activityItem.getAttribute('id')],
+		wndOptions
+	);
+}
+
+let itemNode = new Item(itemTypeName, 'get');
+itemNode.setID(item.id);
+itemNode = itemNode.apply();
+const itemNd = itemNode.node;
+const formTypeCompleteValue = 'complete';
+const formId = aras.uiGetFormID4ItemEx(itemNd, formTypeCompleteValue);
+
+if (!formId) {
+	aras.AlertError(
+		aras.getResource(
+			'',
+			'ui_methods_ex.form_not_specified_for_you',
+			formTypeCompleteValue
+		)
+	);
+	return null;
+}
+
+const params = {
+	aras,
+	title: aras.getResource('', 'itemsgrid.completion_dialog'),
+	item: itemNode,
+	formId
+};
+
+const { node: formNode } = aras.getFormForDisplay(formId) || {};
+const dialogWidth = aras.getItemProperty(formNode, 'width') || 400;
+const dialogHeight = aras.getItemProperty(formNode, 'height') || 300;
+const wndOptions = {
+	dialogWidth,
+	dialogHeight
+};
+
+return showModalDialog('ShowFormAsADialog.html', params, wndOptions);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_open_inbasket_exec</name>
+ </Item>
+</AML>

@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="D61AC048B31747558066A8CC28386482" action="add">
+  <template />
+  <name>cui_get_form_from_package</name>
+ </Item>
+</AML>

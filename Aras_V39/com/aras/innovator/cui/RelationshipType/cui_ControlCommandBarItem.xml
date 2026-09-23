@@ -1,0 +1,175 @@
+﻿<AML>
+ <Item type="RelationshipType" id="58BBFECBF8D04437B84247A5C973B5BD" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">cui_ControlCommandBarItem</label>
+  <new_show_related>0</new_show_related>
+  <related_id keyed_name="CommandBarItem" type="ItemType" name="CommandBarItem">31392C4909A249BF9EA143915F3F9553</related_id>
+  <related_notnull>0</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="cui_ControlCommandBarItem" type="ItemType" name="cui_ControlCommandBarItem">
+   <Item type="ItemType" id="AD63D4ADE7A345289C1EAD46C2C7A0B7" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <class_structure><![CDATA[<class id="AD63D4ADE7A345289C1EAD46C2C7A0B7"><class id="DBD0090CF7444BAC958E0FA2B01DC0C6" name="Data Model" /><class id="D0AB896C2255494E87C14CF554F0DFD7" name="Method" /></class>]]></class_structure>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>CUI_CONTROLCOMMANDBARITEM</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>cui_ControlCommandBarItem</name>
+    <Relationships>
+     <Item type="Property" id="67EE16ECF85F42CA83737E730B785C13" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="Command Bar Section Action">8EB91F04AD02470DAEB897F95070DB2D</data_source>
+      <data_type>list</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Action</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3584</sort_order>
+      <source_id keyed_name="cui_ControlCommandBarItem" type="ItemType" name="cui_ControlCommandBarItem">AD63D4ADE7A345289C1EAD46C2C7A0B7</source_id>
+      <stored_length>256</stored_length>
+      <track_history>0</track_history>
+      <name>action</name>
+     </Item>
+     <Item type="Property" id="6991FC793AA34BBFBA01D95E1CC1ADB5" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="CommandBarItem" type="ItemType" name="CommandBarItem">31392C4909A249BF9EA143915F3F9553</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Alternate</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3968</sort_order>
+      <source_id keyed_name="cui_ControlCommandBarItem" type="ItemType" name="cui_ControlCommandBarItem">AD63D4ADE7A345289C1EAD46C2C7A0B7</source_id>
+      <track_history>0</track_history>
+      <name>alternate</name>
+     </Item>
+     <Item type="Property" id="F3476B2146714602A809F9E9732F9747" action="add">
+      <class_path>Method</class_path>
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="Method" type="ItemType" name="Method">87879A09B8044DE380D59DF22DE1867F</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Builder Method</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4096</sort_order>
+      <source_id keyed_name="cui_ControlCommandBarItem" type="ItemType" name="cui_ControlCommandBarItem">AD63D4ADE7A345289C1EAD46C2C7A0B7</source_id>
+      <track_history>0</track_history>
+      <name>builder_method</name>
+     </Item>
+     <Item type="Property" id="1F42450755EE4BC08EBC88621F380CDE" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">For Classification</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3840</sort_order>
+      <source_id keyed_name="cui_ControlCommandBarItem" type="ItemType" name="cui_ControlCommandBarItem">AD63D4ADE7A345289C1EAD46C2C7A0B7</source_id>
+      <stored_length>512</stored_length>
+      <track_history>0</track_history>
+      <name>item_classification</name>
+     </Item>
+     <Item type="Property" id="44D976EF4D94428EBB5346FB36EEED9A" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">For Identity</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3712</sort_order>
+      <source_id keyed_name="cui_ControlCommandBarItem" type="ItemType" name="cui_ControlCommandBarItem">AD63D4ADE7A345289C1EAD46C2C7A0B7</source_id>
+      <track_history>0</track_history>
+      <name>role</name>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>256</sort_order>
+  <source_id keyed_name="cui_Control" type="ItemType" name="cui_Control">88943DB9F95C4B738AD82CF1756204CC</source_id>
+  <name>cui_ControlCommandBarItem</name>
+ </Item>
+ <Item type="ItemType" id="AD63D4ADE7A345289C1EAD46C2C7A0B7" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='AD63D4ADE7A345289C1EAD46C2C7A0B7' and name='classification'">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <default_search />
+    <default_value xml:lang="en">Data Model</default_value>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <label xml:lang="en">Classification</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_ControlCommandBarItem" type="ItemType" name="cui_ControlCommandBarItem">AD63D4ADE7A345289C1EAD46C2C7A0B7</source_id>
+    <stored_length>512</stored_length>
+    <track_history>0</track_history>
+    <name>classification</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='AD63D4ADE7A345289C1EAD46C2C7A0B7'" />
+ <Item type="Form" action="delete" where="name='cui_ControlCommandBarItem'" />
+</AML>

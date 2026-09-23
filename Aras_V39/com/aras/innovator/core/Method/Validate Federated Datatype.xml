@@ -1,0 +1,25 @@
+﻿<AML>
+ <Item type="Method" id="3D3D050AAFA146F2AE1E4419D97B93DD" action="add">
+  <comments>Check if federated supports data type</comments>
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const supportedDataType = ['integer', 'text', 'string', 'float', 'date', 'boolean', 'decimal'];
+const item = aras.itemsCache.getItemByXPath("//Item[@id='"+itemId+"']");
+const dataType = name === 'data_type' ? value : aras.getItemProperty(item,'data_type');
+const isFederated = name === 'is_federated' ? value ? "1" : "0" : aras.getItemProperty(item, 'is_federated');
+
+const result = {
+    valid : true
+};
+
+if(dataType && isFederated === "1" && !supportedDataType.includes(dataType))
+{
+    result.valid = false;
+    result.validationMessage = aras.getResource('', 'ui_methods_ex.property_datatype_for_federated_not_supported', dataType);
+}
+
+return result;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>Validate Federated DataType</name>
+ </Item>
+</AML>

@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="60AC03DF50B14535B8074309866417DB" action="add">
+  <label xml:lang="en">Save New Layout...</label>
+  <on_click_handler keyed_name="cui_common_savenewlayout_click" type="Method">F02029B3C94C4CE996EFAC821BBFC24E</on_click_handler>
+  <parent_menu keyed_name="searchview.commandbar.layouts" type="CommandBarMenu">527EED10910B4C8CBFAA73BC80E6247C</parent_menu>
+  <name>searchview.commandbar.layouts.savelayout</name>
+ </Item>
+</AML>

@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="cui_PresentConfigWinSection" id="0BB3366B8ECB43C3BED6240F98644152" action="add">
+  <item_classification />
+  <related_id keyed_name="ItemView.ResponsiveForm" type="cui_WindowSection">
+   <Item type="cui_WindowSection" id="EE3F3C1CD638441EB30370CFE78E3CAE" action="add">
+    <builder_method keyed_name="ItemView_ResponsiveForm_Builder" type="Method">198505EAA5B94089B8CFE9135EFDEFA5</builder_method>
+    <classification>Method</classification>
+    <location keyed_name="ItemView" type="cui_Location">C18BD6E10E024EC786799C510D586143</location>
+    <name>ItemView.ResponsiveForm</name>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+  <sort_order>1920</sort_order>
+  <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+ </Item>
+</AML>

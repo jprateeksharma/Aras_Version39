@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="5AA982D234C845799D46BCCF06C316DB" action="add">
+  <client>js</client>
+  <related_id keyed_name="CommandAlias Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="0F7487067D65496783CEFB63521BBA7A" action="add">
+    <color>#5760bc</color>
+    <name>CommandAlias Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="CommandAlias" type="ItemType" name="CommandAlias">7892AAD7982E4E399ACF89788430801E</source_id>
+ </Item>
+</AML>

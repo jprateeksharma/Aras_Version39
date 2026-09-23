@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="4801A9F0AB954F54A064A5AF16BD9F9B" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">'Lists' contain the following unknown list: '{0}'.</text>
+  <name>cws_ListsContainUnknownLists</name>
+ </Item>
+</AML>

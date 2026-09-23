@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="C6561651D0564AE5813B1E59A55AEBDB" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid '{0}' method definition: return type is not defined.</text>
+  <name>cws_MethodNoReturnType</name>
+ </Item>
+</AML>

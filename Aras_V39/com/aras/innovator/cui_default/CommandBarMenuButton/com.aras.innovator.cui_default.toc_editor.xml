@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="74EADAE1F1784123ABB3DA72737F2E7E" action="add">
+  <image>../images/TOCEditor.svg</image>
+  <label xml:lang="en">TOC Editor</label>
+  <on_click_handler keyed_name="cui_default_toc_editor_click" type="Method">0377AE4AD4374AA59A3E12AC8B2B2F1C</on_click_handler>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_Configuration" type="CommandBarMenu">C599EA936834459F83CC0D3B09BF5856</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_editor</name>
+ </Item>
+</AML>

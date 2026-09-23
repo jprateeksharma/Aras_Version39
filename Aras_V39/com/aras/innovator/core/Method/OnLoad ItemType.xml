@@ -1,0 +1,28 @@
+﻿<AML>
+ <Item type="Method" id="176A7CA23A034D86A2E995859F9BAB5B" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[/* eslint-disable camelcase */
+const _mv_chb_id = document.fieldsTab && document.fieldsTab['versioning_discipline'] && document.fieldsTab['versioning_discipline'].slice(0, -4);
+const _usaChb_id = document.fieldsTab && document.fieldsTab['use_src_access'] && document.fieldsTab['use_src_access'].slice(0, -4);
+
+window['expression_' + _mv_chb_id + '_setExpression'] = function(isEditMode) {
+	const _mv_chb = window['field' + _mv_chb_id + 'Component'];
+	const _isVers = (aras.getItemProperty(document.item, 'is_versionable') === '1');
+	_mv_chb.setReadOnly(!isEditMode || !_isVers);
+	_mv_chb.setDisabled(!isEditMode || !_isVers);
+};
+
+window['expression_' + _usaChb_id + '_setExpression'] = function(isEditMode) {
+	const _usa_chb = document.getElementById(_usaChb_id);
+	const _isRel = (aras.getItemProperty(document.item, 'is_relationship') === '1');
+	_usa_chb.disabled = (!isEditMode || !_isRel);
+};
+
+window['expression_' + _mv_chb_id + '_setExpression'](document.isEditMode);
+window['expression_' + _usaChb_id + '_setExpression'](document.isEditMode);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>OnLoad ItemType</name>
+ </Item>
+</AML>

@@ -1,0 +1,97 @@
+﻿<AML>
+ <Item type="Method" id="F02029B3C94C4CE996EFAC821BBFC24E" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { favorites, serialization, store } = await import('../jsBundles/store.es.js')
+const gridLayoutFavorites = options.getProps().favorites;
+const favoriteItems = favorites.filterFavorites(gridLayoutFavorites, 'Grid Layout');
+const { defaultLanguageCode, languages } = store.getState().system;
+const result = await aras
+	.getMostTopWindowWithAras()
+	.ArasCore.Dialogs.newLayout({ favoriteItems, defaultLanguageCode, languages });
+if (!result) {
+	return;
+}
+
+const { itemTypeName } = options;
+const label = result[defaultLanguageCode];
+
+const aliasIdentityId = aras.getIsAliasIdentityIDForLoggedUser();
+
+const state = options.getState();
+const { pageSize, maxResults } = state.pagination;
+const { order, frozenColumns, widths } = state.grid;
+const columnWidths = order.map((key) => widths.get(key)).join(';');
+
+const { location } = options;
+const currentLocation =
+	location === 'RelationshipsView' ? 'Relationships Grid' : 'Main Grid';
+const additionalSettings = {};
+if (currentLocation === 'Relationships Grid') {
+	const { redlineView } = state;
+	additionalSettings['redline_view'] = redlineView;
+} else {
+	const { previewState } = state;
+	additionalSettings['preview_state'] = previewState;
+
+	const { itemType } = options;
+	if (itemType['is_versionable'] === '1') {
+		const { queryType } = state;
+		additionalSettings['query_type'] = queryType;
+	}
+}
+
+let orderBy = state.grid.orderBy;
+orderBy = orderBy ?  serialization.stringifyOrderBy(orderBy) : '';
+
+const layoutItem = {
+	label,
+	'column_widths': columnWidths,
+	'column_order': order.join(';'),
+	'itname': itemTypeName,
+	'page_size': (pageSize || 0).toString(),
+	'max_records': (maxResults || 0).toString(),
+	'frozen_columns': frozenColumns.toString(),
+	'location': currentLocation,
+	'additional_settings': JSON.stringify(additionalSettings),
+	'owned_by_id': aliasIdentityId,
+	'order_by': orderBy
+};
+
+const isOneLanguage = Object.keys(result).length === 1;
+const multiLanguages = {};
+if (!isOneLanguage) {
+	Object.entries(result).forEach(
+		([code, value]) => {
+		    multiLanguages[`label@aras.lang.${code}`] = value;
+		}
+	);
+}
+
+const layoutId = aras.generateNewGUID();
+
+const favoriteItem = {
+	contextType: itemTypeName,
+	label: label,
+	quickAccessFlag: '',
+	additional_data: {
+		id: layoutId,
+		label: label,
+		...layoutItem
+	},
+	...multiLanguages
+};
+
+const favoriteResult = await favorites.add('Grid Layout', favoriteItem);
+if (favoriteResult) {
+	const notify = aras.getNotifyByContext(window);
+	notify(aras.getResource('', 'common.layout_saved'), {
+		type: 'success'
+	});
+	const { setCurrentLayout } = options.getActions();
+	setCurrentLayout(favoriteResult.id);
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_common_savenewlayout_click</name>
+ </Item>
+</AML>

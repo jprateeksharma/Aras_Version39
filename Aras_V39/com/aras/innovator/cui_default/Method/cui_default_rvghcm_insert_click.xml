@@ -1,0 +1,48 @@
+﻿<AML>
+ <Item type="Method" id="ED68EAC2A3C94D5CB862BAF4D6A34B55" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[
+const { getActions, getState } = options;
+
+const propsToShow = window.relationshipsGrid.getPropsForColumnDialog();
+const params = {
+	aras,
+	propsToShow,
+	title: aras.getResource('', 'showcolumndlg.title'),
+	dialogHeight: 500,
+	dialogWidth: 350,
+	resizable: true,
+	content: 'SitePreference/showColumnDialog.html'
+};
+
+const win = aras.getMostTopWindowWithAras();
+const dialog = win.ArasModules.Dialog;
+const columnsToDisplay = await dialog.show('iframe', params).promise;
+
+if (!columnsToDisplay) {
+	return;
+}
+
+const grid = getState().grid;
+const order = [...grid.order];
+const widths = new Map();
+const columnsToInsert = propsToShow.filter((propertyInfo) =>
+	columnsToDisplay.includes(propertyInfo.label)
+);
+columnsToInsert.forEach((column) => {
+	const columnName = column.name + column.type;
+	if (column.colNumber >= order.length) {
+		order.push(columnName);
+	} else {
+		order.splice(column.colNumber, 0, columnName);
+	}
+	widths.set(columnName, column.width);
+});
+
+getActions().updateLayoutData({
+	grid: { order, widths }
+});]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_rvghcm_insert_click</name>
+ </Item>
+</AML>

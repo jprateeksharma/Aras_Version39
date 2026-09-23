@@ -1,0 +1,5 @@
+﻿<AML>
+ <Item type="CommandBarSeparator" id="2C52DCACF44E4817BE771ECA750E02E1" action="add">
+  <name>cws_EndpointConfigurationToolbar_separator</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="4A101748CB374E5FB581ED92C566C9B1" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The current property data type is incompatible with the target type "{0}".</text>
+  <name>Aras.Server.Core.PropertyTypeChangeIsIncompatible</name>
+ </Item>
+</AML>

@@ -1,0 +1,115 @@
+﻿<AML>
+ <Item type="Method" id="064748F8526E4DDB81586B774811227A" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[/*
+  This method gets png base64 encoded data and saves it to the vault as png file;
+*/     
+//Max width and height of result png image (in px)
+int maxWidth = 75, maxHeight = 75;
+
+Innovator myInnovator = this.getInnovator();
+string fileId = this.getProperty("file_id");;
+fileId = EnsureAndNormalizeGuidFormat(fileId);
+
+string encodedString = this.getProperty("png_data");
+
+if (String.IsNullOrEmpty(encodedString))
+{
+    return myInnovator.newError(CCO.ErrorLookup.Lookup("SSVC_NoDataFound"));
+}
+
+encodedString = encodedString.Substring(encodedString.IndexOf(',', StringComparison.Ordinal) + 1);
+
+byte[] decodedBytes = Convert.FromBase64String(encodedString);
+
+string temp_folder = CCO.ServerEnvironment.GetTempFolderPath();
+string thumbnailPath = Path.Combine(temp_folder, fileId + "_tmp_" + Path.GetRandomFileName());
+thumbnailPath = Path.ChangeExtension(thumbnailPath, ".png");
+string snapshotPath = Path.Combine(temp_folder, fileId + "_tmp_" + Path.GetRandomFileName());
+snapshotPath = Path.ChangeExtension(snapshotPath, ".png");
+
+try
+{
+    using (var image = SixLabors.ImageSharp.Image.Load(decodedBytes))
+    {
+        SixLabors.ImageSharp.ImageExtensions.SaveAsPng(image, snapshotPath);
+    
+        SixLabors.ImageSharp.Processing.ProcessingExtensions.Mutate(image, i =>
+        {
+            //resize sampler is Bicubic by default
+            SixLabors.ImageSharp.Processing.ResizeExtensions.Resize(i,
+                new SixLabors.ImageSharp.Processing.ResizeOptions
+                {
+                    Size = new SixLabors.ImageSharp.Size(maxWidth, maxHeight),
+                    Mode = SixLabors.ImageSharp.Processing.ResizeMode.Crop
+                });
+        });
+        SixLabors.ImageSharp.ImageExtensions.SaveAsPng(image, thumbnailPath);
+    }
+}
+catch (Exception e)
+{
+    File.Delete(thumbnailPath);
+    File.Delete(snapshotPath);
+
+    return myInnovator.newError(e.Message);
+}
+
+try
+{
+	//Save snapshot to the vault
+	Item snapshotItm = this.newItem("File", "add");
+	snapshotItm.setProperty("filename", fileId + "_snapshot.png");
+	snapshotItm.attachPhysicalFile(snapshotPath);
+	snapshotItm = snapshotItm.apply();
+
+	if (snapshotItm.isError())
+	{
+		return myInnovator.newError(snapshotItm.getErrorString());
+	}
+
+	//Save thumbnail to the vault
+	Item thumbnailItm = this.newItem("File", "add");
+	thumbnailItm.setProperty("filename", fileId + "_thumbnail.png");
+	thumbnailItm.attachPhysicalFile(thumbnailPath);
+	thumbnailItm = thumbnailItm.apply();
+
+	if (thumbnailItm.isError())
+	{
+		return myInnovator.newError(thumbnailItm.getErrorString());
+	}
+
+	return myInnovator.newResult(snapshotItm.getID() + ',' + thumbnailItm.getID());
+}
+finally
+{
+	File.Delete(thumbnailPath);
+	File.Delete(snapshotPath);
+}
+}
+
+		/// <summary>
+		/// Parses user input as GUID and converts it to upper case string.
+		/// Typically <paramref name="userInputId"/> should match with the returned value.
+		/// Parse exception is thrown otherwise.
+		/// </summary>
+		/// <param name="userInputId">value to parse</param>
+		/// <returns></returns>
+		internal static string EnsureAndNormalizeGuidFormat(string userInputId)
+		{
+			if (userInputId == null)
+			{
+				//explicitly return null to distinguish it from the user input
+				return null;
+			}
+			//actually, we need to check for empty string, but coding rules fail for 'userInputId == string.Empty'
+			if (string.IsNullOrEmpty(userInputId))
+			{
+				//explicitly return null to distinguish it from the user input
+				return string.Empty;
+			}
+			return Guid.ParseExact(userInputId, "N").ToString("N").ToUpperInvariant();]]></method_code>
+  <method_type>C#</method_type>
+  <name>VC_SaveThumbnail</name>
+ </Item>
+</AML>

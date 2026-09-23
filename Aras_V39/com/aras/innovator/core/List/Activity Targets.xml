@@ -1,0 +1,49 @@
+﻿<AML>
+ <Item type="List" id="259FEF2A75EC44E387929F1FECB630B2" action="add">
+  <name>Activity Targets</name>
+  <Relationships>
+   <Item type="Value" id="8468E12B63B54452A8C691E418602F20" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">All Assignments</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Activity Targets" type="List">259FEF2A75EC44E387929F1FECB630B2</source_id>
+    <value>all_assignments</value>
+   </Item>
+   <Item type="Value" id="C300F9F58DD8441AAE675A92E598279F" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Open Assignments</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Activity Targets" type="List">259FEF2A75EC44E387929F1FECB630B2</source_id>
+    <value>open_assignments</value>
+   </Item>
+   <Item type="Value" id="D3E7EB52849F4C38A146000BA8008436" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Closed Assignments</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Activity Targets" type="List">259FEF2A75EC44E387929F1FECB630B2</source_id>
+    <value>closed_assignments</value>
+   </Item>
+   <Item type="Value" id="800715F8F5714010BD523901611FC3E7" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">From Identity</label>
+    <sort_order>4</sort_order>
+    <source_id keyed_name="Activity Targets" type="List">259FEF2A75EC44E387929F1FECB630B2</source_id>
+    <value>from_identity</value>
+   </Item>
+   <Item type="Value" id="6294084D7CFF45628697DA6BFE5B57A4" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">To Identity</label>
+    <sort_order>5</sort_order>
+    <source_id keyed_name="Activity Targets" type="List">259FEF2A75EC44E387929F1FECB630B2</source_id>
+    <value>to_identity</value>
+   </Item>
+   <Item type="Value" id="8C9531C2CA78416CAFBE77698BF9CF26" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Alternate</label>
+    <sort_order>6</sort_order>
+    <source_id keyed_name="Activity Targets" type="List">259FEF2A75EC44E387929F1FECB630B2</source_id>
+    <value>alternate</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

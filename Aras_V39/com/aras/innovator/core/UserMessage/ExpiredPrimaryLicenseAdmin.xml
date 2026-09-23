@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="UserMessage" id="6DE7B9D5A90741ECBCB2DD67A223F7C4" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Your Aras subscription has expired. Only the following users can log in to Aras Innovator to activate the feature license: root, admin, or the user defined in InnovatorServerConfig.xml.
+
+To activate the feature license:
+1) Log in to Aras Innovator.
+2) From the User menu (top-right corner), select Activate Feature.
+3) Enter a valid license key and click Activate.
+4) Verify the activation under Licensing → Dashboard.</text>
+  <name>ExpiredPrimaryLicenseAdmin</name>
+ </Item>
+</AML>

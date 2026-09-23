@@ -1,0 +1,249 @@
+﻿<AML>
+ <Item type="ItemType" id="9307EF625E31453D9CD861D10C7498C4" action="add">
+  <allow_private_permission>0</allow_private_permission>
+  <auto_search>1</auto_search>
+  <default_page_size>25</default_page_size>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>table</implementation_type>
+  <instance_data>CUI_DASHBOARD</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <label xml:lang="en">Dashboard</label>
+  <label_plural xml:lang="en">Dashboards</label_plural>
+  <large_icon>../images/Dashboard_2.svg</large_icon>
+  <open_icon>../images/Dashboard_2.svg</open_icon>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs on</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>cui_Dashboard</name>
+  <Relationships>
+   <Item type="ITPresentationConfiguration" id="4B0578F5AEA148198DB618F3F3186216" action="add">
+    <client>js</client>
+    <related_id keyed_name="cui_Dashboard Presentation Configuration" type="PresentationConfiguration">0D219B97758045A98701DF82A8E52496</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Property" id="349ECA5A8B794676AABD873C1C65C962" action="add">
+    <column_alignment>left</column_alignment>
+    <column_width>127</column_width>
+    <data_type>integer</data_type>
+    <default_value xml:lang="en">24</default_value>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Columns</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+    <track_history>0</track_history>
+    <name>columns</name>
+   </Item>
+   <Item type="Property" id="8690304F95B646F0B41C116723A6797A" action="add">
+    <column_alignment>left</column_alignment>
+    <column_width>512</column_width>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Description</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3456</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+    <track_history>0</track_history>
+    <name>description</name>
+   </Item>
+   <Item type="Property" id="36091B324CF444E2864EB31722DEA3D1" action="add">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="ItemPresentationConfiguration" type="ItemType" name="ItemPresentationConfiguration">612B2383E81442A5A775DBE162DC0328</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Presentation</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>3584</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+    <track_history>0</track_history>
+    <name>presentation</name>
+   </Item>
+   <Item type="View" id="ACE8D769F0BE4960B48D4CAF3C9A4191" action="add">
+    <client>js</client>
+    <related_id keyed_name="cui_Dashboard" type="Form">431B421AE39D448BB3507B92857E4CDB</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="Server Event" id="93DA35FDDC9A4242887A199C3D98E3BC" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="dashboard_onAddPresentation" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>dashboard_onAddPresentation</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeAdd</server_event>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Server Event" id="DE941EBD7BFB46978AD53CB59938A7F1" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="acs_CreateTeamForSharing" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>acs_CreateTeamForSharing</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeAdd</server_event>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Server Event" id="9A61D76AB878436DBD084528447E049D" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="acs_DeleteTeamForSharing" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>acs_DeleteTeamForSharing</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeDelete</server_event>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Server Event" id="F945B3AC4BD649708B5B4E4DD16F7AC5" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="dashboard_onBeforeGet" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>dashboard_onBeforeGet</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeGet</server_event>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Server Event" id="B6769F49961943F5AA54882F93EE754B" action="add">
+    <event_version>version_1</event_version>
+    <is_required>0</is_required>
+    <related_id keyed_name="acs_CreateTeamForSharing" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>acs_CreateTeamForSharing</name>
+     </Item>
+    </related_id>
+    <server_event>onBeforeUpdate</server_event>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Client Event" id="664460CF985D44ABBB3FB5449877B4F8" action="add">
+    <client_event>OnShowItem</client_event>
+    <related_id keyed_name="dashboard_onShowItem" type="Method">
+     <Item type="Method" action="get" select="id">
+      <name>dashboard_onShowItem</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Can Add" id="510E03B43A7F4142BD50FAF71C881AAE" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="Dashboard Administrators" type="Identity">2374FB2B74994D73AC7B4E929C379A6F</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Can Add" id="713E3727EAD843A3B843774B0A56549A" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="Dashboard Authors" type="Identity">557ED01F1C824FCC8AD1B52ECF113A6D</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="0B5BF892BD6C41CA82A8EFF540D34A32" action="add">
+    <is_default>0</is_default>
+    <related_id keyed_name="Default Access" type="Permission">9122CD065CF04141B8EFE263FC80BEA4</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="9384BB6684EA4385BEBBBA0F5342D430" action="add">
+    <is_default>1</is_default>
+    <related_id keyed_name="cui_Dashboard" type="Permission">5C9221550F5E49009745450D4CC8DA68</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="9307EF625E31453D9CD861D10C7498C4" action="edit">
+  <Relationships>
+   <Item type="Property" id="DCD5B4ED50EB4B64B8BEC7CA74B9097A" action="add">
+    <column_alignment>left</column_alignment>
+    <column_width>255</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <keyed_name_order>0</keyed_name_order>
+    <label xml:lang="en">Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3072</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='9307EF625E31453D9CD861D10C7498C4' and name='created_by_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>150</column_width>
+    <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Created By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>3328</sort_order>
+    <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+    <track_history>0</track_history>
+    <name>created_by_id</name>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

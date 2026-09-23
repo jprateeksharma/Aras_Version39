@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="BCC27110D91E4CAE98C8150D5071421B" action="add">
+  <is_private>0</is_private>
+  <name>Exclusion</name>
+  <Relationships>
+   <Item type="Access" id="8B7DD72C86ED435EB33053BC49110CE9" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Exclusion" type="Permission">BCC27110D91E4CAE98C8150D5071421B</source_id>
+   </Item>
+   <Item type="Access" id="A0D3831F01034212A8EF7537D612AB7C" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Exclusion" type="Permission">BCC27110D91E4CAE98C8150D5071421B</source_id>
+   </Item>
+   <Item type="Access" id="B26A5E6B6576441DA3B5664DBDCE98E1" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Exclusion" type="Permission">BCC27110D91E4CAE98C8150D5071421B</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

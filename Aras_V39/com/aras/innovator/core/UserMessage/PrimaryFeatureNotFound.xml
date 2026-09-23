@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="0B05FE6ACD214BD5A4C1820731F27D1A" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Aras subscription feature not found. Run Licenses → Update Feature Tree to resolve.</text>
+  <name>PrimaryFeatureNotFound</name>
+ </Item>
+</AML>

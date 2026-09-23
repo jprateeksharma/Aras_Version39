@@ -1,0 +1,26 @@
+﻿<AML>
+ <Item type="Method" id="ECBEA159864B405B88C4B0567E86D3B6" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, itemNode, itemTypeName} = options;
+if (!item && !itemNode) {
+	return false;
+}
+
+const action = ArasModules.item.getAction(itemTypeName, item?.id)
+const itemAction = item ? action : itemNode.getAttribute('action');
+const discoverOnly = item ? item['@aras.discover_only'] : itemNode.getAttribute('discover_only');
+const lockedById = item ? item['locked_by_id'] : aras.getItemProperty(itemNode, 'locked_by_id');
+const id = item ? item.id : itemNode.getAttribute('id');
+const isFixForApplications = ['mpp_ProcessPlan', 'mpp_Operation', 'mpp_Tool', 'Manufacturer Part'].includes(itemTypeName);
+const isNew = isFixForApplications ? itemAction === 'add' : ArasModules.item.isNew(itemTypeName, id);
+const canGet = discoverOnly !== '1';
+const userId = aras.user.id;
+const lockedByMe = lockedById === userId;
+const isEdit = isNew || lockedByMe || itemAction === 'edit';
+
+return isEdit && canGet;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_save_item_can_exec</name>
+ </Item>
+</AML>

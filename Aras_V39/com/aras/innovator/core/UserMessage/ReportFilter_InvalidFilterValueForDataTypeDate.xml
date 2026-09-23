@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="5E92CA8827144AA38C9AFFF9F7E94773" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid filter value for data type 'date'. Date must follow pattern 'yyyy-MM-dd' or 'yyyy-MM-ddTHH:mm:ss'.</text>
+  <name>ReportFilter_InvalidFilterValueForDataTypeDate</name>
+ </Item>
+</AML>

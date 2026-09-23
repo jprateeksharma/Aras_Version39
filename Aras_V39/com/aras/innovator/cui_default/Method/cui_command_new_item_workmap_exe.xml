@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="Method" id="24181223BBCC41AC98EA4DFFF5759456" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[return aras.newWorkflowMap();]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_new_item_workmap_exe</name>
+ </Item>
+</AML>

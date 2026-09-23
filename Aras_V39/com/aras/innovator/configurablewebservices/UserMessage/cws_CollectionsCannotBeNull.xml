@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="3B6BE3F318984EB5881887AD75DEEF07" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: 'Collections' cannot be null.</text>
+  <name>cws_CollectionsCannotBeNull</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="C50A54072D2C42D7A430756036B043EF" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: collection contains types that are not relationship types. ({1})</text>
+  <name>cws_RelationshipTypeIsNotRelationshipTypeFromDatabase</name>
+ </Item>
+</AML>

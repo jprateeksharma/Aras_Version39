@@ -1,0 +1,169 @@
+﻿<AML>
+ <Item type="RelationshipType" id="C4D7F5E8B993414FA21E0C72304CDA8C" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Shared With</label>
+  <new_show_related>0</new_show_related>
+  <related_id keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</related_id>
+  <related_notnull>1</related_notnull>
+  <related_option>0</related_option>
+  <relationship_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">
+   <Item type="ItemType" id="9E2551B1D56F46F480FFEDCFEBC3B3F6" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>DASHBOARD_ACCESSSHARING</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>Dashboard_AccessSharing</name>
+    <Relationships>
+     <Item type="Property" id="83E61ECF50DB4534A8559A1D3AF8A332" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="AccessSharingModes">16BD0FC743B24EBBAF637E7E594D1C02</data_source>
+      <data_type>list</data_type>
+      <default_value xml:lang="en" />
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Role</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3840</sort_order>
+      <source_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">9E2551B1D56F46F480FFEDCFEBC3B3F6</source_id>
+      <stored_length>256</stored_length>
+      <track_history>0</track_history>
+      <name>sharing_mode</name>
+     </Item>
+     <Item type="Server Event" id="BEFF3545B83E4BB6913DE70A227ECF9D" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="acs_AfterAddSharingByTeam" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>acs_AfterAddSharingByTeam</name>
+       </Item>
+      </related_id>
+      <server_event>onAfterAdd</server_event>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">9E2551B1D56F46F480FFEDCFEBC3B3F6</source_id>
+     </Item>
+     <Item type="Server Event" id="C8B837C59D844BFF96B6412FA263E56C" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="acs_ValidateSharingExists" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>acs_ValidateSharingExists</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeAdd</server_event>
+      <sort_order>512</sort_order>
+      <source_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">9E2551B1D56F46F480FFEDCFEBC3B3F6</source_id>
+     </Item>
+     <Item type="Server Event" id="7730F39E1DFA48F19828C769B523A48A" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="acs_DeleteSharingByTeam" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>acs_DeleteSharingByTeam</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeDelete</server_event>
+      <sort_order>384</sort_order>
+      <source_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">9E2551B1D56F46F480FFEDCFEBC3B3F6</source_id>
+     </Item>
+     <Item type="Server Event" id="0E1A0805551E4C51AF9AF71F8F70190B" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="acs_BeforeUpdateSharingByTeam" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>acs_BeforeUpdateSharingByTeam</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeUpdate</server_event>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">9E2551B1D56F46F480FFEDCFEBC3B3F6</source_id>
+     </Item>
+     <Item type="Server Event" id="BA18D52425D44882BD58A2938CAFCCE2" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="acs_ValidateSharingExists" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>acs_ValidateSharingExists</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeUpdate</server_event>
+      <sort_order>640</sort_order>
+      <source_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">9E2551B1D56F46F480FFEDCFEBC3B3F6</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</source_id>
+  <name>Dashboard_AccessSharing</name>
+ </Item>
+ <Item type="ItemType" id="9E2551B1D56F46F480FFEDCFEBC3B3F6" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='9E2551B1D56F46F480FFEDCFEBC3B3F6' and name='related_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="Identity" type="ItemType" name="Identity">E582AB17663F4EF28460015B2BE9E094</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3968</sort_order>
+    <source_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">9E2551B1D56F46F480FFEDCFEBC3B3F6</source_id>
+    <track_history>0</track_history>
+    <name>related_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='9E2551B1D56F46F480FFEDCFEBC3B3F6' and name='source_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="cui_Dashboard" type="ItemType" name="cui_Dashboard">9307EF625E31453D9CD861D10C7498C4</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2944</sort_order>
+    <source_id keyed_name="Dashboard_AccessSharing" type="ItemType" name="Dashboard_AccessSharing">9E2551B1D56F46F480FFEDCFEBC3B3F6</source_id>
+    <track_history>0</track_history>
+    <name>source_id</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='9E2551B1D56F46F480FFEDCFEBC3B3F6'" />
+ <Item type="Form" action="delete" where="name='Dashboard_AccessSharing'" />
+</AML>

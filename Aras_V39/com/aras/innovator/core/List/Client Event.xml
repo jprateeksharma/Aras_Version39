@@ -1,0 +1,36 @@
+﻿<AML>
+ <Item type="List" id="9DC4C4B73659462DA53A32744568A32B" action="add">
+  <description>Links to the Client Events list item</description>
+  <name>Client Event</name>
+  <Relationships>
+   <Item type="Value" id="1108645A82EB485CA463C39F3AF9E64B" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">OnBeforeNew</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Client Event" type="List">9DC4C4B73659462DA53A32744568A32B</source_id>
+    <value>OnBeforeNew</value>
+   </Item>
+   <Item type="Value" id="6D8C094553884F4280068A93EA69CBF7" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">OnNew</label>
+    <sort_order>200</sort_order>
+    <source_id keyed_name="Client Event" type="List">9DC4C4B73659462DA53A32744568A32B</source_id>
+    <value>OnNew</value>
+   </Item>
+   <Item type="Value" id="47FD5CE93C4F41D3BF23B9BAA241CBBC" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">OnAfterNew</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Client Event" type="List">9DC4C4B73659462DA53A32744568A32B</source_id>
+    <value>OnAfterNew</value>
+   </Item>
+   <Item type="Value" id="9FB106C20E6F4A9EACE91B8E2F9CC12B" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">OnShowItem</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Client Event" type="List">9DC4C4B73659462DA53A32744568A32B</source_id>
+    <value>OnShowItem</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,115 @@
+﻿<AML>
+ <Item type="ItemType" id="B653DAFBB1474C7D8601F94928ADE072" action="add">
+  <allow_private_permission>1</allow_private_permission>
+  <auto_search>0</auto_search>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>table</implementation_type>
+  <instance_data>TDF_ITEMTYPESETTINGS</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <label xml:lang="en">ItemType Settings</label>
+  <label_plural xml:lang="en">ItemType Settings</label_plural>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs off</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>tdf_ItemTypeSettings</name>
+  <Relationships>
+   <Item type="Property" id="D911A3F25E7B4476AB712E2B4A8DA506" action="add">
+    <column_alignment>left</column_alignment>
+    <column_width>150</column_width>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <keyed_name_order>1</keyed_name_order>
+    <label xml:lang="en">Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3000</sort_order>
+    <source_id keyed_name="tdf_ItemTypeSettings" type="ItemType" name="tdf_ItemTypeSettings">B653DAFBB1474C7D8601F94928ADE072</source_id>
+    <stored_length>128</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+   <Item type="Property" id="B61F106053B045AA8E13647794CA89BB" action="add">
+    <column_alignment>left</column_alignment>
+    <column_width>300</column_width>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <label xml:lang="en">Settings</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3200</sort_order>
+    <source_id keyed_name="tdf_ItemTypeSettings" type="ItemType" name="tdf_ItemTypeSettings">B653DAFBB1474C7D8601F94928ADE072</source_id>
+    <track_history>0</track_history>
+    <name>settings</name>
+   </Item>
+   <Item type="View" id="E3D58C2B6D4944B38D79121C86C092F3" action="add">
+    <client>js</client>
+    <related_id keyed_name="tdf_ItemTypeSettings" type="Form">3DFE5ED134214213B8F3FD817238BFB6</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="tdf_ItemTypeSettings" type="ItemType" name="tdf_ItemTypeSettings">B653DAFBB1474C7D8601F94928ADE072</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="Can Add" id="D64C19D1F4A3455B82BD8123C8E9724C" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="Technical Document Administrator" type="Identity">719FA509EF8C4944AEEF468604A85E1D</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="tdf_ItemTypeSettings" type="ItemType" name="tdf_ItemTypeSettings">B653DAFBB1474C7D8601F94928ADE072</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="9A0EF657CE6348CCB95D29F96700417C" action="add">
+    <is_default>1</is_default>
+    <related_id keyed_name="Technical Document Administrator" type="Permission">F72F27C776704E6497E22D92F0F6F09C</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="tdf_ItemTypeSettings" type="ItemType" name="tdf_ItemTypeSettings">B653DAFBB1474C7D8601F94928ADE072</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="B653DAFBB1474C7D8601F94928ADE072" action="edit">
+  <Relationships>
+   <Item type="Property" id="803F52097C3948B8A27716709D92C3A3" action="add">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">ItemType</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3072</sort_order>
+    <source_id keyed_name="tdf_ItemTypeSettings" type="ItemType" name="tdf_ItemTypeSettings">B653DAFBB1474C7D8601F94928ADE072</source_id>
+    <track_history>0</track_history>
+    <name>target_itemtype</name>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

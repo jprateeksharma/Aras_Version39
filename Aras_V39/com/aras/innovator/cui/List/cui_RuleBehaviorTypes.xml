@@ -1,0 +1,21 @@
+﻿<AML>
+ <Item type="List" id="781C7BA06E1640E1AC5E8F9C47672857" action="add">
+  <name>cui_RuleBehaviorTypes</name>
+  <Relationships>
+   <Item type="Value" id="B547D6992DB24CCBAD4C26A2710E23E5" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Display</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_RuleBehaviorTypes" type="List">781C7BA06E1640E1AC5E8F9C47672857</source_id>
+    <value>display</value>
+   </Item>
+   <Item type="Value" id="F41CC30CA0E5430A8717E713D03895F5" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Formatting</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_RuleBehaviorTypes" type="List">781C7BA06E1640E1AC5E8F9C47672857</source_id>
+    <value>formatting</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

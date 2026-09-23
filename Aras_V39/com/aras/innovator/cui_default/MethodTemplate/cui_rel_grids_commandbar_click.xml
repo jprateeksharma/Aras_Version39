@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="CAE742AF02B848E78E23AC765B47C32F" action="add">
+  <template>import type { Toolbar } from 'core';
+import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import type { Options, ClickHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+export async function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'RelationshipsView'&gt;
+): ClickHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_rel_grids_commandbar_click</name>
+ </Item>
+</AML>

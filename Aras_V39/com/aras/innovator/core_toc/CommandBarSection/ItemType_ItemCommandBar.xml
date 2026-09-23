@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="1B37F50BECEF42D19635C48ADAABF4F4" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="ItemView.ItemCommandBar" type="cui_Location">830EE31D213649DA934EE655E894EA3A</location>
+  <name>ItemType_ItemCommandBar</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="B4B58D38A96545F2BAE9C0369D946923" action="add">
+    <action>Add</action>
+    <related_id keyed_name="itemview.itemcommandbar.default.managerules" type="CommandBarItem">85D1FFB50CC64B1BA843C0397523B060</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>2535</sort_order>
+    <source_id keyed_name="ItemType_ItemCommandBar" type="CommandBarSection">1B37F50BECEF42D19635C48ADAABF4F4</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="0E706A0D94D34246B20568DC6512E335" action="add">
+    <action>Add</action>
+    <related_id keyed_name="itemview.itemcommandbar.default.more.beforeaddtotoc" type="CommandBarItem">81F926CC0F784DD9B7C4F2F809BD6B11</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>3584</sort_order>
+    <source_id keyed_name="ItemType_ItemCommandBar" type="CommandBarSection">1B37F50BECEF42D19635C48ADAABF4F4</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="67CEB99EEB5E4A5D8507C6B0F6EFDAF0" action="add">
+    <action>Add</action>
+    <related_id keyed_name="itemview.itemcommandbar.default.more.addtotoc" type="CommandBarItem">43A888A4156E4B4CA5D479D4672F58EE</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>3712</sort_order>
+    <source_id keyed_name="ItemType_ItemCommandBar" type="CommandBarSection">1B37F50BECEF42D19635C48ADAABF4F4</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

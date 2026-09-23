@@ -1,0 +1,234 @@
+﻿<AML>
+ <Item type="Method" id="76564E5A729B40B1962F864B13E3D739" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	string itemIds = GetItemPropertiesAsString(this.getRelationships());
+
+	Item responsiveFormStructureItems = GetResponsiveFormStructure(itemIds);
+	if (responsiveFormStructureItems.isError()
+		&& !responsiveFormStructureItems.isEmpty())
+	{
+		return responsiveFormStructureItems;
+	}
+
+	string responsiveFormIds =
+		GetItemPropertiesAsString(responsiveFormStructureItems);
+
+	Item viewItems = GetFormViews(responsiveFormIds);
+	if (viewItems.isError() && !viewItems.isEmpty())
+	{
+		return viewItems;
+	}
+
+	string itemTypeIds = GetItemPropertiesAsString(viewItems, "source_id");
+	string cuiRulesIds = GetCuiRulesIdsString(responsiveFormStructureItems);
+
+	string idsToCheckInCurrentPackage = string.Equals(cuiRulesIds, "''", StringComparison.Ordinal) ? itemTypeIds : string.Join(',', itemTypeIds, cuiRulesIds);
+
+	Item packageDefinitionWithResponsiveFormItemTypes =
+		GetPackageDefinitionWithResponsiveFormItemTypes(idsToCheckInCurrentPackage, this.getProperty("packageName"));
+	if (packageDefinitionWithResponsiveFormItemTypes.isError()
+		&& !packageDefinitionWithResponsiveFormItemTypes.isEmpty())
+	{
+		return packageDefinitionWithResponsiveFormItemTypes;
+	}
+
+	Item packageDefinitionWithCuiRulesItemTypes = GetPackageDefinitionWithResponsiveFormItemTypes(cuiRulesIds);
+	if (packageDefinitionWithCuiRulesItemTypes.isError() && !packageDefinitionWithCuiRulesItemTypes.isEmpty())
+	{
+		return packageDefinitionWithCuiRulesItemTypes;
+	}
+
+	ParseResponsiveFormStructureToPackageItems(
+		responsiveFormStructureItems,
+		viewItems,
+		packageDefinitionWithResponsiveFormItemTypes,
+		packageDefinitionWithCuiRulesItemTypes);
+
+	return PrepareStructureItemsForPackageDefinition();
+}
+
+private readonly Dictionary<string, string> itemsToPackageDictionary = new Dictionary<string, string>();
+
+private static string GetCuiRulesIdsString(Item responsiveFormStructureItems)
+{
+	var rules = responsiveFormStructureItems.getItemsByXPath($"//Item[@type='cui_Rule']");
+	return GetItemPropertiesAsString(rules);
+}
+
+private static string GetItemPropertiesAsString(Item items, string propertyName = null)
+{
+	List<string> itemProperties = new List<string>();
+
+	for (int i = 0; i < items.getItemCount(); i++)
+	{
+		Item item = items.getItemByIndex(i);
+		if (string.IsNullOrEmpty(propertyName))
+		{
+			itemProperties.Add(item.getID());
+		}
+		else
+		{
+			itemProperties.Add(item.getProperty(propertyName));
+		}
+	}
+
+	return itemProperties.Count > 0 ? "'" + string.Join("','", itemProperties) + "'" : "''";
+}
+
+private Item GetResponsiveFormStructure(string itemIds)
+{
+	Item cui_ControlRule = this.newItem("cui_ControlRule", "get");
+	cui_ControlRule.setAttribute("select", "related_id(id)");
+
+	Item cui_Control = this.newItem("cui_Control", "get");
+	cui_Control.setAttribute("select", "id");
+	cui_Control.addRelationship(cui_ControlRule);
+
+	Item cuiWindowSectionControl = this.newItem("cui_WindowSectionControl", "get");
+	cuiWindowSectionControl.setPropertyItem("related_id", cui_Control);
+
+	Item cuiWindowSection = this.newItem("cui_WindowSection", "get");
+	cuiWindowSection.setAttribute("select", "id");
+	cuiWindowSection.addRelationship(cuiWindowSectionControl);
+
+	Item formComposite = this.newItem("FormComposite", "get");
+	formComposite.setAttribute("select", "related_id(id)");
+	formComposite.setPropertyItem("related_id", cuiWindowSection);
+
+	Item responsiveFormItem = this.newItem("Form", "get");
+	responsiveFormItem.setProperty("id", itemIds);
+	responsiveFormItem.setPropertyAttribute("id", "condition", "in");
+	responsiveFormItem.setAttribute("select", "id");
+	responsiveFormItem.addRelationship(formComposite);
+
+	return responsiveFormItem.apply();
+}
+
+private Item GetFormViews(string responsiveFormIds)
+{
+	Item viewItems = this.newItem("View", "get");
+	viewItems.setAttribute("select", "id, source_id(id)");
+	viewItems.setProperty("related_id", responsiveFormIds);
+	viewItems.setPropertyAttribute("related_id", "condition", "in");
+
+	return viewItems.apply();
+}
+
+private Item GetPackageDefinitionWithResponsiveFormItemTypes(string itemTypeIds, string packageName = null)
+{
+	Item packageElementItem = this.newItem("PackageElement", "get");
+	packageElementItem.setAttribute("select", "id, element_id");
+	packageElementItem.setProperty("element_id", itemTypeIds);
+	packageElementItem.setPropertyAttribute("element_id", "condition", "in");
+
+	Item packageGroupItem = this.newItem("PackageGroup", "get");
+	packageGroupItem.setAttribute("select", "id");
+	packageGroupItem.addRelationship(packageElementItem);
+
+	Item packageDefinitionItems = this.newItem("PackageDefinition", "get");
+	packageDefinitionItems.setAttribute("select", "id");
+	if (!string.IsNullOrEmpty(packageName))
+	{
+		packageDefinitionItems.setProperty("name", packageName);
+	}
+
+	packageDefinitionItems.addRelationship(packageGroupItem);
+
+	return packageDefinitionItems.apply();
+}
+
+private void ParseResponsiveFormStructureToPackageItems(
+	Item responsiveFormStructureItems,
+	Item viewItems,
+	Item packageDefinitionWithResponsiveFormItemTypes,
+	Item packageDefinitionWithResponsiveFormCuiRules)
+{
+	for (int i = 0; i < responsiveFormStructureItems.getItemCount(); i++)
+	{
+		Item responsiveFormStructureItem = responsiveFormStructureItems.getItemByIndex(i);
+		Item formStructureRelationships = responsiveFormStructureItem.getRelationships();
+		for (int j = 0; j < formStructureRelationships.getItemCount(); j++)
+		{
+			Item formCompositeRelationship = formStructureRelationships.getItemByIndex(j);
+			Item windowSectionItem = formCompositeRelationship.getRelatedItem();
+			AddItemToPackage(windowSectionItem);
+
+			Item windowSectionControlRelationships = windowSectionItem.getRelationships();
+			for (int h = 0; h < windowSectionControlRelationships.getItemCount(); h++)
+			{
+				Item windowSectionControlRelationship = windowSectionControlRelationships.getItemByIndex(h);
+				Item controlItem = windowSectionControlRelationship.getRelatedItem();
+				AddItemToPackage(controlItem);
+
+				Item cuiControlRuleRelationships = controlItem.getRelationships();
+
+				for(int ruleRelshipIndex = 0; ruleRelshipIndex < cuiControlRuleRelationships.getItemCount(); ruleRelshipIndex++)
+				{
+					Item cuiControlRuleRelationship = cuiControlRuleRelationships.getItemByIndex(ruleRelshipIndex);
+					Item cuiRuleItem = cuiControlRuleRelationship.getRelatedItem();
+
+					Item cuiRuleItemInCurrentPackage = packageDefinitionWithResponsiveFormItemTypes
+						.getItemsByXPath($"//Item[element_id='{cuiRuleItem.getID()}']");
+
+					if (cuiRuleItemInCurrentPackage.getItemCount() == 1)
+					{
+						continue;
+					}
+
+					Item cuiRuleItemInPackage = packageDefinitionWithResponsiveFormCuiRules
+						.getItemsByXPath($"//Item[element_id='{cuiRuleItem.getID()}']");
+
+					if (cuiRuleItemInPackage.getItemCount() == 0)
+					{
+						AddItemToPackage(cuiRuleItem);
+					}
+					else
+					{
+						AddItemToPackage(cuiControlRuleRelationship);
+					}
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < viewItems.getItemCount(); i++)
+	{
+		Item viewItem = viewItems.getItemByIndex(i);
+		string itemTypeId = viewItem.getProperty("source_id");
+
+		Item itemTypeItem = packageDefinitionWithResponsiveFormItemTypes
+			.getItemsByXPath($"Relationships/Item/Relationships/Item[element_id='{itemTypeId}']");
+
+		if (itemTypeItem.getItemCount() == 0)
+		{
+			AddItemToPackage(viewItem);
+		}
+	}
+}
+
+private void AddItemToPackage(Item item)
+{
+	string itemId = item.getID();
+	string itemTypeName = item.getType();
+
+	itemsToPackageDictionary.TryAdd(itemId, itemTypeName);
+}
+
+private Item PrepareStructureItemsForPackageDefinition()
+{
+	Item packageDefinitionItem = this.newItem();
+
+	foreach (KeyValuePair<string, string> itemsToPackageKeyValuePair in itemsToPackageDictionary)
+	{
+		Item convertedToPackageItem = this.newItem();
+		convertedToPackageItem.setProperty("id", itemsToPackageKeyValuePair.Key);
+		convertedToPackageItem.setProperty("itemTypeName", itemsToPackageKeyValuePair.Value);
+
+		packageDefinitionItem.addRelationship(convertedToPackageItem);
+	}
+
+	return packageDefinitionItem;]]></method_code>
+  <method_type>C#</method_type>
+  <name>GetResponsiveFormStructurePacDef</name>
+ </Item>
+</AML>

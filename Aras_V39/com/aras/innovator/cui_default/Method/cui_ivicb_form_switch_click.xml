@@ -1,0 +1,47 @@
+﻿<AML>
+ <Item type="Method" id="4BDF8A1C725E4A309685113D12A8AB49" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const [{ jsonToXml, xml }, { CUIError }] = await Promise.all([
+	import('../jsBundles/core.es.js'),
+	import('../jsBundles/cui.es.js')
+]);
+const { itemId, itemTypeName } = options;
+const itemNode = window.getItem();
+const currentClassification = aras.getItemProperty(itemNode, 'classification');
+const isFormResponsive = currentClassification === 'Responsive';
+const updatedFormJson = {
+	Item: {
+		classification: isFormResponsive ? '' : 'Responsive',
+			'@attrs': {
+				type: itemTypeName,
+				id: itemId,
+				action: 'edit'
+			}
+	}
+};
+const itemXml = jsonToXml(updatedFormJson);
+const updatedItemNode = xml.parseString(itemXml).documentElement;
+const saveCommand = options.commandFactory('SaveItem', { itemNode: updatedItemNode, isDone: true });
+let updatedFormItem;
+try {
+	updatedFormItem = await saveCommand.execute();
+} catch(e) {
+	throw new CUIError(e.message, { cause: e });
+}
+
+await window.ModulesManager.using(['aras.innovator.core.ItemWindow/FormItemWindowView', 'aras.innovator.core.ItemWindow/DefaultItemWindowCreator'], async (View, Creator) => {
+	const view = new View(updatedFormItem, {});
+	const creator = new Creator(view);
+	creator.SetArguments(window);
+	const promise = new Promise((resolve) => {
+		window.addEventListener('pagehide', resolve, { once: true });
+		creator.SetLocation(window);
+	});
+	await promise;
+
+	aras.uiRegWindowEx(itemId, window);
+});]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivicb_form_switch_click</name>
+ </Item>
+</AML>

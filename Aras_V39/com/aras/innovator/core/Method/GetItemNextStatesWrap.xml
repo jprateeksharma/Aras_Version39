@@ -1,0 +1,58 @@
+﻿<AML>
+ <Item type="Method" id="341C36363935405C976098471716B73D" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[ _callContext = CCO;
+			var inn = this.getInnovator();
+			var itemId = this.getID();
+			var itemTypeName = this.getType();
+
+			if (!string.IsNullOrEmpty(itemId) && !string.IsNullOrEmpty(itemTypeName))
+			{
+				Item item = inn.newItem(itemTypeName, "get");
+				item.setAttribute("select", "is_current,keyed_name");
+				item.setAttribute("id", itemId);
+				item = item.apply();
+
+				if (item.isError())
+				{
+					return item;
+				}
+
+				if (!IsCurrent(item)){
+					string errorMessage = GetOldGenerationErrorMessage(item, itemTypeName, inn);
+					var oldGenerationError = inn.newError(errorMessage);
+					oldGenerationError.setErrorCode("GetItemNextStates_EditOldGenerationError");
+					return oldGenerationError;
+				}
+				
+				item = inn.newItem(itemTypeName, "getItemNextStates");
+				item.setAttribute("id", itemId);
+				item = item.apply();
+				return item;
+			}
+			else{
+				throw new ArgumentException("Input XML should be specified with item_id and item_type_name.");
+			}
+		}
+
+		private static Aras.Server.Core.CallContext _callContext;
+
+		private static bool IsCurrent(Item item)
+		{
+			return string.Equals(item.getProperty("is_current"), "1", StringComparison.Ordinal);
+		}
+
+		private static string GetOldGenerationErrorMessage(Item item, string itemTypeName, Innovator inn)
+		{
+			Item itemType = inn.newItem("ItemType", "get");
+			itemType.setAttribute("select", "label");
+			itemType.setProperty("name", itemTypeName);
+			itemType = itemType.apply();
+			string itemTypeLabel = string.IsNullOrEmpty(itemType.getProperty("label")) ? itemType.getProperty("name") : itemType.getProperty("label");
+
+			return string.Format(CultureInfo.InvariantCulture, _callContext.ErrorLookup.Lookup("GetItemNextStates_EditOldGenerationError", itemTypeLabel, item.getProperty("keyed_name")));
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>GetItemNextStatesWrap</name>
+ </Item>
+</AML>

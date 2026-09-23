@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="Method" id="3BC58A186DBB4C9AB4F71A9772E74BCD" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[
+const tabContainer = dijit.byId('viewers');
+const callback = function(viewerContainer) {
+	const frame = viewerContainer.getChildren()[0].viewerFrame;
+	if (frame && !frame.contentWindow.SSVCViewer) {
+		frame.contentWindow.onViewerIsReady = function() {
+			frame.contentWindow.SSVCViewer.displayFile();
+		};
+	}
+};
+tabContainer.selectTab(inArgs.control.tabId, callback);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>VC_SelectTab</name>
+ </Item>
+</AML>

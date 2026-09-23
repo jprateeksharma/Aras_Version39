@@ -1,0 +1,175 @@
+﻿<AML>
+ <Item type="Method" id="75B6444FE8164F9AAB0B878C8EDE1F69" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[function _isLastListItemChild(targetElement, parentElement) {
+	if (parentElement.is('ArasListItemXmlSchemaElement')) {
+		const childItems = parentElement.ChildItems().List();
+		return childItems.indexOf(targetElement) === childItems.length - 1;
+	}
+
+	return false;
+}
+
+function _addNewElementForParent(targetElement, newTextElement) {
+	const targetParent = targetElement.Parent;
+
+	if (
+		targetElement.is('ArasListItemXmlSchemaElement') ||
+		targetElement.is('ArasCellXmlSchemaElement')
+	) {
+		targetElement.ChildItems().insertAt(0, newTextElement);
+	} else if (_isLastListItemChild(targetElement, targetParent)) {
+		const parentChildItems = targetParent.Parent.ChildItems();
+		const newListItemElement = control.viewmodel.CreateElement('element', {
+			type: targetParent.nodeName
+		});
+
+		newListItemElement.ChildItems().add(newTextElement);
+		parentChildItems.insertAt(
+			parentChildItems.index(targetParent) + 1,
+			newListItemElement
+		);
+	} else {
+		const childItems = targetParent.ChildItems();
+		const indexInParent = childItems.index(targetElement);
+
+		childItems.insertAt(indexInParent + 1, newTextElement);
+	}
+}
+
+const _isValidAppend = function (originTargetElement, elementToAppendName) {
+	const possibleAppendElems = control.viewmodel
+		.Schema()
+		.GetExpectedElements(originTargetElement).append;
+	const elementName = elementToAppendName
+		? elementToAppendName
+		: originTargetElement.nodeName;
+	const validElement = possibleAppendElems.find(function (el) {
+		return el === elementName;
+	});
+
+	return Boolean(validElement);
+};
+
+function _setTextByCursorPositionToMixedElement(
+	origTextElement,
+	newTextElement
+) {
+	const viewCursor = control.viewmodel.Cursor();
+	const origTextNode = origTextElement.ChildItems().get(0);
+	const newTextNode = newTextElement.ChildItems().get(0);
+
+	const origElementText = origTextNode.Text();
+	const targetElementText = origElementText.substring(
+		0,
+		viewCursor.startOffset
+	);
+	const newElementText = origElementText.substring(
+		viewCursor.endOffset,
+		origElementText.length
+	);
+
+	origTextNode.Text(targetElementText);
+	newTextNode.Text(newElementText);
+}
+
+function _appendNonTextElement(originTargetElement, appendElement) {
+	// create element to check it's schema type
+	const newElement = control.viewmodel.CreateElement('element', {
+		type: appendElement
+	});
+	const viewAction =
+		newElement.is('ArasImageXmlSchemaElement') ||
+		newElement.is('ArasItemXmlSchemaElement')
+			? 'appendnewitem'
+			: 'appendelement';
+
+	if (_isValidAppend(originTargetElement, appendElement)) {
+		const action = control.actionsHelper.viewActions[viewAction];
+		action.handler.Execute({
+			elementName: appendElement,
+			context: originTargetElement,
+			direction: 'append'
+		});
+	}
+}
+
+// main logic
+if (this.viewmodel.IsEditable()) {
+	const enterEventKeyCode = 13;
+	const keyEvent = options.event;
+	const keyCode = keyEvent.which || keyEvent.keyCode;
+
+	if (keyCode === enterEventKeyCode) {
+		if (keyEvent.shiftKey || keyEvent.altKey || keyEvent.ctrlKey) {
+			return;
+		}
+
+		const selectedItems = this.viewmodel.GetSelectedItems();
+		const originTargetElement =
+			selectedItems.length === 1 &&
+			this.viewmodel.GetAncestorOrSelfElement(selectedItems[0]);
+
+		if (originTargetElement) {
+			const schema = this.viewmodel.Schema();
+			const isTextTarget = originTargetElement.is('ArasTextXmlSchemaElement');
+			let isElementAdded = false;
+
+			if (isTextTarget || schema.IsContentMixed(originTargetElement)) {
+				// handle text elements
+				if (_isValidAppend(originTargetElement)) {
+					const newTextElement = this.viewmodel.CreateElement('element', {
+						type: originTargetElement.nodeName
+					});
+
+					control.syncBeforeAction(keyEvent);
+					this.viewmodel.SuspendInvalidation();
+
+					if (isTextTarget) {
+						this._setTextByCursorPositionToTextElement(
+							originTargetElement,
+							newTextElement
+						);
+					} else {
+						_setTextByCursorPositionToMixedElement(
+							originTargetElement,
+							newTextElement
+						);
+					}
+
+					_addNewElementForParent(originTargetElement, newTextElement);
+					this.viewmodel.ResumeInvalidation();
+					this._setCursorPositionToTextElement(isTextTarget, newTextElement);
+					this.viewmodel.SetSelectedItems(newTextElement);
+
+					isElementAdded = true;
+				}
+			}
+
+			if (!isElementAdded) {
+				const isTableElementTarget =
+					originTargetElement.is('ArasRowXmlSchemaElement') ||
+					originTargetElement.is('ArasCellXmlSchemaElement');
+				const expectedElements = schema.GetExpectedElements(originTargetElement)
+					.append;
+
+				if (expectedElements.length === 1 && !isTableElementTarget) {
+						const appendElement = expectedElements[0];
+						_appendNonTextElement(originTargetElement, appendElement);
+						isElementAdded = true;
+				}
+			}
+
+			if (isElementAdded) {
+				this._stopEvent(keyEvent);
+				return true;
+			}
+		}
+	}
+
+	return false;
+}]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>tp_standard_editor_enterkey</name>
+ </Item>
+</AML>

@@ -1,0 +1,20 @@
+﻿<AML>
+ <Item type="Method" id="9D57C921450840BF9FCF9B50F471BD7F" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { getState, rows } = options;
+const { editableItems, grid } = getState();
+const selectedRows = grid.selectedRows;
+if (selectedRows.length === 0) {
+	return { hidden: true };
+}
+
+const hidden = selectedRows.some((rowId) => {
+	const relatedId = rows.get(rowId, 'related_id');
+	return !editableItems.has(relatedId);
+});
+
+return { hidden };]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivrcm_done_init</name>
+ </Item>
+</AML>

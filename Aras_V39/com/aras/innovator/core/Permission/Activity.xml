@@ -1,0 +1,75 @@
+﻿<AML>
+ <Item type="Permission" id="46245093DDBE45109FEFBD5A4703AF2F" action="add">
+  <is_private>0</is_private>
+  <name>Activity</name>
+  <Relationships>
+   <Item type="Access" id="1DBC55B89ABF42EEB782D156CD9E9BE7" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Activity" type="Permission">46245093DDBE45109FEFBD5A4703AF2F</source_id>
+   </Item>
+   <Item type="Access" id="3814B3F15AE54A3FBF7429559569F3CB" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Workflow Manager" type="Identity">1C89F0DA5CE94869B515A3B1C76FE9A5</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="Activity" type="Permission">46245093DDBE45109FEFBD5A4703AF2F</source_id>
+   </Item>
+   <Item type="Access" id="A58DC8508E4D4E1C9F555DED24E6D748" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Activity" type="Permission">46245093DDBE45109FEFBD5A4703AF2F</source_id>
+   </Item>
+   <Item type="Access" id="C767F022AB554892967DFC175838F40F" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Owner" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Owner</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Activity" type="Permission">46245093DDBE45109FEFBD5A4703AF2F</source_id>
+   </Item>
+   <Item type="Access" id="CC1993F85B1D4B14853854E719F3CAC7" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Manager" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Manager</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Activity" type="Permission">46245093DDBE45109FEFBD5A4703AF2F</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

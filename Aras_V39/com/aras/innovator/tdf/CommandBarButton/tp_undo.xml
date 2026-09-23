@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="E519DF9393B34FE3902B191B865700A0" action="add">
+  <additional_data>{ "actionName": "undoaction" }</additional_data>
+  <image>../images/Undo.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_executeaction" type="Method">94FDE365CA9A402DB808B93FBE53CC4D</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_undo_init" type="Method">E992FE41BC444F9C92A95CB62D90C55D</on_init_handler>
+  <tooltip_template xml:lang="en">Undo</tooltip_template>
+  <name>tp_undo</name>
+ </Item>
+</AML>

@@ -1,0 +1,122 @@
+﻿<AML>
+ <Item type="Method" id="F5194B5F5F874057966D0F85AD375102" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	var innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer(CCO.Permissions, innovator);
+	BusinessLogic businessLogic = new BusinessLogic(this, dataAccessLayer);
+
+	return businessLogic.Run();
+}
+
+internal class BusinessLogic
+{
+	private const string DefaultSharingMode = "Viewer";
+
+	private readonly Item _contextItem;
+	private readonly IDataAccessLayer _dataAccessLayer;
+
+	private readonly Dictionary<string, string> _teamRoleBySharingMode = new()
+	{
+		{ "Editor", "C925B4C261D44A138A5D5B6F050EFB6A" },
+		{ "Viewer", "9FF8AB7E8F934140BE23DEF6FF8E338D" }
+	};
+
+	public BusinessLogic(Item context, IDataAccessLayer dataAccessLayer)
+	{
+		_contextItem = context;
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public Item Run()
+	{	
+		Item sharingRelshipFromDb = GetSharingRelationshipFromDb();
+		if (sharingRelshipFromDb.isError())
+		{
+			// In case when item is shared with the user (editor rights are granted) and this user tries to delete the Shared Item sharingRelshipFromDb will be empty
+			return sharingRelshipFromDb.isEmpty()
+				? _contextItem
+				: sharingRelshipFromDb;
+		}
+		
+		Item sharedItem = sharingRelshipFromDb.getPropertyItem("source_id");
+		string teamId = sharedItem.getProperty("team_id");
+		string sharedWithId = sharingRelshipFromDb.getProperty("related_id");
+		string sharingMode = sharingRelshipFromDb.getProperty("sharing_mode", DefaultSharingMode);
+		Item deleteResult = DeleteTeamIdentity(teamId, sharedWithId, _teamRoleBySharingMode[sharingMode]);
+		if (deleteResult.isError() && !deleteResult.isEmpty())
+		{
+			return deleteResult;
+		}
+
+		return _contextItem;
+	}
+	
+	private Item GetSharingRelationshipFromDb()
+	{
+		Item sharingRelationship = _dataAccessLayer.NewItem(_contextItem.getType(), "get");
+		sharingRelationship.setID(_contextItem.getID());
+		sharingRelationship.setAttribute("select", "related_id,source_id(team_id),sharing_mode");
+
+		return _dataAccessLayer.ApplyItem(sharingRelationship);
+	}
+
+	private Item DeleteTeamIdentity(string teamId, string relatedId, string teamRole)
+	{
+		Item teamIdentity = _dataAccessLayer.NewItem("Team Identity", "get");
+		teamIdentity.setProperty("source_id", teamId);
+		teamIdentity.setProperty("related_id", relatedId);
+		teamIdentity.setProperty("team_role", teamRole);
+		teamIdentity.setAttribute("select", "id");
+
+		teamIdentity = _dataAccessLayer.ApplyItemWithGrantIdentity(teamIdentity);
+		if (teamIdentity.isError())
+		{
+			return teamIdentity;
+		}
+
+		teamIdentity.setAction("delete");
+		return _dataAccessLayer.ApplyItemWithGrantIdentity(teamIdentity);
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+	Item NewItem(string type, string action);
+	Item ApplyItemWithGrantIdentity(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private readonly Aras.Server.Security.Identity _superUserIdentity = Aras.Server.Security.Identity.GetByName("Super User");
+
+	private Aras.Server.Core.Abstractions.IPermissions _permissions;
+	private Innovator _innovator;
+
+	public DataAccessLayer(Aras.Server.Core.Abstractions.IPermissions permissions, Innovator innovator)
+	{
+		_permissions = permissions;
+		_innovator = innovator;
+	}
+
+	public Item ApplyItem(Item item)
+	{
+		return item.apply();
+	}
+
+	public Item NewItem(string type, string action)
+	{
+		return _innovator.newItem(type, action);
+	}
+
+	public virtual Item ApplyItemWithGrantIdentity(Item item)
+	{
+		using(_permissions.GrantIdentity(_superUserIdentity))
+		{
+			return item.apply();
+		}
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>acs_DeleteSharingByTeam</name>
+ </Item>
+</AML>

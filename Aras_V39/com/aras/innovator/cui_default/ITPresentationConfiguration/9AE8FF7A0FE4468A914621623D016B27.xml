@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="9AE8FF7A0FE4468A914621623D016B27" action="add">
+  <client>js</client>
+  <related_id keyed_name="CommandBarMenu Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="8978C4F138AD4690AE304521A5E622C9" action="add">
+    <color>#3845dc</color>
+    <name>CommandBarMenu Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="CommandBarMenu" type="ItemType" name="CommandBarMenu">B5175846B27145EEA5653DA35ED78BE4</source_id>
+ </Item>
+</AML>

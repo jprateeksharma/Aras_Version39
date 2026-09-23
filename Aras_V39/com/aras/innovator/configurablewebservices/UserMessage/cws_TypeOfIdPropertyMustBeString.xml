@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="EDAF48181B0D4365ACCB30D8C10B6351" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: type of 'id' and 'config_id' Properties must be 'String'.</text>
+  <name>cws_TypeOfIdPropertyMustBeString</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="20BC3D677EA14EEB968A31C705E119E6" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' List: values must be present.</text>
+  <name>cws_ListMustContainValues</name>
+ </Item>
+</AML>

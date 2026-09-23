@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="List" id="83215926DC954893B06F66A556A59868" action="add">
+  <name>cws_ApiKeyScope</name>
+  <Relationships>
+   <Item type="Value" id="DC9C7317BAD246FAB98C90C394F84E7C" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Override system properties</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cws_ApiKeyScope" type="List">83215926DC954893B06F66A556A59868</source_id>
+    <value>sysOverrides</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

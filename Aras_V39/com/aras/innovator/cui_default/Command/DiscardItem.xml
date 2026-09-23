@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="77580C1949ED4C60905E3AD9DA4B3FB3" action="add">
+  <can_execute keyed_name="cui_command_discard_item_can_exe" type="Method">7FFC35446FDA4E13B52E18D29A55303B</can_execute>
+  <execute_handler keyed_name="cui_command_discard_item_execute" type="Method">4A371A77E789476FA84367C630290BBC</execute_handler>
+  <name>DiscardItem</name>
+ </Item>
+</AML>

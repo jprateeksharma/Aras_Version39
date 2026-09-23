@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="204E5C5DBC3E43BD930162D7D9071101" action="add">
+  <additional_data>{"itemTypeId":"AC272B10539240CF89579B4BB75F8CC1"}</additional_data>
+  <image>../images/WebServiceConfig.svg</image>
+  <label xml:lang="en">Web Services</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_365FD80CB823406BAF246E453BE67AB8" type="CommandBarMenu">365FD80CB823406BAF246E453BE67AB8</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_cws_WebService_204E5C5DBC3E43BD930162D7D9071101</name>
+ </Item>
+</AML>

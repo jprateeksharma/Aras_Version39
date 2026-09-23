@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Identity" id="ACEB972BC401404F970BB4F0A216C615" action="add">
+  <description>Users with view only access to all dashboards</description>
+  <is_alias>0</is_alias>
+  <name>Dashboard Viewers</name>
+ </Item>
+</AML>

@@ -1,0 +1,89 @@
+﻿<AML>
+ <Item type="RelationshipType" id="18671D11A7D743A389DD656A1446DE5A" action="add" dependencyLevel="1">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <new_show_related>0</new_show_related>
+  <permission_id keyed_name="ItemType" type="Permission">102D29B8CD9948BFB5F558341DF4C0F9</permission_id>
+  <related_id keyed_name="Method" type="ItemType" name="Method">87879A09B8044DE380D59DF22DE1867F</related_id>
+  <related_notnull>0</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="Column Event" type="ItemType" name="Column Event">
+   <Item type="ItemType" id="0EA142227FAE40148A4BDD8CF1D450EF" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <default_page_size>25</default_page_size>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>COLUMN_EVENT</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Column Event</label>
+    <label_plural xml:lang="en">Column Events</label_plural>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>Column Event</name>
+    <Relationships>
+     <Item type="Property" id="0175A05EBE2748D68033E99633B44CDD" action="add">
+      <column_alignment>left</column_alignment>
+      <data_source keyed_name="Grid Events">61E86B1378F64F67B729F9EA0FAB9BED</data_source>
+      <data_type>list</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Grid Event</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>1</sort_order>
+      <source_id keyed_name="Column Event" type="ItemType" name="Column Event">0EA142227FAE40148A4BDD8CF1D450EF</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>grid_event</name>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Grid Column" type="ItemType" name="Grid Column">C24A87B33E3740B3B01254DC776F1EFE</source_id>
+  <name>Column Event</name>
+ </Item>
+ <Item type="ItemType" id="0EA142227FAE40148A4BDD8CF1D450EF" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='0EA142227FAE40148A4BDD8CF1D450EF' and name='sort_order'">
+    <column_alignment>left</column_alignment>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Sort Order</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3457</sort_order>
+    <source_id keyed_name="Column Event" type="ItemType" name="Column Event">0EA142227FAE40148A4BDD8CF1D450EF</source_id>
+    <track_history>0</track_history>
+    <name>sort_order</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='0EA142227FAE40148A4BDD8CF1D450EF'" />
+ <Item type="Form" action="delete" where="name='Column Event'" />
+</AML>

@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="FileType" id="9D48F0A27D2D4069866BF4E0D4C52057" action="add">
+  <description>VRML Model</description>
+  <extension>vrml,vrl</extension>
+  <mimetype>model/vrml</mimetype>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>VRML Model</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="348AF808013B4B3A8DA40BD7FB44007F" action="add">
+  <can_execute keyed_name="cui_command_edit_command_can_exe" type="Method">605F46E4E314463184FDF6CBC2534D5D</can_execute>
+  <execute_handler keyed_name="cui_command_edit_command_execute" type="Method">87A85D00BFF94A3495E3C43456468582</execute_handler>
+  <name>EditItem</name>
+ </Item>
+</AML>

@@ -1,0 +1,5 @@
+﻿<AML>
+ <Item type="CommandBarSeparator" id="E1C5F96993D744B59FCE992F46702E4A" action="add">
+  <name>toceditor.commandbar.default.sep_af_deleterow</name>
+ </Item>
+</AML>

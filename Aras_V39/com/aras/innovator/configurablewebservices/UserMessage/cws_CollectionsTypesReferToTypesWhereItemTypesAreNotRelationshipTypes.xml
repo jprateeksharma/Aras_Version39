@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="B82096BDC8844CE3B261B7ACE431A97D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Collections Type(s) refer to type(s) in which the 'ItemType'(s) ({1}) are not Relationship type(s).</text>
+  <name>cws_CollectionsTypesReferToTypesWhereItemTypesAreNotRelationshipTypes</name>
+ </Item>
+</AML>

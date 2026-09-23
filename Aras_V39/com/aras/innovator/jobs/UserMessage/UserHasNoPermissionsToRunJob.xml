@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="51BB2A7EB9944FF1BDCA3624EC4C6472" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">User '{0}' has no permissions to run job '{1}'.</text>
+  <name>UserHasNoPermissionsToRunJob</name>
+ </Item>
+</AML>

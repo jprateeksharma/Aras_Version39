@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="CF62999F974A4EBE86D28C27F3EA2E3F" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">xProperty "{0}" is required.</text>
+  <name>Aras.Server.Core.RequiredXPropertyNotSpecified</name>
+ </Item>
+</AML>

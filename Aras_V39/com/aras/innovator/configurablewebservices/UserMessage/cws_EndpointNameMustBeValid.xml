@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="C588F174263F4C2CA9664E521D2C7176" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The Endpoint Name can only contain Latin letters, numbers, underscores and hyphens.</text>
+  <name>cws_EndpointNameMustBeValid</name>
+ </Item>
+</AML>

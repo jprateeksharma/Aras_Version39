@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="74D9FC5C78E74D90AC3CA044DEA218E9" action="add">
+  <additional_data>{
+  "cssClass": "aras-button_primary",
+  "cssStyle": {
+    "padding-left": "48px",
+    "padding-right": "48px"
+  }
+}</additional_data>
+  <include_events>UpdateState</include_events>
+  <label xml:lang="en">Save</label>
+  <on_click_handler keyed_name="cui_toc_editor_save_click" type="Method">864E4F23759D4F8C9B62FDC1CBB56E14</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_save_init" type="Method">2AE1CF1BE9EB42FB89579FF39B025908</on_init_handler>
+  <tooltip_template xml:lang="en">Save</tooltip_template>
+  <name>toceditor.commandbar.default.save</name>
+ </Item>
+</AML>

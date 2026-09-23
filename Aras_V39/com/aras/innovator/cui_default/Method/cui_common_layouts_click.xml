@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="Method" id="879A0E43872E421EA59A5A68E4B95237" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const layoutId = target.id;
+if (target === options.currentTarget) {
+	return;
+}
+
+const selectedLayout = options.currentTarget.data.get(layoutId);
+const { setCurrentLayout, updateLayoutData } = options.getActions();
+setCurrentLayout(layoutId);
+updateLayoutData(structuredClone(selectedLayout.settings));
+
+// .setAml() should be called when current search mode is "Simple" to add columns that not exists in current layout but have search criteria
+// This columns will be appended at the end of grid
+if (currentSearchMode.name === 'Simple') {
+	currentSearchMode.setAml(await currentSearchMode.getAml());
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_common_layouts_click</name>
+ </Item>
+</AML>

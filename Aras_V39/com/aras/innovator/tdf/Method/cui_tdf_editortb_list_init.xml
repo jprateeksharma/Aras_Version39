@@ -1,0 +1,24 @@
+﻿<AML>
+ <Item type="Method" id="779DC8F220B54565B60B82836E2DF7C5" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const viewmodel = options.contextData.viewmodel;
+const resultSettings = {
+	hidden: true
+};
+
+if (viewmodel.IsEqualEditableLevel(options.contextData.documentationEnums.EditLevels.FullAllow)) {
+	const currentSelectedList = viewmodel.GetSelectedItems();
+
+	if (currentSelectedList.length === 1) {
+		const currentSelectedItem = currentSelectedList[0];
+		if (currentSelectedItem.is('ArasListXmlSchemaElement') || (currentSelectedItem.is('ArasListItemXmlSchemaElement') && currentSelectedItem.List())) {
+			resultSettings.hidden = false;
+		}
+	}
+}
+
+return resultSettings;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_tdf_editortb_list_init</name>
+ </Item>
+</AML>

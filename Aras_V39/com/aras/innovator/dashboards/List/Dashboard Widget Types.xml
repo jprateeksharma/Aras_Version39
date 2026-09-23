@@ -1,0 +1,29 @@
+﻿<AML>
+ <Item type="List" id="314FD17756864F96BDAE6513E02CD64B" action="add">
+  <description>List of Widget Types that a User can add to a Dashboard</description>
+  <name>Dashboard Widget Types</name>
+  <Relationships>
+   <Item type="Value" id="C64DC02CBA444BAAA741AC811003045A" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Grid</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Dashboard Widget Types" type="List">314FD17756864F96BDAE6513E02CD64B</source_id>
+    <value>Grid</value>
+   </Item>
+   <Item type="Value" id="0AFD1129501F4031A0EEC0764A53E130" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tree Grid</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Dashboard Widget Types" type="List">314FD17756864F96BDAE6513E02CD64B</source_id>
+    <value>TreeGrid</value>
+   </Item>
+   <Item type="Value" id="C9DE93270D8643C4A83EF5E3B8CC0C77" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Report</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Dashboard Widget Types" type="List">314FD17756864F96BDAE6513E02CD64B</source_id>
+    <value>Report</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Command" id="8B07FA9DA1534E03A9248D60FBE33471" action="add">
+  <execute_handler keyed_name="cui_command_edit_form_execute" type="Method">AC2F7346B05546D9A8121582542FE81E</execute_handler>
+  <name>EditItem_Form</name>
+ </Item>
+</AML>

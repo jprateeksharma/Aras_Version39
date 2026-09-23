@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="ED5EBE80BAFF4C969A2FAC9A94433B34" action="add">
+  <image>../images/UpArrow.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_toc_editor_uparrow_click" type="Method">B71EE91E238A417181FBACD28882155F</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_uparrow_init" type="Method">66B794CF1ED94D4DA872F9EADEA01E81</on_init_handler>
+  <tooltip_template xml:lang="en">Move Up</tooltip_template>
+  <name>toceditor.commandbar.default.uparrow</name>
+ </Item>
+</AML>

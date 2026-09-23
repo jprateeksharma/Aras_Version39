@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="54EA739744F64ECE9F7A3D375701A88F" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="TocEditor" type="cui_Location">7A402E4A804244B3838261B33319DABC</location>
+  <name>TocEditor.Default</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="A70F293C3BCD4B25AC117C2306C765F1" action="add">
+    <action>Add</action>
+    <related_id keyed_name="TocEditor.CommandBar_C9C45616439B44D1853C1D16025F10F5" type="cui_Control">C9C45616439B44D1853C1D16025F10F5</related_id>
+    <role keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="TocEditor.Default" type="cui_WindowSection">54EA739744F64ECE9F7A3D375701A88F</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,44 @@
+﻿<AML>
+ <Item type="Method" id="2B1BF29712C649139BCBA87B35DE0B5E" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const selectedIds = window.grid.getSelectedItemIds();
+if (!selectedIds.length) {
+	return;
+}
+
+const { commandFactory, itemType, polySources } = options;
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(itemType.id);
+const getItemType = (item) => {
+	if (isPolymorphic) {
+		const itemTypeId = item.itemtype;
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return itemType;
+};
+
+const rows = window.grid._grid.rows;
+const commandAlias = target['command_alias@keyed_name'];
+const isSaveEnabled = selectedIds.every((selectedId) => {
+	const item = rows.get(selectedId);
+	const itemType = getItemType(item);
+	const itemTypeName = itemType.name;
+	const saveCommand = commandFactory(commandAlias, {
+		item,
+		itemType,
+		itemTypeName
+	});
+
+	return saveCommand.canExecute();
+});
+
+if (isSaveEnabled && window.onSaveCommand) {
+	window.onSaveCommand();
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_mws_ctrl_s</name>
+ </Item>
+</AML>

@@ -1,0 +1,22 @@
+﻿<AML>
+ <Item type="Method" id="3FEFE4010E7E4D599601B2816692F458" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const context = options.contextData;
+	const viewmodel = context.viewmodel;
+	const selectedElement = context.selectedElement;
+	const editLevel = context.documentationEnums.EditLevels.FullAllow;
+	const resultSettings = {
+		hidden: true
+	};
+
+if (selectedElement && viewmodel.IsEqualEditableLevel(editLevel)) {
+	if (selectedElement.is('ArasCellXmlSchemaElement')) {
+		resultSettings.hidden = false;
+	}
+}
+
+return resultSettings;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_tdf_editortb_table_init</name>
+ </Item>
+</AML>

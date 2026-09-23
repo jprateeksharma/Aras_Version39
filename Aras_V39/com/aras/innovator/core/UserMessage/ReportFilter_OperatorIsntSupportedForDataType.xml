@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="F2E010906A674EF3AE27D65E2CEB5541" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Operator '{0}' isn't supported for data type '{1}'.</text>
+  <name>ReportFilter_OperatorIsntSupportedForDataType</name>
+ </Item>
+</AML>

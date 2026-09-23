@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="E7AA01BD46FC41629C6E826E1AAD0B29" action="add">
+  <builder_method keyed_name="GridCuiRulesBuilder" type="Method">5EDD4D7306C7459AB1A7CE0792B88151</builder_method>
+  <classification>Method</classification>
+  <location keyed_name="SearchDialog" type="cui_Location">AE545CCA521D4800AAD291609C7023E4</location>
+  <name>SearchDialog.GridCuiRules</name>
+ </Item>
+</AML>

@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="Method" id="3E62B110E30945BA8A3E124C9F7551C8" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const isVersionableItemType = options.itemType['is_versionable'] === '1';
+if (!isVersionableItemType) {
+	return { hidden: true };
+}
+
+const { queryType, queryDate } = options.getState();
+const isCurrent = queryType === 'Current';
+
+return {
+	disabled: isCurrent,
+	value: isCurrent ? null : queryDate
+};]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_svcb_querydate_init</name>
+ </Item>
+</AML>

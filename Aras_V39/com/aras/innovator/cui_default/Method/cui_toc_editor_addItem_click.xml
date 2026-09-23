@@ -1,0 +1,111 @@
+﻿<AML>
+ <Item type="Method" id="DBD654F6B01B4900B9ED43B01A8AD659" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const dialogParamsItemType = {
+	type: 'SearchDialog',
+	itemtypeName: 'ItemType',
+};
+
+const dialog = ArasModules.MaximazableDialog.show(
+	'iframe',
+	dialogParamsItemType
+)
+
+const itemTypeDialogResult = await dialog.promise;
+if (!itemTypeDialogResult?.itemID) {
+	return;
+}
+const adminRole = {
+	'role@aras.id': '2618D6F5A90949BAA7E920D1B04C7EE1',
+	'role@aras.keyed_name': 'Administrators'
+};
+const { keyed_name: keyedName, itemID: itemTypeId } = itemTypeDialogResult;
+const actions = options.getActions();
+const { defaultLanguageCode } = aras.getMainWindow().store.getState().system;
+const itemType = await ArasModules.metadata.itemType.getItemType(
+			itemTypeId,
+			'id'
+		);
+const isPolymorphic = ArasModules.metadata.itemType.isPolymorphic(itemType.id);
+const defaultItemTypeIcon = '../images/DefaultItemType.svg';
+const image = itemType['open_icon'] || defaultItemTypeIcon;
+const relatedItemsIds = [];
+
+const dialogHandler = (dialogResult, actionType) => {
+	if (actionType === 'doubleclick') {
+		addItems(dialogResult);
+		return false;
+	}
+	return true;
+};
+
+const createNewItems = (relatedItemProps) => {
+	const relatedItem = actions.addRelatedItem(relatedItemProps);
+	const relationshipItemProps = {
+		...adminRole,
+		related_id: relatedItem.id
+	};
+	const relationshipItem = actions.addRelationshipItem(relationshipItemProps);
+	return {relatedItem, relationshipItem}
+}
+const addItems = async (selectedItems = []) => {
+	const selectedItemsList = Array.isArray(selectedItems) ? selectedItems : [selectedItems];
+	if (selectedItems.length === 0 && relatedItemsIds.length > 0) {
+		return;
+	}
+	let relatedItemProps;
+	if (selectedItems.length === 0) {
+		relatedItemProps = {
+			image,
+			additional_data: { itemId: null, itemTypeId }
+		};
+		const { relationshipItem } = createNewItems(relatedItemProps)
+		actions.selectItem(relationshipItem.id);
+		return;
+	}
+	const promises = selectedItemsList.map( async ({item, keyed_name: keyedName, itemID}) => {
+		let currentItemTypeId = itemTypeId;
+		let currentImage = image;
+		if (isPolymorphic) {
+			currentItemTypeId = aras.getItemProperty(item, 'itemtype');
+			const polySourceItemType = await ArasModules.metadata.itemType.getItemType(
+			currentItemTypeId,
+			'id'
+		);
+			currentImage = polySourceItemType['open_icon'] || defaultItemTypeIcon;
+		}
+		
+		const label = keyedName;
+		relatedItemProps = {
+			label,
+			[`label@aras.lang.${defaultLanguageCode}`]: label,
+			image: currentImage,
+			additional_data: { itemId: itemID, itemTypeId: currentItemTypeId }
+		};
+		const { relatedItem, relationshipItem } = createNewItems(relatedItemProps);
+		relatedItemsIds.push(relatedItem.id);
+		
+		return relationshipItem;
+	})
+	
+	const addedRelationshipItems = await Promise.all(promises);
+	const selectAddedItem = addedRelationshipItems.length === 1;
+	if (selectAddedItem) {
+		const { id } = addedRelationshipItems[0];
+		actions.selectItem(id);
+	}
+}
+
+const dialogParams = {
+	type: 'SearchDialog',
+	itemtypeName: keyedName,
+	multiselect: true,
+	fullMultiResponse: true,
+	handler: dialogHandler
+};
+const itemDialogResult = await ArasModules.MaximazableDialog.show('iframe', dialogParams).promise;
+await addItems(itemDialogResult);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_toc_editor_addItem_click</name>
+ </Item>
+</AML>

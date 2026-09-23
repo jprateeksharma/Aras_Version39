@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="EFA74EC4796045BEA6BD77C0E52914EC" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">{0} license expiration</text>
+  <name>af_ExpiredLicenseNotificationTitle</name>
+ </Item>
+</AML>

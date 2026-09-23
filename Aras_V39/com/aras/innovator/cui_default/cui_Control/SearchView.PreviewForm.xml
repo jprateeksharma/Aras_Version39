@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="cui_Control" id="34F3CF96A719476BBA3BAE3D1E7817C0" action="add">
+  <additional_data>{
+"formType": "classic"
+}</additional_data>
+  <aria_label xml:lang="en" />
+  <control_type>FormControl</control_type>
+  <sealed>0</sealed>
+  <name>SearchView.PreviewForm</name>
+ </Item>
+</AML>

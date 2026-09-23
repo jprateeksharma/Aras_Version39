@@ -1,0 +1,22 @@
+﻿<AML>
+ <Item type="Method" id="21EAEE2B15FB4202B96C47F4892FE2DA" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Innovator innovator = this.getInnovator();
+string orderString = this.getProperty("order");
+string[] favorites = orderString.Split(",");
+int favoriteOrder = 128;
+foreach (string favoriteId in favorites)
+{
+	Item editedFavorite = innovator.newItem("Favorite", "edit");
+	editedFavorite.setID(favoriteId);
+	editedFavorite.setProperty("favorite_order", favoriteOrder.ToString(CultureInfo.InvariantCulture));
+	editedFavorite.apply();
+	favoriteOrder += 128;
+}
+
+return innovator.newResult("OK");
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>ReorderFavoriteItemTypes</name>
+ </Item>
+</AML>

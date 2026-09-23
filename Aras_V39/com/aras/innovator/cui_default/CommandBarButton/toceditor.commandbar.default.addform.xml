@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="0CD8D7CAE15A45FF928470DD28493CD2" action="add">
+  <image>../images/AddForm.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_toc_editor_addform_click" type="Method">644AC150DFD14283A0CB4D135E7D7575</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_add_init" type="Method">A53BA118C339421F9E865CBE208D214F</on_init_handler>
+  <tooltip_template xml:lang="en">Add Form</tooltip_template>
+  <name>toceditor.commandbar.default.addform</name>
+ </Item>
+</AML>

@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="68B0A1F6920D4114B251BC153E30D29A" action="add">
+  <template>import type { Toolbar } from 'core';
+import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import type { Options, BaseInitHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+type InitHandlerReturnType = Partial&lt;toolbarItems&gt; &amp; BaseInitHandlerReturnType;
+
+export function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'RelationshipsView'&gt;
+): InitHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_rel_grids_commandbar_init</name>
+ </Item>
+</AML>

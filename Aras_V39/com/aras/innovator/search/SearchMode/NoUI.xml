@@ -1,0 +1,43 @@
+﻿<AML>
+ <Item type="SearchMode" id="95A2002E5AD84B9D8B2FA50B742C5973" action="add">
+  <is_active>0</is_active>
+  <label xml:lang="en">Hidden</label>
+  <search_handler>window.NoUI = function NoUI(searchContainer) {
+	this.supportXClassSearch = true;
+	// Call base SearchMode constructor
+	SearchMode.prototype.constructor.call(this, searchContainer, aras);
+}
+
+NoUI.prototype = new SearchMode();
+NoUI.prototype.onStartSearchMode = function NoUISearchMode_onStartSearchMode(sContainer) {
+	// Call base onStartSearchMode method.
+	SearchMode.prototype.onStartSearchMode.call(this, sContainer);
+};
+
+NoUI.prototype.getCriteriaAml = async function() {
+	const { searching } = window.layout.state;
+	let criteriaAml = searching.criteriaAml;
+
+	if (!criteriaAml) {
+		return SearchMode.prototype.getCriteriaAml.call(this);
+	}
+
+	const xClassCriteria = searching.xClassCriteria;
+	if (xClassCriteria) {
+		const { xml, jsonToXml } = window.ArasModules;
+
+		const xClassCriteriaXml = jsonToXml(xClassCriteria);
+		const xClassCriteriaNode = xml.parseString(xClassCriteriaXml).documentElement;
+		const criteriaAmlNode = xml.parseString(criteriaAml).documentElement;
+		criteriaAmlNode.appendChild(xClassCriteriaNode);
+
+		criteriaAml = xml.getXml(criteriaAmlNode);
+	}
+
+	return criteriaAml;
+}
+</search_handler>
+  <search_mode_order>512</search_mode_order>
+  <name>NoUI</name>
+ </Item>
+</AML>

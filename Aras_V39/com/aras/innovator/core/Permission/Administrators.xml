@@ -1,0 +1,50 @@
+﻿<AML>
+ <Item type="Permission" id="5BE54C871FB14F6EBC11596D1A010D26" action="add">
+  <is_private>0</is_private>
+  <permission_id keyed_name="Administrators" type="Permission">5BE54C871FB14F6EBC11596D1A010D26</permission_id>
+  <name>Administrators</name>
+  <Relationships>
+   <Item type="Access" id="221F71A5CCB541DBAB067C197B0B36C9" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Administrators" type="Permission">5BE54C871FB14F6EBC11596D1A010D26</source_id>
+   </Item>
+   <Item type="Access" id="57837FF6944743E6A7138D57EA78CA1E" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Administrators" type="Permission">5BE54C871FB14F6EBC11596D1A010D26</source_id>
+   </Item>
+   <Item type="Access" id="CDB1A317D699447284325A50A9B8B97D" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Administrators" type="Permission">5BE54C871FB14F6EBC11596D1A010D26</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,43 @@
+﻿<AML>
+ <Item type="Method" id="814940E7BD28428E91D4FB5260C051D4" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[
+const showDialog = () => {
+	const dialogMessage = aras.getResource('', 'item_methods_ex.changes_not_saved');
+	const text = aras.getResource('', 'common.discard');
+	const title = aras.getResource('', 'item_methods_ex.unsaved_changes');
+	const okButtonText = aras.getResource('', 'common.save');
+	const actionName = 'discard';
+	const dialogParams = {
+		additionalButtons: [{ text, actionName }],
+		buttonsOrdering: ['ok', 'discard', 'cancel'],
+		okButtonText,
+		title
+	};
+
+	return ArasModules.Dialog.confirm(dialogMessage, dialogParams);
+};
+
+const { getLayout } = options;
+const layout = getLayout();
+const result = await showDialog();
+if (!result || result === 'cancel') {
+	return false;
+}
+if (result === 'ok') {
+	const tocEditorSaved = await layout.saveTOC();
+	if (!tocEditorSaved) {
+		return false;
+	}
+} else {	
+	layout.actions.discardChanges();
+}
+
+layout.destroy();
+
+return true;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_dstr_tocEd_layout_ex</name>
+ </Item>
+</AML>

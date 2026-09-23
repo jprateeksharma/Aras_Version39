@@ -1,0 +1,240 @@
+﻿<AML>
+ <Item type="RelationshipType" id="C53ACBDD1F614D7989C46FD673E0EA1F" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">Properties</label>
+  <new_show_related>0</new_show_related>
+  <related_notnull>0</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">
+   <Item type="ItemType" id="46672F69A5534078AAD83677E17B308A" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>DASHBOARD_WIDGET_TEMPLATE_PROP</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">Widget Property</label>
+    <label_plural xml:lang="en">Widget Properties</label_plural>
+    <large_icon>../images/WidgetProperty.svg</large_icon>
+    <open_icon>../images/WidgetProperty.svg</open_icon>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>1</use_src_access>
+    <name>Dashboard Widget Template Prop</name>
+    <Relationships>
+     <Item type="Property" id="CF72F146282743D5A04356814C30BF51" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Hidden</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4224</sort_order>
+      <source_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">46672F69A5534078AAD83677E17B308A</source_id>
+      <track_history>0</track_history>
+      <name>hidden</name>
+     </Item>
+     <Item type="Property" id="82EBA69DA6434EADBB47189DB35CA5C8" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>191</column_width>
+      <data_type>ml_string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Label</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3712</sort_order>
+      <source_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">46672F69A5534078AAD83677E17B308A</source_id>
+      <stored_length>180</stored_length>
+      <track_history>0</track_history>
+      <name>label</name>
+     </Item>
+     <Item type="Property" id="77D436A68B27436ABC6EF276B878EF00" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>191</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Name</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3584</sort_order>
+      <source_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">46672F69A5534078AAD83677E17B308A</source_id>
+      <stored_length>64</stored_length>
+      <track_history>0</track_history>
+      <name>name</name>
+     </Item>
+     <Item type="Property" id="6F1C161CCA4E4D518D941E7E2E5D33B5" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>256</column_width>
+      <data_type>text</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Default Value</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4352</sort_order>
+      <source_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">46672F69A5534078AAD83677E17B308A</source_id>
+      <track_history>0</track_history>
+      <name>prop_predefined</name>
+     </Item>
+     <Item type="Property" id="78CDC451CB2149DFAC3E8BD11AE79F74" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>127</column_width>
+      <data_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">Data Source</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3968</sort_order>
+      <source_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">46672F69A5534078AAD83677E17B308A</source_id>
+      <track_history>0</track_history>
+      <name>prop_source</name>
+      <Relationships>
+       <Item type="Grid Event" id="C28F912F33A44034888BE4413EC15C93" action="add">
+        <grid_event>change</grid_event>
+        <related_id keyed_name="on_widget_templ_prop_src_change" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>on_widget_templ_prop_src_change</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="prop_source" type="Property">78CDC451CB2149DFAC3E8BD11AE79F74</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="25AA590E326B4048B364BF2424B9164C" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>127</column_width>
+      <data_source keyed_name="Dashboard Widget Property Types">35D393C348F04C09946AB57A48E3E51F</data_source>
+      <data_type>list</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <label xml:lang="en">Data Type</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3840</sort_order>
+      <source_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">46672F69A5534078AAD83677E17B308A</source_id>
+      <stored_length>256</stored_length>
+      <track_history>0</track_history>
+      <name>prop_type</name>
+      <Relationships>
+       <Item type="Grid Event" id="1A61D5DE9DC8439A809E661EB5E59061" action="add">
+        <grid_event>change</grid_event>
+        <related_id keyed_name="on_widget_templ_prop_type_change" type="Method">
+         <Item type="Method" action="get" select="id">
+          <name>on_widget_templ_prop_type_change</name>
+         </Item>
+        </related_id>
+        <sort_order>128</sort_order>
+        <source_id keyed_name="prop_type" type="Property">25AA590E326B4048B364BF2424B9164C</source_id>
+       </Item>
+      </Relationships>
+     </Item>
+     <Item type="Property" id="AB2AF720E8304A96A70CDF8E1CAD60A1" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>50</column_width>
+      <data_type>boolean</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Required</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4096</sort_order>
+      <source_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">46672F69A5534078AAD83677E17B308A</source_id>
+      <track_history>0</track_history>
+      <name>required</name>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Dashboard Widget Template" type="ItemType" name="Dashboard Widget Template">6D03355E96334F21A4B969F64AB600BF</source_id>
+  <name>Dashboard Widget Template Prop</name>
+ </Item>
+ <Item type="ItemType" id="46672F69A5534078AAD83677E17B308A" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='46672F69A5534078AAD83677E17B308A' and name='sort_order'">
+    <column_alignment>left</column_alignment>
+    <column_width>95</column_width>
+    <data_type>integer</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Sort Order</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3200</sort_order>
+    <source_id keyed_name="Dashboard Widget Template Prop" type="ItemType" name="Dashboard Widget Template Prop">46672F69A5534078AAD83677E17B308A</source_id>
+    <track_history>0</track_history>
+    <name>sort_order</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='46672F69A5534078AAD83677E17B308A'" />
+ <Item type="Form" action="delete" where="name='Dashboard Widget Template Prop'" />
+</AML>

@@ -1,0 +1,189 @@
+﻿<AML>
+ <Item type="Method" id="F16416CE98D745EA8D768214749F8B72" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer();
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer, CCO.ErrorLookup);
+
+	try
+	{
+		return businessLogic.RunLogic(this);
+	}
+	catch (Aras.Server.Core.InnovatorServerException ex)
+	{
+		return innovator.newError(ex.Message);
+	}
+}
+
+internal class BusinessLogic
+{
+	private readonly Innovator _innovator;
+	private readonly IDataAccessLayer _dataAccessLayer;
+	private Aras.Server.Core.Abstractions.IErrorLookup _errorLookup;
+
+	internal BusinessLogic(
+		Innovator innovator,
+		IDataAccessLayer dataAccessLayer,
+		Aras.Server.Core.Abstractions.IErrorLookup errorLookup
+	)
+	{
+		_innovator = innovator;
+		_dataAccessLayer = dataAccessLayer;
+		_errorLookup = errorLookup;
+	}
+
+	public Item RunLogic(Item methodItem)
+	{
+		methodItem.setAttribute("action", "AddItemToPackageDefinition");
+		Item formItems =
+			methodItem.getItemsByXPath("/Item/Relationships/Item[itemTypeName='Form']");
+		int formItemsCount = formItems.getItemCount();
+
+		if (formItemsCount > 0)
+		{
+			var packageUpdateValidation = DoPackageUpdateValidation(methodItem.getProperty("packageName"));
+			if (!packageUpdateValidation.PackageCanBeUpdated)
+			{
+				string packageUpdateErrorString = GetPackageUpdateRestrictionErrorString();
+				return _innovator.newResult(packageUpdateErrorString);
+			}
+
+			List<string> ids = new List<string>();
+			for (int i = 0; i < formItemsCount; i++)
+			{
+				Item formItem = formItems.getItemByIndex(i);
+				ids.Add(formItem.getID());
+			}
+
+			Item filteredByAddTypeForms = _innovator.newItem("Method", "FullOrPartialPackagingFilter");
+			filteredByAddTypeForms.setProperty("ids", String.Join(",", ids));
+
+			filteredByAddTypeForms = _dataAccessLayer.ApplyItem(filteredByAddTypeForms);
+
+			Newtonsoft.Json.Linq.JObject parsed = Newtonsoft.Json.Linq.JObject.Parse(filteredByAddTypeForms.getResult());
+			var responseModel = parsed.ToObject<ResponseModel>();
+
+			if (responseModel.FormsToAddPartial.Any())
+			{
+				foreach (var partialUpdateModel in responseModel.FormsToAddPartial)
+				{
+					Item customControlStructure = _innovator.newItem("Method", "GetControlStructurePacDef");
+					customControlStructure.setProperty("packageName", methodItem.getProperty("packageName"));
+					customControlStructure.setProperty("controlId", partialUpdateModel.ControlId);
+
+					customControlStructure = _dataAccessLayer.ApplyItem(customControlStructure);
+
+					Item customControlStructureItems = customControlStructure.getRelationships();
+					for (int i = 0; i < customControlStructureItems.getItemCount(); i++)
+					{
+						Item customControlStructureItem = customControlStructureItems.getItemByIndex(i);
+						methodItem.addRelationship(customControlStructureItem);
+					}
+
+					// remove form relship from request. Package with custom part of Form doesn't need Form item
+					Item formItemRelship = methodItem.getItemsByXPath($"/Item/Relationships/Item[itemTypeName='Form' and id='{partialUpdateModel.Id}']");
+					methodItem.removeRelationship(formItemRelship);
+				}
+			}
+
+			if (responseModel.FormsToAddFull.Any())
+			{
+				Item formStructure = _innovator.newItem("Method", "GetResponsiveFormStructurePacDef");
+				formStructure.setProperty("packageName", methodItem.getProperty("packageName"));
+
+				foreach(var model in responseModel.FormsToAddFull)
+				{
+					Item item = _innovator.newItem();
+					item.setProperty("id", model.Id);
+					item.setProperty("itemTypeName", "Form");
+
+					formStructure.addRelationship(item);
+				}
+
+				formStructure = _dataAccessLayer.ApplyItem(formStructure);
+
+				Item responsiveFormStructureItems = formStructure.getRelationships();
+				for (int i = 0; i < responsiveFormStructureItems.getItemCount(); i++)
+				{
+					Item responsiveFormStructureItem = responsiveFormStructureItems.getItemByIndex(i);
+					methodItem.addRelationship(responsiveFormStructureItem);
+				}
+			}
+		}
+
+		return _dataAccessLayer.ApplyItem(methodItem);
+	}
+
+	private string GetPackageUpdateRestrictionErrorString()
+	{
+		Newtonsoft.Json.Linq.JObject updateRestrictionError = new Newtonsoft.Json.Linq.JObject
+		{
+			{ "type", "Error" },
+			{ "message", _errorLookup.Lookup("InsufficientPermissionsForSelectedPackageUpdate") }
+		};
+
+		Newtonsoft.Json.Linq.JObject statusesArrayWithUpdateRestrictionError = new Newtonsoft.Json.Linq.JObject
+		{
+			{ "statuses", new Newtonsoft.Json.Linq.JArray(updateRestrictionError) }
+		};
+
+		return statusesArrayWithUpdateRestrictionError.ToString(Newtonsoft.Json.Formatting.None);
+	}
+
+	private PackageUpdateValidationModel DoPackageUpdateValidation(string packageName)
+	{
+		Item packageCanBeUpdatedValidation = _innovator.newItem("Method", "CheckPackageUpdateRestrictions");
+		packageCanBeUpdatedValidation.setProperty("packageName", packageName);
+		packageCanBeUpdatedValidation = _dataAccessLayer.ApplyItem(packageCanBeUpdatedValidation);
+
+		Newtonsoft.Json.Linq.JObject parsedValidationResult = Newtonsoft.Json.Linq.JObject.Parse(packageCanBeUpdatedValidation.getResult());
+
+		return parsedValidationResult.ToObject<PackageUpdateValidationModel>();
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	public Item ApplyItem(Item item)
+	{
+		item = item.apply();
+		if (item.isError() && !item.isEmpty())
+		{
+			throw new Aras.Server.Core.InnovatorServerException(item.getErrorString());
+		}
+
+		return item;
+	}
+}
+
+internal class Form
+{
+	[System.Text.Json.Serialization.JsonPropertyName("id")]
+	public string Id { get; set; }
+
+	[System.Text.Json.Serialization.JsonPropertyName("controlId")]
+	public string ControlId { get; set; }
+}
+
+internal class ResponseModel
+{
+	[System.Text.Json.Serialization.JsonPropertyName("formsToAddFull")]
+	public List<Form> FormsToAddFull { get; set; }
+
+	[System.Text.Json.Serialization.JsonPropertyName("formsToAddPartial")]
+	public List<Form> FormsToAddPartial { get; set; }
+}
+
+internal class PackageUpdateValidationModel
+{
+	[System.Text.Json.Serialization.JsonPropertyName("packageCanBeUpdated")]
+	public bool PackageCanBeUpdated { get; set; }]]></method_code>
+  <method_type>C#</method_type>
+  <name>AddItemToPackageDefinitionWrap</name>
+ </Item>
+</AML>

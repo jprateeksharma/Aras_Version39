@@ -1,0 +1,96 @@
+﻿<AML>
+ <Item type="ItemType" id="827D73BE763342F3B49B0FEF6BDB6876" action="add">
+  <allow_private_permission>1</allow_private_permission>
+  <auto_search>0</auto_search>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>table</implementation_type>
+  <instance_data>METHODTEMPLATE</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <label xml:lang="en">Method Template</label>
+  <label_plural xml:lang="en">Method Templates</label_plural>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs off</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>MethodTemplate</name>
+  <Relationships>
+   <Item type="Property" id="A163B6FF49294DFCAF40CCBCC56B71DC" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>text</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Template</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3072</sort_order>
+    <source_id keyed_name="MethodTemplate" type="ItemType" name="MethodTemplate">827D73BE763342F3B49B0FEF6BDB6876</source_id>
+    <track_history>0</track_history>
+    <name>template</name>
+   </Item>
+   <Item type="View" id="95B756F9DCD94F7F89A8C3A80EBA5F6E" action="add">
+    <client>js</client>
+    <related_id keyed_name="MethodTemplate" type="Form">CC4BA5E7157A46A292258BA8FB438094</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="MethodTemplate" type="ItemType" name="MethodTemplate">827D73BE763342F3B49B0FEF6BDB6876</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="Can Add" id="3BB12F62D7AA4879BDE84A17EE575AEC" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="Super User" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Super User</name>
+     </Item>
+    </related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="MethodTemplate" type="ItemType" name="MethodTemplate">827D73BE763342F3B49B0FEF6BDB6876</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="3000BF07B1D04015A95A05291D29B8F6" action="add">
+    <is_default>1</is_default>
+    <related_id keyed_name="MethodTemplate" type="Permission">C55001A9527940198D449E2E05A2B339</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="MethodTemplate" type="ItemType" name="MethodTemplate">827D73BE763342F3B49B0FEF6BDB6876</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="827D73BE763342F3B49B0FEF6BDB6876" action="edit">
+  <Relationships>
+   <Item type="Property" id="A9FA87514ECF40FA9D9FB255F3069E4B" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <keyed_name_order>0</keyed_name_order>
+    <label xml:lang="en">Name</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3200</sort_order>
+    <source_id keyed_name="MethodTemplate" type="ItemType" name="MethodTemplate">827D73BE763342F3B49B0FEF6BDB6876</source_id>
+    <stored_length>32</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

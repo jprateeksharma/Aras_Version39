@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="FileType" id="FA3ED4A0494C4E92BDCDE8ED18950999" action="add">
+  <description>Siemens NX PRT Model</description>
+  <extension>prt</extension>
+  <mimetype>application/octet-stream</mimetype>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>NX Model</name>
+ </Item>
+</AML>

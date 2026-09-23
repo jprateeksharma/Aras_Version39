@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="1AD4D4421EE94CA7B8FEF8BE5548ACFB" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: '{1}' Collection must contain 'Type'.</text>
+  <name>cws_CollectionMustContainType</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="65C54AD97C204A3F9BAAE41B7EE5801E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">View with empty Classification for the User doesn't exist.</text>
+  <name>cui_ViewWithEmptyClassificationDoesNotExist</name>
+ </Item>
+</AML>

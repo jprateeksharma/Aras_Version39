@@ -1,0 +1,41 @@
+﻿<AML>
+ <Item type="Dashboard Widget Template" id="CB6F8904325A4A0BBE4270256FB13373" action="add">
+  <description>Visualize Reports objects created with XSLT Report Tool and Microsoft's Reporting Services</description>
+  <height_size>8</height_size>
+  <label xml:lang="en">Report Widget</label>
+  <type>Report</type>
+  <width_size>1</width_size>
+  <name>Report Template</name>
+  <Relationships>
+   <Item type="Dashboard Widget Template Prop" id="9B03205F267846288EF73715315F17DD" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">Report</label>
+    <name>report_id</name>
+    <prop_source keyed_name="Report" type="ItemType" name="Report">F0834BBA6FB64394B78DF5BB725532DD</prop_source>
+    <prop_type>item</prop_type>
+    <required>1</required>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Report Template" type="Dashboard Widget Template">CB6F8904325A4A0BBE4270256FB13373</source_id>
+   </Item>
+   <Item type="Dashboard Widget Template Prop" id="42F20F5DEC4541D1ABA838358768B2F5" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">ItemType</label>
+    <name>item_type_id</name>
+    <prop_source keyed_name="ItemType" type="ItemType" name="ItemType">450906E86E304F55A34B3C0D65C097EA</prop_source>
+    <prop_type>item</prop_type>
+    <required>0</required>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Report Template" type="Dashboard Widget Template">CB6F8904325A4A0BBE4270256FB13373</source_id>
+   </Item>
+   <Item type="Dashboard Widget Template Prop" id="8CA3A164BA7747E98E2CCA5800EA6C21" action="add">
+    <hidden>0</hidden>
+    <label xml:lang="en">Item</label>
+    <name>item_id</name>
+    <prop_type>item</prop_type>
+    <required>0</required>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Report Template" type="Dashboard Widget Template">CB6F8904325A4A0BBE4270256FB13373</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

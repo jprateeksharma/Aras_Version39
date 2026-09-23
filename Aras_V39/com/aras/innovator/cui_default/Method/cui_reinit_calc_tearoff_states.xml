@@ -1,0 +1,36 @@
+﻿<AML>
+ <Item type="Method" id="2B4BC740F3144F62972580322288A33B" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[
+const topWindow = aras.getMostTopWindowWithAras(window);
+const item = topWindow.item;
+if (!item) {
+	return {};
+}
+
+const itemTypeName = topWindow.itemTypeName;
+const lockedBy = aras.getItemProperty(item, 'locked_by_id', '');
+const lockFlg = aras.uiItemCanBeLockedByUser(
+	item,
+	topWindow.isRelationshipIT,
+	topWindow['use_src_accessIT']
+);
+const unlockFlg = aras.isLockedByUser(item);
+const purgeFlg =
+	lockedBy === '' && !window.isFunctionDisabled(itemTypeName, 'Delete');
+const revisionFlg = isVersionableIT && !aras.isTempEx(item);
+const discussionFlg = topWindow.isSSVCEnabled && !aras.isNew(item);
+const promoteFlg = lockFlg && !window.isFunctionDisabled(itemTypeName, 'Promote');
+
+return {
+	canDoRevision: revisionFlg,
+	canPromote: promoteFlg,
+	canPurge: purgeFlg,
+	canUnlock: unlockFlg,
+	discussionEnabled: discussionFlg
+};
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_reinit_calc_tearoff_states</name>
+ </Item>
+</AML>

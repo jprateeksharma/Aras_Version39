@@ -1,0 +1,54 @@
+﻿<AML>
+ <Item type="Method" id="EC0D87C174814CB7BA574593456113F7" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[/* version:2*/
+let name = '';
+let value = '';
+const srcElement = window.event ? window.event.srcElement : event.srcElement ? event.srcElement : event.target;
+if (srcElement && srcElement !== document) {
+	name = srcElement.name;
+	if (srcElement.value) {
+		value = srcElement.value.toLowerCase();
+	}
+
+}
+
+let pLocation = aras.getItemProperty(document.item, 'location');
+let pType = aras.getItemProperty(document.item, 'type');
+
+if (name == 'location') {
+	pLocation = value;
+}
+if (name == 'type') {
+	pType = value;
+}
+
+const _form = document.forms.MainDataForm;
+const itemQuery = _form.elements['item_query'];
+const _body = _form.elements.body;
+
+if (pType == 'item') {
+	_body.disabled = true;
+	itemQuery.disabled = false;
+} else if (pType == 'itemtype') {
+	_body.disabled = false;
+	itemQuery.disabled = true;
+} else {
+	_body.disabled = false;
+	itemQuery.disabled = true;
+}
+
+if (window.handleItemChange) {
+	if (pType == 'item' && pLocation == 'client') {
+		handleItemChange('item_query', '<Item type="{@type}" id="{@id}" levels= "1" action="get" />');
+	} else if (pType == 'item' && pLocation == 'server') {
+		handleItemChange('item_query', '<Item type="{@type}" action="get"><id><xsl:value-of select="@id" /></id></Item>');
+	} else {
+		handleItemChange('item_query', '');
+	}
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>onChange Action</name>
+ </Item>
+</AML>

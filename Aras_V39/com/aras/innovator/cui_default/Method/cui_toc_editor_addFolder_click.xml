@@ -1,0 +1,31 @@
+﻿<AML>
+ <Item type="Method" id="45264800FD2C441B8DA1E8895D9617B1" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const { getState, getActions } = options;
+const { defaultLanguageCode } = getState();
+const actions = getActions();
+
+const label = aras.getResource('', 'toc_editor.new_category');
+const relatedItemProps = {
+	label,
+	[`label@aras.lang.${defaultLanguageCode}`]: label,
+	'@odata.type': '#CommandBarMenu'
+};
+const relatedItem = actions.addRelatedItem(relatedItemProps);
+
+const worldRole = {
+	id: 'A73B655731924CD0B027E4F4D5FCC0A9',
+	keyedName: 'World'
+};
+const relationshipItemProps = {
+	related_id: relatedItem.id,
+	'role@aras.id': worldRole.id,
+	'role@aras.keyed_name': worldRole.keyedName
+};
+const relationshipItem = actions.addRelationshipItem(relationshipItemProps);
+
+actions.selectItem(relationshipItem.id);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_toc_editor_addFolder_click</name>
+ </Item>
+</AML>

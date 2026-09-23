@@ -1,0 +1,31 @@
+﻿<AML>
+ <Item type="List" id="635E4C5574E74EF0A27DE47CF1488AFD" action="add">
+  <description>!!!! This maybe be obsolute. !!!!</description>
+  <label>Structures</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Structures</name>
+  <Relationships>
+   <Item type="Value" id="4E3912D681ED4F149A06D1E577AF217E" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Where Used</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Structures" type="List">635E4C5574E74EF0A27DE47CF1488AFD</source_id>
+    <value>where used</value>
+   </Item>
+   <Item type="Value" id="F784EAA902F148C9A946DA2586E4C04A" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Structure</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Structures" type="List">635E4C5574E74EF0A27DE47CF1488AFD</source_id>
+    <value>structure</value>
+   </Item>
+   <Item type="Value" id="F55C1415004F4C2FA52BAD192629F5D7" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Both</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Structures" type="List">635E4C5574E74EF0A27DE47CF1488AFD</source_id>
+    <value>both</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="41E07FD2F90D41E79C898EC22C7961BA" action="add">
+  <image>../images/AddItem.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_toc_editor_addItem_click" type="Method">DBD654F6B01B4900B9ED43B01A8AD659</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_add_init" type="Method">A53BA118C339421F9E865CBE208D214F</on_init_handler>
+  <tooltip_template xml:lang="en">Add Item</tooltip_template>
+  <name>toceditor.commandbar.default.additem</name>
+ </Item>
+</AML>

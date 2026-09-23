@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="DEDCD79931E6497A88193DC40BB99B32" action="add">
+  <template>import { type ContextMenu, odataFetch, getResource } from 'core';
+import { item } from 'store'
+import { alert } from 'dialogs';
+import type { Options } from '../Modules/cui/cuiTypes';
+import type { ContextMenuItems } from '../Modules/components/contextMenuTypes';
+
+export async function $method_name(
+	control: ContextMenu ,
+	target: ContextMenuItems,
+	options: Options&lt;'SearchView'&gt;
+): Promise&lt;void&gt; {
+	$method_code;
+}
+</template>
+  <name>cui_form_grid_contextmenu_click</name>
+ </Item>
+</AML>

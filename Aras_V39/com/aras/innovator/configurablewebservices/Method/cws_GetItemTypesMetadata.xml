@@ -1,0 +1,70 @@
+﻿<AML>
+ <Item type="Method" id="051230913102421EB3A42103C0925D12" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Item itemTypeItems = this.GetItemTypesWithPresentationConfiguration();
+	if (itemTypeItems.isError())
+	{
+		return itemTypeItems;
+	}
+
+	Item resultItemTypesInfo = this.newItem();
+
+	for (int i = 0; i < itemTypeItems.getItemCount(); i++)
+	{
+		Item itemType = itemTypeItems.getItemByIndex(i);
+		Item presentationConfigurations = itemType.getItemsByXPath("Relationships/Item/related_id/Item");
+		string name = itemType.getProperty("name");
+		bool isRelationship = itemType.getProperty("is_relationship") == "1";
+		string icon = this.GetItemTypeIcon(itemType, isRelationship);
+		string color = this.GetItemTypeColor(presentationConfigurations, isRelationship);
+
+		Item itemTypeInfo = this.newItem(name);
+		itemTypeInfo.setProperty("id", itemType.getID());
+		itemTypeInfo.setProperty("name", name);
+		itemTypeInfo.setProperty("icon", icon);
+		itemTypeInfo.setProperty("color", color);
+		itemTypeInfo.removeAttribute("isNew");
+		itemTypeInfo.removeAttribute("isTemp");
+		itemTypeInfo.removeAttribute("type");
+
+		resultItemTypesInfo.appendItem(itemTypeInfo);
+	}
+
+	resultItemTypesInfo.removeItem(resultItemTypesInfo.getItemByIndex(0));
+	return resultItemTypesInfo;
+}
+
+private Item GetItemTypesWithPresentationConfiguration()
+{
+	Item presentationConfiguration = this.newItem("ITPresentationConfiguration", "get");
+	presentationConfiguration.setAttribute("select", "related_id(color)");
+
+	Item itemTypeItems = this.newItem("ItemType", "get");
+	itemTypeItems.setAttribute("select", "name,open_icon,large_icon,is_relationship");
+	itemTypeItems.addRelationship(presentationConfiguration);
+	return itemTypeItems.apply();
+}
+
+private string DEFAULT_IT_ICON = "../images/ItemType.svg";
+private string DEFAULT_RT_ICON = "../images/RelationshipType.svg";
+private string GetItemTypeIcon(Item itemType, bool isRelationship) {
+	string smallIcon = itemType.getProperty("open_icon");
+	string largeIcon = itemType.getProperty("large_icon");
+	string fallback = isRelationship ? DEFAULT_RT_ICON : DEFAULT_IT_ICON;
+
+	return smallIcon ?? largeIcon ?? fallback;
+}
+
+private string DEFAULT_IT_COLOR = "#CFCFCF";
+private string GetItemTypeColor(Item presentationConfigurations, bool isRelationship) {
+	if (presentationConfigurations.getItemCount() == 0) {
+		return DEFAULT_IT_COLOR;
+	}
+
+	Item presentationConfigurationItem = presentationConfigurations.getItemByIndex(0);
+	return presentationConfigurationItem.getProperty("color", DEFAULT_IT_COLOR);
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>cws_GetItemTypesMetadata</name>
+ </Item>
+</AML>

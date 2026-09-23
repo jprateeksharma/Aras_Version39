@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="FE5C847A92EE4D779F72592E6A0C4655" action="add">
+  <is_private>0</is_private>
+  <name>Life Cycle State</name>
+  <Relationships>
+   <Item type="Access" id="39579F4492964BC083387BBCDF5FB27D" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Life Cycle State" type="Permission">FE5C847A92EE4D779F72592E6A0C4655</source_id>
+   </Item>
+   <Item type="Access" id="8678F2F9922A48B2A2754A05D5E29F6C" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Life Cycle State" type="Permission">FE5C847A92EE4D779F72592E6A0C4655</source_id>
+   </Item>
+   <Item type="Access" id="A7F68726BC77477FBA937129817C47D9" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Life Cycle State" type="Permission">FE5C847A92EE4D779F72592E6A0C4655</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

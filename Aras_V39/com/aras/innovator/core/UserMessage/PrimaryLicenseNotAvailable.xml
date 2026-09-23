@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="CAC2720C21D34ACC9C2C495DA3D4F7F0" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">No valid Aras subscription licenses available. User access is blocked until a new license is activated. Please import a license or contact licenses@aras.com to obtain a license activation key.</text>
+  <name>PrimaryLicenseNotAvailable</name>
+ </Item>
+</AML>

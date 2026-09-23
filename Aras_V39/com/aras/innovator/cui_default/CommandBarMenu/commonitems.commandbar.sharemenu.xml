@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="3353902ED6E24641AB7B88FE0D58B696" action="add">
+  <image>../images/Share.svg</image>
+  <label xml:lang="en">Share</label>
+  <tooltip_template xml:lang="en">Share</tooltip_template>
+  <name>commonitems.commandbar.sharemenu</name>
+ </Item>
+</AML>

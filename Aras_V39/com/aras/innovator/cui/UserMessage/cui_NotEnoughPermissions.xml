@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="D50F14B687744D099110CD5F7D99BD2E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Not enough permissions to perform operation.</text>
+  <name>cui_NotEnoughPermissions</name>
+ </Item>
+</AML>

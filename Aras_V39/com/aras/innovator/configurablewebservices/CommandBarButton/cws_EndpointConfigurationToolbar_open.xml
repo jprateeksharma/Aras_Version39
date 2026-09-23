@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="5FCAF7B8DD1C4222A7577D093D975A72" action="add">
+  <command_alias keyed_name="OpenItem" type="CommandAlias">FE0A88F22DF44FD3BEBE98AF43ADD957</command_alias>
+  <image>../images/OpenItem.svg</image>
+  <include_events>UpdateState</include_events>
+  <label xml:lang="en">Configure Endpoint</label>
+  <on_click_handler keyed_name="cui_ivrcm_rel_open_click" type="Method">4B9F3AF7E35F4C389A8AC1AEE291794F</on_click_handler>
+  <on_init_handler keyed_name="cws_EndpointConfigToolbar_init" type="Method">7C4B9AEE845644DE880EF5EFA8B373B1</on_init_handler>
+  <name>cws_EndpointConfigurationToolbar_open</name>
+ </Item>
+</AML>

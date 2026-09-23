@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="203C7D532DD34671945B528653782072" action="add">
+  <client>js</client>
+  <related_id keyed_name="CommandBarCheckbox Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="71288B0281B240D1B8DA1493C9FCE825" action="add">
+    <color>#3845dc</color>
+    <name>CommandBarCheckbox Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="CommandBarCheckbox" type="ItemType" name="CommandBarCheckbox">7BFF05B795FA4C1293C0B68C282F78F1</source_id>
+ </Item>
+</AML>

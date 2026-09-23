@@ -1,0 +1,38 @@
+﻿<AML>
+ <Item type="List" id="1585083C7438460F8FA48F4774505062" action="add">
+  <description>Defines the relationship behaviors for an item fixed or float.</description>
+  <label>Item Behavior</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Item Behavior</name>
+  <Relationships>
+   <Item type="Value" id="380E06B36DAF4B148C43606DBB210FD9" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Float</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Item Behavior" type="List">1585083C7438460F8FA48F4774505062</source_id>
+    <value>float</value>
+   </Item>
+   <Item type="Value" id="E77956407ADE4D4B81AD0AD9BE6C43B6" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Fixed</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Item Behavior" type="List">1585083C7438460F8FA48F4774505062</source_id>
+    <value>fixed</value>
+   </Item>
+   <Item type="Value" id="4494D5041A874E0F9D57B054811722DF" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Hard Fixed</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Item Behavior" type="List">1585083C7438460F8FA48F4774505062</source_id>
+    <value>hard_fixed</value>
+   </Item>
+   <Item type="Value" id="FB1F109C8AAB4CA7A432E05FC7D13F55" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Hard Float</label>
+    <sort_order>4</sort_order>
+    <source_id keyed_name="Item Behavior" type="List">1585083C7438460F8FA48F4774505062</source_id>
+    <value>hard_float</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="6258D4606F8F45B68249F5BAA430C4B4" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The license for your Aras subscription may be corrupted, tampered with, or encrypted with a different key. User access has been temporarily blocked. Please re-activate the license or contact licenses@aras.comfor assistance.</text>
+  <name>PrimaryLicenseCorrupted</name>
+ </Item>
+</AML>

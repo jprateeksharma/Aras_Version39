@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarShortcut" id="97F61CDDBA7F4315962CE7B82C7589EA" action="add">
+  <command_alias keyed_name="ClaimItem" type="CommandAlias">36118109ED0F4D0BBDE0E09629B35FF8</command_alias>
+  <on_click_handler keyed_name="cui_default_iwrs_ctrl_l" type="Method">45A65C509B6F49BD98C556B37BEE331C</on_click_handler>
+  <shortcut>ctrl+l</shortcut>
+  <name>com.aras.innovator.cui_default.iwrs_ctrl_l</name>
+ </Item>
+</AML>

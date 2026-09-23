@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Method" id="F765718FD7CA4A8D8A0DDA85E7609845" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[ 	string relatedItemId = this.getRelatedItemID();
+	if (string.IsNullOrEmpty(relatedItemId) && this.getRelatedItem() is null)
+	{
+		return this.getInnovator().newError(CCO.ErrorLookup.Lookup("acs_ProvideRelatedItem"));
+	}
+
+	Item existedSharingRelship = GetSharingRelationship(relatedItemId);
+	if (!existedSharingRelship.isEmpty() && !AreSharingRelshipIdsEqual(existedSharingRelship.getID()))
+	{
+		return this.getInnovator().newError(CCO.ErrorLookup.Lookup("acs_IdentityAlreadyAssigned"));
+	}
+
+	return this;
+}
+
+private Item GetSharingRelationship(string relatedItemId)
+{
+	string sharedItemId = this.getProperty("source_id");
+	Item sharingRelship = this.newItem(this.getType(), "get");
+	sharingRelship.setAttribute("select", "id");
+	sharingRelship.setProperty("source_id", sharedItemId);
+	if (!string.IsNullOrEmpty(relatedItemId))
+	{
+		sharingRelship.setProperty("related_id", relatedItemId);
+	}
+	else
+	{
+		Item relatedItem = this.getRelatedItem();
+		sharingRelship.setPropertyItem("related_id", relatedItem);
+	}
+
+	return sharingRelship.apply();
+}
+
+private bool AreSharingRelshipIdsEqual(string relshipIdFromDb)
+{
+	return relshipIdFromDb.Equals(this.getID(), StringComparison.Ordinal);
+
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>acs_ValidateSharingExists</name>
+ </Item>
+</AML>

@@ -1,0 +1,31 @@
+﻿<AML>
+ <Item type="List" id="9BFEBD027DA34E4CBC50B55DA25F722A" action="add">
+  <description>Used to define the allignment for the Field label text left, right, or center.</description>
+  <label>Text Alignment</label>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>Text Alignment</name>
+  <Relationships>
+   <Item type="Value" id="28D59199B30F4FCB90A7E49159A00020" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Left</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Text Alignment" type="List">9BFEBD027DA34E4CBC50B55DA25F722A</source_id>
+    <value>left</value>
+   </Item>
+   <Item type="Value" id="6FDF2229BD3648C1A60308ABE628BC47" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Right</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Text Alignment" type="List">9BFEBD027DA34E4CBC50B55DA25F722A</source_id>
+    <value>right</value>
+   </Item>
+   <Item type="Value" id="776EF2F46ACF4C6FB636EB3086EB64E5" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Center</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Text Alignment" type="List">9BFEBD027DA34E4CBC50B55DA25F722A</source_id>
+    <value>center</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,44 @@
+﻿<AML>
+ <Item type="cui_WindowSection" id="DE761372E5534A00A1F62059F320CB32" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="MainWindowView" type="cui_Location">A0F4773786A246949050694C202662CA</location>
+  <name>MainView.Default</name>
+  <Relationships>
+   <Item type="cui_WindowSectionControl" id="42427773F0DD49E7AE649B277CFDD7B8" action="add">
+    <action>Add</action>
+    <related_id keyed_name="MainView.Header_B662002D033A4B95B930E0AAE1B3B1CD" type="cui_Control">B662002D033A4B95B930E0AAE1B3B1CD</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="MainView.Default" type="cui_WindowSection">DE761372E5534A00A1F62059F320CB32</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="0E82EEEC6ECA47F78CC3CE2EA63AABA2" action="add">
+    <action>Add</action>
+    <related_id keyed_name="MainView.Shortcuts_5173593946934F44B786592FCBD242D2" type="cui_Control">5173593946934F44B786592FCBD242D2</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="MainView.Default" type="cui_WindowSection">DE761372E5534A00A1F62059F320CB32</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="6A5DEDC3A76A476C97F1ADACF564C114" action="add">
+    <action>Add</action>
+    <related_id keyed_name="MainView.HeaderTabsContextMenu_32BE23454F04405A96EAF349E3C05754" type="cui_Control">32BE23454F04405A96EAF349E3C05754</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="MainView.Default" type="cui_WindowSection">DE761372E5534A00A1F62059F320CB32</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="495D3DEEBFC14829868CC75838755D87" action="add">
+    <action>Add</action>
+    <related_id keyed_name="MainView.PopupMenu_DBDF68674301425F9340AB3758D38087" type="cui_Control">DBDF68674301425F9340AB3758D38087</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="MainView.Default" type="cui_WindowSection">DE761372E5534A00A1F62059F320CB32</source_id>
+   </Item>
+   <Item type="cui_WindowSectionControl" id="226E1DB17BA346D7A0628DF828C4EE00" action="add">
+    <action>Add</action>
+    <related_id keyed_name="MainView.PopupMenuSecondaryMenu_659E7D5FD6D34CD2A0B4E1284A9013A2" type="cui_Control">659E7D5FD6D34CD2A0B4E1284A9013A2</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="MainView.Default" type="cui_WindowSection">DE761372E5534A00A1F62059F320CB32</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

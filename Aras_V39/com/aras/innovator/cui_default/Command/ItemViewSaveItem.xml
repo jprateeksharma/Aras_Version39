@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Command" id="19EF0AC129DF497BADA2F62449E34604" action="add">
+  <execute_handler keyed_name="cui_command_itemViewSave_execute" type="Method">51D13715BCD14BBDA07539AEA2ABA9E7</execute_handler>
+  <name>ItemViewSaveItem</name>
+ </Item>
+</AML>

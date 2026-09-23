@@ -1,0 +1,78 @@
+﻿<AML>
+ <Item type="Method" id="45A65C509B6F49BD98C556B37BEE331C" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	getState,
+	commandFactory,
+	polySources,
+	relatedItemType
+} = options;
+
+const { grid } = getState();
+const { selectedRows } = grid;
+const { rows } = window.grid._grid;
+
+const areRelatedItems = selectedRows.every((rowId) => {
+	const relatedId = rows.get(rowId, 'related_id');
+	return !!relatedId;
+});
+
+if (!areRelatedItems) {
+	return Promise.resolve(null);
+}
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(relatedItemType?.id);
+const getItemType = (item) => {
+	if (isPolymorphic) {
+		const itemTypeId = item.itemtype;
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return relatedItemType;
+};
+
+const createCommandFromRow = (commandAlias, rowId) => {
+	const relatedId = rows.get(rowId, 'related_id');
+	const item = rows.get(relatedId);
+	const itemType = getItemType(item);
+	const itemTypeName = itemType.name;
+	return commandFactory(commandAlias, { item, itemType, itemTypeName });
+};
+
+const canExecuteCommand = (commandAlias) => {
+	const canExecute = selectedRows.every((rowId) => {
+		const command = createCommandFromRow(commandAlias, rowId);
+		return command.canExecute();
+	});
+
+	return canExecute;
+};
+
+const executeCommand = (commandAlias) => {
+	const promises = selectedRows.map((rowId) => {
+		const command = createCommandFromRow(commandAlias, rowId);
+		return command.execute();
+	});
+
+	return Promise.allSettled(promises);
+};
+
+let commandAlias = target['command_alias@keyed_name'];
+const canExecuteClaim = canExecuteCommand(commandAlias);
+if (canExecuteClaim) {
+	return executeCommand(commandAlias);
+}
+
+commandAlias = 'UnclaimItem';
+const canExecuteUnclaim = canExecuteCommand(commandAlias);
+if (canExecuteUnclaim) {
+	return executeCommand(commandAlias);
+}
+
+return Promise.resolve(null);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_iwrs_ctrl_l</name>
+ </Item>
+</AML>

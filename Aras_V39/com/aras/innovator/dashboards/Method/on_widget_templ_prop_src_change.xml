@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="Method" id="2A456FDA12744628A0E832D4C23008A2" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const itemNode =
+	aras.itemsCache.getItem(itemId) ||
+	aras.itemsCache.getItemByXPath(
+		`Innovator/Items/Item/Relationships/Item[@id="${itemId}"]`
+	);
+
+const currentValue = aras.getItemProperty(itemNode, 'prop_predefined');
+if (!currentValue) {
+	return;
+}
+
+aras.setItemProperty(itemNode, 'prop_predefined', '');]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>on_widget_templ_prop_src_change</name>
+ </Item>
+</AML>

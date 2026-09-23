@@ -1,0 +1,134 @@
+﻿<AML>
+ <Item type="Method" id="3220456C3DAA420996F2C1C35D5BE3FF" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const result = { hidden: true };
+if (options.relationshipTypeId && options.relatedItemTypeId) {
+	const core = import('../jsBundles/core.es.js');
+	const infernoFlags = ArasModules.utils.infernoFlags;
+	const Inferno = window.Inferno;
+	const relatedOption = aras.getItemProperty(
+		options.relationshipTypeNode,
+		'related_option'
+	);
+	const isDependent = options.relatedItemType.is_dependent === '1';
+	result.hidden = relatedOption === '1' || isDependent;
+
+	if (target.type === 'pickRelatedTypeahead') {
+		return result;
+	}
+
+	const nonUniqueWarningMessage = window.aras.getResource(
+		'',
+		'ui_methods.item_cannot_defined_uniquely'
+	);
+
+	const isSearchDialogEventExists = window.ArasModules.metadata.itemType
+		.getPropertyEvents(options.itemType, 'related_id', 'onsearchdialog').length > 0;
+	const itemTypeName = options.relatedItemType.name;
+
+	const onChange = async (event) => {
+		const itemPropertyComponent = event.currentTarget;
+		const state = itemPropertyComponent.state;
+		if (!state) {
+			return;
+		}
+
+		const { label, list } = state;
+		const items = list.filter((item) => item.label === label);
+		if (items.length === 0) {
+			return;
+		}
+
+		if (items.length > 1) {
+			event.target.addEventListener('change', (e) => {
+				e.stopImmediatePropagation();
+			}, { once: true, capture: true });
+
+			const topWindow = window.aras.getMostTopWindowWithAras();
+			topWindow.ArasModules.Dialog.alert(nonUniqueWarningMessage, { type: 'success' });
+		}
+
+		const { soap, alertSoapError } = await core;
+		soap(null, {
+			url: aras.getServerURL(),
+			headers: aras.getHttpHeadersForSoapMessage('ApplyItem')
+		});
+		const req = `<Item type="${itemTypeName}" action="get" id="${items[0].itemId}" />`;
+
+		try {
+			options.getActions().setFetchingUrl(req);
+			const result = await soap(req, {
+				method: 'ApplyItem',
+				async: true
+			});
+
+			await window.addRelationship(result.selectSingleNode('./Item'));
+
+			itemPropertyComponent.clear();
+		} catch (error) {
+			alertSoapError(error)
+		} finally {
+			options.getActions().removeFetchingUrl(req);
+		}
+	};
+
+	const showDialog = () => window.newRelationship(true, null, null, window.PickRelatedOption);
+
+	const itemTypePluralLabel = options.relatedItemType.label_plural;
+	const tooltip = target.tooltip_template.replace(
+		'{0}',
+		itemTypePluralLabel || itemTypeName
+	);
+
+	const emptyMessage = window.aras.getResource(
+		'',
+		'common.does_not_exist',
+		options.relatedItemType.label
+	);
+
+	const size = target.additional_data?.size;
+	const formatter = () => {
+		const isEnabled =
+			window.computeCorrectControlState &&
+			window.computeCorrectControlState('new');
+
+		return Inferno.createVNode(
+			Inferno.getFlagsForElementVnode('aras-item-property'),
+			'aras-item-property',
+			'aras-toolbar__input',
+			null,
+			infernoFlags.hasInvalidChildren,
+			{
+				itemType: itemTypeName,
+				onchange: onChange,
+				mode: 'input-a',
+				'data-id': target.name,
+				placeholder: tooltip,
+				emptyMessage: emptyMessage,
+				readonly: !isEnabled ? true : undefined,
+				inputmode: isSearchDialogEventExists ? 'readonly' : undefined,
+				...(size && { style: { width: size }})
+			},
+			null,
+			(component) => {
+				if (!component || !window.newRelationship || !window.PickRelatedOption) {
+					return;
+				}
+				component.showDialogHandler = showDialog;
+			}
+		);
+	};
+
+	Toolbar.extendFormatters({ pickRelatedTypeahead: formatter });
+
+	return {
+		...result,
+		type: 'pickRelatedTypeahead',
+	};
+}
+return result;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivrcb_selectitems_input_init</name>
+ </Item>
+</AML>

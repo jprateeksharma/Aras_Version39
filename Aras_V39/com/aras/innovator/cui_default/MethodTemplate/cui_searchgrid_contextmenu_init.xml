@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="EFCFCB24B4A244E2A8281AD40F0A834A" action="add">
+  <template>import { type ContextMenu } from 'core';
+import type { ContextMenuItems } from '../Modules/components/contextMenuTypes';
+import type { Options, BaseInitHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+type InitHandlerReturnType = Partial&lt;toolbarItems&gt; &amp; BaseInitHandlerReturnType;
+
+export function $method_name(
+	control: ContextMenu,
+	target: toolbarItems,
+	options: Options&lt;'SearchView'&gt;
+): InitHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_searchgrid_contextmenu_init</name>
+ </Item>
+</AML>

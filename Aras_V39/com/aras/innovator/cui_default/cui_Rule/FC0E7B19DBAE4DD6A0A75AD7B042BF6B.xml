@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="FC0E7B19DBAE4DD6A0A75AD7B042BF6B" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#fbe7e8","color":"#6b1114"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"B4F68DDDC74C40B7BC871ACD6EFF6FEF","function":"value_of_property","property":"state","operator":"is","criteria":"Deactivated|Disapproved|Obsolete|Rejected"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>RedLifeCycleState</name>
+ </Item>
+</AML>

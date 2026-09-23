@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="Method" id="306F15146FC444DC9624D80736E5D2DD" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code />
+  <method_type>TypeScript</method_type>
+  <template keyed_name="cui_get_form_from_package" type="MethodTemplate">D61AC048B31747558066A8CC28386482</template>
+  <name>getFormFromPackage</name>
+ </Item>
+</AML>

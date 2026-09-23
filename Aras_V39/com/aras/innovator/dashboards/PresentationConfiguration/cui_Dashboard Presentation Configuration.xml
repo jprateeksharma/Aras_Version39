@@ -1,0 +1,26 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="0D219B97758045A98701DF82A8E52496" action="add">
+  <color>#ffffff</color>
+  <name>cui_Dashboard Presentation Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommandBarSection" id="F868EEF8623F49B394247A0F2C88FDE0" action="add">
+    <related_id keyed_name="cui_Dashboard_ItemViewCommandbar" type="CommandBarSection">4BFD05973A8B44C888781E0EA47B0AD7</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_Dashboard Presentation Configuration" type="PresentationConfiguration">0D219B97758045A98701DF82A8E52496</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="552A339C71454F82B5D14354452A017C" action="add">
+    <related_id keyed_name="cui_Dashboard_TOC_Content" type="CommandBarSection">1DE96BF37D9E4CECAA92ED2FC3D59F43</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="cui_Dashboard Presentation Configuration" type="PresentationConfiguration">0D219B97758045A98701DF82A8E52496</source_id>
+   </Item>
+   <Item type="PresentationCommandBarSection" id="E31E2083362F464BB7D32447C73E1321" action="add">
+    <related_id keyed_name="cui_Dashboard_ItemViewTitleBar" type="CommandBarSection">512B913DD5694F9FB06D30D2F3863599</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="cui_Dashboard Presentation Configuration" type="PresentationConfiguration">0D219B97758045A98701DF82A8E52496</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

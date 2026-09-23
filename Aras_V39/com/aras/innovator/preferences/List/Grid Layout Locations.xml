@@ -1,0 +1,21 @@
+﻿<AML>
+ <Item type="List" id="AAE0D4A40C92464DBB00DCF0AD483AAC" action="add">
+  <name>Grid Layout Locations</name>
+  <Relationships>
+   <Item type="Value" id="5EB93BAD16C84A0AB7668BAE37FB71D6" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Main Grid</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Grid Layout Locations" type="List">AAE0D4A40C92464DBB00DCF0AD483AAC</source_id>
+    <value>Main Grid</value>
+   </Item>
+   <Item type="Value" id="FF4628A64FE84310A58751E725EF7160" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Relationships Grid</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Grid Layout Locations" type="List">AAE0D4A40C92464DBB00DCF0AD483AAC</source_id>
+    <value>Relationships Grid</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

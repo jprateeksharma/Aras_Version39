@@ -1,0 +1,51 @@
+﻿<AML>
+ <Item type="Method" id="A88F2F0638174EA998B0CBB7C289FA6E" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[int itemsCount = this.getItemCount();
+for (int i = 0; i < itemsCount; i ++)
+{
+	Item item = this.getItemByIndex(i);
+	string sourceId = item.getProperty("source_id");
+	string version = item.getProperty("version");
+
+	if (string.IsNullOrWhiteSpace(sourceId) || string.IsNullOrWhiteSpace(version))
+	{
+		Item endpointConfiguration = item.newItem("cws_EndpointConfiguration", "get");
+		endpointConfiguration.setID(item.getID());
+		endpointConfiguration.setAttribute("serverEvents", "0");
+		endpointConfiguration.setAttribute("select", "version,source_id");
+		endpointConfiguration = endpointConfiguration.apply();
+		if(endpointConfiguration.isError())
+		{
+			return endpointConfiguration;
+		}
+
+		version = endpointConfiguration.getProperty("version");
+		sourceId = endpointConfiguration.getProperty("source_id");
+	}
+
+	Item parentWebService = item.newItem("cws_WebService", "get");
+	parentWebService.setAttribute("select", "endpoint_name");
+	parentWebService.setID(sourceId);
+	parentWebService = parentWebService.apply();
+	if (parentWebService.isError())
+	{
+		return parentWebService;
+	}
+
+	string endpointName = parentWebService.getProperty("endpoint_name");
+	var request = CCO.Context.Request;
+	string encodedEndpointName = WebUtility.UrlEncode(endpointName);
+	Uri requestUrl = new Uri(request.GetEncodedUrl());
+	Uri origin = new Uri(requestUrl.GetLeftPart(UriPartial.Authority));
+	Uri url = new Uri(origin, $"{request.PathBase.Value}/ws/{encodedEndpointName}/v{version}");
+
+	item.setProperty("url", url.ToString());
+}
+
+return this;
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>cws_UpdateExternalUrl</name>
+ </Item>
+</AML>

@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="1DE96BF37D9E4CECAA92ED2FC3D59F43" action="add">
+  <classification>Data Model</classification>
+  <location keyed_name="TOC" type="cui_Location">02A5F61EF1C94C41834486FA8D76B4E1</location>
+  <name>cui_Dashboard_TOC_Content</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="08820E1A3D46455CB89B4D81C8759236" action="add">
+    <action>Add</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_cui_Dashboard_E80DE80DFF0B499781B11D2D0898B2A6" type="CommandBarItem">E80DE80DFF0B499781B11D2D0898B2A6</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_Dashboard_TOC_Content" type="CommandBarSection">1DE96BF37D9E4CECAA92ED2FC3D59F43</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="7AEEE235489645D0A606B4599606B185" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_cui_Dashboard_E80DE80DFF0B499781B11D2D0898B2A6" type="CommandBarItem">E80DE80DFF0B499781B11D2D0898B2A6</related_id>
+    <role keyed_name="Dashboard Administrators" type="Identity">2374FB2B74994D73AC7B4E929C379A6F</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_Dashboard_TOC_Content" type="CommandBarSection">1DE96BF37D9E4CECAA92ED2FC3D59F43</source_id>
+   </Item>
+   <Item type="CommandBarSectionItem" id="CB56D1559F8E4603ADDBB0E7AF63CF3F" action="add">
+    <action>Skip</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.toc_cui_Dashboard_E80DE80DFF0B499781B11D2D0898B2A6" type="CommandBarItem">E80DE80DFF0B499781B11D2D0898B2A6</related_id>
+    <role keyed_name="Dashboard Authors" type="Identity">557ED01F1C824FCC8AD1B52ECF113A6D</role>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="cui_Dashboard_TOC_Content" type="CommandBarSection">1DE96BF37D9E4CECAA92ED2FC3D59F43</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

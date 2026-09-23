@@ -1,0 +1,43 @@
+﻿<AML>
+ <Item type="Permission" id="5849EC51A7604BCE976563F718B9E0FF" action="add">
+  <is_private>0</is_private>
+  <name>Workflow Process</name>
+  <Relationships>
+   <Item type="Access" id="178522A1216C48068F4B5C4C57CBB153" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Workflow Process" type="Permission">5849EC51A7604BCE976563F718B9E0FF</source_id>
+   </Item>
+   <Item type="Access" id="8EE8A58F27284D3F87DFA97FF67CAC1C" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Workflow Manager" type="Identity">1C89F0DA5CE94869B515A3B1C76FE9A5</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Process" type="Permission">5849EC51A7604BCE976563F718B9E0FF</source_id>
+   </Item>
+   <Item type="Access" id="9EECBBBD436F4A7C96C580D18E70A82F" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Workflow Process" type="Permission">5849EC51A7604BCE976563F718B9E0FF</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

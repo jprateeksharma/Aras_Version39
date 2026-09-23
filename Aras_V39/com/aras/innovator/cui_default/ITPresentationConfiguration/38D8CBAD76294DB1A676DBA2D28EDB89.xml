@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="38D8CBAD76294DB1A676DBA2D28EDB89" action="add">
+  <client>js</client>
+  <related_id keyed_name="CommandBarShortcut Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="3310E55C33114A48B374966137D29834" action="add">
+    <color>#3845dc</color>
+    <name>CommandBarShortcut Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="CommandBarShortcut" type="ItemType" name="CommandBarShortcut">A419B478D3A843A4A488275B98E7FB8B</source_id>
+ </Item>
+</AML>

@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="60A73DDEA36B43098B55DF504E0E9953" action="add">
+  <image>../images/Discard.svg</image>
+  <label xml:lang="en">Discard Changes</label>
+  <on_click_handler keyed_name="cui_default_pmig_discard_click" type="Method">F8B60BFCBA76407BBE85DC978216D906</on_click_handler>
+  <on_init_handler keyed_name="cui_default_pmig_discard_init" type="Method">B25382751D494ED8A1DF2FBBEE59E12C</on_init_handler>
+  <name>com.aras.innovator.cui_default.pmig_discard</name>
+ </Item>
+</AML>

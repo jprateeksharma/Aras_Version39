@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="32BE23454F04405A96EAF349E3C05754" action="add">
+  <control_type>ContextMenu</control_type>
+  <location keyed_name="HeaderTabsContextMenu" type="cui_Location">328D79470C9A4373BEDCBDFBD6AE668E</location>
+  <sealed>0</sealed>
+  <name>MainView.HeaderTabsContextMenu</name>
+ </Item>
+</AML>

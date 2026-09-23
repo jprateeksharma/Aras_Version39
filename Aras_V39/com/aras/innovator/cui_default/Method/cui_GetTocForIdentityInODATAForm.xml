@@ -1,0 +1,87 @@
+﻿<AML>
+ <Item type="Method" id="D8B6F6975057409F84E6FF2AD3B1144A" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	var innovator = this.getInnovator();
+	var dataAccessLayer = new DataAccessLayer(innovator);
+	var businessLogic = new BusinessLogic(innovator, dataAccessLayer);
+	var identityId = this.getProperty("identity");
+	var tocAsOdataJson = businessLogic.GetTocPreviewForIdentityInODataFormat(identityId);
+
+	return innovator.newResult(tocAsOdataJson);
+}
+
+internal interface IDataAccessLayer
+{
+	Item RequestTocForIdentity(string identityId);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	Innovator innovator;
+	
+	public DataAccessLayer(Innovator innovator)
+	{
+		this.innovator = innovator;
+	}
+	
+	public Item RequestTocForIdentity(string identityId)
+	{
+		Item tocCommandBarSectionItems = innovator.newItem("Method", "cui_default_toc_builder_method");
+		tocCommandBarSectionItems.setProperty("identity", identityId);
+		return tocCommandBarSectionItems.apply();
+	}
+}
+
+internal class BusinessLogic
+{
+	Innovator innovator;
+	IDataAccessLayer dataAccessLayer;
+	
+	public BusinessLogic(Innovator innovator, IDataAccessLayer dataAccessLayer)
+	{
+		this.innovator = innovator;
+		this.dataAccessLayer = dataAccessLayer;
+	}
+	
+	public string GetTocPreviewForIdentityInODataFormat(string identityId)
+	{
+		Item tocCommandBarSectionItems = this.dataAccessLayer.RequestTocForIdentity(identityId);
+		var previewTocItems = new Newtonsoft.Json.Linq.JArray();
+		var languageCode = innovator.getI18NSessionContext().GetLanguageCode();
+		
+		for (int i = 0; i < tocCommandBarSectionItems.getItemCount(); i++)
+		{
+			var commandBarSectionItem = tocCommandBarSectionItems.getItemByIndex(i);
+			var commandBarItem = commandBarSectionItem.getPropertyItem("related_id");
+			var commandBarItemObject = new Newtonsoft.Json.Linq.JObject
+			{
+				{ "id", commandBarItem.getID() },
+				{ "@odata.type", "#" + commandBarItem.getType() },
+				{ "additional_data", commandBarItem.getProperty("additional_data") },
+				{ "image", commandBarItem.getProperty("image") },
+				{ $"label", commandBarItem.getProperty("label") },
+				{ $"label@aras.lang.{languageCode}", commandBarItem.getProperty("label") },
+				{ "parent_menu@aras.id", commandBarItem.getProperty("parent_menu") }
+			};
+			var commandBarSectionItemObject = new Newtonsoft.Json.Linq.JObject
+			{
+				{ "id", commandBarSectionItem.getID() },
+				{ "sort_order", commandBarSectionItem.getProperty("sort_order") },
+				{ "role@aras.id", commandBarSectionItem.getProperty("role") },
+				{ "role@aras.keyed_name", commandBarSectionItem.getPropertyAttribute("role", "keyed_name") },
+				{ "related_id", commandBarItemObject }
+			};
+		
+			previewTocItems.Add(commandBarSectionItemObject);
+		}
+
+		var result = new Newtonsoft.Json.Linq.JObject
+		{
+			{ "value", previewTocItems }
+		};
+		return result.ToString(Newtonsoft.Json.Formatting.None);
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_GetTocForIdentityInODATAForm</name>
+ </Item>
+</AML>

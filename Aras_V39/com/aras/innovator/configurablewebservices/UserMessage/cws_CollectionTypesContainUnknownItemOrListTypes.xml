@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="C3A88AE09FAC46BCBACAF290DDE43E0E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Collection Type(s) contain the following unknown Types: {1}.</text>
+  <name>cws_CollectionTypesContainUnknownItemOrListTypes</name>
+ </Item>
+</AML>

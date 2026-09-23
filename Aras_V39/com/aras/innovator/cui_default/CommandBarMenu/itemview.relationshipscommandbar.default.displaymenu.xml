@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="E84855F29B0448908433022DFC71DA71" action="add">
+  <image>../images/DisplayOptions.svg</image>
+  <include_events>UpdateState</include_events>
+  <label xml:lang="en">Display</label>
+  <tooltip_template xml:lang="en">Display</tooltip_template>
+  <name>itemview.relationshipscommandbar.default.displaymenu</name>
+ </Item>
+</AML>

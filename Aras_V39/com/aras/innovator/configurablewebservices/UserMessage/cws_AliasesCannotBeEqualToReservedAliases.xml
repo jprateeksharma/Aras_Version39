@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="5E40103527874DE29A75DEBED4177C46" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error: Alias cannot be equal to the following reserved values: {0}.</text>
+  <name>cws_AliasesCannotBeEqualToReservedAliases</name>
+ </Item>
+</AML>

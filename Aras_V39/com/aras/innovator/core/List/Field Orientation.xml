@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="List" id="CB43B29BF7A14E3A84B565100C248B38" action="add">
+  <description>The orientaion of the File vertical or horizontal, used by the Radio Button Group Field type.</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Field Orientation</name>
+  <Relationships>
+   <Item type="Value" id="5528C3DC22FC4D01AE94BACC2215B1FC" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Horizontal</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Field Orientation" type="List">CB43B29BF7A14E3A84B565100C248B38</source_id>
+    <value>horizontal</value>
+   </Item>
+   <Item type="Value" id="C5F987FD5B364B8D8A2DCABAB55C39A7" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Vertical</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Field Orientation" type="List">CB43B29BF7A14E3A84B565100C248B38</source_id>
+    <value>vertical</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

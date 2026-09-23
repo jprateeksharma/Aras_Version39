@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="00906EA048454B489803D41FAC1DDDF6" action="add">
+  <classification>Data Model</classification>
+  <label xml:lang="en">Popup Menu for Main Window Secondary Menu</label>
+  <location keyed_name="PopupMenuSecondaryMenu" type="cui_Location">51AFD3A20DB14B88AFECCD747E1F63AE</location>
+  <name>com.aras.innovator.cui_default.popup_menu_for_main_window_second</name>
+  <Relationships>
+   <Item type="CommandBarSectionItem" id="2BB4E7C6045346E6A8221ABF41F0984A" action="add">
+    <action>Add</action>
+    <related_id keyed_name="com.aras.innovator.cui_default.pmsm_addToForum" type="CommandBarItem">F8377109ADE043FBB49D150CD8E296DF</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="com.aras.innovator.cui_default.popup_menu_for_main_window_second" type="CommandBarSection">00906EA048454B489803D41FAC1DDDF6</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="CommandBarSeparator" id="BF1D0E8905D6435D8F89137712CF7910" action="add">
+  <include_events>UpdateState</include_events>
+  <on_init_handler keyed_name="cui_tdf_editortb_table_init" type="Method">3FEFE4010E7E4D599601B2816692F458</on_init_handler>
+  <name>tp_tableaction_separator</name>
+ </Item>
+</AML>

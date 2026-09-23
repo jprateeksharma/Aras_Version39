@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="823B2192B85C4CC18EEAF4E9285891E7" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Types cannot be null ('{0}').</text>
+  <name>cws_TypeCannotBeNull</name>
+ </Item>
+</AML>

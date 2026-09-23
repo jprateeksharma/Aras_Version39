@@ -1,0 +1,68 @@
+﻿<AML>
+ <Item type="Method" id="B6227614CB7C48969FF65891F1748B7F" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { itemNode } = options;
+
+try {
+	const settings = window.viewController.itemTypeSettings;
+
+	if (settings.get('editorview.externalcontent.editmode') === 'implicit') {
+		itemNode.setAttribute('checkreferenceupdateconflicts', true);
+	}
+
+	return await commands.globalCommand.execute();
+} catch (error) {
+	if (error.message.startsWith('TDF.ReferenceUpdateConflictException')) {
+		const itemIdsString = error.message.split(':')[1];
+		const itemIds = itemIdsString.split(',');
+		const dialogSettings = {
+			title: window.aras.getResource('', 'common.unable_to_save_title'),
+			cancelButtonText: window.aras.getResource('', 'common.cancel'),
+			buttonsOrdering: ['save', 'discard', 'cancel'],
+			additionalButtons: [
+				{
+					text: window.aras.getResource('', 'common.save'),
+					buttonModifier: 'aras-button_primary',
+					actionName: 'save'
+				},
+				{
+					text: window.aras.getResource(
+						'../Modules/aras.innovator.TDF',
+						'dialog.externaloutdated.discardbutton'
+					),
+					actionName: 'discard'
+				}
+			]
+		};
+		const dialogMessage = window.aras.getResource(
+			'../Modules/aras.innovator.TDF',
+			'dialog.externaloutdated.usermessage'
+		);
+		const confirmationResult = await window.ArasModules.Dialog.confirm(
+			dialogMessage,
+			dialogSettings
+		);
+
+		switch (confirmationResult) {
+			case 'save':
+				itemNode.removeAttribute('checkreferenceupdateconflicts');
+				return await commands.globalCommand.execute();
+			case 'discard':
+				window.viewController.raiseEvent(
+					'discardReferencedItemChanges',
+					itemNode,
+					itemIds
+				);
+				return null;
+		}
+
+		return null;
+	}
+
+	throw error;
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_tdf_saveitem_exec</name>
+ </Item>
+</AML>

@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="Method" id="82A016E3F17F46869FDFAA8F6308DFF1" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item } = options;
+if (!item) {
+	return false;
+}
+
+const { globalCommand } = commands;
+if (!globalCommand.canExecute()) {
+	return false;
+}
+
+const lockedById = item['locked_by_id'];
+const isLockedByOther = lockedById && lockedById !== aras.user.id;
+if (isLockedByOther) {
+	const message = aras.getResource(
+		'',
+		'itemsgrid.unable_complete_task_claimed_by_someone_else'
+	);
+	commands.setErrorMessage(message);
+	return false;
+}
+
+return true;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_open_inbasket_can_ex</name>
+ </Item>
+</AML>

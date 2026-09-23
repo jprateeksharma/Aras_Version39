@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="62DBBCA6F3AF4DA7872E03A4D795FF48" action="add">
+  <template>import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import { odataFetch, getResource, type Toolbar } from 'core';
+import { alert } from 'dialogs';
+import type { Options } from '../Modules/cui/cuiTypes';
+
+export async function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'ItemView'&gt;
+): Promise&lt;void&gt; {
+	$method_code;
+}</template>
+  <name>cui_form_itemview_add_pack_click</name>
+ </Item>
+</AML>

@@ -1,0 +1,28 @@
+﻿<AML>
+ <Item type="Method" id="2DDB1BC88674464CA5AA3243142A4FA1" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[string expressionItemTypeId = this.getAttribute("typeId");
+string expressionItemId = this.getID();
+
+Item getPermissionsItem = this.newItem("Method", "effs_getExpressionPermissions");
+getPermissionsItem.setProperty("access_type", "can_update");
+getPermissionsItem.setProperty("expression_itemtype_id", expressionItemTypeId);
+getPermissionsItem.setProperty("expression_item_id", expressionItemId);
+
+getPermissionsItem = getPermissionsItem.apply();
+
+if (getPermissionsItem.isError())
+{
+	return getPermissionsItem;
+}
+
+if (string.Equals("0", getPermissionsItem.getResult(), StringComparison.OrdinalIgnoreCase))
+{
+	return this.getInnovator().newError(CCO.ErrorLookup.Lookup("Aras.Server.Core.InsufficientPermissionsException", "add"));
+}
+
+return this;]]></method_code>
+  <method_type>C#</method_type>
+  <name>effs_validateExprPermission</name>
+ </Item>
+</AML>

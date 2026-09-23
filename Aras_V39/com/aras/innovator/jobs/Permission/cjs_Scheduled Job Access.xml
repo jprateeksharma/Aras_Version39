@@ -1,0 +1,30 @@
+﻿<AML>
+ <Item type="Permission" id="4AC9E40C5446493AAF5310C1F48CC9C3" action="add">
+  <is_private>0</is_private>
+  <name>cjs_Scheduled Job Access</name>
+  <Relationships>
+   <Item type="Access" id="34AB2909C324402AB10360662E8D6C27" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="cjs_Job Manager" type="Identity">8EB1099425594CA387CC7A5C31BD9E2F</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job Access" type="Permission">4AC9E40C5446493AAF5310C1F48CC9C3</source_id>
+   </Item>
+   <Item type="Access" id="B48FB6E2042C4C53A2709D0E678D36FD" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job Access" type="Permission">4AC9E40C5446493AAF5310C1F48CC9C3</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

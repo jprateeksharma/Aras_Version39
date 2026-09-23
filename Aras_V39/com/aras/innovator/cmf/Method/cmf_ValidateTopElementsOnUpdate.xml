@@ -1,0 +1,269 @@
+﻿<AML>
+ <Item type="Method" id="7569B41D00F545DA884247D60CFDBDEC" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[var dataAccessLayer = new DataAccessLayer(this);
+    var businessLogic = new BusinessLogic(CCO.ErrorLookup, dataAccessLayer);
+
+    return businessLogic.CheckView();
+}
+
+internal class BusinessLogic
+{
+	private readonly Aras.Server.Core.Abstractions.IErrorLookup _errorLookup;
+	private readonly IDataAccessLayer _dataAccessLayer;
+	private readonly IList<Item> _elements;
+	private readonly Item _view;
+	private readonly Dictionary<string, List<string>> _rootElements;
+
+	public BusinessLogic(Aras.Server.Core.Abstractions.IErrorLookup errorLookup, IDataAccessLayer dataAccessLayer)
+	{
+		_errorLookup = errorLookup;
+		_dataAccessLayer = dataAccessLayer;
+		_view = _dataAccessLayer.GetView();
+		
+		if (CheckIfViewContainsAnyColumns())
+		{
+		    _elements = _dataAccessLayer.GetElements();
+			_rootElements = InitializeRootElementsInfo();
+		}
+	}
+
+	public Item CheckView()
+	{
+	    if (CheckIfViewContainsAnyColumns())
+		{
+	        CheckViewNodeOnUpdate(_view);
+		}
+		
+		return _dataAccessLayer.GetOriginalView();
+	}
+
+	internal Dictionary<string, List<string>> InitializeRootElementsInfo() {
+		var rootElementsDictionary = new Dictionary<string, List<string>>();
+		var namesOfRootElementsById = new Dictionary<string, string>();
+		var rootElements = _elements.Where(element => string.IsNullOrEmpty(element.getProperty("parent")));
+		
+		ProcessElements(rootElements, ref rootElementsDictionary, ref namesOfRootElementsById);
+
+		return rootElementsDictionary;
+	}
+
+	internal void ProcessElements(IEnumerable<Item> elements, ref Dictionary<string, List<string>> rootElementsDictionary, ref Dictionary<string, string> namesOfRootElementsById, string rootId = "")
+	{
+		foreach (var element in elements)
+		{
+			var propertyNames = new List<string>();
+			string elementName = element.getProperty("name");
+			string parent = element.getProperty("parent");
+			var relationships = element.getRelationships();
+			int relationshipsCount = relationships.getItemCount();
+
+			for (int i = 0; i < relationshipsCount; i++)
+			{
+				var property = relationships.getItemByIndex(i);
+				string propertyName = property.getProperty("name");
+
+				propertyNames.Add(propertyName);
+			}
+
+			string idToUse;
+			IEnumerable<Item> childElements;
+
+			if (string.IsNullOrEmpty(parent))
+			{
+			    var rootElementId = element.getID();
+				namesOfRootElementsById.Add(rootElementId, elementName);
+				rootElementsDictionary.Add(elementName, propertyNames);
+				childElements = _elements.Where(childElement => childElement.getProperty("parent") == rootElementId);
+				idToUse = rootElementId;
+			}
+			else
+			{
+				string parentRootElementName = namesOfRootElementsById[rootId];
+				rootElementsDictionary[parentRootElementName].AddRange(propertyNames);
+				childElements = _elements.Where(childElement => childElement.getProperty("parent") == element.getID());
+				idToUse = rootId;
+			}
+
+			if (childElements.Any())
+			{
+				ProcessElements(childElements, ref rootElementsDictionary, ref namesOfRootElementsById, idToUse);
+			}
+		}
+	}
+
+	internal void CheckViewNodeOnUpdate(Item viewNode)
+	{
+		int rootElementCount = 0;
+		var columns = viewNode.getRelationships();
+		int columnCount = columns.getItemCount();
+		string contextRootElementName = string.Empty;
+
+		for (var i = 0; i < columnCount; i++)
+		{
+			bool foundMatchingProperty = false;
+			var column = columns.getItemByIndex(i);
+			string columnPropertyName = column.getPropertyAttribute("property", "keyed_name");
+
+			for (int j = _elements.Count - 1; j >= 0; j--)
+			{
+				var properties = _elements[j].getRelationships();
+				int propertyCount = properties.getItemCount();
+			    
+				for (int k = 0; k < propertyCount; k++)
+				{
+					var property = properties.getItemByIndex(k);
+					string propertyName = property.getProperty("name");
+
+					if (columnPropertyName != propertyName)
+					{
+						continue;
+					}
+
+					string currentElementName = _elements[j].getProperty("name");
+
+					if (string.IsNullOrEmpty(contextRootElementName))
+					{
+						contextRootElementName = _rootElements.ContainsKey(currentElementName)
+													? currentElementName
+													: FindParentRootElementNameByPropertyName(columnPropertyName);
+						foundMatchingProperty = true;
+						rootElementCount++;
+
+						break;
+					}
+
+					if (!CheckIfPropertyIsRelatedToContextRootElement(contextRootElementName, columnPropertyName))
+					{
+						foundMatchingProperty = true;
+
+						if (++rootElementCount > 1)
+						{
+							throw new Aras.Server.Core.InnovatorServerException(_errorLookup.Lookup("cmf_MultipleTopLevelProperties", columnPropertyName));
+						}
+					}
+
+					if (foundMatchingProperty)
+					{
+						break;
+					}
+				}
+
+				if (foundMatchingProperty)
+				{
+					_elements.RemoveAt(j);
+
+					break;
+				}
+			}
+		}
+	}
+
+	internal string FindParentRootElementNameByPropertyName(string propertyName) => _rootElements.First(rootElement => rootElement.Value.Contains(propertyName)).Key;
+
+	internal bool CheckIfViewContainsAnyColumns() => _view.getRelationships().getItemCount() > 0;
+
+	internal bool CheckIfPropertyIsRelatedToContextRootElement(string contextRootElementName, string propertyName) => _rootElements[contextRootElementName].Contains(propertyName);
+}
+
+internal interface IDataAccessLayer
+{
+    Item GetOriginalView();
+	Item GetView();
+	IList<Item> GetElements();
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private readonly Item _view;
+	private readonly Item _originalView;
+	private readonly Item _contentType;
+	
+	internal DataAccessLayer(Item view)
+	{
+	    _originalView = view;
+	    _view = view;
+	    _contentType = GetContentType();
+	}
+	
+	public Item GetOriginalView() => _originalView;
+	
+	public Item GetView()
+	{
+	    var tabularViewColumns = _view.getInnovator().newItem("cmf_TabularViewColumn", "get");
+        tabularViewColumns.setProperty("source_id", _view.getRelatedItemID());
+        
+        tabularViewColumns = tabularViewColumns.apply();
+        
+        if (tabularViewColumns.getItemCount() == 0)
+        {
+            return _view;
+        }
+        
+        if (tabularViewColumns.isError())
+        {
+            throw new Aras.Server.Core.InnovatorServerException(tabularViewColumns.getErrorString());
+        }
+        
+        int tabularViewColumnCount = tabularViewColumns.getItemCount();
+        
+        for (int i = 0; i < tabularViewColumnCount; i++)
+        {
+            _view.addRelationship(tabularViewColumns.getItemByIndex(i));
+        }
+        
+        return _view;
+	}
+
+	internal Item GetContentType()
+    {
+        var contentType = _view.getInnovator().newItem("cmf_ContentType", "get");
+        contentType.setProperty("source_id", _view.getID());
+        contentType.setProperty("name", _view.getPropertyAttribute("source_id", "keyed_name"));
+                
+        contentType = contentType.apply();
+        
+        if (contentType.isError() || contentType.getItemCount() != 1)
+        {
+            throw new Aras.Server.Core.InnovatorServerException(contentType.getErrorString());
+        }
+        
+        return contentType;
+    }
+	
+	public IList<Item> GetElements()
+    {
+        var elementList = new List<Item>();
+        
+        var elementItems = _contentType.getInnovator().newItem("cmf_ElementType", "get");
+        elementItems.setProperty("source_id", _contentType.getID());
+        
+        var properties = _contentType.getInnovator().newItem("cmf_PropertyType", "get");
+        
+        elementItems.addRelationship(properties);
+        elementItems = elementItems.apply();
+        
+        if (elementItems.getItemCount() == 0)
+        {
+            return elementList;
+        }
+        
+        if (elementItems.isError())
+        {
+            throw new Aras.Server.Core.InnovatorServerException(elementItems.getErrorString());
+        }
+        
+        int elementItemsCount = elementItems.getItemCount();
+        
+        for (int i = 0; i < elementItemsCount; i++)
+        {
+           elementList.Add(elementItems.getItemByIndex(i));
+        }
+        
+        return elementList;
+    }
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>cmf_ValidateTopElementsOnUpdate</name>
+ </Item>
+</AML>

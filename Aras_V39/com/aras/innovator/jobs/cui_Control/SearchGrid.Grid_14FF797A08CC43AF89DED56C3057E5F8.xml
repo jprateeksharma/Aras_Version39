@@ -1,0 +1,24 @@
+﻿<AML>
+ <Item type="cui_Control" id="14FF797A08CC43AF89DED56C3057E5F8" action="add">
+  <control_type>GridControl</control_type>
+  <sealed>0</sealed>
+  <name>SearchGrid.Grid</name>
+  <Relationships>
+   <Item type="cui_ControlRule" id="8B5DC7A839174A31A5693D531FB0D7F9" action="add">
+    <related_id keyed_name="EFFA4F45940E4A81A47A67F1FBA7CFD2" type="cui_Rule">EFFA4F45940E4A81A47A67F1FBA7CFD2</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="SearchGrid.Grid_14FF797A08CC43AF89DED56C3057E5F8" type="cui_Control">14FF797A08CC43AF89DED56C3057E5F8</source_id>
+   </Item>
+   <Item type="cui_ControlRule" id="261A760809F14FCE97BC21E4C66461B5" action="add">
+    <related_id keyed_name="FC0E7B19DBAE4DD6A0A75AD7B042BF6B" type="cui_Rule">FC0E7B19DBAE4DD6A0A75AD7B042BF6B</related_id>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="SearchGrid.Grid_14FF797A08CC43AF89DED56C3057E5F8" type="cui_Control">14FF797A08CC43AF89DED56C3057E5F8</source_id>
+   </Item>
+   <Item type="cui_ControlRule" id="0310D0DFD79044988F37B5B98BFD93D2" action="add">
+    <related_id keyed_name="16FF61EF04E6414180CA75F6EAD91437" type="cui_Rule">16FF61EF04E6414180CA75F6EAD91437</related_id>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="SearchGrid.Grid_14FF797A08CC43AF89DED56C3057E5F8" type="cui_Control">14FF797A08CC43AF89DED56C3057E5F8</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

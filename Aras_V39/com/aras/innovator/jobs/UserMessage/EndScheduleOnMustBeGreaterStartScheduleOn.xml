@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="879F005F64C242BDBA7E72D0F51683DB" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">'End Schedule On' value must be greater than 'Start Schedule On'.</text>
+  <name>EndScheduleOnMustBeGreaterStartScheduleOn</name>
+ </Item>
+</AML>

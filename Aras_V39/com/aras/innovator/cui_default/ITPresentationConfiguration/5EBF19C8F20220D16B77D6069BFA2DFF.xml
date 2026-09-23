@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="ITPresentationConfiguration" id="5EBF19C8F20220D16B77D6069BFA2DFF" action="add">
+  <client>js</client>
+  <related_id keyed_name="Workflow Process Path Presentation Configuration" type="PresentationConfiguration">
+   <Item type="PresentationConfiguration" id="5EBF19C8F20220D136326AA7318BB90D" action="add">
+    <color>#455a64</color>
+    <name>Workflow Process Path Presentation Configuration</name>
+   </Item>
+  </related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Workflow Process Path" type="ItemType" name="Workflow Process Path">34682D3EB66141ECACC8796C9D3A42B8</source_id>
+ </Item>
+</AML>

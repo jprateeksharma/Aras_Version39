@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="FB8111DD1AC9458A9FE796E28773FA30" action="add">
+  <additional_data>{}</additional_data>
+  <image>../images/FilteringOff.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_filtering_click" type="Method">7ED47078AE714794B6A2999BB748C779</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_filtering_init" type="Method">770921F8E912490AB1D1192D92C726D6</on_init_handler>
+  <tooltip_template xml:lang="en">Filtering Enable</tooltip_template>
+  <name>tp_filtering</name>
+ </Item>
+</AML>

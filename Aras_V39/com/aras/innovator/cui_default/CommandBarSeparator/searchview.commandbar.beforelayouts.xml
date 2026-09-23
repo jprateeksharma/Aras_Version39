@@ -1,0 +1,5 @@
+﻿<AML>
+ <Item type="CommandBarSeparator" id="1650E03D89FD4FAB82920D7B1697157F" action="add">
+  <name>searchview.commandbar.beforelayouts</name>
+ </Item>
+</AML>

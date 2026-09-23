@@ -1,0 +1,44 @@
+﻿<AML>
+ <Item type="Method" id="B35C401CA08A40BEB6F832ABF508E3C7" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Item result;
+Item methods = GetItemForReqeust("Method");
+methods.setProperty("method_type", "TypeScript");
+methods = methods.apply();
+
+if (methods.isError())
+{
+	return this.getInnovator().newResult(string.Empty);
+}
+else
+{
+	result = this.getInnovator().newResult(methods.getProperty("modified_on"));
+}
+
+Item methodTemplates = GetItemForReqeust("MethodTemplate");
+methodTemplates = methodTemplates.apply();
+
+if (!methodTemplates.isError())
+{
+	DateTime methodsDate = DateTime.Parse(methods.getProperty("modified_on"), DateTimeFormatInfo.InvariantInfo);
+	DateTime templatesDate = DateTime.Parse(methodTemplates.getProperty("modified_on"), DateTimeFormatInfo.InvariantInfo);
+
+	if (templatesDate > methodsDate)
+	{
+		result = this.getInnovator().newResult(methodTemplates.getProperty("modified_on"));
+	}
+}
+
+return result;
+}
+
+private Item GetItemForReqeust(string itemType) {
+	Item item = this.newItem(itemType, "get");
+	item.setAttribute("maxRecords", "1");
+	item.setAttribute("select", "modified_on");
+	item.setAttribute("orderBy", "modified_on desc");
+	return item;]]></method_code>
+  <method_type>C#</method_type>
+  <name>Core_GetTsMethodsLastModified</name>
+ </Item>
+</AML>

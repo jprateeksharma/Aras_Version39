@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="91D2E5A4D77648CA82B19B94344DE101" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The property '{2}' prevented Poly Item from being saved: Property is an unsupported type in a Poly Source.</text>
+  <name>CreatePolyItemView_Property_Type_Unsupported</name>
+ </Item>
+</AML>

@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="List" id="7C707D42A5144B4783611CAD03495F47" action="add">
+  <description>Where the Action will be executed client or server</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Action Locations</name>
+  <Relationships>
+   <Item type="Value" id="9C168AC668DD49E4BDCA32E7F5C92007" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Client</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Action Locations" type="List">7C707D42A5144B4783611CAD03495F47</source_id>
+    <value>client</value>
+   </Item>
+   <Item type="Value" id="40A3CEFC17464F74B12F77388FD59E65" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Server</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Action Locations" type="List">7C707D42A5144B4783611CAD03495F47</source_id>
+    <value>server</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

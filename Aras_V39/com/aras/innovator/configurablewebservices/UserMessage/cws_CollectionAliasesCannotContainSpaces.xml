@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="2333D7CD65B04A6DB5BBE6CEE1A0993D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Collection aliases cannot contain spaces.</text>
+  <name>cws_CollectionAliasesCannotContainSpaces</name>
+ </Item>
+</AML>

@@ -1,0 +1,20 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="ABF3D18E58FA4434991B047607B7D298" action="add">
+  <template>import { odataFetch, getResource, notify } from 'core';
+import { alert, confirm } from 'dialogs';
+
+interface FormItem {
+  id: string;
+  name: string;
+};
+
+export async function $method_name(
+  formItems: FormItem[],
+  itemTypeName: string
+): Promise&lt;void&gt; {
+	$method_code;
+}
+  </template>
+  <name>update_items_in_package</name>
+ </Item>
+</AML>

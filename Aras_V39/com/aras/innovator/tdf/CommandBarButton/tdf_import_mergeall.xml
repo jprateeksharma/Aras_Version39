@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="18ECB3DF3DEF45658CAAF4A8CF5FE931" action="add">
+  <image>../images/LeftArrow.svg</image>
+  <include_events>UpdateState</include_events>
+  <label xml:lang="en">Merge All</label>
+  <on_click_handler keyed_name="cui_tdf_editortb_mergeall_click" type="Method">825E1A2C86CA416E80E8D66186FE5462</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_mergeall_init" type="Method">EFCFF19E7E0E44A7A99FA8D251632049</on_init_handler>
+  <tooltip_template xml:lang="en">Merge All</tooltip_template>
+  <name>tdf_import_mergeall</name>
+ </Item>
+</AML>

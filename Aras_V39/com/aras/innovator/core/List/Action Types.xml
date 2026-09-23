@@ -1,0 +1,37 @@
+﻿<AML>
+ <Item type="List" id="15D33B99A2C54078960D6BE80994D620" action="add">
+  <description>An action can be call on an item or its type, generic or a URL</description>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <name>Action Types</name>
+  <Relationships>
+   <Item type="Value" id="7D5C7139318E464D94346ED7B4BF5E2F" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Generic</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Action Types" type="List">15D33B99A2C54078960D6BE80994D620</source_id>
+    <value>generic</value>
+   </Item>
+   <Item type="Value" id="8FB288C1DD134569812833A1BFB5B006" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Item</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Action Types" type="List">15D33B99A2C54078960D6BE80994D620</source_id>
+    <value>item</value>
+   </Item>
+   <Item type="Value" id="023C5151CB2046399C2582FC542126F9" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">ItemType</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Action Types" type="List">15D33B99A2C54078960D6BE80994D620</source_id>
+    <value>itemtype</value>
+   </Item>
+   <Item type="Value" id="A149F1756D484FB58474E1D648ED1E72" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">URL</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Action Types" type="List">15D33B99A2C54078960D6BE80994D620</source_id>
+    <value>url</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

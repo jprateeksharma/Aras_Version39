@@ -1,0 +1,57 @@
+﻿<AML>
+ <Item type="Method" id="C66075FA61C040B8B91746059EF1B4B8" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const {
+	location,
+	getState,
+	itemType,
+	rows,
+	commandFactory
+} = options;
+
+const state = getState();
+
+const editableItems = state.grid.selectedRows.filter((itemId) => {
+	return state.editableItems.has(itemId);
+});
+
+ArasModules.bunchSoap.collect();
+
+const promises = editableItems.map((itemId) => {
+	const item = rows.get(itemId);
+
+	const xmlItemStr = ArasModules.jsonToXml({
+		Item: {
+			...item,
+			"@attrs": {
+				id: itemId,
+				type: itemType.name,
+				action: "update"
+			}
+		}
+	});
+	const { documentElement: itemNode } =
+		ArasModules.xml.parseString(xmlItemStr);
+	const { execute } = commandFactory('SaveItem', {
+			itemNode,
+			itemType,
+			itemTypeName: itemType.name,
+			location,
+			isDone: true
+		});
+
+	return execute();
+})
+
+try {
+	await Promise.all([ArasModules.bunchSoap.complete(), ...promises]);
+} catch (error) {
+	const errorMessage = error.message;
+	editableItems.forEach((id) => rows.set(id, errorMessage, '_error'))
+	aras.AlertError(errorMessage);
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_pmig_form_done_click</name>
+ </Item>
+</AML>

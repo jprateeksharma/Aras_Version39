@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="FileType" id="8CB89003DCE44737AB89759DC10A6F6B" action="add">
+  <description>STEP Exchange</description>
+  <extension>step,stp</extension>
+  <mimetype>application/step</mimetype>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>STEP Exchange</name>
+ </Item>
+</AML>

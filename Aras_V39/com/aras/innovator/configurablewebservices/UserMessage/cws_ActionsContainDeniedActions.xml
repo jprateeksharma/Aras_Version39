@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="431BA6D15D3E40BF9012866CBBB06A99" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' polymorphic Type: 'Actions' contain the following denied actions: {1}.</text>
+  <name>cws_ActionsContainDeniedActions</name>
+ </Item>
+</AML>

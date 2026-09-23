@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="B99C02A78E994943BA34BC67C749F425" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Aras subscription license restrictions not met. Verify the server name, MAC address, user limits, and database compatibility. For assistance, contact licenses@aras.com</text>
+  <name>PrimaryLicenseEncounteredRestriction</name>
+ </Item>
+</AML>

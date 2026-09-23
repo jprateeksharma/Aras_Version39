@@ -1,0 +1,76 @@
+﻿<AML>
+ <Item type="List" id="9152CE5AE47845C197078EC685EE4363" action="add">
+  <name>tdf.editor.fontsize</name>
+  <Relationships>
+   <Item type="Value" id="357CC0F35AA34050AAAA4C6476CA3512" action="add">
+    <inactive>0</inactive>
+    <sort_order>64</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value />
+   </Item>
+   <Item type="Value" id="2877992CF5AC4EC2B4EE78DB544E9811" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">8px</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>8px</value>
+   </Item>
+   <Item type="Value" id="0E9CA18286964630A07E5C50E2F74475" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">10px</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>10px</value>
+   </Item>
+   <Item type="Value" id="A69EDCBBBCC649CCBF5F627BC2B764DE" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">11px</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>11px</value>
+   </Item>
+   <Item type="Value" id="FFFB7C3D188B4DC89311A5805347D815" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">12px</label>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>12px</value>
+   </Item>
+   <Item type="Value" id="957DA2FAF0624E8E887CE5B464E5BDE1" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">14px</label>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>14px</value>
+   </Item>
+   <Item type="Value" id="8F26CCD88A3145199430258A435B23DD" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">16px</label>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>16px</value>
+   </Item>
+   <Item type="Value" id="7A2FFE58A4124097AA56182B5F6FFF3B" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">18px</label>
+    <sort_order>896</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>18px</value>
+   </Item>
+   <Item type="Value" id="79ECA3BCCF024B91B3A570094815E0DF" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">22px</label>
+    <sort_order>1024</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>22px</value>
+   </Item>
+   <Item type="Value" id="70A7DE900C3D4C66ABCB6719977AE5F7" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">26px</label>
+    <sort_order>1152</sort_order>
+    <source_id keyed_name="tdf.editor.fontsize" type="List">9152CE5AE47845C197078EC685EE4363</source_id>
+    <value>26px</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

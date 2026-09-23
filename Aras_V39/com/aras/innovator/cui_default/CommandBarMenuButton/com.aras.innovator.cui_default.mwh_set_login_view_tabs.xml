@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="7D5AF9321B494B468258623FB90F0D99" action="add">
+  <label xml:lang="en">Set Tabs as Login View</label>
+  <on_click_handler keyed_name="cui_default_mwh_setLoginViewTabs" type="Method">513794A1905E48A58C1CD5BF4F1AC8C0</on_click_handler>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.mwh_preferences" type="CommandBarMenu">236F95C7344D42EE854716E7E7151996</parent_menu>
+  <name>com.aras.innovator.cui_default.mwh_set_login_view_tabs</name>
+ </Item>
+</AML>

@@ -1,0 +1,22 @@
+﻿<AML>
+ <Item type="Method" id="446667166F6A42D4911D762B2E02202C" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const { itemTypeName, itemId } = options;
+const itemNode = window.getItem();
+const currentClassification = aras.getItemProperty(itemNode, "classification");
+const isFormResponsive = currentClassification === 'Responsive';
+const disabled = ArasModules.item.isEditState(itemTypeName, itemId);
+const hidden = ArasModules.item.isNew(itemTypeName, itemId);
+const label = isFormResponsive ? aras.getResource('', 'form_editor.switch_to_classic') : aras.getResource('', 'form_editor.switch_to_responsive');
+
+return {
+	label: isFormResponsive ? '' : label,
+	tooltip_template: isFormResponsive ? label : '',
+	disabled,
+	hidden
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_ivicb_form_switch_init</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="EA3BA7C21B0A420193B318ADC32507A1" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: the following collections contain 'Actions' with duplicates: {1}.</text>
+  <name>cws_CollectionsContainActionsWithDuplicates</name>
+ </Item>
+</AML>

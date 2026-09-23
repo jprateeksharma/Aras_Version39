@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="D7C7C082B2B14921964500234776506C" action="add">
+  <template>import type { Toolbar } from 'core';
+import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import type { Options, BaseInitHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+type InitHandlerReturnType = Partial&lt;toolbarItems&gt; &amp; BaseInitHandlerReturnType;
+
+export function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'MainWindowView'&gt;
+): InitHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_mainwindow_header_init</name>
+ </Item>
+</AML>

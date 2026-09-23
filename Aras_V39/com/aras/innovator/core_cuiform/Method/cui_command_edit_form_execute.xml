@@ -1,0 +1,70 @@
+﻿<AML>
+ <Item type="Method" id="AC2F7346B05546D9A8121582542FE81E" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const { user } = window.aras;
+const [{getResource, odataFetch}, { confirm }, { CUIError }] =
+	await Promise.all([
+		import('../jsBundles/core.es.js'),
+		import('../jsBundles/dialogs.es.js'),
+		import('../jsBundles/cui.es.js')
+	]);
+const { item, itemNode } = options
+const formClassification = itemNode ? aras.getItemProperty(itemNode, 'classification') : item.classification;
+const isRoot = user.loginName === 'root';
+const itemID = itemNode ? aras.getItemProperty(itemNode, 'id') : item.id;
+const odataUrl = `Form('${itemID}')?$select=FormComposite&$expand=FormComposite($select=related_id;$filter=related_id/cui_WindowSectionControl/related_id/sealed eq '0')`
+const { FormComposite } = await odataFetch(odataUrl);
+const isSealed = FormComposite.length === 0;
+
+if (!isRoot && isSealed && formClassification === 'Responsive') {
+	try {
+		await odataFetch('method.cui_CreateCopyFromSealedForm', {
+			method: 'POST',
+			body: JSON.stringify({ id: itemID }),
+		});
+	} catch (error) {
+		throw new CUIError(error.message);
+	}
+
+	const resultItem = await commands.globalCommand.execute()
+
+	const isLocked = itemNode ? aras.getItemProperty(itemNode, 'locked_by_id') : item['locked_by_id'];
+	if(isLocked) {
+		window.aras.fireEvent('ItemRefresh', {
+			itemId: itemID,
+			itemLatestVersion: resultItem,
+		});
+	}
+	return resultItem;
+}
+
+if (!isSealed || formClassification !== 'Responsive') {
+    return commands.globalCommand.execute()
+}
+
+const showDialog = () => {
+	const dialogSettings = {
+		title: getResource('common.editing_sealed_form_title'),
+		okButtonText: getResource('common.editing_anyway'),
+		okButtonModifier: 'aras-button_b-primary',
+		cancelButtonText: getResource('common.cancel'),
+		cancelButtonModifier: 'aras-button_secondary',
+		cssClass: 'form-editor__confirm-dialog'
+	};
+	const formName = itemNode ?  aras.getItemProperty(itemNode, 'name') : item.name;
+	const dialogMessage = getResource('common.editing_sealed_form', formName);
+	return confirm(
+			dialogMessage,
+			dialogSettings
+		);
+
+}
+const result = await showDialog();
+if(result === 'ok') {
+	return commands.globalCommand.execute()
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_edit_form_execute</name>
+ </Item>
+</AML>

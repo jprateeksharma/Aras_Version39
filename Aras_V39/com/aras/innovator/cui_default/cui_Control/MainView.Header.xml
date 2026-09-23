@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="B662002D033A4B95B930E0AAE1B3B1CD" action="add">
+  <control_type>ToolbarControl</control_type>
+  <location keyed_name="MainWindowHeader" type="cui_Location">91C4DB9A66A947D0A2B848C3F5E5C627</location>
+  <sealed>0</sealed>
+  <name>MainView.Header</name>
+ </Item>
+</AML>

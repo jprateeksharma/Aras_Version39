@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="Identity" id="A73B655731924CD0B027E4F4D5FCC0A9" action="add">
+  <description>All users are automatically members of the World.</description>
+  <is_alias>0</is_alias>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <name>World</name>
+ </Item>
+</AML>

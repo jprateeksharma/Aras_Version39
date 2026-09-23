@@ -1,0 +1,28 @@
+﻿<AML>
+ <Item type="MethodTemplate" id="BC175CEA1A2B45AFA11A6CB2AC5B4B8C" action="add">
+  <template>import { method, itemType as itemTypeMetadata } from 'metadata';
+import { xmlToODataJson, type Toolbar } from 'core';
+import { serialization } from 'store';
+import { buildItemTypeColumnLayout } from '../Modules/cui/plugins/adaptGridHeader';
+import type { LayoutData } from '../Modules/store/storeTypes';
+import type {
+	ItemTypeProperty,
+	ExtendedItemTypeXProperty,
+	RelationshipType
+} from '../Modules/metadata/metadataTypes';
+import type { toolbarItems } from '../Modules/components/toolbarTypes';
+import type { Options, BaseInitHandlerReturnType } from '../Modules/cui/cuiTypes';
+
+type InitHandlerReturnType = Partial&lt;toolbarItems&gt; &amp; BaseInitHandlerReturnType;
+
+export function $method_name(
+	control: Toolbar,
+	target: toolbarItems,
+	options: Options&lt;'SearchView'&gt; | Options&lt;'RelationshipsView'&gt;
+): InitHandlerReturnType {
+	$method_code;
+}
+</template>
+  <name>cui_searchgrid_commandbar_init</name>
+ </Item>
+</AML>

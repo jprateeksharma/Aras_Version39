@@ -1,0 +1,76 @@
+﻿<AML>
+ <Item type="Method" id="CE3A6833C0EF47699D4B64ED486FDA8F" action="add">
+  <comments>Removes all menus and converts menu items to independent buttons</comments>
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	BusinessLogic businessLogic = new BusinessLogic(innovator);
+	return businessLogic.RemoveParentMenus(this);
+}
+
+internal class BusinessLogic
+{
+	private Innovator innovator;
+
+	internal BusinessLogic(Innovator innovator)
+	{
+		this.innovator = innovator;
+	}
+
+	internal Item RemoveParentMenus(Item commandBarSectionItems)
+	{
+		Item result = CreateNewItemWithoutAttributes("");
+		Item menus = commandBarSectionItems.getItemsByXPath("./Data/Item[@type='CommandBarMenu']");
+		for (int i = 0; i < menus.getItemCount(); i++)
+		{
+			Item menu = menus.getItemByIndex(i);
+			Item commandBarSectionItem = CreateCommandBarSectionItem(menu, "Remove");
+			result.appendItem(commandBarSectionItem);
+		}
+
+		Item orphans = commandBarSectionItems.getItemsByXPath("./Data/Item[@type!='CommandBarMenu' and parent_menu]");
+		for (int i = 0; i < orphans.getItemCount(); i++)
+		{
+			Item orphan = orphans.getItemByIndex(i);
+			Item alternate = orphan.clone(false);
+			alternate.setType("CommandBarButton");
+			alternate.removeProperty("parent_menu");
+			Item commandBarSectionItem = CreateCommandBarSectionItem(orphan, "Replace", alternate);
+			result.appendItem(commandBarSectionItem);
+		}
+
+		if (result.getItemCount() == 1)
+		{
+			return innovator.newResult("No orphan CommandBarMenuButtons were found");
+		}
+
+		result.removeItem(result.getItemByIndex(0));
+		return result;
+	}
+
+	private Item CreateCommandBarSectionItem(
+		Item relatedItem = null,
+		string action = "Remove",
+		Item alternateItem = null
+	)
+	{
+		Item commandBarSectionItem = CreateNewItemWithoutAttributes("CommandBarSectionItem");
+		commandBarSectionItem.setProperty("action", action);
+		commandBarSectionItem.setRelatedItem(relatedItem);
+		if (alternateItem != null)
+		{
+			commandBarSectionItem.setPropertyItem("alternate", alternateItem);
+		}
+		return commandBarSectionItem;
+	}
+
+	private Item CreateNewItemWithoutAttributes(string itemType)
+	{
+		Item item = innovator.newItem(itemType);
+		item.removeAttribute("isNew");
+		item.removeAttribute("isTemp");
+		return item;
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_BackgroundPage_RemoveMenus</name>
+ </Item>
+</AML>

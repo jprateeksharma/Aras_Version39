@@ -1,0 +1,15 @@
+﻿<AML>
+ <Item type="Method" id="25269F29A066490FAD7467575EDF0D1E" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const file = await ArasModules.vault.selectFile();
+if (!file) {
+	return null;
+}
+
+const itemNode = await aras.newItem('File', file);
+aras.itemsCache.updateItem(itemNode);
+return itemNode;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_new_fileItem_execute</name>
+ </Item>
+</AML>

@@ -1,0 +1,183 @@
+﻿<AML>
+ <Item type="Method" id="D51B58B9C3EA4090866AF85F19846FC0" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	this.setAttribute("action", "AddItemToPackageDefinition");
+
+	var inn = this.getInnovator();
+	Item formItems = this.getItemsByXPath("/Item/Relationships/Item[itemTypeName='Form']");
+	if (formItems.getItemCount() > 0)
+	{
+		Item formStructure = GetFormStructure(inn, formItems);
+		if (formStructure.isError() && !formStructure.isEmpty())
+		{
+			return formStructure;
+		}
+
+		Item responsiveFormStructureItems = formStructure.getRelationships();
+		if (responsiveFormStructureItems.getItemCount() == 0)
+		{
+			return inn.newResult(NotModifiedResult);
+		}
+
+		var existedPackageElements = AddResponsiveFormStructureItemsToPackage(responsiveFormStructureItems);
+		if (existedPackageElements.isError() && !existedPackageElements.isEmpty())
+		{
+			return existedPackageElements;
+		}
+
+		RemoveFormItemsFromItemsAddToPackageRequest();
+	}
+
+	if (this.getRelationships().getItemCount() == 0)
+	{
+		return inn.newResult(EmptyResult);
+	}
+
+	return this.apply();
+}
+
+private Item GetFormStructure(Innovator innovator, Item formItems)
+{
+	Item formStructure;
+	if (!string.IsNullOrEmpty(this.getProperty("partialUpdate")))
+	{
+		var controlId = formItems.getProperty("controlId");
+		var packageName = this.getProperty("packageName");
+
+		formStructure = GetControlStructure(innovator, controlId, packageName);
+	}
+	else
+	{
+		formStructure = GetResponsiveFormStructure(formItems);
+	}
+
+	return formStructure;
+}
+
+private static Item GetControlStructure(Innovator innovator, string controlId, string packageName)
+{
+	Item customControlStructure = innovator.newItem("Method", "GetControlStructurePacDef");
+	customControlStructure.setProperty("packageName", packageName);
+	customControlStructure.setProperty("controlId", controlId);
+
+	return customControlStructure.apply();
+}
+
+private void RemoveFormItemsFromItemsAddToPackageRequest()
+{
+	Item formItems = this.getItemsByXPath("/Item/Relationships/Item[itemTypeName='Form']");
+	for (int i = 0; i < formItems.getItemCount(); i++)
+	{
+		Item formItem = formItems.getItemByIndex(i);
+		this.removeRelationship(formItem);
+	}
+}
+
+private Item AddResponsiveFormStructureItemsToPackage(Item responsiveFormStructureItems)
+{
+	Item existedPackageElements =
+		GetExistedResponsiveFormStructureItemsPackageElements(responsiveFormStructureItems);
+	if (existedPackageElements.isError() && !existedPackageElements.isEmpty())
+	{
+		return existedPackageElements;
+	}
+
+	for (int i = 0; i < responsiveFormStructureItems.getItemCount(); i++)
+	{
+		Item responsiveFormStructureItem = responsiveFormStructureItems.getItemByIndex(i);
+		var responsiveFormStructureItemId = responsiveFormStructureItem.getID();
+		Item existedPackageElement =
+			existedPackageElements.getItemsByXPath(
+				$"//Item/Relationships/Item[element_id='{responsiveFormStructureItemId}']");
+		if (existedPackageElement.getItemCount() == 0)
+		{
+			this.addRelationship(responsiveFormStructureItem);
+		}
+	}
+
+	return existedPackageElements;
+}
+
+private Item GetResponsiveFormStructure(Item formItems)
+{
+	Item formStructure = this.newItem("Method", "GetResponsiveFormStructurePacDef");
+	formStructure.setProperty("packageName", this.getProperty("packageName"));
+	for (int i = 0; i < formItems.getItemCount(); i++)
+	{
+		Item formItem = formItems.getItemByIndex(i);
+		formStructure.addRelationship(formItem);
+	}
+
+	return formStructure.apply();
+}
+
+const string EmptyResult = "{\"statuses\":[]}";
+const string NotModifiedResult = "{\"statuses\":[\"NotModified\"]}";
+
+private Item GetExistedResponsiveFormStructureItemsPackageElements(Item responsiveFormStructureItems)
+{
+	string responsiveFormStructureItemsIds = GetItemIdsAsString(responsiveFormStructureItems);
+	Item packageDefinitions =
+		GetPackageDefinitionForResponsiveFormStructureItems(responsiveFormStructureItemsIds);
+	if (packageDefinitions.isError() && !packageDefinitions.isEmpty())
+	{
+		return packageDefinitions;
+	}
+
+	Item existedPackageElements = this.newItem();
+	for (int i = 0; i < packageDefinitions.getItemCount(); i++)
+	{
+		Item packageDefinition = packageDefinitions.getItemByIndex(i);
+		string name = packageDefinition.getProperty("name");
+		Item packageElements =
+			packageDefinition.getItemsByXPath("Relationships/Item/Relationships/Item[@type='PackageElement']");
+		for (int j = 0; j < packageElements.getItemCount(); j++)
+		{
+			Item packageElement = packageElements.getItemByIndex(j);
+			string elementId = packageElement.getProperty("element_id");
+
+			Item existedPackageElement = this.newItem();
+			existedPackageElement.setProperty("name", name);
+			existedPackageElement.setProperty("element_id", elementId);
+
+			existedPackageElements.addRelationship(existedPackageElement);
+		}
+	}
+
+	return existedPackageElements;
+}
+
+private Item GetPackageDefinitionForResponsiveFormStructureItems(string responsiveFormStructureItemsIds)
+{
+	Item packageElementItem = this.newItem("PackageElement", "get");
+	packageElementItem.setAttribute("select", "id, element_id");
+	packageElementItem.setProperty("element_id", responsiveFormStructureItemsIds);
+	packageElementItem.setPropertyAttribute("element_id", "condition", "in");
+
+	Item packageGroupItem = this.newItem("PackageGroup", "get");
+	packageGroupItem.setAttribute("select", "id");
+	packageGroupItem.addRelationship(packageElementItem);
+
+	Item packageDefinitionItems = this.newItem("PackageDefinition", "get");
+	packageDefinitionItems.setAttribute("select", "id, name");
+	packageDefinitionItems.addRelationship(packageGroupItem);
+
+	return packageDefinitionItems.apply();
+}
+
+private static string GetItemIdsAsString(Item items)
+{
+	List<string> itemProperties = new List<string>();
+
+	for (int i = 0; i < items.getItemCount(); i++)
+	{
+		Item item = items.getItemByIndex(i);
+		itemProperties.Add(item.getID());
+	}
+
+	var itemPropertiesWithQuotes = itemProperties.Select(x => $"'{x}'");
+	return string.Join(",", itemPropertiesWithQuotes);]]></method_code>
+  <method_type>C#</method_type>
+  <name>UpdateItemInPackageDefinition</name>
+ </Item>
+</AML>

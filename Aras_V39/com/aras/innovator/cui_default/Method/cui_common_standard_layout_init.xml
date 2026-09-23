@@ -1,0 +1,67 @@
+﻿<AML>
+ <Item type="Method" id="FB47C97AD1054844B51BDC74733488DC" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { location, itemType } = options;
+const isRelationshipsGrid = location === 'RelationshipsView';
+
+const currentItemType = isRelationshipsGrid
+	? xmlToODataJson<RelationshipType>(options.relationshipTypeNode, false)
+	: itemType;
+
+const defaultPageSize = currentItemType['default_page_size'] ?? '';
+const pageSize = parseInt(defaultPageSize.toString());
+const maxResults = isRelationshipsGrid ? 0 : options.itemType.maxrecords;
+
+const layoutData: LayoutData = {
+	pagination: {
+		pageSize: pageSize || 0,
+		maxResults: maxResults || 0
+	},
+	grid: {
+		order: [],
+		widths: new Map()
+	}
+};
+
+const gridView = isRelationshipsGrid
+	? ('grid_view' in currentItemType && currentItemType['grid_view']) || null
+	: null;
+const relatedItemType = isRelationshipsGrid ? options.relatedItemType : undefined;
+const { widths, indexHead, orderBy } = buildItemTypeColumnLayout(itemType, {
+	relatedItemType,
+	isRelationshipsGrid,
+	gridView
+});
+
+layoutData.grid.widths = widths;
+layoutData.grid.order = indexHead;
+
+const mappedOrderBy = orderBy.map(({ headId, direction }) => ({
+	headId,
+	desc: direction === 'desc'
+}));
+
+if (isRelationshipsGrid) {
+	layoutData.grid.frozenColumns = options.relatedTypeName ? 1 : 0;
+	layoutData.redlineView = false;
+	layoutData.grid.orderBy = mappedOrderBy;
+} else if (location === 'SearchView') {
+	layoutData.grid.frozenColumns = 1;
+	layoutData.previewState = 'Off';
+	layoutData.grid.orderBy = mappedOrderBy;
+
+	const isVersionableItemType = options.itemType['is_versionable'] === '1';
+	if (isVersionableItemType) {
+		layoutData.queryType = 'Current';
+	}
+}
+
+return {
+	settings: layoutData
+};
+]]></method_code>
+  <method_type>TypeScript</method_type>
+  <template keyed_name="cui_searchgrid_commandbar_init" type="MethodTemplate">BC175CEA1A2B45AFA11A6CB2AC5B4B8C</template>
+  <name>cui_common_standard_layout_init</name>
+ </Item>
+</AML>

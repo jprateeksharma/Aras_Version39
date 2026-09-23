@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarMenuCheckbox" id="F5EE046ECE784011ABDDB6CA4550B03E" action="add">
+  <additional_data>{"cssClass":"aras-list-item__label_bold"}</additional_data>
+  <group_id>layouts</group_id>
+  <label xml:lang="en">Standard</label>
+  <on_click_handler keyed_name="cui_common_layouts_click" type="Method">879A0E43872E421EA59A5A68E4B95237</on_click_handler>
+  <on_init_handler keyed_name="cui_common_standard_layout_init" type="Method">FB47C97AD1054844B51BDC74733488DC</on_init_handler>
+  <parent_menu keyed_name="searchview.commandbar.layouts.favoritelayouts" type="CommandBarMenu">F650647333E844A983DF9236B0ABBA98</parent_menu>
+  <name>searchview.commandbar.layouts.standard</name>
+ </Item>
+</AML>

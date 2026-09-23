@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="51CCE75B471D4EC0ADBA5D0A96DD1937" action="add">
+  <behavior_text>{"Property":{"expiration_status":{"styles":{"backgroundColor":"#808080","color":"#e7e6e6"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"DF50796C08834CE9ADD22C7D66303B0B","function":"value_of_property","property":"expiration_status_mark","operator":"is","criteria":"upcoming"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>GreyStatusState</name>
+ </Item>
+</AML>

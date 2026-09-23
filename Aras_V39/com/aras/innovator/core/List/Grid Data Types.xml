@@ -1,0 +1,70 @@
+﻿<AML>
+ <Item type="List" id="A9C396BE225C4E3CAD1B888DC2AFC60C" action="add">
+  <name>Grid Data Types</name>
+  <Relationships>
+   <Item type="Value" id="14D0F11E0A5A4F1CAC613987DB0899BE" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Default</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>default</value>
+   </Item>
+   <Item type="Value" id="055C09300B534E1F84EBB44842C7D01C" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Text</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>text</value>
+   </Item>
+   <Item type="Value" id="62C4DEA7AFD14713890090F826B25646" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Federated</label>
+    <sort_order>3</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>federated</value>
+   </Item>
+   <Item type="Value" id="B7FBE2C28C024F26BD010B263C0B9D09" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Bound Select</label>
+    <sort_order>4</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>bound_select</value>
+   </Item>
+   <Item type="Value" id="2102E8D64FD942CDA4F8B6E7D77AA613" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Unbound Select</label>
+    <sort_order>5</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>unbound_select</value>
+   </Item>
+   <Item type="Value" id="B847F422C3DD4ABCA37D7AD10FAB6836" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Bound Multi-Select</label>
+    <sort_order>6</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>bound_multi</value>
+   </Item>
+   <Item type="Value" id="D1816F376FCF415E8F98E468338E3E14" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Unbound Multi-Select</label>
+    <sort_order>7</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>unbound_multi</value>
+   </Item>
+   <Item type="Value" id="32FC97FA3DEE4D2688E66EAE666444A4" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Dependent</label>
+    <sort_order>8</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>dependent</value>
+   </Item>
+   <Item type="Value" id="C21F6AF2755C436CB5172AEC27721A38" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Sort</label>
+    <sort_order>9</sort_order>
+    <source_id keyed_name="Grid Data Types" type="List">A9C396BE225C4E3CAD1B888DC2AFC60C</source_id>
+    <value>sort</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

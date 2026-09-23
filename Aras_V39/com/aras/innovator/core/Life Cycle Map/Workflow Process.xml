@@ -1,0 +1,112 @@
+﻿<AML>
+ <Item type="Life Cycle Map" id="BD1529204922428C997E86B3BDEA4646" action="add">
+  <description>Workflow Instance</description>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <start_state keyed_name="Pending" type="Life Cycle State">E1873699A2DA4E709A8C91501449B623</start_state>
+  <name>Workflow Process</name>
+  <Relationships>
+   <Item type="Life Cycle State" id="EACB6244391B461EBCAF7D91E28BDFCF" action="add">
+    <image>../images/LifeCycleState.svg</image>
+    <label xml:lang="en">Active</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Process" type="Life Cycle Map">BD1529204922428C997E86B3BDEA4646</source_id>
+    <x>147</x>
+    <y>21</y>
+    <name>Active</name>
+   </Item>
+   <Item type="Life Cycle State" id="3A9FD3C198254A72B45E6F1305817028" action="add">
+    <image>../images/Delete.svg</image>
+    <label xml:lang="en">Cancelled</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Process" type="Life Cycle Map">BD1529204922428C997E86B3BDEA4646</source_id>
+    <state_permission_id keyed_name="Workflow Process Closed" type="Permission">C8A6F54842D047F5928C302CFEE26FF9</state_permission_id>
+    <x>297</x>
+    <y>115</y>
+    <name>Cancelled</name>
+   </Item>
+   <Item type="Life Cycle State" id="46672469D8964E699F24F2AA243FF5B3" action="add">
+    <image>../images/ViewSignOffs.svg</image>
+    <label xml:lang="en">Closed</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Workflow Process" type="Life Cycle Map">BD1529204922428C997E86B3BDEA4646</source_id>
+    <state_permission_id keyed_name="Workflow Process Closed" type="Permission">C8A6F54842D047F5928C302CFEE26FF9</state_permission_id>
+    <x>297</x>
+    <y>21</y>
+    <name>Closed</name>
+   </Item>
+   <Item type="Life Cycle State" id="E1873699A2DA4E709A8C91501449B623" action="add">
+    <image>../images/ArrowRight.svg</image>
+    <label xml:lang="en">Pending</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Workflow Process" type="Life Cycle Map">BD1529204922428C997E86B3BDEA4646</source_id>
+    <x>19</x>
+    <y>21</y>
+    <name>Pending</name>
+   </Item>
+   <Item type="Life Cycle Transition" id="466A69CA95004C05AE5EA6DC40E41348" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="Pending" type="Life Cycle State">E1873699A2DA4E709A8C91501449B623</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Process" type="Life Cycle Map">BD1529204922428C997E86B3BDEA4646</source_id>
+    <to_state keyed_name="Active" type="Life Cycle State">EACB6244391B461EBCAF7D91E28BDFCF</to_state>
+   </Item>
+   <Item type="Life Cycle Transition" id="F289CFA41F9144DFB1F2AF3AAA320D96" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="Pending" type="Life Cycle State">E1873699A2DA4E709A8C91501449B623</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Process" type="Life Cycle Map">BD1529204922428C997E86B3BDEA4646</source_id>
+    <to_state keyed_name="Cancelled" type="Life Cycle State">3A9FD3C198254A72B45E6F1305817028</to_state>
+    <x>116</x>
+    <y>60</y>
+   </Item>
+   <Item type="Life Cycle Transition" id="56903F45AF534902AC6E5F33FDC46492" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="Active" type="Life Cycle State">EACB6244391B461EBCAF7D91E28BDFCF</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Process" type="Life Cycle Map">BD1529204922428C997E86B3BDEA4646</source_id>
+    <to_state keyed_name="Closed" type="Life Cycle State">46672469D8964E699F24F2AA243FF5B3</to_state>
+   </Item>
+   <Item type="Life Cycle Transition" id="E19EAD2AD2AE450EB47786AA58D518F6" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="Active" type="Life Cycle State">EACB6244391B461EBCAF7D91E28BDFCF</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Process" type="Life Cycle Map">BD1529204922428C997E86B3BDEA4646</source_id>
+    <to_state keyed_name="Cancelled" type="Life Cycle State">3A9FD3C198254A72B45E6F1305817028</to_state>
+    <x>67</x>
+    <y>43</y>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

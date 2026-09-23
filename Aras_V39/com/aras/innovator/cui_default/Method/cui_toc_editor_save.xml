@@ -1,0 +1,565 @@
+﻿<AML>
+ <Item type="Method" id="9B7C1E571F354617ADC706694979803B" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	DataAccessLayer dataAccessLayer = new DataAccessLayer(innovator);
+	BusinessLogic businessLogic = new BusinessLogic(innovator, dataAccessLayer);
+
+	return businessLogic.ProcessRequest(this);
+}
+
+private const string tocCommandBarSectionLocation = "TOC";
+private const string worldIdentityId = "A73B655731924CD0B027E4F4D5FCC0A9";
+private const string presentationConfigurationXPath = @"./Relationships/Item/related_id/Item[@type=""PresentationConfiguration""]";
+private const string commandBarSectionXPath = @"./Relationships/Item/related_id/Item/Relationships/Item/related_id/Item[@type=""CommandBarSection""]";
+private static Dictionary<string, string> defaultPackagesMap = new Dictionary<string, string>()
+{
+	{ "com.aras.innovator.core", "com.aras.innovator.core_toc" },
+	{ "com.aras.innovator.cui", "com.aras.innovator.cui_toc" }
+};
+
+internal class BusinessLogic
+{
+	private Innovator innovator;
+	private DataAccessLayer dataAccessLayer;
+
+	internal BusinessLogic(Innovator innovator, DataAccessLayer dataAccessLayer)
+	{
+		this.innovator = innovator;
+		this.dataAccessLayer = dataAccessLayer;
+	}
+
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Aras.Security", "IA1000:Improper escaping of Special Elements used in an AML Query")]
+	internal Item ProcessRequest(Item methodRequestItem)
+	{
+		Item itemsToApply = methodRequestItem.getRelationships();
+		Dictionary<string, Item> itemTypeIdToItemMap = CollectItemTypesBasedOnButtons(itemsToApply);
+		Dictionary<string, string> cuiItemTypeNameToItemMap = GetCuiItemTypeNameToLabelMap();
+		Dictionary<string, string> itemIdToPackageNameMap = CollectPackageNames(itemTypeIdToItemMap);
+		int itemsCount = itemsToApply.getItemCount();
+		Item resultItems = methodRequestItem.newItem();
+		HashSet<Item> nonRepeatedItemsToApply = new HashSet<Item>();
+
+		for (int i = 0; i < itemsCount; i++)
+		{
+			Item currentItem = itemsToApply.getItemByIndex(i);
+			string currentItemAction = currentItem.getAction();
+			string currentItemType = currentItem.getType();
+			if (currentItemType != "CommandBarSectionItem")
+			{
+				nonRepeatedItemsToApply.Add(currentItem);
+				continue;
+			}
+			
+			string relatedId = currentItem.getProperty("related_id");
+			Item relatedItem = FindRelatedItemById(itemsToApply, relatedId);
+			string relatedItemAction = relatedItem?.getAction();
+			if (currentItemAction == "add" || (currentItemAction == "edit" && relatedItemAction == "add"))
+			{
+				Item itemTypeWithPresentationConfiguration = WrapSectionItemWithITSpecificPresentationConfigurationIfRequired(itemTypeIdToItemMap, itemsToApply, currentItem);
+				if (itemTypeWithPresentationConfiguration != null)
+				{
+					nonRepeatedItemsToApply.Add(itemTypeWithPresentationConfiguration);
+					
+					string packageName = GetPackageNameForCuiItems(itemIdToPackageNameMap, itemTypeWithPresentationConfiguration);
+					List<Item> addToPackageDefinitionItems = CreatePackageElementsForCuiItems(itemTypeWithPresentationConfiguration, relatedItem, packageName, cuiItemTypeNameToItemMap);
+					foreach (Item packageElement in addToPackageDefinitionItems)
+					{
+						nonRepeatedItemsToApply.Add(packageElement);
+					}
+					
+					continue;
+				}
+			}
+
+			nonRepeatedItemsToApply.Add(currentItem);
+		}
+
+		foreach(Item item in nonRepeatedItemsToApply)
+		{
+			resultItems.appendItem(item);
+		}
+		resultItems.removeItem(resultItems.getItemByIndex(0));
+
+		resultItems = deleteEmptyCommandBarSections(resultItems);
+
+		return innovator.applyAML(resultItems.ToString());
+	}
+
+	private Item deleteEmptyCommandBarSections(Item itemsToApply){
+		HashSet<string> itemsToDelete = new HashSet<string>();
+		for (int itemIndex = 0; itemIndex < itemsToApply.getItemCount(); itemIndex++)
+		{
+			Item item = itemsToApply.getItemByIndex(itemIndex);
+			string sectionType = item.getType();
+			string sectionAction = item.getAction();
+			if(String.Equals(sectionType, "CommandBarSectionItem", StringComparison.Ordinal) && String.Equals(sectionAction, "delete", StringComparison.Ordinal)){
+				itemsToDelete.Add(item.getID());
+			}
+		}
+
+		if(itemsToDelete.Count == 0){
+			return itemsToApply;
+		}
+
+		Item presentationSectionItems = this.dataAccessLayer.GetPresentationCBSsForEmptyTOCSections(itemsToDelete);
+		for (int sectionIndex = 0; sectionIndex < presentationSectionItems.getItemCount(); sectionIndex++)
+		{
+			Item presentationSectionItem = presentationSectionItems.getItemByIndex(sectionIndex);
+			string sectionId = presentationSectionItem.getID();
+			string commandBarSectionId = presentationSectionItem.getProperty("related_id");
+
+			Item deletePresentationSectionItem = this.innovator.newItem("PresentationCommandBarSection", "delete");
+			deletePresentationSectionItem.setID(sectionId);
+			itemsToApply.appendItem(deletePresentationSectionItem);
+			
+			Item deleteSectionItem = this.innovator.newItem("CommandBarSection", "delete");
+			deleteSectionItem.setID(commandBarSectionId);
+			itemsToApply.appendItem(deleteSectionItem);
+		}
+
+		return itemsToApply;
+	}
+
+	private Dictionary<string, Item> CollectItemTypesBasedOnButtons(Item itemsToApply)
+	{
+		List<string> itemTypeIds = new List<string>();
+
+		for (int i = 0; i < itemsToApply.getItemCount(); i++)
+		{
+			Item currentItem = itemsToApply.getItemByIndex(i);
+			string currentItemAction = currentItem.getAction();
+			if (currentItemAction != "add")
+			{
+				continue;
+			}
+
+			string additionalDataJson = currentItem.getProperty("additional_data");
+			if (string.IsNullOrEmpty(additionalDataJson))
+			{
+				continue;
+			}
+
+			Newtonsoft.Json.Linq.JObject additionalData = Newtonsoft.Json.Linq.JObject.Parse(additionalDataJson);
+			string itemTypeId = (string)additionalData["itemTypeId"];
+			if (!string.IsNullOrEmpty(itemTypeId))
+			{
+				itemTypeIds.Add(itemTypeId);
+			}
+		}
+
+		Dictionary<string, Item> itemTypeIdToItemMap = new Dictionary<string, Item>();
+		if (itemTypeIds.Count == 0)
+		{
+			return itemTypeIdToItemMap;
+		}
+
+		Item itemTypeItems = dataAccessLayer.GetItemTypesWithPresentationConfiguration(itemTypeIds);
+
+		for (int i = 0; i < itemTypeItems.getItemCount(); i++)
+		{
+			Item itemType = itemTypeItems.getItemByIndex(i);
+
+			itemTypeIdToItemMap.Add(itemType.getID(), PreparePresentationConfigurationForItemType(itemType));
+		}
+
+		return itemTypeIdToItemMap;
+	}
+	
+	private static string GetPackageNameForCuiItems(Dictionary<string, string> itemIdToPackageNameMap, Item itemType)
+	{
+		string itemTypeId = itemType.getID();
+		string presentationConfigurationId = itemType.node.SelectSingleNode(presentationConfigurationXPath).Attributes["id"].Value;
+		string commandBarSectionId = itemType.node.SelectSingleNode(commandBarSectionXPath).Attributes["id"].Value;
+		
+		string packageName;
+		if (itemIdToPackageNameMap.TryGetValue(commandBarSectionId, out packageName))
+		{
+			return packageName;
+		}
+		else if (itemIdToPackageNameMap.TryGetValue(presentationConfigurationId, out packageName))
+		{
+			return packageName;
+		}
+		else if (itemIdToPackageNameMap.TryGetValue(itemTypeId, out packageName))
+		{
+			return packageName;
+		}
+		
+		return null;
+	}
+
+	private Dictionary<string, string> CollectPackageNames(Dictionary<string, Item> itemTypeIdToItemMap)
+	{
+		Dictionary<string, string> result = new Dictionary<string, string>();
+		if (itemTypeIdToItemMap.Count == 0)
+		{
+			return result;
+		}
+		
+		List<string> itemIds = new List<string>();
+		foreach (var keyValPair in itemTypeIdToItemMap)
+		{
+			string itemTypeId = keyValPair.Key;
+			itemIds.Add(itemTypeId);
+			
+			Item itemType = keyValPair.Value;
+			string presentationConfigurationId = itemType.node.SelectSingleNode(presentationConfigurationXPath).Attributes["id"].Value;
+			itemIds.Add(presentationConfigurationId);
+
+			string commandBarSectionId = itemType.node.SelectSingleNode(commandBarSectionXPath).Attributes["id"].Value;
+			itemIds.Add(commandBarSectionId);
+		}
+		
+		Item packageElements = this.dataAccessLayer.GetPackageElementsForItems(itemIds);
+		int packageElementsCount = packageElements.getItemCount();
+		for (int index = 0; index < packageElementsCount; index++)
+		{
+			Item packageElement = packageElements.getItemByIndex(index);
+			Item packageGroup = packageElement.getPropertyItem("source_id");
+			Item packageDefinition = packageGroup.getPropertyItem("source_id");
+			result.Add(
+				packageElement.getProperty("element_id"),
+				packageDefinition.getProperty("name")
+			);
+		}
+	
+		return result;
+	}
+
+	private static Item WrapSectionItemWithITSpecificPresentationConfigurationIfRequired(Dictionary<string, Item> itemTypeIdToItemMap, Item itemsToApply, Item sectionItem)
+	{
+		string relatedId = sectionItem.getProperty("related_id");
+		Item relatedItem = FindRelatedItemById(itemsToApply, relatedId);
+
+		if (relatedItem != null)
+		{
+			string additionalDataJson = relatedItem.getProperty("additional_data");
+			if (string.IsNullOrEmpty(additionalDataJson))
+			{
+				return null;
+			}
+
+			Newtonsoft.Json.Linq.JObject additionalData = Newtonsoft.Json.Linq.JObject.Parse(additionalDataJson);
+			string itemTypeId = additionalData.Value<string>("itemTypeId");
+			if (!string.IsNullOrEmpty(itemTypeId))
+			{
+				sectionItem.removeProperty("source_id");
+
+				Item itemType = itemTypeIdToItemMap[itemTypeId];
+				Item commandBarSection = itemType.getItemsByXPath(commandBarSectionXPath).getItemByIndex(0);
+				commandBarSection.addRelationship(sectionItem);
+
+				return itemType;
+			}
+		}
+
+		return null;
+	}
+	
+	private List<Item> CreatePackageElementsForCuiItems(Item itemType, Item relatedItem, string packageDefinitionName, Dictionary<string, string> cuiItemTypeNameToLabelMap)
+	{
+		if (string.IsNullOrEmpty(packageDefinitionName))
+		{
+			return new List<Item>();
+		}
+		
+		string mappedPackageDefinitionName = null;
+		if (!defaultPackagesMap.TryGetValue(packageDefinitionName, out mappedPackageDefinitionName))
+		{
+			mappedPackageDefinitionName = packageDefinitionName;
+		}
+		
+		List<Item> listOfItemsToBeAddedToPackage = new List<Item>();
+		Item presentationConfiguration = itemType.getItemsByXPath(presentationConfigurationXPath).getItemByIndex(0);
+		if (presentationConfiguration.getAction() == "add")
+		{
+			listOfItemsToBeAddedToPackage.Add(presentationConfiguration);
+		}
+		Item commandBarSection = itemType.getItemsByXPath(commandBarSectionXPath).getItemByIndex(0);
+		if (commandBarSection.getAction() == "add")
+		{
+			listOfItemsToBeAddedToPackage.Add(commandBarSection);
+		}
+		if (relatedItem.getAction() == "add")
+		{
+			listOfItemsToBeAddedToPackage.Add(relatedItem);
+		}
+
+		return listOfItemsToBeAddedToPackage.Select(cuiItem => {
+			string cuiItemName = cuiItem.getProperty("name");
+			string cuiItemTypeName = cuiItem.getType();
+			string cuiItemTypeLabel;
+			if (!cuiItemTypeNameToLabelMap.TryGetValue(cuiItemTypeName, out cuiItemTypeLabel))
+			{
+				cuiItemTypeLabel = cuiItemTypeName;
+			}
+			string itemAMLTemplate = @"
+				<Item type=""PackageElement"" action=""add"">
+					<element_id>{0}</element_id>
+					<element_type>{1}</element_type>
+					<name>{2}</name>
+					<source_id>
+						<Item type=""PackageGroup"" action=""create"">
+							<name>{3}</name>
+							<source_id>
+								<Item type=""PackageDefinition"" action=""get"" select=""id"">
+									<name>{4}</name>
+								</Item>
+							</source_id>
+						</Item>
+					</source_id>
+				</Item>";
+				
+			string itemAML = String.Format(
+				CultureInfo.InvariantCulture,
+				itemAMLTemplate,
+				System.Security.SecurityElement.Escape(cuiItem.getID()),
+				System.Security.SecurityElement.Escape(cuiItemTypeName),
+				System.Security.SecurityElement.Escape(cuiItemName),
+				System.Security.SecurityElement.Escape(cuiItemTypeLabel),
+				System.Security.SecurityElement.Escape(mappedPackageDefinitionName));
+
+			Item packageElement = this.innovator.newItem();
+			packageElement.loadAML(itemAML);
+			return packageElement;
+		}).ToList();
+	}
+
+	private static Item FindRelatedItemById(Item allItems, string relatedItemId)
+	{
+		for (int i = 0; i < allItems.getItemCount(); i++)
+		{
+			Item currentItem = allItems.getItemByIndex(i);
+
+			if (currentItem.getID() == relatedItemId)
+			{
+				return currentItem;
+			}
+		}
+
+		return null;
+	}
+
+	private Item PreparePresentationConfigurationForItemType(Item itemType)
+	{
+		string lockedById = itemType.getProperty("locked_by_id");
+		string action = string.IsNullOrEmpty(lockedById) ? "edit" : "update";
+		itemType.setAction(action);
+
+		Item itPresentationConfigurationRelship = itemType.getRelationships("ITPresentationConfiguration");
+
+		if (itPresentationConfigurationRelship.getItemCount() == 0)
+		{
+			itPresentationConfigurationRelship = itPresentationConfigurationRelship.newItem("ITPresentationConfiguration", "add");
+			itPresentationConfigurationRelship.setProperty("source_id", itemType.getID());
+			itPresentationConfigurationRelship.setID(innovator.getNewID());
+			itemType.addRelationship(itPresentationConfigurationRelship);
+		}
+		else
+		{
+			itPresentationConfigurationRelship = itPresentationConfigurationRelship.getItemByIndex(0);
+			itPresentationConfigurationRelship.setAction("edit");
+		}
+
+		Item presentationConfiguration = itPresentationConfigurationRelship.getRelatedItem();
+
+		if (presentationConfiguration == null)
+		{
+			presentationConfiguration = itPresentationConfigurationRelship.newItem("PresentationConfiguration", "add");
+			presentationConfiguration.setProperty(
+				"name",
+				string.Format(CultureInfo.InvariantCulture, "{0}_TOC_Configuration", itemType.getProperty("name")));
+			itPresentationConfigurationRelship.setRelatedItem(presentationConfiguration);
+			presentationConfiguration.setID(innovator.getNewID());
+		}
+		else
+		{
+			presentationConfiguration.setAction("edit");
+		}
+
+		Item relationshipsToCommandBarSection = presentationConfiguration.getRelationships("PresentationCommandBarSection");
+
+		if (relationshipsToCommandBarSection.getItemCount() == 0)
+		{
+			Item locationItem = presentationConfiguration.newItem("cui_Location", "get");
+			locationItem.setProperty("name", tocCommandBarSectionLocation);
+
+			Item newCommandBarSection = presentationConfiguration.newItem("CommandBarSection", "add");
+			Item newRelationship = presentationConfiguration.newItem("PresentationCommandBarSection", "add");
+			newRelationship.setProperty("role", worldIdentityId);
+			presentationConfiguration.addRelationship(newRelationship);
+			newCommandBarSection.setProperty("classification", "Data Model");
+			newCommandBarSection.setProperty(
+				"name",
+				string.Format(CultureInfo.InvariantCulture, "{0}_TOC_Content", itemType.getProperty("name")));
+
+			newCommandBarSection.setID(innovator.getNewID());
+			newRelationship.setID(innovator.getNewID());
+
+			newCommandBarSection.setPropertyItem("location", locationItem);
+			newRelationship.setRelatedItem(newCommandBarSection);
+		}
+		else
+		{
+			for (int i = 0; i < relationshipsToCommandBarSection.getItemCount(); i++)
+			{
+				Item relationshipCommandBarSection = relationshipsToCommandBarSection.getItemByIndex(i);
+				relationshipCommandBarSection.setAction("edit");
+				relationshipCommandBarSection.getRelatedItem().setAction("edit");
+			}
+		}
+
+		return itemType;
+	}
+
+	private Dictionary<string, string> GetCuiItemTypeNameToLabelMap()
+	{
+		Dictionary<string, string> result = new Dictionary<string, string>();
+		Item itemTypes = this.dataAccessLayer.GetCuiItemTypesMetadata();
+
+		int itemTypesCount = itemTypes.getItemCount();
+		for (int index = 0; index < itemTypesCount; index++)
+		{
+			Item itemType = itemTypes.getItemByIndex(index);
+			string name = itemType.getProperty("name");
+			string label = itemType.getProperty("label", name);
+			result.Add(name, label);
+		}
+
+		return result;
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item GetItemTypesWithPresentationConfiguration(IEnumerable<string> itemTypeIds);
+	Item GetPackageElementsForItems(IEnumerable<string> itemIds);
+	Item GetCuiItemTypesMetadata();
+	Item GetPresentationCBSsForEmptyTOCSections(HashSet<string> itemsToDelete);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Innovator innovator;
+
+	internal DataAccessLayer(Innovator innovator)
+	{
+		this.innovator = innovator;
+	}
+
+	public Item GetItemTypesWithPresentationConfiguration(IEnumerable<string> itemTypeIds)
+	{
+		string idList = string.Join(",", itemTypeIds);
+		string aml =
+			$@"<AML>
+				<Item type=""ItemType"" action=""get"" idlist=""{System.Security.SecurityElement.Escape(idList)}"" select=""name,locked_by_id"">
+					<Relationships>
+						<Item type=""ITPresentationConfiguration"" action=""get"" select=""related_id"">
+							<client>js</client>
+							<related_id>
+								<Item type=""PresentationConfiguration"" action=""get"" select=""id"">
+									<Relationships>
+										<Item type=""PresentationCommandBarSection"" action=""get"" select=""related_id"" isCriteria=""0"">
+											<related_id>
+												<Item type=""CommandBarSection"" action=""get"">
+													<location>
+														<Item type=""cui_Location"" action=""get"" select=""name"">
+															<name>TOC</name>
+														</Item>
+													</location>
+													<Relationships>
+														<Item type=""CommandBarSectionItem"" action=""get"" select=""related_id(id)""/>
+													</Relationships>
+												</Item>
+											</related_id>
+										</Item>
+									</Relationships>
+								</Item>
+							</related_id>
+						</Item>
+					</Relationships>
+				</Item>
+			</AML>";
+
+		Item itemTypeItem = this.innovator.newItem();
+		itemTypeItem.loadAML(aml);
+		return itemTypeItem.apply();
+	}
+	
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Aras.Security", "IA1000:Improper escaping of Special Elements used in an AML Query")]
+	public Item GetPackageElementsForItems(IEnumerable<string> itemIds)
+	{
+		string elementIds = itemIds
+			.Aggregate(
+				"",
+				(resultAML, id) => string.Concat(resultAML, $"<element_id>{id}</element_id>", "\n")
+			);
+		string aml = $@"
+					<AML>
+						<Item type=""PackageElement"" action=""get"" select=""element_id,element_type,source_id"">
+							<or>
+								{elementIds}
+							</or>
+							<source_id>
+								<Item type=""PackageGroup"" action=""get"" select=""id,name,source_id"">
+									<source_id>
+										<Item type=""PackageDefinition"" action=""get"" select=""id,name"" />
+									</source_id>
+								</Item>
+							</source_id>
+						</Item>
+					</AML>
+				";
+	
+		Item packageElements = this.innovator.newItem();
+		packageElements.loadAML(aml);
+		return packageElements.apply();
+	}
+
+	public Item GetCuiItemTypesMetadata()
+	{
+		Item itemTypes = this.innovator.newItem();
+		itemTypes.loadAML($@"
+			<AML>
+				<Item type=""ItemType"" action=""get"" select=""name,label"">
+					<or>
+						<name>PresentationConfiguration</name>
+						<name>CommandBarSection</name>
+						<name>CommandBarButton</name>
+						<name>CommandBarMenuButton</name>
+					</or>
+				</Item>
+			</AML>");
+		return itemTypes.apply();
+	}
+	
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Aras.Security", "IA1001:Improper escaping of Special Elements used in an SQL Query")]
+	public Item GetPresentationCBSsForEmptyTOCSections(HashSet<string> itemsToDelete)
+	{
+		string sectionItemIds = $@"'{string.Join("','", itemsToDelete)}'"; 
+		string sql = $@"
+			SELECT distinct id, related_id
+			FROM innovator.PRESENTATIONCOMMANDBARSECTION PCBS
+			WHERE PCBS.related_id IN (
+				SELECT source_id
+				FROM innovator.COMMANDBARSECTIONITEM CBSI
+				WHERE CBSI.id IN ({sectionItemIds}) AND
+				NOT EXISTS (
+					SELECT id
+					FROM innovator.COMMANDBARSECTIONITEM CBSITODELETE
+					WHERE CBSI.source_id = CBSITODELETE.source_id AND 
+					CBSITODELETE.id NOT IN ({sectionItemIds})
+				)
+			)
+		";
+
+		Item sectionsToDelete = this.innovator.applySQL(sql);
+
+		return sectionsToDelete;
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_toc_editor_save</name>
+ </Item>
+</AML>

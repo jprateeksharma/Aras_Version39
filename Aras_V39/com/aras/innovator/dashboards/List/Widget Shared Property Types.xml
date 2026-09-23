@@ -1,0 +1,15 @@
+﻿<AML>
+ <Item type="List" id="807D1BDF79444FD7BF62688BFC400146" action="add">
+  <description>A List of available shared property types that can be added to a widget</description>
+  <name>Widget Shared Property Types</name>
+  <Relationships>
+   <Item type="Value" id="3A0B466319BB4F7192A2A15BFD8E87A1" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">String</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Widget Shared Property Types" type="List">807D1BDF79444FD7BF62688BFC400146</source_id>
+    <value>string</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

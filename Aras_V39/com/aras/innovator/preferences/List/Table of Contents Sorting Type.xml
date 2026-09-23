@@ -1,0 +1,21 @@
+﻿<AML>
+ <Item type="List" id="8D88E35D2B3C4E98AD954767736F724F" action="add">
+  <name>Table of Contents Sorting Type</name>
+  <Relationships>
+   <Item type="Value" id="91F5AECB1DA240E1AAE2FDC80DD725FD" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Alphabetical</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Table of Contents Sorting Type" type="List">8D88E35D2B3C4E98AD954767736F724F</source_id>
+    <value>Alphabetical</value>
+   </Item>
+   <Item type="Value" id="85EF2A93151A48EEB68AA8CC3FA2659A" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Custom</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Table of Contents Sorting Type" type="List">8D88E35D2B3C4E98AD954767736F724F</source_id>
+    <value>Custom</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

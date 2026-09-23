@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Identity" id="557ED01F1C824FCC8AD1B52ECF113A6D" action="add">
+  <description>Users with ability to create and edit dashboards</description>
+  <is_alias>0</is_alias>
+  <name>Dashboard Authors</name>
+ </Item>
+</AML>

@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Command" id="64F0B08B09174C2BA1096AA277357DBA" action="add">
+  <execute_handler keyed_name="cui_command_new_item_workmap_exe" type="Method">24181223BBCC41AC98EA4DFFF5759456</execute_handler>
+  <name>NewItem_WorkflowMap</name>
+ </Item>
+</AML>

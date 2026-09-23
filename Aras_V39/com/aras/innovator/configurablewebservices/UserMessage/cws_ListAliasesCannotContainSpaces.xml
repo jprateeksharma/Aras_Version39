@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="E15A05337E794DA3A43D3AC1612AA4C7" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">List aliases cannot contain spaces.</text>
+  <name>cws_ListAliasesCannotContainSpaces</name>
+ </Item>
+</AML>

@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="EB0E44CED9CF4604B5365D4BB035D0F0" action="add">
+  <additional_data>{ "actionName": "arastextactions", "actionParameters": { "actionName": "strike"}}</additional_data>
+  <image>../images/StrikeOut.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_executeaction" type="Method">94FDE365CA9A402DB808B93FBE53CC4D</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_style_init" type="Method">C84B4265134744499FB85A502361A30A</on_init_handler>
+  <tooltip_template xml:lang="en">Strikeout</tooltip_template>
+  <name>tp_strike</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="B41D829AB2E34F0996554933FAD9BC68" action="add">
+  <can_execute keyed_name="cui_command_new_item_can_execute" type="Method">CBDF3C2123B34CB682427D549FD97094</can_execute>
+  <execute_handler keyed_name="cui_command_new_item_execute" type="Method">A4F297FED0584860B76C12BBF3183941</execute_handler>
+  <name>NewItem</name>
+ </Item>
+</AML>

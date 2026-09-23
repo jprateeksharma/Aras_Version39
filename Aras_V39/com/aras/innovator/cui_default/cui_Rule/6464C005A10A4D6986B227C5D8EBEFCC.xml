@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="6464C005A10A4D6986B227C5D8EBEFCC" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#6c8675","color":"#f4fdf7"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"5BF9FE32FDF14F7E814FAA0803C46550","function":"value_of_property","property":"state","operator":"is","criteria":"Archived|Pending Closure|Preferred"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>LightGreenLifeCycleState</name>
+ </Item>
+</AML>

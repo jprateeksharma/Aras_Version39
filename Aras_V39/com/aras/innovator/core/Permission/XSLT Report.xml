@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="6AAB98B65FA74B808566C5E053F25B66" action="add">
+  <is_private>0</is_private>
+  <name>XSLT Report</name>
+  <Relationships>
+   <Item type="Access" id="003607B82C8442B0AC1CA18AC971E02F" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="XSLT Report" type="Permission">6AAB98B65FA74B808566C5E053F25B66</source_id>
+   </Item>
+   <Item type="Access" id="32B76317E1524F808DE3218C79DF3E28" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="XSLT Report" type="Permission">6AAB98B65FA74B808566C5E053F25B66</source_id>
+   </Item>
+   <Item type="Access" id="4D0DDC00DF694F01AE6FC723D0E325D9" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="XSLT Report" type="Permission">6AAB98B65FA74B808566C5E053F25B66</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

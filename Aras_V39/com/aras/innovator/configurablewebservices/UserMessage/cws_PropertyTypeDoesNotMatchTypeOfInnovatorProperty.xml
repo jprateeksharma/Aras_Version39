@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="973C90E6311E43129648AC35898ADB5A" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: type of '{1}' Property ('{2}') does not match type of corresponding Innovator Property ('{3}').</text>
+  <name>cws_PropertyTypeDoesNotMatchTypeOfInnovatorProperty</name>
+ </Item>
+</AML>

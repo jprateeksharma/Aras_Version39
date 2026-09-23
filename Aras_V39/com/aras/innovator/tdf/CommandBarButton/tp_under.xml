@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="A940629455BB4C57AFB61898D0AD9590" action="add">
+  <additional_data>{ "actionName": "arastextactions", "actionParameters": { "actionName": "under"}}</additional_data>
+  <image>../images/Underline.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_tdf_editortb_executeaction" type="Method">94FDE365CA9A402DB808B93FBE53CC4D</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_editortb_style_init" type="Method">C84B4265134744499FB85A502361A30A</on_init_handler>
+  <tooltip_template xml:lang="en">Underline</tooltip_template>
+  <name>tp_under</name>
+ </Item>
+</AML>

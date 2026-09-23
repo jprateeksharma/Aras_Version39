@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="Method" id="CBDF3C2123B34CB682427D549FD97094" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const itemType = options.itemType;
+return ArasModules.metadata.itemType.isAllowToAdd(itemType);]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_new_item_can_execute</name>
+ </Item>
+</AML>

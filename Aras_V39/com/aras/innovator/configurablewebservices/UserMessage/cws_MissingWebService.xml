@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="FC0C0DE020424672AF4F743CA9E78A05" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Please save the Web Service before adding an Endpoint.</text>
+  <name>cws_MissingWebService</name>
+ </Item>
+</AML>

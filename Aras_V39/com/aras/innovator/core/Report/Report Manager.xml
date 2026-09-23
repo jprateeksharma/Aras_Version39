@@ -1,0 +1,19 @@
+﻿<AML>
+ <Item type="Report" id="3BE0B6D8DD76436C83A1FAEB18A9E1A7" action="add">
+  <description>Administration page to manage the Reports</description>
+  <label xml:lang="en">Report Manager</label>
+  <location>server</location>
+  <target>window</target>
+  <type>itemtype</type>
+  <xsl_stylesheet><![CDATA[<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:user="urn:user-scripts" xmlns:aras="http://www.aras.com">
+  <xsl:output method="html" omit-xml-declaration="yes" standalone="yes" indent="yes" cdata-section-elements="script msxsl:script"></xsl:output>
+  <xsl:template match="/">
+    <html>
+      <body onload="location='/Reports'">
+      </body>
+    </html>
+  </xsl:template>
+</xsl:stylesheet>]]></xsl_stylesheet>
+  <name>Report Manager</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="D0D13F6C9D32405F98213D4DB3A84AD1" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">{0} "{1}" is claimed by {2}</text>
+  <name>Aras.Server.Core.ItemIsLockedBySomeoneElseException</name>
+ </Item>
+</AML>

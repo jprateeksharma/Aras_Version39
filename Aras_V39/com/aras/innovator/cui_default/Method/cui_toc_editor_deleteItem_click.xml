@@ -1,0 +1,23 @@
+﻿<AML>
+ <Item type="Method" id="D58C42ED59854827B23D241473FC6B94" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[
+const { selectedId, tocData } = options.getState();
+const selectedRelshipItem = tocData.get(selectedId);
+const selectedButton = tocData.get(selectedRelshipItem?.related_id);
+if (selectedButton?.name === 'com.aras.innovator.cui_default.toc_editor') {
+	const notify = aras.getNotifyByContext(window);
+	const errorMessage = aras.getResource('', 'toc_editor.delete_toc_editor');
+	notify(errorMessage, { type: 'error' });
+
+	return;
+}
+
+const { deleteItem } = options.getActions();
+
+deleteItem(selectedId);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_toc_editor_deleteRow_click</name>
+ </Item>
+</AML>

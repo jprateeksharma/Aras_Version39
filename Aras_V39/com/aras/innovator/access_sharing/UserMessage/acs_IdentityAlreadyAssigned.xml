@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="E070346761FB45939F497F8D138DF00B" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">An Identity can be assigned only once.</text>
+  <name>acs_IdentityAlreadyAssigned</name>
+ </Item>
+</AML>

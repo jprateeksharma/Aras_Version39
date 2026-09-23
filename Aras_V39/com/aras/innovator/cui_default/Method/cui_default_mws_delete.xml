@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Method" id="A82C781240EA4416AE24E5AC6E70F4A8" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	getState,
+	itemType,
+	polySources,
+	commandFactory
+} = options;
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(itemType.id);
+const getItemType = (item) => {
+	if (isPolymorphic) {
+		const itemTypeId = item.itemtype;
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return itemType;
+};
+
+const commandAlias = target['command_alias@keyed_name'];
+const rows = window.grid._grid.rows;
+const { grid } = getState();
+const itemIdsToDelete = grid.selectedRows.filter((selectedId) => {
+	const item = rows.get(selectedId);
+	const itemType = getItemType(item);
+	const deleteCommand = commandFactory(commandAlias, {
+		...options,
+		item,
+		itemType,
+		itemTypeName: itemType.name
+	});
+	const isDeleteCommandAllowed = deleteCommand.canExecute();
+
+	return isDeleteCommandAllowed && !window.isFunctionDisabled(itemType.name, 'Delete');
+});
+
+if (itemIdsToDelete.length > 0) {
+	return window.onDeleteCommand(itemIdsToDelete);
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_mws_delete</name>
+ </Item>
+</AML>

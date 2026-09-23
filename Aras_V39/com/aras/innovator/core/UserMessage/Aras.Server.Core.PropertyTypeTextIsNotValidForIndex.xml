@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="94706DE8449D4C5C840FF16DA351DB83" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">The property type "Text" is not valid for use as an index.</text>
+  <name>Aras.Server.Core.PropertyTypeTextIsNotValidForIndex</name>
+ </Item>
+</AML>

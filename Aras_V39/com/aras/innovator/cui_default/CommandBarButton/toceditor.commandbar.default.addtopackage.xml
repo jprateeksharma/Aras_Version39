@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="A9BF2D2B82464557A7090702D9AA6050" action="add">
+  <image>../images/PackageDefinition.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_toc_editor_addpackage_click" type="Method">984B66F9ADB24C4CA04416DE48BB3E9D</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_addpackage_init" type="Method">2052A0A45CE24922BA6EF74122F5880D</on_init_handler>
+  <tooltip_template xml:lang="en">Add to Package Definition</tooltip_template>
+  <name>toceditor.commandbar.default.addtopackage</name>
+ </Item>
+</AML>

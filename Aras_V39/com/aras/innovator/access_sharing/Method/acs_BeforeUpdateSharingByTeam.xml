@@ -1,0 +1,120 @@
+﻿<AML>
+ <Item type="Method" id="C1A2EF284FD7486CAC4D2AE3377D2156" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[	var innovator = this.getInnovator();
+	IDataAccessLayer dataAccessLayer = new DataAccessLayer(innovator);
+	BusinessLogic businessLogic = new BusinessLogic(this, dataAccessLayer);
+	return businessLogic.Run();
+}
+
+internal class BusinessLogic
+{
+	private readonly Item _contextItem;
+	private readonly IDataAccessLayer _dataAccessLayer;
+
+	private readonly Dictionary<string, string> _teamRoleBySharingMode = new()
+	{
+		{ "Editor", "C925B4C261D44A138A5D5B6F050EFB6A" },
+		{ "Viewer", "9FF8AB7E8F934140BE23DEF6FF8E338D" }
+	};
+
+	public BusinessLogic(Item context, IDataAccessLayer dataAccessLayer)
+	{
+		_contextItem = context;
+		_dataAccessLayer = dataAccessLayer;
+	}
+
+	public Item Run()
+	{
+		try
+		{
+			var updateSharingMethod = GetUpdateSharingByTeamMethod();
+			var result = _dataAccessLayer.ApplyItem(updateSharingMethod);
+			if (result.isError())
+			{
+				return result;
+			}
+				return _contextItem;
+			}
+		catch (Aras.Server.Core.InnovatorServerException ex)
+		{
+			return _dataAccessLayer.NewError(ex.Message);
+		}
+	}
+	
+	private string GetTeamRoleFromSharingMode(string sharingMode)
+	{
+		_teamRoleBySharingMode.TryGetValue(sharingMode, out string teamRoleId);
+
+		if (string.IsNullOrEmpty(teamRoleId))
+		{
+			throw new Aras.Server.Core.InnovatorServerException("Invalid sharing mode.");
+		}
+
+		return teamRoleId;
+	}
+
+	private Item GetUpdateSharingByTeamMethod()
+	{
+		string identityItemId = _contextItem.getRelatedItemID();
+		Item identityItem = _contextItem.getRelatedItem();
+		string itemId = _contextItem.getID();
+		string relationshipType = _contextItem.getType();
+		string sharingMode = _contextItem.getProperty("sharing_mode") ?? "Viewer";
+		string teamRoleId = GetTeamRoleFromSharingMode(sharingMode);
+
+		Item item = _dataAccessLayer.NewItem("Method", "acs_UpdateSharingByTeam");
+		item.setID(itemId);
+		switch (identityItemId)
+		{
+			case null or "":
+			item.setPropertyItem("identityItem", identityItem);
+			break;
+			default:
+			item.setProperty("identityItemId", identityItemId);
+			break;
+		}
+
+		item.setProperty("relationshipType", relationshipType);
+		item.setProperty("sharingMode", sharingMode);
+		item.setProperty("teamRoleId", teamRoleId);
+
+		return item;
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item ApplyItem(Item item);
+	Item NewItem(string type, string action);
+	Item NewError(string message);
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Innovator _innovator;
+
+	public DataAccessLayer(Innovator innovator)
+	{
+		_innovator = innovator;
+	}
+
+	public Item ApplyItem(Item item)
+	{
+		return item.apply();
+	}
+
+	public Item NewItem(string type, string action)
+	{
+		return _innovator.newItem(type, action);
+	}
+
+  public Item NewError(string message)
+	{
+		return _innovator.newError(message);
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>acs_BeforeUpdateSharingByTeam</name>
+ </Item>
+</AML>

@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="3C7CB0EB823549CD89093BFB1A7390FD" action="add">
+  <name>tdf.editorconfiguration.standard [14.0.29 obsolete]</name>
+  <Relationships>
+   <Item type="cui_PresentConfigWinSection" id="1798FDE2AF3847AA87812FC10A6A1391" action="add">
+    <related_id keyed_name="tdf.editorconfiguration.standard.editortabview [14.0.29 obsolete]" type="cui_WindowSection">496659DE4C6049BFAE68EF3F06CBC814</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="tdf.editorconfiguration.standard [14.0.29 obsolete]" type="PresentationConfiguration">3C7CB0EB823549CD89093BFB1A7390FD</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

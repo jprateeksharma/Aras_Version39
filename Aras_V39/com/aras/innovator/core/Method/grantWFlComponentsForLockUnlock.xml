@@ -1,0 +1,25 @@
+﻿<AML>
+ <Item type="Method" id="CFCA8B9D409145C3BB29CDB6012922FC" action="add">
+  <comments />
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[//MethodTemplateName=CSharpInOut;
+IDisposable elevatedIdentityScope = null;
+
+try
+{
+	if (!CCO.Permissions.UserHasRootOrAdminIdentity())
+	{
+		Aras.Server.Security.Identity workflowManager = Aras.Server.Security.Identity.GetByName("Workflow Manager");
+		elevatedIdentityScope = CCO.Permissions.GrantIdentity(workflowManager);
+	}
+	
+	eventData.BaseLockItem(outDom);
+}
+finally
+{
+	elevatedIdentityScope?.Dispose();
+}]]></method_code>
+  <method_type>C#</method_type>
+  <name>grantWFlComponentsForLockUnlock</name>
+ </Item>
+</AML>

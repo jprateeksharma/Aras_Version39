@@ -1,0 +1,75 @@
+﻿<AML>
+ <Item type="Method" id="2E56619231764034B531E0D88243A2EA" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[string isAliasesIds = CCO.Permissions.AliasIdentitiesList.Trim('\'');
+
+Item existingPreferenceItem = this.newItem("Preference", "get");
+existingPreferenceItem.setProperty("identity_id", isAliasesIds);
+existingPreferenceItem.setPropertyAttribute("identity_id", "condition", "in");
+existingPreferenceItem = existingPreferenceItem.apply();
+
+if (!existingPreferenceItem.isError())
+{
+	Item deleteExistingItem = this.newItem("Preference", "delete");
+	deleteExistingItem.setID(existingPreferenceItem.getID());
+	deleteExistingItem = deleteExistingItem.apply();
+
+	if (deleteExistingItem.isError())
+	{
+		return deleteExistingItem;
+	}
+}
+
+Item worldPreferenceItem = this.newItem();
+worldPreferenceItem.loadAML(@"<Item type='Preference' action='get'>
+	<identity_id>
+		<Item type='Identity' action='get'>
+			<name>World</name>
+		</Item>
+	</identity_id>
+	<Relationships>
+		<Item type='Core_GlobalLayout' action='get' />
+		<Item type='SSVC_Preferences' action='get' />
+	</Relationships>
+</Item>");
+
+worldPreferenceItem = worldPreferenceItem.apply();
+
+Item preferenceItem = this.newItem("Preference", "add");
+preferenceItem.setProperty("identity_id", isAliasesIds);
+
+Item relationships = worldPreferenceItem.getRelationships();
+
+for (int i = 0; i < relationships.getItemCount(); i++)
+{
+	Item relationship = relationships.getItemByIndex(i);
+
+	Item newRelationship = relationship.clone(false);
+
+	XmlNodeList nodesToRemove = newRelationship.node.SelectNodes("./*[local-name()='source_id' or local-name()='permission_id']");
+
+	foreach (XmlNode nodeToRemove in nodesToRemove)
+	{
+		nodeToRemove.ParentNode.RemoveChild(nodeToRemove);
+	}
+
+	preferenceItem.addRelationship(newRelationship);
+}
+
+preferenceItem = preferenceItem.apply();
+
+if (preferenceItem.isError())
+{
+	return preferenceItem;
+}
+
+Item resultItem = this.newItem("Preference", "get");
+resultItem.setID(preferenceItem.getID());
+resultItem.setAttribute("levels", "2");
+
+return resultItem.apply();
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>ResetUserPreference</name>
+ </Item>
+</AML>

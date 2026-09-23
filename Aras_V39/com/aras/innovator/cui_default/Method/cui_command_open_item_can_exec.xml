@@ -1,0 +1,51 @@
+﻿<AML>
+ <Item type="Method" id="DFC274CCBB1143398517A2630408BD81" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { item, itemNode, itemType } = options;
+if (!item && !itemNode) {
+	return false;
+}
+
+const isRelationshipItemType = itemType['is_relationship'] === '1';
+if (isRelationshipItemType) {
+	const identityListString = aras.getIdentityList();
+	const identityList = identityListString.split(',');
+	const relationshipViews = itemType.View;
+	const isAnyViewAvailable = relationshipViews
+		.filter((view) => view.type === 'default' || view.type === 'view')
+		.some((view) => {
+			const forIdentity = view['role@aras.id'];
+			return identityList.includes(forIdentity);
+		});
+
+	const relationships = itemType.RelationshipType;
+	const isAnyRelationshipAvailable = relationships.some((relationshipItem) =>
+		relationshipItem['hide_in_all'] === '0'
+	);
+
+	if (!isAnyViewAvailable && !isAnyRelationshipAvailable) {
+		const message = aras.getResource(
+			'',
+			'no_form_and_relationships_error'
+		);
+		commands.setErrorMessage(message);
+		return false;
+	}
+}
+
+const discoverOnly = item ? item['@aras.discover_only'] : itemNode.getAttribute('discover_only');
+const isDiscoverOnly = discoverOnly === '1';
+if (isDiscoverOnly) {
+	const message = aras.getResource(
+		'',
+		'ui_methods_ex.discover_only_item_cannot_be_opened'
+	);
+	commands.setErrorMessage(message);
+	return false;
+}
+
+return true;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_command_open_item_can_exec</name>
+ </Item>
+</AML>

@@ -1,0 +1,22 @@
+﻿<AML>
+ <Item type="Method" id="250EBAE29D554E629F5887B069FDA2EE" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[
+const { odataFetch } = await import('../jsBundles/core.es.js');
+const relationship = await window.newRelationship(
+	false,
+	null,
+	null,
+	window.NoRelatedOption
+);
+const sourceId = aras.getItemProperty(relationship, 'source_id');
+const endpointConfigurationItem = (await odataFetch(`${options.itemTypeName}?$select=schema_definition&$filter=source_id eq '${sourceId}'&$orderBy=version desc&$top=1`)).value[0];
+
+if (endpointConfigurationItem) {
+  const { schema_definition: schemaDefinition } = endpointConfigurationItem;
+  aras.setItemProperty(relationship, 'schema_definition', schemaDefinition);
+}]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cws_EndpointConfigToolbar_new_cl</name>
+ </Item>
+</AML>

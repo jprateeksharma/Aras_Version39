@@ -1,0 +1,15 @@
+﻿<AML>
+ <Item type="cui_PresentConfigWinSection" id="A303CC9AE5E44FCAB643557C7E7BD5C0" action="add">
+  <related_id keyed_name="SearchView.ResponsiveForm" type="cui_WindowSection">
+   <Item type="cui_WindowSection" id="37FC6BD5D94D4D1298F1BB0140D78D9F" action="add">
+    <builder_method keyed_name="SearchView_PreviewForm_Builder" type="Method">7B151D0189AB4103AF62531309BBCBFE</builder_method>
+    <classification>Method</classification>
+    <location keyed_name="SearchView" type="cui_Location">50AA534B530F42DD9FCE3BA6681F6710</location>
+    <name>SearchView.ResponsiveForm</name>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+  <sort_order>2048</sort_order>
+  <source_id keyed_name="Global" type="PresentationConfiguration">5A87757EBFB7430C847CF4DF5ACA6F4E</source_id>
+ </Item>
+</AML>

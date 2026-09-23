@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="cui_Control" id="5D4E91C5656546DA86B6A3060810210C" action="add">
+  <control_type>ShortcutsControl</control_type>
+  <location keyed_name="ItemView.Shortcuts" type="cui_Location">3330A9C3B87743B0BD80AE2EBB316CE0</location>
+  <sealed>0</sealed>
+  <name>ItemView.Shortcuts</name>
+ </Item>
+</AML>

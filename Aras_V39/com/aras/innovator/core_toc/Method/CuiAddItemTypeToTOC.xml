@@ -1,0 +1,154 @@
+﻿<AML>
+ <Item type="Method" id="CE4201374FBB4E3CAB58B5D88538F628" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[	Innovator innovator = this.getInnovator();
+	DataAccessLayer dataAccessLayer = new DataAccessLayer(innovator);
+	BusinessLogic businessLogic = new BusinessLogic(dataAccessLayer, innovator);
+	string itemTypeId = this.getProperty("itemTypeId");
+
+	return businessLogic.AddItemTypeToTOC(itemTypeId);
+}
+
+internal class BusinessLogic
+{
+	private const string administratorsIdentityId = "2618D6F5A90949BAA7E920D1B04C7EE1";
+	private const string tocMenuPrefix = "com.aras.innovator.cui_default.toc";
+	private IDataAccessLayer dataAccessLayer;
+	private Innovator innovator;
+
+	internal BusinessLogic(IDataAccessLayer dataAccessLayer, Innovator innovator)
+	{
+		this.dataAccessLayer = dataAccessLayer;
+		this.innovator = innovator;
+	}
+
+	internal Item AddItemTypeToTOC(string itemTypeId)
+	{
+		Item itemTypeItem = this.dataAccessLayer.GetItemTypeById(itemTypeId);
+		string itemTypeName = itemTypeItem.getProperty("name");
+		string itemTypeLabel = itemTypeItem.getProperty("label_plural");
+		string itemTypeImage = itemTypeItem.getProperty("open_icon", "../images/DefaultItemType.svg");
+
+		Item commandBarButton = innovator.newItem("CommandBarButton", "add");
+		commandBarButton.setProperty("name", $"{tocMenuPrefix}_{itemTypeName}_{itemTypeId}");
+		commandBarButton.setProperty("label", itemTypeLabel ?? itemTypeName);
+		commandBarButton.setProperty("image", itemTypeImage);
+		commandBarButton.setProperty("additional_data", @$"{{ ""itemTypeId"": ""{itemTypeId}"" }}");
+
+		AppendLocalizedLabels(commandBarButton, itemTypeItem);
+
+		Item existingTOCItems = this.dataAccessLayer.GetSortedTOCButtons();
+		if (existingTOCItems.isError() && !existingTOCItems.isEmpty())
+		{
+			return existingTOCItems;
+		}
+
+		int newButtonSortOrder = 128;
+		for (int i = 0; i < existingTOCItems.getItemCount(); i++)
+		{
+			Item tocSectionItem = existingTOCItems.getItemByIndex(i);
+			Item tocItem = tocSectionItem.getRelatedItem();
+			string parentMenu = tocItem.getProperty("parent_menu");
+			if (string.IsNullOrEmpty(parentMenu))
+			{
+				string lastRootTocItemSortOrder = tocSectionItem.getProperty("sort_order");
+				newButtonSortOrder += Convert.ToInt32(lastRootTocItemSortOrder, CultureInfo.InvariantCulture);
+				break;
+			}
+		}
+
+		Item commandBarSectionItem = innovator.newItem("CommandBarSectionItem", "add");
+		commandBarSectionItem.setProperty("action", "Add");
+		commandBarSectionItem.setProperty("related_id", commandBarButton.getID());
+		commandBarSectionItem.setProperty("role", administratorsIdentityId);
+		commandBarSectionItem.setProperty("sort_order", newButtonSortOrder.ToString(CultureInfo.InvariantCulture));
+
+		Item methodItem = innovator.newItem("Method", "cui_toc_editor_save");
+		methodItem.addRelationship(commandBarButton);
+		methodItem.addRelationship(commandBarSectionItem);
+		return methodItem.apply();
+	}
+
+	internal void AppendLocalizedLabels(Item button, Item itemType)
+	{
+		Item languageItems = this.dataAccessLayer.GetLanguages();
+		int languageCount = languageItems.getItemCount();
+		for (int i = 0; i < languageCount; i++)
+		{
+			Item languageItem = languageItems.getItemByIndex(i);
+			string languageCode = languageItem.getProperty("code");
+			string localizedLabel = itemType.getProperty("label_plural", "", languageCode);
+			
+			if (!string.IsNullOrEmpty(localizedLabel))
+			{
+				button.setProperty("label", localizedLabel, languageCode);
+			}
+		}
+	}
+}
+
+internal interface IDataAccessLayer
+{
+	Item GetItemTypeById(string id);
+	Item GetLanguages();
+	Item GetSortedTOCButtons();
+}
+
+internal class DataAccessLayer : IDataAccessLayer
+{
+	private Innovator innovator;
+
+	public DataAccessLayer(Innovator innovator)
+	{
+		this.innovator = innovator;
+	}
+
+	public Item GetItemTypeById(string id)
+	{
+		Item requestItem = this.innovator.newItem("ItemType", "get");
+		requestItem.setID(id);
+		requestItem.setAttribute("language", "*");
+		requestItem.setAttribute("select", "name,label_plural,open_icon");
+
+		return requestItem.apply();
+	}
+
+	public Item GetLanguages()
+	{
+		Item languageItem = this.innovator.newItem("Language", "get");
+		languageItem.setAttribute("select", "code");
+		return languageItem.apply();
+	}
+	
+	public Item GetSortedTOCButtons()
+	{
+		return this.innovator.applyAML(@"
+			<AML>
+				<Item type=""CommandBarSectionItem"" action=""get"" select=""sort_order,related_id(parent_menu)"" orderBy=""sort_order desc"">
+					<action>Add</action>
+					<related_id>
+						<Item type=""CommandBarItem"" action=""get"">
+							<OR>
+								<itemtype>2C95B39863F346EFB224DCB85390F465</itemtype>
+								<itemtype>B5175846B27145EEA5653DA35ED78BE4</itemtype>
+							</OR>
+						</Item>
+					</related_id>
+					<source_id>
+						<Item type=""CommandBarSection"" action=""get"">
+							<location>
+								<Item type=""cui_Location"" action=""get"">
+									<name>TOC</name>
+								</Item>
+							</location>
+						</Item>
+					</source_id>
+				</Item>
+			</AML>
+		");
+	}
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>CuiAddItemTypeToTOC</name>
+ </Item>
+</AML>

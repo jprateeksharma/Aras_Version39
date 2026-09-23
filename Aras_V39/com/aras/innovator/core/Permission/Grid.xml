@@ -1,0 +1,34 @@
+﻿<AML>
+ <Item type="Permission" id="33411BA307454F4380A06BA7A1E91366" action="add">
+  <is_private>0</is_private>
+  <name>Grid</name>
+  <Relationships>
+   <Item type="Access" id="48FDA2E8B40D49B9A6665C6D3EFE2F96" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Grid" type="Permission">33411BA307454F4380A06BA7A1E91366</source_id>
+   </Item>
+   <Item type="Access" id="A01881CCAC0742BAB62FF2D127E0E3B9" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Grid" type="Permission">33411BA307454F4380A06BA7A1E91366</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

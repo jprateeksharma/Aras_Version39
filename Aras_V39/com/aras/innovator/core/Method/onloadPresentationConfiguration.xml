@@ -1,0 +1,16 @@
+﻿<AML>
+ <Item type="Method" id="5E0151674C204DECB4355077156938CA" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const isGlobalPresentationConfig = document.itemID === '5A87757EBFB7430C847CF4DF5ACA6F4E';
+if (!isGlobalPresentationConfig) {
+	return;
+}
+
+window.getFieldByName('brand_color').style.visibility = 'visible';
+window.getFieldByName('secondary_color').style.visibility = 'visible';
+window.getFieldByName('color').querySelector('.sys_f_label').textContent = window.aras.getResource('', 'theme_primary');
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>onloadPresentationConfiguration</name>
+ </Item>
+</AML>

@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="26131790970C46F8A72DA42C498CBAAE" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid filter value for data type '{0}'.</text>
+  <name>ReportFilter_InvalidFilterValueForDataType</name>
+ </Item>
+</AML>

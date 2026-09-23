@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="7F0DB141927A4F12A3CE252CDF90D32A" action="add">
+  <include_events>UpdateTearOffWindowState</include_events>
+  <label xml:lang="en">Import Content from File</label>
+  <on_click_handler keyed_name="cui_tdf_ivicb_fileimport_click" type="Method">0409D75769F44ED887A3A87CCED56ED2</on_click_handler>
+  <on_init_handler keyed_name="cui_tdf_ivicb_fileimport_init" type="Method">3E96BB7E00884C81A4C604FB61FDD809</on_init_handler>
+  <parent_menu keyed_name="itemview.itemcommandbar.default.more" type="CommandBarMenu">FFEBAEC1DE43491D8AF7C2684253E34A</parent_menu>
+  <name>itemview.itemcommandbar.tdf.fileimport</name>
+ </Item>
+</AML>

@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="31861DC53E8A4BFF8C07C28EFF0F8183" action="add">
+  <label xml:lang="en">Hide Column</label>
+  <on_click_handler keyed_name="cui_default_svghcm_hide_click" type="Method">6B3A3802BFF649859AED86CD10BE63E7</on_click_handler>
+  <on_init_handler keyed_name="cui_default_svghcm_hide_init" type="Method">82E9591A81734B1F805A31CAED414C64</on_init_handler>
+  <name>cui_default_svghcm_hide_column</name>
+ </Item>
+</AML>

@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="254F13D55D824C6D87892E4395017474" action="add">
+  <command_alias keyed_name="EditItem" type="CommandAlias">1275D512E8CE4B31B7FD5042E5D564C2</command_alias>
+  <image>../images/Edit.svg</image>
+  <label xml:lang="en">Edit</label>
+  <on_click_handler keyed_name="cui_default_pmig_edit_click" type="Method">A890F21924B54E0990B8660DC754419F</on_click_handler>
+  <on_init_handler keyed_name="cui_default_pmig_edit_init" type="Method">376DADEF5AC14309A233E17AE4184BC4</on_init_handler>
+  <name>com.aras.innovator.cui_default.pmig_edit</name>
+ </Item>
+</AML>

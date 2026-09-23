@@ -1,0 +1,5 @@
+﻿<AML>
+ <Item type="CommandBarSeparator" id="F53C3FD7419D44798570B2D99E99C30D" action="add">
+  <name>com.aras.innovator.cui_default.pmig_claim_separator</name>
+ </Item>
+</AML>

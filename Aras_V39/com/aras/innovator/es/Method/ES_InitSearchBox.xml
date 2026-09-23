@@ -1,0 +1,70 @@
+﻿<AML>
+ <Item type="Method" id="C6C47B3E1B014426B53E6C59F59AADF8" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const infernoFlags = ArasModules.utils.infernoFlags;
+const searchboxClass = 'aras-toolbar__es-searchbox aras-es-searchbox';
+const searchboxInputClass = 'aras-toolbar__input aras-es-searchbox__input';
+const searchboxResetClass = 'aras-es-searchbox__reset aras-icon-close aras-button-input-2';
+
+const Inferno = window.Inferno;
+window.Toolbar.extendFormatters({esSearchBox: function(item, options) {
+	const resetHandler = function(event) {
+		const inputElement = event.target.parentNode;
+		inputElement.value = '';
+	};
+	const searchHandler = function(event) {
+		const evt = new CustomEvent('aras-es-search-click', {bubbles: true});
+		event.target.dispatchEvent(evt);
+	};
+
+	const resetButtonNode = Inferno.createVNode(Inferno.getFlagsForElementVnode('button'), 'button', searchboxResetClass, null,
+	infernoFlags.hasInvalidChildren, {
+		'aria-label': 'Reset',
+		slot:"trailing",
+		onclick: resetHandler
+	});
+
+	const iconNode = Inferno.createVNode(
+		Inferno.getFlagsForElementVnode('aras-image'),
+		'aras-image',
+		'aras-input-icon',
+		null,
+		infernoFlags.hasInvalidChildren, {
+			'aria-hidden': true,
+			slot: "leading",
+			src: item.image
+		}
+	);
+
+	const inputNode = Inferno.createVNode(
+		Inferno.getFlagsForElementVnode('aras-input'),
+		'aras-input',
+		searchboxInputClass,
+		[resetButtonNode, iconNode],
+		infernoFlags.hasNonKeyedChildren, {
+		'aria-label': aras.getResource('', 'es.searchbox_label'),
+		'placeholder': item.tooltip_template,
+		id: 'aras-es-toolbar-input',
+		onkeydown: function(event) {
+			if (event.key === 'Enter') {
+				searchHandler(event);
+			}
+			event.stopPropagation();
+		}
+	});
+
+	return Inferno.createVNode(Inferno.getFlagsForElementVnode('span'), 'span', searchboxClass, [inputNode],
+		infernoFlags.hasNonKeyedChildren, {
+			'data-id': item.id,
+			role: 'search'
+		}, null, options.itemRefCallback);
+}});
+
+return {
+	'type': 'esSearchBox'
+};
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>ES_InitSearchBox</name>
+ </Item>
+</AML>

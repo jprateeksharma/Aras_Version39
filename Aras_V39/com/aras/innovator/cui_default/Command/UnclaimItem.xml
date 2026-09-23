@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="0AD5A13671364FC68171B3DCE5BDD13C" action="add">
+  <can_execute keyed_name="cui_command_unclaim_item_can_ex" type="Method">EF2822E69BD64E7E84217209E54C1280</can_execute>
+  <execute_handler keyed_name="cui_command_unclaim_item_execute" type="Method">2A5A64C9676E45BFBA8557BD3F986850</execute_handler>
+  <name>UnclaimItem</name>
+ </Item>
+</AML>

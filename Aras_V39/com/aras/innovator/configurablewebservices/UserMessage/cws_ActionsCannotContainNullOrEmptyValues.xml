@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="47BA49958F8249AD98AAEE35FD420853" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: 'Actions' cannot contain null or empty values.</text>
+  <name>cws_ActionsCannotContainNullOrEmptyValues</name>
+ </Item>
+</AML>

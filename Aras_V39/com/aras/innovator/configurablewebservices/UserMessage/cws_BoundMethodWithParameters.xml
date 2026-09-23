@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="6439DBA0A3C445BBA9C1048DB74D820D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid '{0}' method definition: bound methods can not contain parameters.</text>
+  <name>cws_BoundMethodWithParameters</name>
+ </Item>
+</AML>

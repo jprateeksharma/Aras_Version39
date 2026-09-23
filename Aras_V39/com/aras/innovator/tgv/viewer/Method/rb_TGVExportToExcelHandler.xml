@@ -1,0 +1,18 @@
+﻿<AML>
+ <Item type="Method" id="3A3E3BFBC43B4F57875DA92A65053804" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const { excelConverterApi } = window;
+const treeGridWorksheet = excelConverterApi.convertTreeGrid(window.mainPage._grid._grid);
+const worksheets = [{
+  ...treeGridWorksheet,
+  title: 'Innovator'
+}];
+
+const fileName = aras.getResource('', 'aras_object.export2excel_file_prefix');
+const fileBlob = await excelConverterApi.convertJsonToExcel(worksheets);
+window.ArasModules.vault.saveBlob(fileBlob, `${fileName}.xlsx`);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>rb_TGVExportToExcelHandler</name>
+ </Item>
+</AML>

@@ -1,0 +1,78 @@
+﻿<AML>
+ <Item type="Method" id="E27526F703884CB7BC1808A63FDA29AF" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[			string sourceId = this.getID();
+			string amlRequestToItems = string.Format(
+				CultureInfo.InvariantCulture,
+				@"<Item type='FormComposite' action='get' select='related_id'>
+	<source_id>{0}</source_id>
+	<related_id>
+		<Item type='cui_WindowSection' action='get' select='id'>
+			<Relationships>
+				<Item type='cui_WindowSectionControl' action='get' select='related_id'>
+					<related_id>
+						<Item type='cui_Control' action='get' select='id'>
+							<Relationships>
+								<Item type='cui_ControlFormField' action='get' select='id,related_id(id)' />
+							</Relationships>
+						</Item>
+					</related_id>
+				</Item>
+			</Relationships>
+		</Item>
+	</related_id>
+</Item>", System.Security.SecurityElement.Escape(sourceId));
+
+			Item compositeRelationships = this.newItem();
+			compositeRelationships.loadAML(amlRequestToItems);
+
+			compositeRelationships = compositeRelationships.apply();
+
+			if (compositeRelationships.isEmpty())
+			{
+				return this.getInnovator().newResult(string.Empty);
+			}
+
+			Item itemsToRemove = this.newItem();
+			for (int i = 0; i < compositeRelationships.getItemCount(); i++)
+			{
+				Item compositeItem = compositeRelationships.getItemByIndex(i);
+				itemsToRemove.appendItem(GetItemForRemovig(compositeItem));
+				PrepareItemsForRemoving(compositeItem, itemsToRemove);
+			}
+
+			itemsToRemove.removeItem(itemsToRemove.getItemByIndex(0));
+
+#pragma warning disable IA1000
+			return this.getInnovator().applyAML(itemsToRemove.ToString());
+#pragma warning restore IA1000
+		}
+
+		Item GetItemForRemovig(Item item)
+		{
+			Item itemToDelete = this.newItem(item.getType(), "delete");
+			itemToDelete.setID(item.getID());
+			return itemToDelete;
+		}
+
+		void PrepareItemsForRemoving(Item item, Item result)
+		{
+			Item relatedItem = item.getRelatedItem();
+			if (relatedItem != null)
+			{
+				Item itemToDelete = GetItemForRemovig(relatedItem);
+				result.appendItem(itemToDelete);
+				PrepareItemsForRemoving(relatedItem, result);
+			}
+
+			Item relationships = item.getRelationships();
+
+			for (int i = 0; i < relationships.getItemCount(); i++)
+			{
+				Item relationship = relationships.getItemByIndex(i);
+				PrepareItemsForRemoving(relationship, result);
+			}]]></method_code>
+  <method_type>C#</method_type>
+  <name>cui_RemoveResponsiveFormControls</name>
+ </Item>
+</AML>

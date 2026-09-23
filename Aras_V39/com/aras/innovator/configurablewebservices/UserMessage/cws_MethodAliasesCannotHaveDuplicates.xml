@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="B33472B4C6E94C23B31A5685D0CEB256" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Method aliases cannot have duplicates (case insensitive).</text>
+  <name>cws_MethodAliasesCannotHaveDuplicates</name>
+ </Item>
+</AML>

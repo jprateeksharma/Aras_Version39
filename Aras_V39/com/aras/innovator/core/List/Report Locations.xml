@@ -1,0 +1,29 @@
+﻿<AML>
+ <Item type="List" id="272A5E643FA4412B974E5CC72493B6B0" action="add">
+  <description>Where the Report will be executed</description>
+  <name>Report Locations</name>
+  <Relationships>
+   <Item type="Value" id="E74B099C2FE746FE8DB5CE622F47826B" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Client</label>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Report Locations" type="List">272A5E643FA4412B974E5CC72493B6B0</source_id>
+    <value>client</value>
+   </Item>
+   <Item type="Value" id="C3D091E1D6A046A089CD17DE892B44D3" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Server</label>
+    <sort_order>1</sort_order>
+    <source_id keyed_name="Report Locations" type="List">272A5E643FA4412B974E5CC72493B6B0</source_id>
+    <value>server</value>
+   </Item>
+   <Item type="Value" id="BEA72D84F00C458DB6EC51F5470F19B6" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Service</label>
+    <sort_order>2</sort_order>
+    <source_id keyed_name="Report Locations" type="List">272A5E643FA4412B974E5CC72493B6B0</source_id>
+    <value>service</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

@@ -1,0 +1,62 @@
+﻿<AML>
+ <Item type="Life Cycle Map" id="F514403C972D40DC9E26D3F298E2B643" action="add">
+  <start_state keyed_name="Inactive" type="Life Cycle State">DE2DD8EB5EA34365BFEE6CA87F370EA3</start_state>
+  <name>cjs_Scheduled Job</name>
+  <Relationships>
+   <Item type="Life Cycle State" id="94D53ECAD84942378BDDC9C916AD47DD" action="add">
+    <image>../images/LifeCycleState.svg</image>
+    <label xml:lang="en">Activated</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job" type="Life Cycle Map">F514403C972D40DC9E26D3F298E2B643</source_id>
+    <state_permission_id keyed_name="cjs_Activated Scheduled Job Access" type="Permission">80D1C79D19DB4C9B82D849A43539815C</state_permission_id>
+    <x>176</x>
+    <y>21</y>
+    <name>Activated</name>
+   </Item>
+   <Item type="Life Cycle State" id="48336A1B71334DDBB10356166E282488" action="add">
+    <image>../images/LifeCycleState.svg</image>
+    <label xml:lang="en">Deactivated</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job" type="Life Cycle Map">F514403C972D40DC9E26D3F298E2B643</source_id>
+    <state_permission_id keyed_name="cjs_Deactivated Scheduled Job Access" type="Permission">CC8C1F33CB2B497DB4565C03C3EB8CC1</state_permission_id>
+    <x>333</x>
+    <y>23</y>
+    <name>Deactivated</name>
+   </Item>
+   <Item type="Life Cycle State" id="DE2DD8EB5EA34365BFEE6CA87F370EA3" action="add">
+    <image>../images/LifeCycleState.svg</image>
+    <label xml:lang="en">Inactive</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job" type="Life Cycle Map">F514403C972D40DC9E26D3F298E2B643</source_id>
+    <state_permission_id keyed_name="cjs_Inactive Scheduled Job Access" type="Permission">C3E3E2D2C1904F299F39412717D0D5B4</state_permission_id>
+    <x>21</x>
+    <y>22</y>
+    <name>Inactive</name>
+   </Item>
+   <Item type="Life Cycle Transition" id="C0D35ECD5AF24C0BB27D952C8135C71D" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="Activated" type="Life Cycle State">94D53ECAD84942378BDDC9C916AD47DD</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="cjs_Job Manager" type="Identity">8EB1099425594CA387CC7A5C31BD9E2F</role>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job" type="Life Cycle Map">F514403C972D40DC9E26D3F298E2B643</source_id>
+    <to_state keyed_name="Deactivated" type="Life Cycle State">48336A1B71334DDBB10356166E282488</to_state>
+   </Item>
+   <Item type="Life Cycle Transition" id="89D751CF43674B97A0F22A209BD47589" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="Inactive" type="Life Cycle State">DE2DD8EB5EA34365BFEE6CA87F370EA3</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="cjs_Job Manager" type="Identity">8EB1099425594CA387CC7A5C31BD9E2F</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cjs_Scheduled Job" type="Life Cycle Map">F514403C972D40DC9E26D3F298E2B643</source_id>
+    <to_state keyed_name="Activated" type="Life Cycle State">94D53ECAD84942378BDDC9C916AD47DD</to_state>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

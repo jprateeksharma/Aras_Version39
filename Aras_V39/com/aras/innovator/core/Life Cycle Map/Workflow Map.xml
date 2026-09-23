@@ -1,0 +1,71 @@
+﻿<AML>
+ <Item type="Life Cycle Map" id="BFE29639578B470C8404FDFB054930B0" action="add">
+  <description>Workflow Template</description>
+  <permission_id keyed_name="System Item" type="Permission">E902B143591F448F868487447D926B25</permission_id>
+  <start_state keyed_name="In Work" type="Life Cycle State">161D7B69E2B0402796D09CE9AAA442A0</start_state>
+  <name>Workflow Map</name>
+  <Relationships>
+   <Item type="Life Cycle State" id="DE54B455A04F42CDB0B5CF8F54750EEC" action="add">
+    <image>../images/LifeCycleState.svg</image>
+    <label xml:lang="en">In Review</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Map" type="Life Cycle Map">BFE29639578B470C8404FDFB054930B0</source_id>
+    <x>131</x>
+    <y>18</y>
+    <name>In Review</name>
+   </Item>
+   <Item type="Life Cycle State" id="161D7B69E2B0402796D09CE9AAA442A0" action="add">
+    <image>../images/ArrowRight.svg</image>
+    <label xml:lang="en">In Work</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>0</sort_order>
+    <source_id keyed_name="Workflow Map" type="Life Cycle Map">BFE29639578B470C8404FDFB054930B0</source_id>
+    <x>16</x>
+    <y>18</y>
+    <name>In Work</name>
+   </Item>
+   <Item type="Life Cycle State" id="B6A644A8F62541CF8154B1F0EDF4A57D" action="add">
+    <image>../images/ViewSignOffs.svg</image>
+    <label xml:lang="en">Production</label>
+    <set_is_released>0</set_is_released>
+    <set_not_lockable>0</set_not_lockable>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Workflow Map" type="Life Cycle Map">BFE29639578B470C8404FDFB054930B0</source_id>
+    <x>255</x>
+    <y>18</y>
+    <name>Production</name>
+   </Item>
+   <Item type="Life Cycle Transition" id="B478A3CFE4B44E1DA84BC7F847990E39" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="In Work" type="Life Cycle State">161D7B69E2B0402796D09CE9AAA442A0</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Map" type="Life Cycle Map">BFE29639578B470C8404FDFB054930B0</source_id>
+    <to_state keyed_name="In Review" type="Life Cycle State">DE54B455A04F42CDB0B5CF8F54750EEC</to_state>
+    <x>-1</x>
+    <y>-1</y>
+   </Item>
+   <Item type="Life Cycle Transition" id="45EAEDB2B6CE41DD9C3176800FC7B8B6" action="add">
+    <execute_post_in_main_txn>0</execute_post_in_main_txn>
+    <from_state keyed_name="In Review" type="Life Cycle State">DE54B455A04F42CDB0B5CF8F54750EEC</from_state>
+    <get_comment>0</get_comment>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Workflow Map" type="Life Cycle Map">BFE29639578B470C8404FDFB054930B0</source_id>
+    <to_state keyed_name="Production" type="Life Cycle State">B6A644A8F62541CF8154B1F0EDF4A57D</to_state>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

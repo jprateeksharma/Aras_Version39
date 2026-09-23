@@ -1,0 +1,24 @@
+﻿<AML>
+ <Item type="Method" id="9B17B9BF2E014430909F59342456619B" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const isItemInEditState = ArasModules.item.isEditState('Form', options.itemId);
+if (!isItemInEditState) {
+	return { hidden: true };
+}
+
+const { commandFactory } = options;
+const itemNode = window.item;
+const saveCommand = commandFactory('SaveItem', { itemNode });
+const state = options.getState();
+
+const isViewOriginal = window.formEditorLayout?.state.isViewOriginalFormMode ? true : false;
+
+const disabled = state.isInvalidForm || !saveCommand.canExecute() || isViewOriginal;
+return {
+	hidden: false,
+	disabled
+};]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_responsive_form_init_save</name>
+ </Item>
+</AML>

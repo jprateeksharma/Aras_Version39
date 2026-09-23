@@ -1,0 +1,11 @@
+﻿<AML>
+ <Item type="FileType" id="197CC5F7C4504F49A5C337314189DBEB" action="add">
+  <description>Dassault SolidWorks SLDPRT Part</description>
+  <extension>sldprt</extension>
+  <mimetype>drawing/x-sld</mimetype>
+  <permission_id keyed_name="World Can Get" type="Permission">93AB06D37FC84328A314324DC45DB574</permission_id>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>SolidWorks Part</name>
+ </Item>
+</AML>

@@ -1,0 +1,39 @@
+﻿<AML>
+ <Item type="Method" id="B24DCB96C11B482080575E3D1757460A" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[const persistentType = this.getProperty("drs_persistent_type");
+if(persistentType === "Persistent")
+{
+	const eventHandlerItemVersion = this.newItem("dr_FamilyEventHandler", "add");
+	let methodItemVersion = this.newItem("Method", "get");
+	methodItemVersion.setProperty("name", "dr_HandleItemVersion");
+	methodItemVersion = methodItemVersion.apply();
+	if(methodItemVersion.isError())
+    {
+        return this;
+    }
+	eventHandlerItemVersion.setPropertyItem("event_handler_id", methodItemVersion);
+	eventHandlerItemVersion.setProperty("event_type", "OnBeforePersistRelationships");
+	eventHandlerItemVersion.setProperty("sort_order", "5");
+	this.addRelationship(eventHandlerItemVersion);
+
+	const eventHandler = this.newItem("dr_FamilyEventHandler", "add");
+    let method = this.newItem("Method", "get");
+	method.setProperty("name", "dr_EnsurePropagatedAccess");
+	method = method.apply();
+    if(method.isError())
+    {
+        return this;
+    }
+	eventHandler.setPropertyItem("event_handler_id", method);
+	eventHandler.setProperty("event_type", "OnBeforePersistRelationships");
+	eventHandler.setProperty("sort_order", "10");
+	eventHandler.setProperty("event_data", "<data><access_types>can_get</access_types></data>");
+	this.addRelationship(eventHandler);
+}
+return this;
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>dr_SetDefaultEventHandlers</name>
+ </Item>
+</AML>

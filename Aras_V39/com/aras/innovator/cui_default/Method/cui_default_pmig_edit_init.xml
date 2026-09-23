@@ -1,0 +1,67 @@
+﻿<AML>
+ <Item type="Method" id="376DADEF5AC14309A233E17AE4184BC4" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	getState,
+	isEditingEnabled,
+	itemType,
+	rows,
+	commandFactory,
+	polySources
+} = options;
+
+if (!isEditingEnabled) {
+	return { hidden: true };
+}
+
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(itemType.id);
+const getItemType = (item) => {
+	if (isPolymorphic) {
+		const itemTypeId = item.itemtype;
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return itemType;
+};
+
+const state = getState();
+const visible = state.grid.selectedRows.some((itemId) => {
+	const isEditableItem = state.editableItems.has(itemId);
+	return !isEditableItem;
+});
+
+const commandAlias = target['command_alias@keyed_name'];
+const enabled = state.grid.selectedRows.some((itemId) => {
+	const item = rows.get(itemId);
+	const itemType = getItemType(item);
+	const itemTypeName = itemType.name;
+	const editCommand = commandFactory(commandAlias, { item, itemType, itemTypeName });
+	const canExecute = editCommand.canExecute();
+	if (!canExecute) {
+		return canExecute;
+	}
+
+	const isRelationship = itemType['is_relationship'] === '1';
+	const useSrcAccess = itemType['use_src_access'] === '1';
+	let isEnableForRelationship = true;
+	if (isRelationship && useSrcAccess) {
+		const sourceItemType = item['source_id@aras.type'];
+		const sourceItemId = item['source_id'];
+		isEnableForRelationship = ArasModules.item.isEditState(sourceItemType, sourceItemId);
+	}
+
+	const isLockEnabled = !window.isFunctionDisabled(itemTypeName, 'Lock');
+	return isLockEnabled && isEnableForRelationship;
+});
+
+return {
+	disabled: !enabled,
+	hidden: !visible
+};
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_default_pmig_edit_init</name>
+ </Item>
+</AML>

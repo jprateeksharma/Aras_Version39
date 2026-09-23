@@ -1,0 +1,59 @@
+﻿<AML>
+ <Item type="Method" id="8D0A54C50CC348BEB3DED534CDD4C512" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const {
+	getState,
+	itemType,
+	rows,
+	commandFactory,
+	polySources
+} = options;
+const state = getState();
+const selectedRowsIds = state.grid.selectedRows;
+
+const itemTypeMetadata = ArasModules.metadata.itemType;
+const isPolymorphic = itemTypeMetadata.isPolymorphic(itemType.id);
+const getItemType = (item) => {
+	if (isPolymorphic) {
+		const itemTypeId = item.itemtype;
+		const itemTypeName = itemTypeMetadata.getItemTypeName(itemTypeId);
+		return polySources[itemTypeName];
+	}
+
+	return itemType;
+};
+const commandAlias = target['command_alias@keyed_name'];
+const disabled = selectedRowsIds.every(rowId => {
+	const item = rows.get(rowId);
+	const itemType = getItemType(item);
+	const itemTypeName = itemType.name;
+	const unclaimCommand = commandFactory(commandAlias, { item, itemType, itemTypeName });
+	const isUnlockDisabled = window.isFunctionDisabled(itemTypeName, 'Unlock');
+	const isDisabled = isUnlockDisabled || !unclaimCommand.canExecute();
+
+	return isDisabled;
+});
+const hidden = disabled && selectedRowsIds.every(rowId => {
+	const item = rows.get(rowId);
+	const itemType = getItemType(item);
+	const itemTypeName = itemType.name;
+
+	const claimedById = rows.get(rowId, 'locked_by_id');
+	const isClaimedByMe = claimedById === aras.user.id;
+
+	if (isClaimedByMe || !claimedById) {
+		return !ArasModules.item.isEditedAndClaimed(itemTypeName, item.id);
+	}
+
+	return false;
+});
+
+return {
+	disabled,
+	hidden
+};
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>cui_pmig_unclaim_init</name>
+ </Item>
+</AML>

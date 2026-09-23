@@ -1,0 +1,98 @@
+﻿<AML>
+ <Item type="List" id="6D7BC332E50D40A9B2B937D27BF03274" action="add">
+  <name>cui_ControlTypes</name>
+  <Relationships>
+   <Item type="Value" id="70DF5E0A7C744EE6B76AE57280984818" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Form Control</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>FormControl</value>
+   </Item>
+   <Item type="Value" id="7BAC438A770C40DE860326B330EDA022" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Toolbar Control</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>ToolbarControl</value>
+   </Item>
+   <Item type="Value" id="6E3B913DCEB048F7B9067D91A9759940" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tab Element Control</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>TabElementControl</value>
+   </Item>
+   <Item type="Value" id="5D5DDC61991C4525AD1CBD6237638229" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Accordion Element Control</label>
+    <sort_order>512</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>AccordionElementControl</value>
+   </Item>
+   <Item type="Value" id="52B3E0ACD06A41E5B0B0220A68A3DD20" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tab Container Control</label>
+    <sort_order>640</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>TabContainerControl</value>
+   </Item>
+   <Item type="Value" id="B21B93646E1E44E3A3903BAFE84B3647" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Shortcuts Control</label>
+    <sort_order>700</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>ShortcutsControl</value>
+   </Item>
+   <Item type="Value" id="67B4684518B943D49DF3D3BDEFE92E5F" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">TDF Editor</label>
+    <sort_order>768</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>TDFEditor</value>
+   </Item>
+   <Item type="Value" id="D528561E24FB421A8571EBDDE40036B6" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">TDF Tree</label>
+    <sort_order>896</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>TDFTree</value>
+   </Item>
+   <Item type="Value" id="11570BE05A9F45A8B7865C4576FB8841" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Grid Control</label>
+    <sort_order>1024</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>GridControl</value>
+   </Item>
+   <Item type="Value" id="D52A780A370C48E2B24863FC80849306" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Context Menu</label>
+    <sort_order>1152</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>ContextMenu</value>
+   </Item>
+   <Item type="Value" id="48D0D488D7C74FED8698BBA43A2711BE" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Spinner Control</label>
+    <sort_order>1280</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>SpinnerControl</value>
+   </Item>
+   <Item type="Value" id="FEA35E06417B496FA0A50877D616779D" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Tabs Control</label>
+    <sort_order>1408</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>TabsControl</value>
+   </Item>
+   <Item type="Value" id="BE1F975CAF21453786ECB78024E457E1" action="add">
+    <inactive>0</inactive>
+    <label xml:lang="en">Pagination Control</label>
+    <sort_order>1536</sort_order>
+    <source_id keyed_name="cui_ControlTypes" type="List">6D7BC332E50D40A9B2B937D27BF03274</source_id>
+    <value>PaginationControl</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

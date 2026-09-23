@@ -1,0 +1,13 @@
+﻿<AML>
+ <Item type="PresentationCommand" id="6EBBACB001FF4E2B968E57A4FEDA5C3F" action="add">
+  <command_alias keyed_name="EditItem" type="CommandAlias">1275D512E8CE4B31B7FD5042E5D564C2</command_alias>
+  <related_id keyed_name="EditItem_Form" type="Command">
+   <Item type="Command" id="8B07FA9DA1534E03A9248D60FBE33471" action="add">
+    <execute_handler keyed_name="cui_command_edit_form_execute" type="Method">AC2F7346B05546D9A8121582542FE81E</execute_handler>
+    <name>EditItem_Form</name>
+   </Item>
+  </related_id>
+  <sort_order>384</sort_order>
+  <source_id keyed_name="Form Presentation Configuration" type="PresentationConfiguration">42F0FF594878407F9B4D94E53B84F426</source_id>
+ </Item>
+</AML>

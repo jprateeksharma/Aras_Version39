@@ -1,0 +1,70 @@
+﻿<AML>
+ <Item type="ac_PolicyAccessItemAttribute" id="D9F445802CA04631A403F90B2736BD48" action="add">
+  <type>boolean</type>
+  <name>effs_isSrcPartItemReleasedAttr</name>
+  <Relationships>
+   <Item type="ac_PolicyAccessAttrDefinition" id="6CB4A9A03206467CBCBD8568C3190114" action="add">
+    <defined_on_itemtype_id keyed_name="effs_Part_BOM_expression" type="ItemType" name="effs_Part_BOM_expression">8610F1E7609D4226A90561A96F3648A6</defined_on_itemtype_id>
+    <dr_relationship_id keyed_name="Expression - Part BOM - Part" type="dr_Relationship">
+     <Item type="dr_Relationship" id="9FF03DCAAAAE4055AFF0786F44FBD252" action="add">
+      <departure_itemtype_id keyed_name="effs_Part_BOM_expression" type="ItemType" name="effs_Part_BOM_expression">8610F1E7609D4226A90561A96F3648A6</departure_itemtype_id>
+      <destination_itemtype_id keyed_name="Part" type="ItemType" name="Part">4F1AC04A2B484F3ABA4E20DB63808A88</destination_itemtype_id>
+      <implementation_query><![CDATA[<Item type="qry_QueryDefinition">
+  <Relationships>
+    <Item type="qry_QueryItem">
+      <alias>effs_Part_BOM_expression</alias>
+      <item_type keyed_name="effs_Part_BOM_expression" type="ItemType" name="effs_Part_BOM_expression">8610F1E7609D4226A90561A96F3648A6</item_type>
+      <offset_fetch_xml is_null="1"></offset_fetch_xml>
+      <ref_id>1E04EB5E65404546B032C36CAF2985FE</ref_id>
+    </Item>
+    <Item type="qry_QueryItem">
+      <alias>Part BOM</alias>
+      <item_type keyed_name="Part BOM" type="ItemType" name="Part BOM">5E9C5A12CC58413A8670CF4003C57848</item_type>
+      <offset_fetch_xml is_null="1"></offset_fetch_xml>
+      <ref_id>EF01F13DEE024C4F90FD58191C8A53E3</ref_id>
+    </Item>
+    <Item type="qry_QueryItem">
+      <alias>Part</alias>
+      <item_type keyed_name="Part" type="ItemType" name="Part">4F1AC04A2B484F3ABA4E20DB63808A88</item_type>
+      <offset_fetch_xml is_null="1"></offset_fetch_xml>
+      <ref_id>481BEFE0DE6345AB95028E4055963941</ref_id>
+    </Item>
+    <Item type="qry_QueryReference">
+      <child_ref_id>1E04EB5E65404546B032C36CAF2985FE</child_ref_id>
+      <start_query_reference_path>/</start_query_reference_path>
+    </Item>
+    <Item type="qry_QueryReference">
+      <child_ref_id>EF01F13DEE024C4F90FD58191C8A53E3</child_ref_id>
+      <filter_xml>&lt;condition&gt;
+&lt;eq&gt;
+&lt;property query_items_xpath="parent::Item" name="source_id" /&gt;
+&lt;property name="id" /&gt;
+&lt;/eq&gt;
+&lt;/condition&gt;</filter_xml>
+      <parent_ref_id>1E04EB5E65404546B032C36CAF2985FE</parent_ref_id>
+      <ref_id>14CBB3612E294367BE0D2B7AFEAF9C65</ref_id>
+    </Item>
+    <Item type="qry_QueryReference">
+      <child_ref_id>481BEFE0DE6345AB95028E4055963941</child_ref_id>
+      <filter_xml>&lt;condition&gt;
+&lt;eq&gt;
+&lt;property query_items_xpath="parent::Item" name="source_id" /&gt;
+&lt;property name="id" /&gt;
+&lt;/eq&gt;
+&lt;/condition&gt;</filter_xml>
+      <parent_ref_id>EF01F13DEE024C4F90FD58191C8A53E3</parent_ref_id>
+      <ref_id>7A46C8BEA26F428381393EF300F6EBA4</ref_id>
+    </Item>
+  </Relationships>
+</Item>]]></implementation_query>
+      <name>Expression - Part BOM - Part</name>
+     </Item>
+    </dr_relationship_id>
+    <leaf_item keyed_name="Part" type="ItemType" name="Part">4F1AC04A2B484F3ABA4E20DB63808A88</leaf_item>
+    <property_name>is_released</property_name>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="effs_isSrcPartItemReleasedAttr" type="ac_PolicyAccessItemAttribute">D9F445802CA04631A403F90B2736BD48</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

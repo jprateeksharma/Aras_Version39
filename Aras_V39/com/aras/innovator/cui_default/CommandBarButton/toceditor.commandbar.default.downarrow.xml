@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="CommandBarButton" id="9C5E406AC16B4E1890959C9CFF45DCCD" action="add">
+  <image>../images/DownArrow.svg</image>
+  <include_events>UpdateState</include_events>
+  <on_click_handler keyed_name="cui_toc_editor_downarrow_click" type="Method">0CDBD194DC0F474A80928D6E7D25A0DF</on_click_handler>
+  <on_init_handler keyed_name="cui_toc_editor_downarrow_init" type="Method">AD4DD7C370B248D9BC8288C78312AD43</on_init_handler>
+  <tooltip_template xml:lang="en">Move Down</tooltip_template>
+  <name>toceditor.commandbar.default.downarrow</name>
+ </Item>
+</AML>

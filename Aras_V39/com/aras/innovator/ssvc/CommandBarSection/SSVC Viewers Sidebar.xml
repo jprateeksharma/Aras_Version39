@@ -1,0 +1,15 @@
+﻿<AML>
+ <Item type="CommandBarSection" id="BEE468F9A65447E0A93CB2F72EDD81AB" action="add">
+  <builder_method keyed_name="SSVC Viewers Sidebar Builder" type="Method">C504DD2720184B069616A0996E998294</builder_method>
+  <classification>Method</classification>
+  <location keyed_name="ItemWindowSidebar" type="cui_Location">BC1CFDCECA434111B7A88A51EE430CC5</location>
+  <name>SSVC Viewers Sidebar</name>
+  <Relationships>
+   <Item type="CommandBarSectionDependency" id="3352FB56ED594E6C88D389EC5E82F50C" action="add">
+    <related_id keyed_name="Feature License" type="ItemType" name="Feature License">CE0C4143D35E46CDA3874C4339F159BE</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="SSVC Viewers Sidebar" type="CommandBarSection">BEE468F9A65447E0A93CB2F72EDD81AB</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

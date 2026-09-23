@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="BAF014086C3E472092C9BC0FABAB1F6A" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid '{0}' method definition: types '{1}' are not defined among types definitions.</text>
+  <name>cws_BoundMethodTypesAreNotDefined</name>
+ </Item>
+</AML>

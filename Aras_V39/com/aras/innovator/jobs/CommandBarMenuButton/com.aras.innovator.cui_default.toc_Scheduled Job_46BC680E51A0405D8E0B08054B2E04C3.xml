@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="46BC680E51A0405D8E0B08054B2E04C3" action="add">
+  <additional_data>{"itemTypeId":"7D090036D04C4FC6AC0F2EC2F0E781B8"}</additional_data>
+  <image>../images/ScheduledJob.svg</image>
+  <label xml:lang="en">Scheduled Jobs</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_6D579E5DB3F64BC8B51AB7DE3915D216" type="CommandBarMenu">6D579E5DB3F64BC8B51AB7DE3915D216</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_Scheduled Job_46BC680E51A0405D8E0B08054B2E04C3</name>
+ </Item>
+</AML>

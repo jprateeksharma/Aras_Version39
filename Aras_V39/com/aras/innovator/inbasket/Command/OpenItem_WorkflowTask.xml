@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Command" id="8B2D920FA5C34538B49035B0FA6688FB" action="add">
+  <execute_handler keyed_name="cui_command_open_workflow_task_e" type="Method">E4199E3B5428455D970B42C07DFFF1E8</execute_handler>
+  <name>OpenItem_WorkflowTask</name>
+ </Item>
+</AML>

@@ -1,0 +1,9 @@
+﻿<AML>
+ <Item type="cui_Rule" id="C5C84C597C814D36A8FAAEE0A7267868" action="add">
+  <behavior_text>{"Property":{"state":{"styles":{"backgroundColor":"#877dcc","color":"#fbfbfd"}}}}</behavior_text>
+  <behavior_type>formatting</behavior_type>
+  <condition_text>[{"id":"52D45AAA9CBD469ABAE0BB7103B829A2","function":"value_of_property","property":"state","operator":"is","criteria":"Persisting|Plan Review"}]</condition_text>
+  <condition_type>property</condition_type>
+  <name>LightIndigoLifeCycleState</name>
+ </Item>
+</AML>

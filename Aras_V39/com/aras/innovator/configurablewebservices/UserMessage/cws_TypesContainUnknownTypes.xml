@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="869252ACB925455EA7D0108A10EB5851" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">'Types' contain the following unknown types: {0}.</text>
+  <name>cws_TypesContainUnknownTypes</name>
+ </Item>
+</AML>

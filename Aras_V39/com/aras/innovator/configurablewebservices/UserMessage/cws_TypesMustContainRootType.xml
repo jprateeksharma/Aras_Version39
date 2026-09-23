@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="AC7C7AECE3334312B10EF29FF8674A21" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">'Types' must contain at least one Type with 'getlist' or 'get' actions.</text>
+  <name>cws_TypesMustContainRootType</name>
+ </Item>
+</AML>

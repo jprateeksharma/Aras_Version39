@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="04FB23FFAC114E3E93F7C9B3051B0216" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Aliases cannot contain spaces. Incorrect aliases: '{0}'.</text>
+  <name>cws_AliasesCannotContainSpaces</name>
+ </Item>
+</AML>

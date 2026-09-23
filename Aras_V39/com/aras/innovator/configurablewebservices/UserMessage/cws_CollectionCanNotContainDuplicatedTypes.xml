@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="5C85388840B541338982927072F4270E" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Collection cannot contain duplicated types.</text>
+  <name>cws_CollectionCanNotContainDuplicatedTypes</name>
+ </Item>
+</AML>

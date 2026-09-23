@@ -1,0 +1,230 @@
+﻿<AML>
+ <Item type="SearchMode" id="BEF4CDA54AA74362A2C40BD530D4D9DD" action="add">
+  <is_active>0</is_active>
+  <label xml:lang="en">AML</label>
+  <search_handler>window.Aml = function Aml(searchContainer) {
+	this.supportXClassSearch = true;
+	// create markup by aml search
+	this.amlContainer = document.createElement('div');
+	this.amlContainer.setAttribute('id', 'aml_search_container');
+	this.amlContainer.setAttribute('style', 'overflow-x: hidden; overflow-y: auto;');
+
+	this.aml_search_prefix = document.createElement('div');
+	this.aml_search_prefix.setAttribute('id', 'aml_search_container');
+	this.aml_search_prefix.setAttribute('style', 'font-size: 1rem; margin-left: 6px; width: 100%; word-wrap:break-word; word-break: break-all;');
+
+	var divContainer = document.createElement('div');
+	divContainer.setAttribute('style', 'position:relative; padding:0px 10px 0px 30px;');
+
+	this.aml_search_text = document.createElement('aras-textarea');
+	this.aml_search_text.setAttribute('resize', 'auto-vertical')
+	this.aml_search_text.setAttribute('id', 'aml_search_text');
+	const newStyle = 'font-size: 1rem;width:100%; background-color:#BDDEF7;';
+	this.aml_search_text.setAttribute('style', newStyle);
+
+	this.aml_search_suffix = document.createElement('div');
+	this.aml_search_suffix.setAttribute('id', 'aml_search_suffix');
+	this.aml_search_suffix.setAttribute('style', 'font-size: 1rem; margin-left: 6px;');
+
+	divContainer.appendChild(this.aml_search_text);
+	this.amlContainer.appendChild(this.aml_search_prefix);
+	this.amlContainer.appendChild(divContainer);
+	this.amlContainer.appendChild(this.aml_search_suffix);
+	searchContainer.searchPlaceholderCell.appendChild(this.amlContainer);
+	this.searchContainer = searchContainer;
+
+	this.aml_search_text.addEventListener('change', (e) =&gt; {
+		storeCondition(e);
+	});
+
+	// Call base SearchMode constructor
+	SearchMode.prototype.constructor.call(this, searchContainer, aras);
+	this.complexity = 3;
+}
+
+Aml.prototype = new SearchMode();
+Aml.prototype.setupAMLContainerHeight = function() {
+	//150px is the height of the aml search container
+	//12px is margin-bottom of aras-search-placeholder
+	const height = 150 - this.aml_search_prefix.offsetHeight - this.aml_search_suffix.offsetHeight - 12 + 'px';
+	this.aml_search_text.style.minHeight = `max(32px, min(14vh, ${height}))`;
+	this.aml_search_text.style.maxHeight = `calc(48vh - ${this.aml_search_prefix.offsetHeight + this.aml_search_suffix.offsetHeight + 12}px)`;
+};
+
+Aml.prototype.onStartSearchMode = function AMLSearchMode_onStartSearchMode(sContainer) {
+	// Call base onStartSearchMode method.
+	//SearchMode.prototype.onStartSearchMode.call(this, sContainer);
+
+	// Inputrow must be hidden in AML search mode.
+	if (this.grid) {
+		this.grid.ShowInputRow(false);
+	}
+
+	this.searchContainer.setStyleAttribute('height', 'unset');
+	this.searchContainer.setStyleAttribute('display', '');
+
+	this.aml_search_text.focus();
+};
+
+Aml.prototype.onEndSearchMode = function SimpleSearchMode_onStartSearchMode(sContainer) {
+	// Call base onEndSearchMode method.
+	SearchMode.prototype.onEndSearchMode.call(this);
+
+	this.searchContainer.setStyleAttribute('display', 'none');
+};
+
+Aml.prototype.clearSearchCriteria = function AMLSearchMode_clearSearchCriteria() {
+	SearchMode.prototype.clearSearchCriteria.call(this);
+
+	this.getAml();
+};
+
+Aml.prototype.setAml = async function AMLSearchMode_setAml(searchAML) {
+	const { actions, state } = window.layout;
+	const favoriteApplied = state.favoriteSearch;
+	const notDefaultAttributes = favoriteApplied ? getFilteredAttributes(searchAML, ['type']) : [];
+
+	if (notDefaultAttributes.length === 0) {
+		await SearchMode.prototype.setAml.call(this, searchAML);
+	} else {
+		if (!(await this.testAmlForCompatibility(searchAML))) {
+			return;
+		}
+
+		const layoutData = {
+			searching: {
+				criteriaAml: searchAML
+			}
+		};
+
+		layoutData.searching.mode = 'Aml';
+		actions.updateLayoutData(layoutData);
+	}
+
+	this.putAMLintoUI(searchAML);
+};
+
+Aml.prototype.getAml = async function() {
+	let criteriaAml = await this.getCriteriaAml();
+	const favoriteApplied = window.layout.state.favoriteSearch;
+	const notDefaultAttributes = favoriteApplied ? getFilteredAttributes(criteriaAml, ['type']) : [];
+	if (notDefaultAttributes.length === 0) {
+		criteriaAml = await SearchMode.prototype.getAml.call(this);
+		if (!criteriaAml) {
+			return;
+		}
+	}
+
+	this.putAMLintoUI(criteriaAml);
+	return criteriaAml;
+};
+
+Aml.prototype.getCriteriaAml = async function() {
+	const { searching } = window.layout.state;
+	let criteriaAml = searching.criteriaAml;
+
+	const xClassCriteria = searching.xClassCriteria;
+	if (xClassCriteria) {
+		const { xml, jsonToXml } = window.ArasModules;
+
+		const xClassCriteriaXml = jsonToXml(xClassCriteria);
+		const xClassCriteriaNode = xml.parseString(xClassCriteriaXml).documentElement;
+		const criteriaAmlNode = xml.parseString(criteriaAml).documentElement;
+		criteriaAmlNode.appendChild(xClassCriteriaNode);
+
+		criteriaAml = xml.getXml(criteriaAmlNode);
+	}
+
+	return criteriaAml;
+}
+
+Aml.prototype.putAMLintoUI = function AMLSearchMode_putAMLintoUI(aml) {
+	var prefixEndIndx = aml.indexOf('&gt;');
+	var bodyStartIndx;
+	var bodyEndIndx = aml.lastIndexOf('/');
+	var suffixStartIndx;
+	if (aml.lastIndexOf('&lt;/Item&gt;') &lt; 0) {
+		aml = aml.substr(0, bodyEndIndx) + '&gt;&lt;/Item&gt;';
+		prefixEndIndx = aml.indexOf('&gt;');
+		bodyEndIndx = aml.lastIndexOf('/');
+	}
+	bodyStartIndx = prefixEndIndx;
+	while (aml.substr(bodyStartIndx, 1) != '&lt;') {
+		bodyStartIndx += 1;
+	}
+	suffixStartIndx = bodyEndIndx;
+	while (aml.substr(suffixStartIndx, 1) != '&lt;') {
+		suffixStartIndx -= 1;
+	}
+	while (aml.substr(bodyEndIndx, 1) != '&gt;') {
+		bodyEndIndx -= 1;
+	}
+
+	var textPropName = aras.browserHelper.getTextContentPropertyName();
+	this.aml_search_prefix[textPropName] = aml.substr(0, prefixEndIndx + 1);
+	this.aml_search_text.value = aml.substr(bodyStartIndx, bodyEndIndx - bodyStartIndx + 1);
+	aml_search_suffix[textPropName] = aml.substr(suffixStartIndx);
+	this.setupAMLContainerHeight();
+};
+
+Aml.prototype.getAMLfromUI = function AMLSearchMode_getAMLfromUI() {
+	var textPropName = aras.browserHelper.getTextContentPropertyName();
+	return this.aml_search_prefix[textPropName] + this.aml_search_text.value + aml_search_suffix[textPropName];
+};
+
+Aml.prototype.testAmlForCompatibility = async function AMLSearchMode_testAmlForCompatibility(searchAml) {
+	const xmlNode = ArasModules.xml.parseString(searchAml);
+	const { errorCode, reason } = ArasModules.xml.getError(xmlNode);
+	if (errorCode !== 0) {
+		this.aras.AlertError(
+			this.aras.getResource('', 'common.an_internal_error_has_occured'),
+			this.aras.getResource(
+				'',
+				'search.bad_xml',
+				reason
+			),
+			this.aras.getResource('', 'common.client_side_err')
+		);
+		this.isValidAML = true;
+		return false;
+	}
+	return true;
+}
+
+Aml.prototype.hide = function AmlSearchMode_hide() {
+	this.amlContainer.style.display = 'none';
+};
+
+Aml.prototype.show = function AmlSearchMode_show() {
+	this.amlContainer.style.display = '';
+};
+
+Aml.prototype.remove = function AmlSearchMode_remove() {
+	this.searchContainer.searchPlaceholderCell.removeChild(this.amlContainer);
+};
+
+const getFilteredAttributes = function(criteriaAml, attributesToExclude) {
+	const xml = window.ArasModules.xml;
+	const searchAmlNode = xml.parseString(criteriaAml);
+	const { errorCode, reason } = xml.getError(searchAmlNode);
+	if (errorCode !== 0) {
+		this.aras.AlertError(
+			this.aras.getResource('', 'common.an_internal_error_has_occured'),
+			this.aras.getResource('', 'search.bad_xml', reason),
+			this.aras.getResource('', 'common.client_side_err')
+		);
+		return;
+	}
+
+	const searchItem = searchAmlNode.documentElement;
+	const attributes = Array.from(searchItem.attributes);
+	return attributes.filter((attr) =&gt; !attributesToExclude.includes(attr.name));
+};
+
+const storeCondition = function(eventData){
+	window.layout.actions.updateSearchCriteria(`&lt;Item type="${window.layout.options.itemTypeName}"&gt;${eventData.target.value}&lt;/Item&gt;`);
+}</search_handler>
+  <search_mode_order>384</search_mode_order>
+  <name>Aml</name>
+ </Item>
+</AML>

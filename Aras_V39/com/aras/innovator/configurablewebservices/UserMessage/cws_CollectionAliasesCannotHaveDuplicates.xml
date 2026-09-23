@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="2E75354E1FB0418383FAE5E3783DFA05" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Error in '{0}' Type: Collection aliases cannot have duplicates (case insensitive).</text>
+  <name>cws_CollectionAliasesCannotHaveDuplicates</name>
+ </Item>
+</AML>

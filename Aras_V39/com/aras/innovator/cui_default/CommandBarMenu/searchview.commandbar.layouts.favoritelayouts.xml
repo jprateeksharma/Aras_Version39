@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="CommandBarMenu" id="F650647333E844A983DF9236B0ABBA98" action="add">
+  <include_events>UpdateState,UpdateProps</include_events>
+  <on_init_handler keyed_name="cui_common_favoritelayouts_init" type="Method">B64EFBDAED364140A93005C6AA220098</on_init_handler>
+  <parent_menu keyed_name="searchview.commandbar.layouts" type="CommandBarMenu">527EED10910B4C8CBFAA73BC80E6247C</parent_menu>
+  <name>searchview.commandbar.layouts.favoritelayouts</name>
+ </Item>
+</AML>

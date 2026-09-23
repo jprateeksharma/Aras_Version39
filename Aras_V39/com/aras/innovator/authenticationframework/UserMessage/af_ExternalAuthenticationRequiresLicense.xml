@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="77987336417241DCBBF6C31E26B7A9E7" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Authentication using external authentication schemes requires a license.</text>
+  <name>af_ExternalAuthenticationRequiresLicense</name>
+ </Item>
+</AML>

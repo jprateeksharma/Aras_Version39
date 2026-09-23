@@ -1,0 +1,31 @@
+﻿<AML>
+ <Item type="Method" id="632EEE29F48E489D8687A1B365145B4C" action="add">
+  <comments>If the user is toggling a non-federated property to be a federated property, he will be given a warning. </comments>
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[if(value !== true)
+{
+    return;
+}
+const item = aras.itemsCache.getItemByXPath("//Item[@id='"+itemId+"']");
+const isTemp = item.getAttribute("isTemp");
+
+if(isTemp !== "1" )
+{
+    const title = aras.getResource('', 'common.warning');
+    const okButtonText = aras.getResource('', 'confirm_delete.delete_all');
+    const options = {
+        title,
+        okButtonText
+    };
+    const propertyName = aras.getItemProperty(item,'name');
+    return ArasModules.Dialog.confirm(aras.getResource('', 'ui_methods_ex.changing_to_federated_delete_all_values', propertyName), options).then(function (result) {
+                if (result !== 'ok') {
+                    aras.setItemProperty(item, 'is_federated', '0');
+                }
+            });
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>Validate losing data of property</name>
+ </Item>
+</AML>

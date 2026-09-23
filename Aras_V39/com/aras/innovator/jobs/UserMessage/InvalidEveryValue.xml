@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="DC8B95AC0449451B95AE7B505C64710D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid 'Every' value. Integer must be positive.</text>
+  <name>InvalidEveryValue</name>
+ </Item>
+</AML>

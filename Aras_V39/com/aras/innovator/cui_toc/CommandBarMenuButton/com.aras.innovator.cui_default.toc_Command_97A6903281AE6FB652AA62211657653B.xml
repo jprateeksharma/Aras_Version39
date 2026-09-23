@@ -1,0 +1,12 @@
+﻿<AML>
+ <Item type="CommandBarMenuButton" id="97A6903281AE6FB699E9D85137DB46EF" action="add">
+  <additional_data>{
+  "itemTypeId": "4BE59ABCA5644D11B430808476D8553A",
+  "tocAccessId": "B3F6D7A2B8934D6BAE28D316166AAC2C"
+}</additional_data>
+  <image>../images/CuiCommand.svg</image>
+  <label xml:lang="en">Commands</label>
+  <parent_menu keyed_name="com.aras.innovator.cui_default.toc_Configuration" type="CommandBarMenu">C599EA936834459F83CC0D3B09BF5856</parent_menu>
+  <name>com.aras.innovator.cui_default.toc_Command_97A6903281AE6FB652AA62211657653B</name>
+ </Item>
+</AML>

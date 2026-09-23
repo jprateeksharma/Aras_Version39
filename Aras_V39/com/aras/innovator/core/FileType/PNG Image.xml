@@ -1,0 +1,10 @@
+﻿<AML>
+ <Item type="FileType" id="50AF497B7A114235979F882CEC8EFDF6" action="add">
+  <description>PNG Image</description>
+  <extension>png</extension>
+  <mimetype>image/png</mimetype>
+  <use_magic_bytes>0</use_magic_bytes>
+  <use_regular_expression>0</use_regular_expression>
+  <name>PNG Image</name>
+ </Item>
+</AML>

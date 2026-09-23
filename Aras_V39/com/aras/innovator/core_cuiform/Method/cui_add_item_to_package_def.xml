@@ -1,0 +1,60 @@
+﻿<AML>
+ <Item type="Method" id="38A8F35C7FA242C18CB534C619029F7A" action="add">
+  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
+  <method_code><![CDATA[
+	interface Form {
+		id: string;
+	};
+
+	interface FormInPackage extends Form {
+		name: string;
+		keyedName: string;
+		packageName: string;
+	};
+
+	const instructUserToUseUpdatePackageAction = async (
+		item: FormInPackage
+		) => {
+		if (!item) {
+			return;
+		}
+
+		const errorMessage: string =
+			getResource(
+				'item_methods.package_with_form_already_exists',
+				item.keyedName,
+				options.itemTypeName,
+				item.packageName
+			);
+
+		if (!errorMessage) {
+			return;
+		}
+
+		const newLine = '\r\n';
+		await alert(
+			`${errorMessage}${newLine}${getResource(
+				'item_methods.use_update_package_action_message'
+			)}`
+		);
+	}
+
+	const response : { formsToAdd: Form[]; formsToUpdate: FormInPackage[] } = await odataFetch('method.FilterFormItemsBeforePackage', {
+		method: 'POST',
+		body: JSON.stringify({
+			ids: options.itemId
+		})
+	});
+
+	if (response.formsToAdd && response.formsToAdd.length > 0) {
+		await window.aras.addItemToPackageDef(response.formsToAdd, options.itemTypeName);
+	}
+
+	if (response.formsToUpdate && response.formsToUpdate.length == 1) {
+		await instructUserToUseUpdatePackageAction(response.formsToUpdate[0]);
+	}]]></method_code>
+  <method_type>TypeScript</method_type>
+  <template keyed_name="cui_form_itemview_add_pack_click" type="MethodTemplate">62DBBCA6F3AF4DA7872E03A4D795FF48</template>
+  <name>addFormToPackageDef</name>
+ </Item>
+</AML>

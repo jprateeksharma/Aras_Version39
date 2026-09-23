@@ -1,0 +1,304 @@
+﻿<AML>
+ <Item type="RelationshipType" id="4B7F75447ABE464EB4CF0DB3B2D37A39" action="add" dependencyLevel="0">
+  <auto_search>1</auto_search>
+  <behavior>float</behavior>
+  <copy_permissions>0</copy_permissions>
+  <create_related>0</create_related>
+  <hide_in_all>0</hide_in_all>
+  <inc_rel_key_name>1</inc_rel_key_name>
+  <inc_related_key_name>1</inc_related_key_name>
+  <is_list_type>0</is_list_type>
+  <label xml:lang="en">API Keys</label>
+  <new_show_related>0</new_show_related>
+  <related_notnull>0</related_notnull>
+  <related_option>2</related_option>
+  <relationship_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">
+   <Item type="ItemType" id="A0C58AE3ECCA42D0862AB4EBEA5E8B89" action="add">
+    <allow_private_permission>1</allow_private_permission>
+    <auto_search>0</auto_search>
+    <enforce_discovery>0</enforce_discovery>
+    <hide_where_used>0</hide_where_used>
+    <implementation_type>table</implementation_type>
+    <instance_data>CWS_APIKEY</instance_data>
+    <is_dependent>0</is_dependent>
+    <is_relationship>1</is_relationship>
+    <is_versionable>0</is_versionable>
+    <label xml:lang="en">API Key</label>
+    <label_plural xml:lang="en">API Keys</label_plural>
+    <large_icon>../images/APIKey.svg</large_icon>
+    <open_icon>../images/APIKey.svg</open_icon>
+    <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+    <show_parameters_tab>1</show_parameters_tab>
+    <structure_view>tabs off</structure_view>
+    <unlock_on_logout>0</unlock_on_logout>
+    <use_src_access>0</use_src_access>
+    <name>cws_ApiKey</name>
+    <Relationships>
+     <Item type="ITPresentationConfiguration" id="5D4622B668DA4A8B8D47DB06A4CD0B86" action="add">
+      <client>js</client>
+      <related_id keyed_name="cws_ApiKeyPresentationConfiguration" type="PresentationConfiguration">5B246698AE3342ADA5A2EB174FBB6FF9</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+     </Item>
+     <Item type="Property" id="7299BBEE7BE543E28744B6E127F61D8B" action="add">
+      <column_alignment>left</column_alignment>
+      <data_type>md5</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>1</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <range_inclusive>0</range_inclusive>
+      <readonly>1</readonly>
+      <sort_order>4352</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+      <stored_length>256</stored_length>
+      <track_history>0</track_history>
+      <name>apikey</name>
+     </Item>
+     <Item type="Property" id="921FF33718E044A0AC2F731BA4F3DB3E" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>448</column_width>
+      <data_type>string</data_type>
+      <default_value xml:lang="en">Click “Save” to get a key. COPY it immediately. Keys won’t display after creation.</default_value>
+      <help_tooltip xml:lang="en">Keys only display on creation. Copy and store them in a secure location.</help_tooltip>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>1</is_federated>
+      <is_hidden>1</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">API Key</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3712</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+      <stored_length>256</stored_length>
+      <track_history>0</track_history>
+      <name>apikey_federated</name>
+     </Item>
+     <Item type="Property" id="47900A4FB93642D3A3889A0E7870606E" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>320</column_width>
+      <data_type>text</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Description</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3968</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+      <track_history>0</track_history>
+      <name>description</name>
+     </Item>
+     <Item type="Property" id="243834096A3F4A718FBE29022DBC8C72" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>160</column_width>
+      <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+      <data_type>item</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <item_behavior>float</item_behavior>
+      <label xml:lang="en">User</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3840</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+      <track_history>0</track_history>
+      <name>key_user</name>
+     </Item>
+     <Item type="Property" id="DA63AD29FDB84FD8A59C1EA47651883F" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>160</column_width>
+      <data_type>string</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>1</is_required>
+      <keyed_name_order>1</keyed_name_order>
+      <label xml:lang="en">Name</label>
+      <order_by>1</order_by>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>3584</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+      <stored_length>32</stored_length>
+      <track_history>0</track_history>
+      <name>name</name>
+     </Item>
+     <Item type="Property" id="329C3AC2260F45F787C883A9A0A206AE" action="add">
+      <column_alignment>left</column_alignment>
+      <column_width>320</column_width>
+      <data_source keyed_name="cws_ApiKeyScope">83215926DC954893B06F66A556A59868</data_source>
+      <data_type>mv_list</data_type>
+      <is_discoverable>1</is_discoverable>
+      <is_federated>0</is_federated>
+      <is_hidden>0</is_hidden>
+      <is_hidden2>0</is_hidden2>
+      <is_indexed>0</is_indexed>
+      <is_keyed>0</is_keyed>
+      <is_multi_valued>0</is_multi_valued>
+      <is_required>0</is_required>
+      <label xml:lang="en">Scope</label>
+      <range_inclusive>0</range_inclusive>
+      <readonly>0</readonly>
+      <sort_order>4480</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+      <stored_length>128</stored_length>
+      <track_history>0</track_history>
+      <name>scope</name>
+     </Item>
+     <Item type="Server Event" id="8A3EF952D5914206AAB04E2460FD693B" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="cws_ShowApiKey" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>cws_ShowApiKey</name>
+       </Item>
+      </related_id>
+      <server_event>onAfterGet</server_event>
+      <sort_order>256</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+     </Item>
+     <Item type="Server Event" id="E4105B37C7854C1792EB45C3DE79EB55" action="add">
+      <event_version>version_1</event_version>
+      <is_required>0</is_required>
+      <related_id keyed_name="cws_PopulateApiKeyItem" type="Method">
+       <Item type="Method" action="get" select="id">
+        <name>cws_PopulateApiKeyItem</name>
+       </Item>
+      </related_id>
+      <server_event>onBeforeAdd</server_event>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+     </Item>
+     <Item type="Can Add" id="2904B044608B4396A5F628BA97975032" action="add">
+      <can_add>1</can_add>
+      <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+     </Item>
+     <Item type="Allowed Permission" id="15A0D36F574A474B99BF17324F19F1DF" action="add">
+      <is_default>1</is_default>
+      <related_id keyed_name="Administrators" type="Permission">5BE54C871FB14F6EBC11596D1A010D26</related_id>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </relationship_id>
+  <sort_order>256</sort_order>
+  <source_id keyed_name="cws_WebService" type="ItemType" name="cws_WebService">AC272B10539240CF89579B4BB75F8CC1</source_id>
+  <name>cws_ApiKey</name>
+ </Item>
+ <Item type="ItemType" id="A0C58AE3ECCA42D0862AB4EBEA5E8B89" action="edit">
+  <Relationships>
+   <Item type="Property" action="edit" where="source_id='A0C58AE3ECCA42D0862AB4EBEA5E8B89' and name='created_by_id'">
+    <column_alignment>left</column_alignment>
+    <column_width>128</column_width>
+    <data_source keyed_name="User" type="ItemType" name="User">45E899CD2859442982EB22BB2DF683E5</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Created By</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>4096</sort_order>
+    <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+    <track_history>0</track_history>
+    <name>created_by_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='A0C58AE3ECCA42D0862AB4EBEA5E8B89' and name='created_on'">
+    <column_alignment>left</column_alignment>
+    <column_width>160</column_width>
+    <data_type>date</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <label xml:lang="en">Created On</label>
+    <pattern>short_date_time</pattern>
+    <range_inclusive>0</range_inclusive>
+    <readonly>1</readonly>
+    <sort_order>4224</sort_order>
+    <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+    <track_history>0</track_history>
+    <name>created_on</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='A0C58AE3ECCA42D0862AB4EBEA5E8B89' and name='related_id'">
+    <column_alignment>left</column_alignment>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>1</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>3456</sort_order>
+    <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+    <track_history>0</track_history>
+    <name>related_id</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='A0C58AE3ECCA42D0862AB4EBEA5E8B89' and name='source_id'">
+    <column_alignment>left</column_alignment>
+    <data_source keyed_name="cws_WebService" type="ItemType" name="cws_WebService">AC272B10539240CF89579B4BB75F8CC1</data_source>
+    <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>1</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <item_behavior>float</item_behavior>
+    <label xml:lang="en">Web Service</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>2944</sort_order>
+    <source_id keyed_name="cws_ApiKey" type="ItemType" name="cws_ApiKey">A0C58AE3ECCA42D0862AB4EBEA5E8B89</source_id>
+    <track_history>0</track_history>
+    <name>source_id</name>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="View" action="delete" where="source_id='A0C58AE3ECCA42D0862AB4EBEA5E8B89'" />
+ <Item type="Form" action="delete" where="name='cws_ApiKey'" />
+</AML>

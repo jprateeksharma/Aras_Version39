@@ -1,0 +1,29 @@
+﻿<AML>
+ <Item type="Method" id="50301F61AEF34F2DB3D1487B0018D634" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const itm = document.item;
+const isNew = ((itm.getAttribute('action') == 'add') || (itm.getAttribute('action') == 'create'));
+
+if (!itm || !document.isEditMode || !isNew) {
+	return;
+}
+
+const ownedByIdNd = itm.selectSingleNode('owned_by_id');
+if (!ownedByIdNd) {
+	const identityNd = aras.getItemByName('Identity', 'World');
+	const identityId = identityNd.getAttribute('id');
+	aras.setItemProperty(itm, 'owned_by_id', identityId);
+	handleItemChange('owned_by_id', identityId);
+}
+
+const managedByIdNd = itm.selectSingleNode('managed_by_id');
+if (!managedByIdNd) {
+	const identityId = aras.getIsAliasIdentityIDForLoggedUser();
+	aras.setItemProperty(itm, 'managed_by_id', identityId);
+	handleItemChange('managed_by_id', identityId);
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>Populate SavedSearch form</name>
+ </Item>
+</AML>

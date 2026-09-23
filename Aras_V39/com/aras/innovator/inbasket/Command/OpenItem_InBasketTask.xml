@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="Command" id="235A7A7F8A9C4E4CA266AF4D41C5D838" action="add">
+  <can_execute keyed_name="cui_command_open_inbasket_can_ex" type="Method">82A016E3F17F46869FDFAA8F6308DFF1</can_execute>
+  <execute_handler keyed_name="cui_command_open_inbasket_exec" type="Method">B949760BA59D4844AE521E3337A6FCD5</execute_handler>
+  <name>OpenItem_InBasketTask</name>
+ </Item>
+</AML>

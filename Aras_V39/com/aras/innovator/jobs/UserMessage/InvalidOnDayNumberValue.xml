@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="B7AE7278EFC747ABAC9292539EBAAB40" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">Invalid 'On Day Number' value. Integer must be between 1 and 31.</text>
+  <name>InvalidOnDayNumberValue</name>
+ </Item>
+</AML>

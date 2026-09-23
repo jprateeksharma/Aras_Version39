@@ -1,0 +1,46 @@
+﻿<AML>
+ <Item type="Permission" id="23A7C78A6E074E2D8DFAF8F5D4B6F5C5" action="add">
+  <is_private>0</is_private>
+  <name>Field Event</name>
+  <Relationships>
+   <Item type="Access" id="1DF85C5B2DD94754A1A43E3AB4724832" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>0</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>0</can_update>
+    <related_id keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Field Event" type="Permission">23A7C78A6E074E2D8DFAF8F5D4B6F5C5</source_id>
+   </Item>
+   <Item type="Access" id="EF2BC558A62842B79623E026193E66E4" action="add">
+    <can_change_access>0</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Field Event" type="Permission">23A7C78A6E074E2D8DFAF8F5D4B6F5C5</source_id>
+   </Item>
+   <Item type="Access" id="F13EF4E7FCE44B5DA56FD2997EAE7D88" action="add">
+    <can_change_access>1</can_change_access>
+    <can_delete>1</can_delete>
+    <can_discover>1</can_discover>
+    <can_get>1</can_get>
+    <can_update>1</can_update>
+    <related_id keyed_name="Creator" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>Creator</name>
+     </Item>
+    </related_id>
+    <show_permissions_warning>0</show_permissions_warning>
+    <source_id keyed_name="Field Event" type="Permission">23A7C78A6E074E2D8DFAF8F5D4B6F5C5</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

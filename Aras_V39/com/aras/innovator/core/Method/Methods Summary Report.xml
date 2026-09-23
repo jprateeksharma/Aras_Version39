@@ -1,0 +1,135 @@
+﻿<AML>
+ <Item type="Method" id="22FB8F67DA3840A2AB0C7856CB641C07" action="add">
+  <comments>It is a wrapper for the 'Method Summary' method that provides additional xml transformation for the Method Summary report. It groups method calls by dll, counts the number of method calls, and writes a summary for the report.</comments>
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[var methodsSummaryResponse = ExecuteMethodsSummaryMethod(
+	this.getAttribute("id"),
+	this.getAttribute("idlist"));
+
+if (methodsSummaryResponse.isError())
+{
+	return methodsSummaryResponse;
+}
+
+var document = methodsSummaryResponse.dom;
+
+XmlNodeList innovatorMethods = document.SelectNodes("//Report/method");
+var everyMethodCall = new List<MethodCallEntry>();
+foreach (XmlNode innovatorMethod in innovatorMethods)
+{
+	var callMethodNodes = innovatorMethod.SelectNodes("./callMethod");
+	if (callMethodNodes?.Count == 0)
+	{
+		continue;
+	}
+
+	var calledMethods = new List<MethodCallEntry>();
+	foreach (XmlElement callMethodNode in callMethodNodes)
+	{
+		string dllName = callMethodNode.Attributes["dll"].Value;
+
+		if (dllName == "IOM.dll" || dllName == "Aras.Server.Core.dll" || string.IsNullOrEmpty(dllName))
+		{
+			var entry = new MethodCallEntry
+			{
+				Dll = dllName,
+				MethodName = callMethodNode.Attributes["Name"].Value,
+				Type = callMethodNode.Attributes["type"].Value
+			};
+
+			calledMethods.Add(entry);
+		}
+
+		innovatorMethod.RemoveChild(callMethodNode);
+	}
+
+	everyMethodCall.AddRange(calledMethods);
+	var groupedByMethodName = GroupMethodCallsByNameAndCount(calledMethods);
+	innovatorMethod.InnerXml = AppendDllNodesXml(innovatorMethod.InnerXml, groupedByMethodName);
+}
+
+var reportNode = document.SelectSingleNode("//Report");
+var summaryNode = document.CreateElement("Summary");
+reportNode.AppendChild(summaryNode);
+
+if (innovatorMethods.Count == 1)
+{
+	return methodsSummaryResponse;
+}
+
+summaryNode.InnerXml = AppendDllNodesXml(string.Empty, GroupMethodCallsByNameAndCount(everyMethodCall));
+
+return methodsSummaryResponse;
+}
+
+private Item ExecuteMethodsSummaryMethod(string id, string idList)
+{
+	var innovator = this.getInnovator();
+
+	var methodsSummaryRequest = innovator.newItem("Method");
+	methodsSummaryRequest.setAction("Methods Summary");
+	methodsSummaryRequest.setID(id);
+	methodsSummaryRequest.setAttribute("idlist", idList);
+
+	var result = methodsSummaryRequest.apply();
+
+	return result;
+}
+
+private static string AppendDllNodesXml(string appendToXml, IReadOnlyCollection<MethodCallEntry> methodCallEntries)
+{
+	var stringBuilder = new StringBuilder(appendToXml);
+	stringBuilder.Append(ToXmlGroup("IOM", methodCallEntries.Where(mce => mce.Dll == "IOM.dll")));
+	stringBuilder.Append(ToXmlGroup("ArasServerCore", methodCallEntries.Where(mce => mce.Dll == "Aras.Server.Core.dll")));
+	stringBuilder.Append(ToXmlGroup("LateBindingCalls", methodCallEntries.Where(mce => string.IsNullOrEmpty(mce.Dll))));
+	return stringBuilder.ToString();
+}
+
+private static string ToXmlGroup(string groupName, IEnumerable<MethodCallEntry> methodCallEntries)
+{
+	var stringBuilder = new StringBuilder();
+	foreach (var methodCallEntry in methodCallEntries)
+	{
+		stringBuilder.Append(methodCallEntry.ToXmlString());
+	}
+	return
+		$"<{groupName}>{stringBuilder}</{groupName}>";
+}
+
+private static IReadOnlyCollection<MethodCallEntry> GroupMethodCallsByNameAndCount(IEnumerable<MethodCallEntry> methodCallEntries)
+{
+	var groupedByName = methodCallEntries
+		.GroupBy(mce => mce.Type + mce.MethodName)
+		.Select(gr => new MethodCallEntry
+		{
+			MethodName = gr.First().MethodName,
+			Type = gr.First().Type,
+			Dll = gr.First().Dll,
+			CallCount = gr.Count()
+		})
+		.ToList();
+
+	return groupedByName;
+}
+
+private class MethodCallEntry
+{
+	public string Dll { get; set; }
+
+	public string MethodName { get; set; }
+
+	public string Type { get; set; }
+
+	public int CallCount { get; set; }
+
+	public string ToXmlString()
+	{
+		var result =
+			$"<callMethod Name='{MethodName}' dll='{Dll}' type='{Type}' count='{CallCount}'/>";
+
+		return result;
+	}]]></method_code>
+  <method_type>C#</method_type>
+  <name>Methods Summary Report</name>
+ </Item>
+</AML>

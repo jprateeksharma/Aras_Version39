@@ -1,0 +1,7 @@
+﻿<AML>
+ <Item type="UserMessage" id="7F7190AF159F457EA68A26F24973BD8D" action="add">
+  <custom>0</custom>
+  <text xml:lang="en">"{0}" is already added to another Package Definition</text>
+  <name>ItemAlreadyAddedToAnotherPackage</name>
+ </Item>
+</AML>

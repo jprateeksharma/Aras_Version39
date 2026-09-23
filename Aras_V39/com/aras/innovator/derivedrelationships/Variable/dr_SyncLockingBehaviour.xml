@@ -1,0 +1,6 @@
+﻿<AML>
+ <Item type="Variable" id="705F04E6EF534FDD9B20846333CBFD51" action="add">
+  <default_value>Strict</default_value>
+  <name>dr_SyncLockingBehaviour</name>
+ </Item>
+</AML>

@@ -1,0 +1,57 @@
+﻿<AML>
+ <Item type="Method" id="990F4536F402411B8957B1F719DE98F6" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[const affectedId = getRelatedItemProperty(relationshipID, 'affected_id');
+const newItemId = getRelatedItemProperty(relationshipID, 'new_item_id');
+if (!affectedId || !newItemId) {
+	return;
+}
+
+const aml = `<Item type='Change Controlled Item' action='get' select='itemtype'>
+	<id condition='in'>${affectedId},${newItemId}</id>
+	</Item>`;
+const response = aras.soapSend('ApplyItem', aml);
+if (response.getFaultCode() != 0) {
+	aras.AlertError(aras.getResource('plm', 'checkaffectedtype.can_not_get', affectedId));
+	return;
+}
+
+const result = response.getResult();
+const affectedItem = result.selectSingleNode(`Item[@id='${affectedId}']`);
+const newItem = result.selectSingleNode(`Item[@id='${newItemId}']`);
+if (!affectedItem || !newItem) {
+  const nonExistentId = !affectedItem ? affectedId : newItemId;
+	aras.AlertError(aras.getResource('plm', 'checkaffectedtype.can_not_get', nonExistentId));
+	return;
+}
+
+const affectedIdType = aras.getItemProperty(affectedItem, 'itemtype');
+const newItemIdType = aras.getItemProperty(newItem, 'itemtype');
+
+if (!affectedIdType || !newItemIdType) {
+	return;
+}
+
+let iconPath;
+if (affectedIdType !== newItemIdType) {
+	const errorMessage = aras.getResource(
+		'plm',
+		'checkaffectedtype.same_affected_superseding_numbers',
+		affectedIdType,
+		newItemIdType
+	);
+	aras.AlertError(errorMessage);
+	iconPath = '../images/Delete.svg';
+} else {
+	const qryXml = `<Item type='ItemType' action='get' select='open_icon' id='${affectedIdType}' />`;
+	const qry = new Item();
+	qry.loadAML(qryXml);
+	const result = qry.apply();
+	iconPath = result.getProperty('open_icon');
+}
+setRelatedItemProperty(relationshipID, 'affected_type', iconPath);
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>checkAffectedType</name>
+ </Item>
+</AML>
