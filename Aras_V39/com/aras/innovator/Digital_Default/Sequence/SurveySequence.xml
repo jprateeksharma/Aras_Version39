@@ -1,0 +1,8 @@
+﻿<AML>
+ <Item type="Sequence" id="D4829AC019CF4E2DAC334BDAA888EEA5" action="add">
+  <initial_value>100</initial_value>
+  <prefix>SV-</prefix>
+  <step>2</step>
+  <name>SurveySequence</name>
+ </Item>
+</AML>
