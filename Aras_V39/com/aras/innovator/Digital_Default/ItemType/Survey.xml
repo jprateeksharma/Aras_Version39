@@ -48,7 +48,7 @@
     <is_keyed>0</is_keyed>
     <is_multi_valued>0</is_multi_valued>
     <is_required>0</is_required>
-    <label xml:lang="en">survey num</label>
+    <label xml:lang="en">survey number</label>
     <range_inclusive>0</range_inclusive>
     <readonly>0</readonly>
     <sort_order>3200</sort_order>
