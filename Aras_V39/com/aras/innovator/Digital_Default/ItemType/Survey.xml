@@ -54,7 +54,7 @@
     <sort_order>3200</sort_order>
     <source_id keyed_name="Survey" type="ItemType" name="Survey">C8C190E300E54B0EAAFDC59CBD8940A0</source_id>
     <track_history>0</track_history>
-    <name>surveynum</name>
+    <name>prateekChanges</name>
    </Item>
    <Item type="View" id="D42A942B3491448B93065E1494CE17A9" action="add">
     <client>js</client>
