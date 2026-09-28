@@ -48,13 +48,13 @@
     <is_keyed>0</is_keyed>
     <is_multi_valued>0</is_multi_valued>
     <is_required>0</is_required>
-    <label xml:lang="en">Survey Num</label>
+    <label xml:lang="en">survey num</label>
     <range_inclusive>0</range_inclusive>
     <readonly>0</readonly>
     <sort_order>3200</sort_order>
     <source_id keyed_name="Survey" type="ItemType" name="Survey">C8C190E300E54B0EAAFDC59CBD8940A0</source_id>
     <track_history>0</track_history>
-    <name>surveynumber</name>
+    <name>surveynum</name>
    </Item>
    <Item type="View" id="D42A942B3491448B93065E1494CE17A9" action="add">
     <client>js</client>
